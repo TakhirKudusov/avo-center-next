@@ -4,7 +4,7 @@ import { FlexContainer } from '../../common';
 import { ButtonSize } from '../../common/enums/buttonSize.enum';
 import { ButtonType } from '../../common/enums/buttonType.enum';
 import Button from '../../ui-kit/Button';
-import Select, { SelectItem } from '../../ui-kit/Select';
+import Select, { SelectItem, SelectItemSize } from '../../ui-kit/Select';
 import Notifications from './Notifications';
 import SearchBar from './SearchBar';
 
@@ -30,13 +30,13 @@ const Header = () => {
         <ActionsBar>
           <SearchBar />
           <Notifications />
-          <Button size={ButtonSize.Small} type={ButtonType.Primary}>
+          <Button size={ButtonSize.Medium} type={ButtonType.Primary}>
             Upload
           </Button>
-          <Button size={ButtonSize.Small} type={ButtonType.Secondary}>
+          <Button size={ButtonSize.Medium} type={ButtonType.Secondary}>
             Connect Wallet
           </Button>
-          <Select items={languages} />
+          <Select items={languages} size={SelectItemSize.Small} />
         </ActionsBar>
       </FlexContainer>
     </HeaderWrapper>
