@@ -8,22 +8,27 @@ type Props = {
   type?: ButtonType;
   style?: Object;
   children?: React.ReactNode;
+  round?: boolean;
 };
 const Button: React.FC<Props> = ({
-  size = ButtonSize.Small,
+  size = ButtonSize.Medium,
   type = ButtonType.Primary,
+  round,
   style,
   children,
 }) => {
   return (
-    <ButtonBody style={style} size={size} type={type}>
+    <ButtonBody style={style} size={size} type={type} round={round}>
       {children}
     </ButtonBody>
   );
 };
 
 const ButtonBody = styled.button<any>`
-  font-size: ${(props) => (props.size === ButtonSize.Small ? '14px' : '16px')};
+  font-size: ${(props) =>
+    [ButtonSize.Small, ButtonSize.Medium].includes(props.size)
+      ? '14px'
+      : '16px'};
   font-weight: 700;
   border: 2px solid;
   border-color: ${(props) =>
@@ -32,10 +37,19 @@ const ButtonBody = styled.button<any>`
     props.type === ButtonType.Primary ? 'none' : 'rgba(51, 51, 51, 1)'};
   color: ${(props) =>
     props.type === ButtonType.Primary ? 'rgba(35, 38, 47, 1)' : '#fff'};
-  border-radius: 8px;
+  border-radius: ${(props) => (props.round ? '90px' : '8px')};
   padding: ${(props) =>
-    props.size === ButtonSize.Small ? '8px 14px' : '10px 24px'};
-  height: ${(props) => (props.size === ButtonSize.Small ? '40px' : '48px')};
+    props.size === ButtonSize.Small
+      ? '4px 12px'
+      : props.size === ButtonSize.Medium
+      ? '8px 14px'
+      : '10px 24px'};
+  height: ${(props) =>
+    props.size === ButtonSize.Small
+      ? '32px'
+      : props.size === ButtonSize.Medium
+      ? '40px'
+      : '48px'};
   box-sizing: border-box;
   font-family: 'DM Sans', sans-serif;
   cursor: pointer;

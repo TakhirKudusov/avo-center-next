@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { FlexContainer } from '../components/common';
 import { ButtonSize } from '../components/common/enums/buttonSize.enum';
 import { ButtonType } from '../components/common/enums/buttonType.enum';
+import Bids from '../components/home-page/bids';
 import CreatorNetwork from '../components/home-page/CreatorNetwork';
+import HotBids from '../components/home-page/HotBids';
+import HotCollections from '../components/home-page/HotCollections';
+import Popular from '../components/home-page/Popular';
 import StoreLayout from '../components/layouts/store';
 import Button from '../components/ui-kit/Button';
 
@@ -24,8 +28,12 @@ const Home = () => {
             Start your search
           </Button>
           <CreatorNetwork />
+          <Bids />
         </MainContainer>
       </FlexContainer>
+      <Popular />
+      <HotBids />
+      <HotCollections />
     </div>
   );
 };

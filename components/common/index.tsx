@@ -8,4 +8,10 @@ const FlexContainer = styled.div`
   padding: 0 15px;
 `;
 
-export { FlexContainer };
+const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+export { FlexContainer, ContentContainer };
