@@ -14,7 +14,7 @@ const Bids = () => {
       <BidsList>
         {bids.map(({ image, name, price, number, creatorAvatar }, index) => (
           <BidItem
-              key={index}
+            key={`bid-item-${index}`}
             image={image}
             name={name}
             price={price}
@@ -27,7 +27,7 @@ const Bids = () => {
         <CreatorsCaption>Latest upload from creators 🔥</CreatorsCaption>
         {creators.map(({ name, avatar, uploadNumber, avoAmount }, index) => (
           <CreatorItem
-              key={index}
+            key={`creator-item-${index}`}
             name={name}
             avatar={avatar}
             uploadNumber={uploadNumber}
