@@ -1,4 +1,23 @@
 import styled from 'styled-components';
+import {createGlobalStyle} from "styled-components";
+
+const Global = createGlobalStyle`
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+`
 
 const FlexContainer = styled.div`
   display: flex;
@@ -14,4 +33,4 @@ const ContentContainer = styled.div`
   width: 100%;
 `;
 
-export { FlexContainer, ContentContainer };
+export { FlexContainer, ContentContainer, Global };

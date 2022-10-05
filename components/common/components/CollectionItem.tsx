@@ -11,8 +11,8 @@ const CollectionItem: React.FC<Props> = ({ collection }) => {
     <CollectionItemWrapper>
       <MainItem style={{ backgroundImage: `url(/images/${first})` }} />
       <SmallItems>
-        {others.map((item) => (
-          <SmallItem style={{ backgroundImage: `url(/images/${item})` }} />
+        {others.map((item, index) => (
+          <SmallItem key={index} style={{ backgroundImage: `url(/images/${item})` }} />
         ))}
       </SmallItems>
       <CollectionName>{collection.name}</CollectionName>

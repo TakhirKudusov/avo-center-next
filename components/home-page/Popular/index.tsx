@@ -43,6 +43,7 @@ const Popular = () => {
             </Arrow>
             {sellers.map(({ name, avoAmount, avatar }, index) => (
               <ParticipantItem
+                  key={index}
                 name={name}
                 avoAmount={avoAmount}
                 avatar={avatar}

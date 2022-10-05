@@ -1,18 +1,14 @@
-import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import {Global} from "../components/common";
+import {AppWithPageLayout} from "../common/types";
 
-export type ComponentWithPageLayout = AppProps & {
-  Component: AppProps['Component'] & {
-    PageLayout?: React.FC<any>;
-  };
-};
-
-function MyApp({ Component, pageProps }: ComponentWithPageLayout) {
+function MyApp({ Component, pageProps }: AppWithPageLayout) {
   const router = useRouter();
 
   return (
     <>
+      <Global />
       {Component.PageLayout ? (
         <Component.PageLayout>
           <Component {...pageProps} key={router.asPath} />
