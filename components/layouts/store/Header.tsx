@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import LogoSVG from '../../../assets/svg/logo.svg';
 import { FlexContainer } from '../../common';
+import Logo from '../../common/components/Logo';
 import { ButtonSize } from '../../common/enums/buttonSize.enum';
 import { ButtonType } from '../../common/enums/buttonType.enum';
 import Button from '../../ui-kit/Button';
@@ -23,10 +23,7 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <FlexContainer style={{ justifyContent: 'space-between' }}>
-        <Logo>
-          <LogoSVG />
-          <LogoTitle>AvoNFT</LogoTitle>
-        </Logo>
+        <Logo />
         <ActionsBar>
           <SearchBar />
           <Notifications />
@@ -51,22 +48,6 @@ const HeaderWrapper = styled.div`
   border-bottom: 1px solid #e6e8ec;
   background: #fff;
   z-index: 100;
-`;
-
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-`;
-
-const LogoTitle = styled.span`
-  font-family: 'Poppins', sans-serif;
-  font-size: 24px;
-  line-height: 32px;
-  color: rgba(35, 38, 47, 1);
-  margin-left: 8px;
-  font-weight: 600;
-  letter-spacing: -1px;
 `;
 
 const ActionsBar = styled.div`
