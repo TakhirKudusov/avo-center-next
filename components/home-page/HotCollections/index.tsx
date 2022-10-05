@@ -10,8 +10,11 @@ const HotCollections = () => {
         <ContentContainer>
           <HotCollectionsTitle>Hot collections</HotCollectionsTitle>
           <HotColectionsBody>
-            {hotCollections.slice(0, 3).map((collection) => (
-              <CollectionItem collection={collection} />
+            {hotCollections.slice(0, 3).map((collection, index) => (
+              <CollectionItem
+                key={`collection-item-${index}`}
+                collection={collection}
+              />
             ))}
           </HotColectionsBody>
         </ContentContainer>

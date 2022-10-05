@@ -22,8 +22,8 @@ const HotBids = () => {
             </Arrows>
           </HotBidsHeader>
           <BidsWrapper>
-            {hotBids.map((bid) => (
-              <BidItem bid={bid} />
+            {hotBids.map((bid, index) => (
+              <BidItem key={`bid-item-${index}`} bid={bid} />
             ))}
           </BidsWrapper>
         </ContentContainer>
