@@ -1,8 +1,7 @@
 import { memo } from 'react';
 import styled from 'styled-components';
-import { ButtonSize } from '../common/enums/buttonSize.enum';
-import { ButtonType } from '../common/enums/buttonType.enum';
-import LoadingSVG from '../../assets/svg/loading.svg';
+import LoadingSVG from '../../../assets/svg/loading.svg';
+import { ButtonSize, ButtonType } from './enums';
 
 type Props = {
   size?: ButtonSize;

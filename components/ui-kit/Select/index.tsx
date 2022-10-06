@@ -1,20 +1,8 @@
 import styled from 'styled-components';
-import ChevronDownSVG from '../../assets/svg/chevron-down.svg';
-
-export type SelectItem = {
-  value: string | number | boolean;
-  label: string | number;
-};
-
-export enum SelectItemBackground {
-  None,
-  White,
-}
-
-export enum SelectItemSize {
-  Small,
-  Medium,
-}
+import ChevronDownSVG from '../../../assets/svg/chevron-down.svg';
+import { SelectItemBackground } from './enums/SelectItemBackground.enum';
+import { SelectItemSize } from './enums/selectItemSize.enum';
+import { SelectItem } from './types';
 
 type Props = {
   items: SelectItem[];

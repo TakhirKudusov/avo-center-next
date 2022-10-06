@@ -5,11 +5,12 @@ import ArrowLeftSVG from '../../../assets/svg/arrow-left.svg';
 import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
 import { sellers } from './constants';
 import ParticipantItem from './ParticipantItem';
-import Select, {
-  SelectItem,
+import {
   SelectItemBackground,
   SelectItemSize,
-} from '../../ui-kit/Select';
+} from '../../ui-kit/Select/enums';
+import { SelectItem } from '../../ui-kit/Select/types';
+import Select from '../../ui-kit/Select';
 
 const Popular = () => {
   const dates: SelectItem[] = [

@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 import { ContentContainer, FlexContainer } from '../../common';
-import { ButtonSize } from '../../common/enums/buttonSize.enum';
-import { ButtonType } from '../../common/enums/buttonType.enum';
-import Button from '../../ui-kit/Button';
+import Button from '../../ui-kit/Button/Button';
 import FlatList from '../../ui-kit/FlatList';
-import Select, {
+import {
   SelectItemBackground,
   SelectItemSize,
-} from '../../ui-kit/Select';
-import { ListItem } from '../../ui-kit/types';
+} from '../../ui-kit/Select/enums';
+import { ListItem } from '../../ui-kit/FlatList/types';
 import CloseSVG from '../../../assets/svg/close.svg';
 import { BID_LIST, GENRES, PERIODS, SORT_CONFIG_LIST } from './constants';
 import BidGrid from '../../common/components/BidGrid';
+import Select from '../../ui-kit/Select';
+import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 
 const Discover = () => {
   const handleGenreChange = (item: ListItem) => {

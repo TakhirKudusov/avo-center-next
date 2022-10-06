@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { ButtonSize } from '../../common/enums/buttonSize.enum';
-import Button from '../../ui-kit/Button';
+import Button from '../../ui-kit/Button/Button';
 import BidItem from './BidItem';
 import { bids, creators } from './constants';
 import CreatorItem from './CreatorItem';
 import MainBid from './MainBid';
 import RightArrowSVG from '../../../assets/svg/right-arrow.svg';
+import { ButtonSize } from '../../ui-kit/Button/enums';
 
 const Bids = () => {
   return (

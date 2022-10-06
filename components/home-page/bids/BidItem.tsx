@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import BidPrice from '../../common/components/BidPrice';
-import { ButtonSize } from '../../common/enums/buttonSize.enum';
-import { ButtonType } from '../../common/enums/buttonType.enum';
-import Button from '../../ui-kit/Button';
+import Button from '../../ui-kit/Button/Button';
+import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 
 type Props = {
   image: string;
