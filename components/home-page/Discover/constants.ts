@@ -1,5 +1,5 @@
-import { SelectItem } from "../../ui-kit/Select";
-import { ListItem } from "../../ui-kit/types";
+import { SelectItem } from "../../ui-kit/Select/types";
+import { ListItem } from "../../ui-kit/FlatList/types";
 import { Bid } from "../HotBids/types";
 import { SortConfig } from "./types";
 

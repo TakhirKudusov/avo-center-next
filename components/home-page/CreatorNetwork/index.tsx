@@ -2,10 +2,9 @@ import styled from 'styled-components';
 import RoundSquareSVG from '../../../assets/svg/round-square.svg';
 import ArrowLeftSVG from '../../../assets/svg/arrow-left.svg';
 import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
-import { ButtonSize } from '../../common/enums/buttonSize.enum';
-import { ButtonType } from '../../common/enums/buttonType.enum';
-import Button from '../../ui-kit/Button';
+import Button from '../../ui-kit/Button/Button';
 import Auction from './Auction';
+import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 
 const CreatorNetwork = () => {
   return (
