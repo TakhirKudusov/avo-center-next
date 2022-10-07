@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import styled from 'styled-components';
 import ChevronDownSVG from '../../../assets/svg/chevron-down.svg';
-import { SelectItemBackground } from './enums/SelectItemBackground.enum';
+import { SelectItemBackground } from './enums';
 import { SelectItemSize } from './enums/selectItemSize.enum';
 import { handleDropdownExpand, handleDropdownItemClick } from './helpers';
 import { SelectItem } from './types';
