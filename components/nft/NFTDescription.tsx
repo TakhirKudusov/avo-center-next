@@ -2,7 +2,9 @@ import SecondaryHeaderContainer from "./SecondaryHeaderContainer";
 import React, {memo, useEffect, useState} from "react";
 import {NFT, TimeBeforeEnd} from "./types";
 import styled from "styled-components";
-import {calculateTimeLeft} from "./helpers";
+import {calculateTimeLeft, handleSetActiveClick} from "./helpers";
+import NFTActions from "./NFTActions";
+import NFTListingsBlock from "./NFTListingsBlock";
 
 interface Props {
     data: Omit<NFT, "image" | "tags">
@@ -135,16 +137,6 @@ const NFTDescription: React.FC<Props> = ({data}) => {
         }
     }, [])
 
-    const handleTabButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const tabButtonsList = Array.from(document.getElementsByClassName("tab-btn"))
-        if(!event.currentTarget.classList.contains("active")) {
-            tabButtonsList.forEach(item => {
-                item.classList.remove("active")
-            })
-            event.currentTarget.classList.add("active")
-        }
-    }
-
     return <div>
         <SecondaryHeaderContainer data={data} />
         <Description>
@@ -163,11 +155,13 @@ const NFTDescription: React.FC<Props> = ({data}) => {
                 </TimeGroup>
             </TimeContainer>}
             <TabButtonsContainer>
-                <TabButton className={"tab-btn active"} onClick={e => handleTabButtonClick(e)}><p>Info</p></TabButton>
-                <TabButton className={"tab-btn"} onClick={e => handleTabButtonClick(e)}><p>Owners</p></TabButton>
-                <TabButton className={"tab-btn"} onClick={e => handleTabButtonClick(e)}><p>History</p></TabButton>
+                <TabButton className={"tab-btn active"} onClick={e => handleSetActiveClick(e, "tab-btn")}><p>Info</p></TabButton>
+                <TabButton className={"tab-btn"} onClick={e => handleSetActiveClick(e, "tab-btn")}><p>Owners</p></TabButton>
+                <TabButton className={"tab-btn"} onClick={e => handleSetActiveClick(e, "tab-btn")}><p>History</p></TabButton>
             </TabButtonsContainer>
+            <NFTActions price={data.price} convertedPrice={data.convertedPrice} />
         </NFTMenuContainer>
+        <NFTListingsBlock listingsData={data.listingsData} />
     </div>
 }
 

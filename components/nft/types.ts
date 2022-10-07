@@ -1,12 +1,14 @@
-import {NFTTag} from "../ui-kit/types";
+import {NFTTag} from "../ui-kit/Tag/types";
 
 export type NFT = {
     image: string;
     title: string;
     price: string;
+    convertedPrice: string;
     total: string;
     available: string;
     desc: string;
+    listingsData: ListingData[];
     tags: NFTTag[],
     bid?: {
         isOnBid: true,
@@ -19,4 +21,27 @@ export type TimeBeforeEnd = {
     hours: string;
     mins: string;
     secs: string;
+}
+
+export type MenuButtonType = {
+    type: "primary" | "default"
+}
+
+export type ListingData = {
+    from: string;
+    expiration: string;
+    price: string;
+}
+
+type OwnerMessage = {
+    image: string,
+    name: string,
+    message: string,
+    likes: string,
+    time: string,
+}
+
+export type CommentsData = {
+    currentOwner: OwnerMessage,
+    oldOwners?: OwnerMessage[]
 }

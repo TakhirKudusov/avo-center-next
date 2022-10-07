@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import ChevronDownSVG from '../../../assets/svg/chevron-down.svg';
-import { SelectItemBackground } from './enums/SelectItemBackground.enum';
-import { SelectItemSize } from './enums/selectItemSize.enum';
+import { SelectItemBackground } from './enums';
+import { SelectItemSize } from './enums';
 import { SelectItem } from './types';
 
 type Props = {

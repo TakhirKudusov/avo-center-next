@@ -5,6 +5,7 @@ import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
 import Button from '../../ui-kit/Button/Button';
 import Auction from './Auction';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
+import Link from 'next/link';
 
 const CreatorNetwork = () => {
   return (
@@ -36,8 +37,11 @@ const CreatorNetwork = () => {
         </InfoItems>
         <Auction />
         <Button type={ButtonType.Secondary} size={ButtonSize.Large}>
-          Place a bid
+          <Link href={"/nft/newNFT"} >
+            Place a bid
+          </Link>
         </Button>
+
         <Button
           type={ButtonType.Primary}
           size={ButtonSize.Large}

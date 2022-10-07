@@ -2,6 +2,7 @@ import { memo } from 'react';
 import styled from 'styled-components';
 import LoadingSVG from '../../../assets/svg/loading.svg';
 import { ButtonSize, ButtonType } from './enums';
+import {NextRouter} from "next/router";
 
 type Props = {
   size?: ButtonSize;
@@ -10,6 +11,7 @@ type Props = {
   children?: React.ReactNode;
   round?: boolean;
   loading?: boolean;
+  route?: NextRouter
 };
 const Button: React.FC<Props> = ({
   size = ButtonSize.Medium,
@@ -20,7 +22,7 @@ const Button: React.FC<Props> = ({
   children,
 }) => {
   return (
-    <ButtonBody style={style} size={size} type={type} round={round}>
+    <ButtonBody  style={style} size={size} type={type} round={round}>
       <ButtonContent>
         {children}
         {loading && (

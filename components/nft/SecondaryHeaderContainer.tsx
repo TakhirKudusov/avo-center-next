@@ -30,6 +30,8 @@ const Header = styled.h1`
 `
 
 const NFTPrice = styled(BidPriceWrapper)`
+  padding: 8px 8px 6px;
+  gap: 10px;
   font-size: 16px;
   line-height: 16px;
 `
