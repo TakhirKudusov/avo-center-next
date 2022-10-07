@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import {createGlobalStyle} from "styled-components";
 
 const Global = createGlobalStyle`
+  @font-face {
+    font-family: "Poppins";
+    src: url("/fonts/poppins/Poppins-Regular.ttf");
+  }
+  
   html,
   body {
     padding: 0;

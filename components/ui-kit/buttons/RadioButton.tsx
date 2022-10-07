@@ -9,6 +9,14 @@ const RadioButton = styled.button`
   align-items: center;
   margin: 34px auto 34px auto;
   background-color: white;
+  cursor: pointer;
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  &:hover {
+    background-color: #E6E8EC;
+  }
+
 `
 
 export {RadioButton}
