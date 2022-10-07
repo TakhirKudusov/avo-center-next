@@ -14,4 +14,34 @@ const ContentContainer = styled.div`
   width: 100%;
 `;
 
-export { FlexContainer, ContentContainer };
+const PageContainer = styled.main`
+  padding-top: 81px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
+const FormItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+`;
+
+const FormItemTitle = styled.div`
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+  text-transform: uppercase;
+  color: #b1b5c4;
+`;
+
+export {
+  FlexContainer,
+  ContentContainer,
+  PageContainer,
+  FormItem,
+  FormItemTitle,
+};
