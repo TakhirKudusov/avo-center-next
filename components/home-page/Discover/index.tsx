@@ -39,8 +39,8 @@ const Discover = () => {
             </Button>
           </FilterRow>
           <SortRow>
-            {SORT_CONFIG_LIST.map((sortConfig) => (
-              <SortItem>
+            {SORT_CONFIG_LIST.map((sortConfig, index) => (
+              <SortItem key={`sort-config-${index}`}>
                 <SortItemLabel>{sortConfig.label}</SortItemLabel>
                 <Select
                   items={sortConfig.items}

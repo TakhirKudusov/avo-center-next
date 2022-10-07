@@ -1,2 +1,2 @@
-export * from './SelectItemBackground.enum';
+export * from './selectItemBackground.enum';
 export * from './selectItemSize.enum';
