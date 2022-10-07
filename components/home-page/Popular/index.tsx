@@ -16,7 +16,11 @@ const Popular = () => {
   const dates: SelectItem[] = [
     {
       label: 'Today',
-      value: '',
+      value: '1',
+    },
+    {
+      label: 'Tomorrow',
+      value: '2',
     },
   ];
   return (

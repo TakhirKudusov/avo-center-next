@@ -34,7 +34,11 @@ const Header = () => {
           <Button size={ButtonSize.Medium} type={ButtonType.Secondary}>
             Connect Wallet
           </Button>
-          <Select items={languages} size={SelectItemSize.Small} />
+          <Select
+            items={languages}
+            size={SelectItemSize.Small}
+            value={languages[0]}
+          />
         </ActionsBar>
       </FlexContainer>
     </HeaderWrapper>
