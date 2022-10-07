@@ -1,4 +1,4 @@
-import { Bid } from "../../../components/home-page/HotBids/types";
+import { Bid } from "../home-page/HotBids/types";
 
 const BID: Bid = {
   image: 'collectible.jpg',
