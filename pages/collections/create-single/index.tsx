@@ -4,10 +4,10 @@ import RightArrowSVG from '../../../assets/svg/right-arrow.svg';
 import { FlexContainer, PageContainer } from '../../../components/common';
 import CollectibleForm from '../../../components/create-collectible/collectible-form';
 import CollectibleItem from '../../../components/create-collectible/collectible-item';
+import { BID } from '../../../components/create-collectible/constants';
 import StoreLayout from '../../../components/layouts/store';
 import Button from '../../../components/ui-kit/Button/Button';
 import { ButtonSize } from '../../../components/ui-kit/Button/enums';
-import { BID } from './constants';
 
 const CreateSingleCollectible = () => {
   return (
