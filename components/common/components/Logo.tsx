@@ -1,9 +1,15 @@
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import LogoSVG from '../../../assets/svg/logo.svg';
 
 const Logo = () => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/');
+  };
   return (
-    <LogoWrapper>
+    <LogoWrapper onClick={handleClick}>
       <LogoSVG />
       <LogoTitle>AvoNFT</LogoTitle>
     </LogoWrapper>

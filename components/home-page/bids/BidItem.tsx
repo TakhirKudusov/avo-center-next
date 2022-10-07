@@ -39,7 +39,6 @@ const BidItem: React.FC<Props> = ({
           style={{ width: 'fit-content' }}
           type={ButtonType.Primary}
           size={ButtonSize.Small}
-          route={route}
         >
           Place a bid
         </Button>

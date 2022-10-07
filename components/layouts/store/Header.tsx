@@ -8,8 +8,12 @@ import SearchBar from './SearchBar';
 import { SelectItem } from '../../ui-kit/Select/types';
 import { SelectItemSize } from '../../ui-kit/Select/enums';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Header = () => {
+  const router = useRouter();
+
   const languages: SelectItem[] = [
     {
       value: 'en',
@@ -21,20 +25,32 @@ const Header = () => {
     },
   ];
 
+  const handleClick = () => {
+    router.push('/collections/create-single');
+  };
+
   return (
     <HeaderWrapper>
       <FlexContainer style={{ justifyContent: 'space-between' }}>
-        <Logo />
+        <Link href={'/'}>
+          <Logo />
+        </Link>
         <ActionsBar>
           <SearchBar />
           <Notifications />
-          <Button size={ButtonSize.Medium} type={ButtonType.Primary}>
-            Upload
-          </Button>
+          <Link href={'/collections/create-single'} onClick={handleClick}>
+            <Button size={ButtonSize.Medium} type={ButtonType.Primary}>
+              Upload
+            </Button>
+          </Link>
           <Button size={ButtonSize.Medium} type={ButtonType.Secondary}>
             Connect Wallet
           </Button>
-          <Select items={languages} size={SelectItemSize.Small} />
+          <Select
+            items={languages}
+            size={SelectItemSize.Small}
+            value={languages[0]}
+          />
         </ActionsBar>
       </FlexContainer>
     </HeaderWrapper>
