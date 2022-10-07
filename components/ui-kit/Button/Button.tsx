@@ -10,6 +10,7 @@ type Props = {
   children?: React.ReactNode;
   round?: boolean;
   loading?: boolean;
+  onClick?: () => void;
 };
 const Button: React.FC<Props> = ({
   size = ButtonSize.Medium,
@@ -18,9 +19,16 @@ const Button: React.FC<Props> = ({
   loading,
   style,
   children,
+  onClick,
 }) => {
   return (
-    <ButtonBody style={style} size={size} type={type} round={round}>
+    <ButtonBody
+      style={style}
+      size={size}
+      type={type}
+      round={round}
+      onClick={onClick}
+    >
       <ButtonContent>
         {children}
         {loading && (
