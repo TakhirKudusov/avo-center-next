@@ -134,7 +134,7 @@ const Button = styled.button<any>`
         default:
           return '#23262F';
       }
-    }}
+    }};
   }
   &:hover {
     background-color: ${(props) => {
@@ -144,7 +144,8 @@ const Button = styled.button<any>`
         default:
           return '#E6E8EC';
       }
-    }}
+    }};
+  }
 `;
 
 const ServiceFeeWrapper = styled.div`
