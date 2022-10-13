@@ -150,6 +150,7 @@ const Arrow = styled.div`
   height: 40px;
   border: 2px solid #e6e8ec;
   border-radius: 50%;
+  color: #777e91;
 `;
 
 export default CreatorNetwork;

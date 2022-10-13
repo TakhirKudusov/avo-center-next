@@ -53,6 +53,12 @@ const FormItem = styled.div`
   margin-top: 32px;
 `;
 
+const FormRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+
 const FormItemTitle = styled.div`
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
@@ -67,6 +73,7 @@ export {
   ContentContainer,
   PageContainer,
   FormItem,
+  FormRow,
   FormItemTitle,
   Global
 };
