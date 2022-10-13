@@ -1,1 +1,5 @@
-export {Header} from "./Header"
+export {
+  Header,
+  NFTDescriptionContainer,
+  NFTDescriptionWrapper,
+} from './common/common';

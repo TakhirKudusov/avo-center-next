@@ -1,11 +1,36 @@
-import styled from "styled-components";
-import {memo} from "react";
-import {MenuButtonType} from "./types";
+import styled from 'styled-components';
+import { memo } from 'react';
+import { MenuButtonType } from '../common/types';
 
-interface Props {
-    price: string;
-    convertedPrice: string;
-}
+type Props = {
+  price: string;
+  convertedPrice: string;
+};
+
+const NFTActions: React.FC<Props> = ({ price, convertedPrice }) => {
+  return (
+    <Container>
+      <PriceWrapper>
+        <PriceInCrypto>{price} AVO</PriceInCrypto>
+        <ConvertedPrice>${convertedPrice}</ConvertedPrice>
+      </PriceWrapper>
+      <ButtonsWrapper>
+        <Button type={'primary'}>
+          <p>Create NFT</p>
+        </Button>
+        <Button>
+          <p>Place a bid</p>
+        </Button>
+      </ButtonsWrapper>
+      <ServiceFeeWrapper>
+        <FeeTextWrapper>
+          <span>Service fee</span>
+          <span>1.5%</span>
+        </FeeTextWrapper>
+      </ServiceFeeWrapper>
+    </Container>
+  );
+};
 
 const Container = styled.div`
   display: flex;
@@ -16,12 +41,11 @@ const Container = styled.div`
   gap: 24px;
   width: 564px;
   height: 200px;
-  background: #FCFCFD;
-  border: 1px solid #E6E8EC;
+  background: #fcfcfd;
+  border: 1px solid #e6e8ec;
   box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
   border-radius: 16px;
-
-`
+`;
 
 const PriceWrapper = styled.div`
   display: flex;
@@ -32,7 +56,7 @@ const PriceWrapper = styled.div`
   gap: 12px;
   width: 516px;
   height: 32px;
-`
+`;
 
 const PriceInCrypto = styled.p`
   width: 105px;
@@ -42,8 +66,8 @@ const PriceInCrypto = styled.p`
   font-weight: 600;
   font-size: 24px;
   line-height: 32px;
-  color: #23262F;
-`
+  color: #23262f;
+`;
 
 const ConvertedPrice = styled.p`
   width: 66px;
@@ -53,8 +77,8 @@ const ConvertedPrice = styled.p`
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  color: #777E91;
-`
+  color: #777e91;
+`;
 
 const ButtonsWrapper = styled.div`
   display: flex;
@@ -64,7 +88,7 @@ const ButtonsWrapper = styled.div`
   gap: 8px;
   width: 516px;
   height: 48px;
-`
+`;
 
 const Button = styled.button<any>`
   display: flex;
@@ -77,23 +101,22 @@ const Button = styled.button<any>`
   height: 48px;
   border-radius: 10px;
   cursor: pointer;
-  background: ${props => {
-      switch (props.type) {
-        case "primary":
-            return "#333333"
-        default:
-            return "#FAFAFBFF"
-      }
+  background: ${(props) => {
+    switch (props.type) {
+      case 'primary':
+        return '#333333';
+      default:
+        return '#FAFAFBFF';
+    }
   }};
-  border: ${props => {
-      switch (props.type) {
-        case "primary":
-            return "none"
-        default:
-            return "2px solid #E6E8EC"
-        }
-      }
-  };
+  border: ${(props) => {
+    switch (props.type) {
+      case 'primary':
+        return 'none';
+      default:
+        return '2px solid #E6E8EC';
+    }
+  }};
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
@@ -104,27 +127,25 @@ const Button = styled.button<any>`
     font-size: 16px;
     line-height: 16px;
     text-align: center;
-    color: ${props => {
-            switch (props.type) {
-              case "primary":
-                  return "#FCFCFD"
-              default:
-                  return "#23262F"
-            }   
-        }
-    }
+    color: ${(props) => {
+      switch (props.type) {
+        case 'primary':
+          return '#FCFCFD';
+        default:
+          return '#23262F';
+      }
+    }}
   }
   &:hover {
-    background-color: ${props => {
+    background-color: ${(props) => {
       switch (props.type) {
-        case "primary":
-          return "#515261"
+        case 'primary':
+          return '#515261';
         default:
-          return "#E6E8EC"
+          return '#E6E8EC';
       }
-    }
-  }
-`
+    }}
+`;
 
 const ServiceFeeWrapper = styled.div`
   display: flex;
@@ -135,7 +156,7 @@ const ServiceFeeWrapper = styled.div`
   gap: 12px;
   width: 516px;
   height: 24px;
-`
+`;
 
 const FeeTextWrapper = styled.p`
   font-family: 'Poppins';
@@ -146,44 +167,15 @@ const FeeTextWrapper = styled.p`
   & :first-child {
     width: 77px;
     height: 24px;
-    color: #777E91;
+    color: #777e91;
     margin-right: 6px;
   }
   & :last-child {
     width: 29px;
     height: 24px;
-    color: #23262F;
+    color: #23262f;
     margin-left: 6px;
   }
-`
+`;
 
-const NFTActions: React.FC<Props> = ({price, convertedPrice}) => {
-    return (
-        <Container>
-            <PriceWrapper>
-                <PriceInCrypto>
-                    {price} AVO
-                </PriceInCrypto>
-                <ConvertedPrice>
-                    ${convertedPrice}
-                </ConvertedPrice>
-            </PriceWrapper>
-            <ButtonsWrapper>
-                <Button type={"primary"}>
-                    <p>Create NFT</p>
-                </Button>
-                <Button>
-                    <p>Place a bid</p>
-                </Button>
-            </ButtonsWrapper>
-            <ServiceFeeWrapper>
-                <FeeTextWrapper>
-                    <span>Service fee</span>
-                    <span>1.5%</span>
-                </FeeTextWrapper>
-            </ServiceFeeWrapper>
-        </Container>
-    )
-}
-
-export default memo(NFTActions)
+export default memo(NFTActions);
