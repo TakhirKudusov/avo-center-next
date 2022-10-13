@@ -45,3 +45,10 @@ export type CommentsData = {
   currentOwner: OwnerMessage;
   oldOwners?: OwnerMessage[];
 };
+
+export type Buttons = {
+  name: string;
+  type?: string;
+};
+
+export type TableHeadTitles = ['From', 'Expiration', 'Price'];

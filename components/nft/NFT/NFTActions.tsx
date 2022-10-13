@@ -1,6 +1,7 @@
+import ButtonsGroup from './ButtonsGroup';
+import { NFTButtons } from '../common/constants';
 import styled from 'styled-components';
 import { memo } from 'react';
-import { MenuButtonType } from '../common/types';
 
 type Props = {
   price: string;
@@ -14,14 +15,7 @@ const NFTActions: React.FC<Props> = ({ price, convertedPrice }) => {
         <PriceInCrypto>{price} AVO</PriceInCrypto>
         <ConvertedPrice>${convertedPrice}</ConvertedPrice>
       </PriceWrapper>
-      <ButtonsWrapper>
-        <Button type={'primary'}>
-          <p>Create NFT</p>
-        </Button>
-        <Button>
-          <p>Place a bid</p>
-        </Button>
-      </ButtonsWrapper>
+      <ButtonsGroup buttonsParameters={NFTButtons} />
       <ServiceFeeWrapper>
         <FeeTextWrapper>
           <span>Service fee</span>
@@ -78,73 +72,6 @@ const ConvertedPrice = styled.p`
   font-size: 14px;
   line-height: 24px;
   color: #777e91;
-`;
-
-const ButtonsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 8px;
-  width: 516px;
-  height: 48px;
-`;
-
-const Button = styled.button<any>`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 16px 24px;
-  gap: 12px;
-  width: 254px;
-  height: 48px;
-  border-radius: 10px;
-  cursor: pointer;
-  background: ${(props) => {
-    switch (props.type) {
-      case 'primary':
-        return '#333333';
-      default:
-        return '#FAFAFBFF';
-    }
-  }};
-  border: ${(props) => {
-    switch (props.type) {
-      case 'primary':
-        return 'none';
-      default:
-        return '2px solid #E6E8EC';
-    }
-  }};
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -o-transition: 0.5s;
-  p {
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 16px;
-    text-align: center;
-    color: ${(props) => {
-      switch (props.type) {
-        case 'primary':
-          return '#FCFCFD';
-        default:
-          return '#23262F';
-      }
-    }}
-  }
-  &:hover {
-    background-color: ${(props) => {
-      switch (props.type) {
-        case 'primary':
-          return '#515261';
-        default:
-          return '#E6E8EC';
-      }
-    }}
 `;
 
 const ServiceFeeWrapper = styled.div`
