@@ -1,4 +1,28 @@
 import styled from 'styled-components';
+import {createGlobalStyle} from "styled-components";
+
+const Global = createGlobalStyle`
+  @font-face {
+    font-family: "Poppins";
+    src: url("/fonts/poppins/Poppins-Regular.ttf");
+  }
+  
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+`
 
 const FlexContainer = styled.div`
   display: flex;
@@ -51,4 +75,5 @@ export {
   FormItem,
   FormRow,
   FormItemTitle,
+  Global
 };

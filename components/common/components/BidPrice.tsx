@@ -7,7 +7,7 @@ const BidPrice: React.FC<Props> = ({ value }) => {
   return <BidPriceWrapper>{value} AVO</BidPriceWrapper>;
 };
 
-const BidPriceWrapper = styled.div`
+export const BidPriceWrapper = styled.div`
   margin-top: 2px;
   font-weight: 700;
   font-size: 12px;

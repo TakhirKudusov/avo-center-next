@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import BidPrice from '../../common/components/BidPrice';
 import Button from '../../ui-kit/Button/Button';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
+import {useRouter} from "next/router";
+import Link from 'next/link';
 
 type Props = {
   image: string;
@@ -19,6 +21,8 @@ const BidItem: React.FC<Props> = ({
   creatorAvatar,
   black,
 }) => {
+  const route = useRouter()
+
   return (
     <BidItemWrapper>
       <BidItemPhoto style={{ backgroundImage: `url(/images/${image})` }} />
