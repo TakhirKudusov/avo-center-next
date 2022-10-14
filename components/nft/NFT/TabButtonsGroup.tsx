@@ -7,19 +7,19 @@ const TabButtonsGroup: React.FC = () => {
     <TabButtonsContainer>
       <TabButton
         className={'tab-btn active'}
-        onClick={(e) => handleSetActiveClick(e, 'tab-btn')}
+        onClick={(e) => handleSetActiveClick(e, 'tab-btn', 'active')}
       >
         <p>Info</p>
       </TabButton>
       <TabButton
         className={'tab-btn'}
-        onClick={(e) => handleSetActiveClick(e, 'tab-btn')}
+        onClick={(e) => handleSetActiveClick(e, 'tab-btn', 'active')}
       >
         <p>Owners</p>
       </TabButton>
       <TabButton
         className={'tab-btn'}
-        onClick={(e) => handleSetActiveClick(e, 'tab-btn')}
+        onClick={(e) => handleSetActiveClick(e, 'tab-btn', 'active')}
       >
         <p>History</p>
       </TabButton>

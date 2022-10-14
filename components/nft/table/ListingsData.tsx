@@ -20,7 +20,7 @@ const ListingsData: React.FC<Props> = ({ listingsData }) => {
             <TableCell type={'thickened'}>{item.price} AVO</TableCell>
             <ActionButton
               className={'action-btn'}
-              onClick={(e) => handleSetActiveClick(e, 'action-btn')}
+              onClick={(e) => handleSetActiveClick(e, 'action-btn', 'active')}
             >
               <p>Accept</p>
             </ActionButton>

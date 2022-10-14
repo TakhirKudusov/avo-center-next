@@ -19,7 +19,6 @@ const CreatorImageWrapper = styled.div<any>`
   border-radius: 48px;
   width: 48px;
   height: 48px;
-  background: #45b36b;
 `;
 
 const CreatorImage = styled.div<any>`

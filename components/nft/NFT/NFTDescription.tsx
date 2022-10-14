@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { calculateTimeLeft } from '../common/helpers';
 import NFTActions from './NFTActions';
 import NFTListingsBlock from './NFTListingsBlock';
-import Timer from '../Timer/Timer';
+import Timer from '../timer/Timer';
 import TabButtonsGroup from './TabButtonsGroup';
 
 type Props = {
