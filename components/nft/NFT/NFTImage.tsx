@@ -1,6 +1,6 @@
 import NFTMain from '../../ui-kit/imgs/NFTMain';
 import Tag from '../../ui-kit/Tag/Tag';
-import TagsWrapper from './TagsWrapper';
+import { TagsWrapper } from '../';
 import React, { memo } from 'react';
 import { NFT } from '../common/types';
 

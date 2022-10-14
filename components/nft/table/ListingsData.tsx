@@ -1,6 +1,7 @@
 import { ListingData } from '../common/types';
 import styled from 'styled-components';
 import { fromNameFormatter, handleSetActiveClick } from '../common/helpers';
+import { memo } from 'react';
 
 type Props = {
   listingsData: ListingData[];
@@ -125,4 +126,4 @@ const TableCell = styled.p<any>`
   margin-right: 5px;
 `;
 
-export default ListingsData;
+export default memo(ListingsData);

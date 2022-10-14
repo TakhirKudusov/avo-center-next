@@ -22,4 +22,13 @@ const NFTDescriptionWrapper = styled.div`
   gap: 56px;
 `;
 
-export { Header, NFTDescriptionContainer, NFTDescriptionWrapper };
+const TagsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 26px;
+  margin-left: 24px;
+`;
+
+export { Header, NFTDescriptionContainer, NFTDescriptionWrapper, TagsWrapper };

@@ -9,7 +9,7 @@ const dateItemFormat = (item: string): string => {
   return item;
 };
 
-const calculateTime = (value: number, type: DateTypes): string => {
+const calculateTime = (value: number, type: DateTypes | string): string => {
   switch (type) {
     case 'days':
       return dateItemFormat(String(Math.floor(value / 1000 / 60 / 60 / 24)));
@@ -21,6 +21,25 @@ const calculateTime = (value: number, type: DateTypes): string => {
       return dateItemFormat(String(Math.floor((value / 1000) % 60)));
     default:
       return '00';
+  }
+};
+
+const pastTimeFormat = (time: string, type: string): string => {
+  let newTime = time;
+  if (time[0] === '0') {
+    newTime = time.substring(1);
+  }
+  return `${newTime}${type[0]}.`;
+};
+
+const getPastTime = (timeOfEvent: string): string | undefined => {
+  const difference = +new Date() - +new Date(timeOfEvent);
+  const dateTypesKeys: string[] = Object.keys(DateTypes);
+  for (let i = 0; i < dateTypesKeys.length; i++) {
+    const timeValue = calculateTime(difference, dateTypesKeys[i]);
+    if (timeValue !== '00') {
+      return pastTimeFormat(timeValue, dateTypesKeys[i]);
+    }
   }
 };
 
@@ -60,4 +79,9 @@ const handleSetActiveClick = (
   }
 };
 
-export { calculateTimeLeft, fromNameFormatter, handleSetActiveClick };
+export {
+  calculateTimeLeft,
+  fromNameFormatter,
+  handleSetActiveClick,
+  getPastTime,
+};

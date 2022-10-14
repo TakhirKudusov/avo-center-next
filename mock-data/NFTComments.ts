@@ -7,7 +7,7 @@ export const comments: CommentsData = {
     message:
       'And you can buy the whole set at once, really like it! And you can buy the whole set at once, really like it!',
     likes: '34',
-    time: '2022-10-06T12:00:00+03:00',
+    time: '2022-10-14T12:08:00+03:00',
   },
   oldOwners: [
     {
