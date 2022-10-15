@@ -22,7 +22,7 @@ export const Login = ({ onLoggedIn }: Props): JSX.Element => {
     publicAddress: string;
     signature: string;
   }) => {
-    return axiosInstance.post(`/users`, {
+    return axiosInstance.post(`/auth`, {
       publicAddress,
       signature,
       username: 'test',
@@ -37,7 +37,7 @@ export const Login = ({ onLoggedIn }: Props): JSX.Element => {
     nonce: string;
   }) => {
     // try {
-    console.log('SIGNING', publicAddress);
+    console.log('SIGNING', publicAddress, nonce);
     const signature = await web3!.eth.personal.sign(
       `I am signing my one-time nonce: ${nonce}`,
       publicAddress,
@@ -85,40 +85,31 @@ export const Login = ({ onLoggedIn }: Props): JSX.Element => {
     const publicAddress = coinbase.toLowerCase();
     setLoading(true);
 
-    // Look if user with current publicAddress is already present on backend
-    const response = await axiosInstance.get(
-      `/users?publicAddress=${publicAddress}`,
-    );
+    try {
+      // Look if user with current publicAddress is already present on backend
+      const response = await axiosInstance.get(
+        `/users?publicAddress=${publicAddress}`,
+      );
 
-    // if (response.data.length) {
-    const sunupResponse: any = await handleSignup(publicAddress);
+      let authData = {} as any;
 
-    const handleSignMessageResponse: any = await handleSignMessage(
-      sunupResponse.data?.data,
-    );
+      if (!response.data.data.length) {
+        const sunupResponse: any = await handleSignup(publicAddress);
+        authData = sunupResponse.data?.data;
+      } else {
+        authData = response.data.data[0];
+      }
 
-    console.log(handleSignMessageResponse);
+      const handleSignMessageResponse: any = await handleSignMessage(authData);
 
-    const handleAuthenticateResponse: any = await handleAuthenticate({
-      ...handleSignMessageResponse,
-    });
-    console.log('LOGGED IN', handleAuthenticateResponse.data);
-    // }
-    // .then((response) => response.json())
-    // // If yes, retrieve it. If no, create it.
-    // .then((users) => (users.length ? users[0] : handleSignup(publicAddress)))
-    // // Popup MetaMask confirmation modal to sign message
-    // .then(handleSignMessage)
-    // // Send signature to backend on the /auth route
-    // .then(handleAuthenticate)
-    // // Pass accessToken back to parent component (to save it in localStorage)
-    // .then((data) => {
-    //   console.log('LOGGED IN', data);
-    // })
-    // .catch((err) => {
-    //   window.alert(err);
-    //   setLoading(false);
-    // });
+      const handleAuthenticateResponse: any = await handleAuthenticate({
+        ...handleSignMessageResponse,
+      });
+      console.log('LOGGED IN', handleAuthenticateResponse.data);
+    } catch (error) {
+      window.alert(error);
+      setLoading(false);
+    }
   };
 
   return (
