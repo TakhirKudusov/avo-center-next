@@ -33,7 +33,7 @@ export type ListingData = {
   price: string;
 };
 
-type OwnerMessage = {
+export type OwnerMessage = {
   image: string;
   name: string;
   message: string;
@@ -44,4 +44,12 @@ type OwnerMessage = {
 export type CommentsData = {
   currentOwner: OwnerMessage;
   oldOwners?: OwnerMessage[];
+  commentsQuantity: string;
 };
+
+export type Buttons = {
+  name: string;
+  type?: string;
+};
+
+export type TableHeadTitles = ['From', 'Expiration', 'Price'];

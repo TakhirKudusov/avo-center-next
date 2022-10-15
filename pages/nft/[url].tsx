@@ -11,10 +11,6 @@ import { comments } from '../../mock-data/NFTComments';
 import { useRouter } from 'next/router';
 import { Header } from '../../components/nft';
 
-const PageWrapper = styled.div`
-  background: #fcfcfd;
-`;
-
 const NFTPage: ComponentWithLayout = () => {
   const route = useRouter();
 
@@ -23,9 +19,9 @@ const NFTPage: ComponentWithLayout = () => {
       <FlexContainer>
         <ContentContainer>
           <Header>
-            <RadioButton onClick={(e) => route.push('/')}>
+            <BackButton onClick={(e) => route.push('/')}>
               <LeftSideCornerSVG />
-            </RadioButton>
+            </BackButton>
           </Header>
           <NFTBlock NFTData={NFTData} />
           {comments && <Comments commentsData={comments} />}
@@ -34,6 +30,14 @@ const NFTPage: ComponentWithLayout = () => {
     </PageWrapper>
   );
 };
+
+const BackButton = styled(RadioButton)`
+  margin: 34px auto 34px auto;
+`;
+
+const PageWrapper = styled.div`
+  background: #fcfcfd;
+`;
 
 NFTPage.PageLayout = StoreLayout;
 

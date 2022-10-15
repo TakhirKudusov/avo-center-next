@@ -3,6 +3,8 @@ import NFTDescription from './NFTDescription';
 import { NFT } from '../common/types';
 import { memo } from 'react';
 import { NFTDescriptionContainer, NFTDescriptionWrapper } from '../index';
+import UserActionsButtonsGroup from './UserActionsButtonsGroup';
+import styled from 'styled-components';
 
 type Props = {
   NFTData: NFT;
@@ -12,7 +14,7 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
   const { image, tags, ...NFTDescriptionData } = NFTData;
 
   return (
-    <NFTDescriptionWrapper>
+    <Container>
       <NFTDescriptionContainer>
         <div>
           <NFTDescriptionWrapper>
@@ -21,8 +23,13 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
           </NFTDescriptionWrapper>
         </div>
       </NFTDescriptionContainer>
-    </NFTDescriptionWrapper>
+      <UserActionsButtonsGroup />
+    </Container>
   );
 };
+
+const Container = styled(NFTDescriptionWrapper)`
+  width: 1224px;
+`;
 
 export default memo(NFTBlock);
