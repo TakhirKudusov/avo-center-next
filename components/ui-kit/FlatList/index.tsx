@@ -23,19 +23,27 @@ const FlatList: React.FC<Props> = ({ items, onChange }) => {
   };
 
   return (
-    <FlatListWrapper>
-      {items.map((item, index) => (
-        <FlatListItem
-          key={`flat-item-${index}`}
-          active={isActive(activeItem, item)}
-          onClick={handleClick(item)}
-        >
-          {item.label}
-        </FlatListItem>
-      ))}
-    </FlatListWrapper>
+    <FlatListContainer>
+      <FlatListWrapper>
+        {items.map((item, index) => (
+          <FlatListItem
+            key={`flat-item-${index}`}
+            active={isActive(activeItem, item)}
+            onClick={handleClick(item)}
+          >
+            {item.label}
+          </FlatListItem>
+        ))}
+      </FlatListWrapper>
+      <FlatListChildren>{activeItem?.children}</FlatListChildren>
+    </FlatListContainer>
   );
 };
+
+const FlatListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const FlatListWrapper = styled.div`
   display: flex;
@@ -54,6 +62,16 @@ const FlatListItem = styled.button<any>`
   background: ${(props) => (props.active ? '#353945' : 'none')};
   color: ${(props) => (props.active ? '#fcfcfd' : '#777E91')};
   border: none;
+  &:hover {
+    background: ${(props) => !props.active && `rgba(53, 57, 69, 0.5)`};
+    color: ${(props) => !props.active && 'rgba(252, 252, 253, 0.5)'};
+  }
+`;
+
+const FlatListChildren = styled.div`
+  margin-top: 42px;
+  width: fit-content;
+  margin-bottom: 48px;
 `;
 
 export default FlatList;
