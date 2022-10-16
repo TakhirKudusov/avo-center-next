@@ -1,5 +1,4 @@
 import { TimeBeforeEnd } from './types';
-import React from 'react';
 import { DateTypes } from './enums';
 
 const dateItemFormat = (item: string): string => {
@@ -60,29 +59,9 @@ const calculateTimeLeft = (endTime: string): TimeBeforeEnd | undefined => {
 
 const fromNameFormatter = (name: string): string => {
   if (name.length > 10) {
-    const newName = name.substring(0, 10).padEnd(13, '.');
-    return newName;
+    return name.substring(0, 10).padEnd(13, '.');
   }
   return name;
 };
 
-const handleSetActiveClick = (
-  event: React.MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>,
-  className: string,
-  targetClass: string,
-) => {
-  const tabButtonsList = Array.from(document.getElementsByClassName(className));
-  if (!event.currentTarget.classList.contains(targetClass)) {
-    tabButtonsList.forEach((item) => {
-      item.classList.remove(targetClass);
-    });
-    event.currentTarget.classList.add(targetClass);
-  }
-};
-
-export {
-  calculateTimeLeft,
-  fromNameFormatter,
-  handleSetActiveClick,
-  getPastTime,
-};
+export { calculateTimeLeft, fromNameFormatter, getPastTime };

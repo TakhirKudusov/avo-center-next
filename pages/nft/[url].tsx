@@ -32,7 +32,7 @@ const NFTPage: ComponentWithLayout = () => {
 };
 
 const BackButton = styled(RadioButton)`
-  margin: 34px auto 34px auto;
+  margin: 34px 0 34px 0;
 `;
 
 const PageWrapper = styled.div`
