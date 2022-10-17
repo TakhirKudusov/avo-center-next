@@ -2,7 +2,7 @@ import { memo } from 'react';
 import styled from 'styled-components';
 import LoadingSVG from '../../../assets/svg/loading.svg';
 import { ButtonSize, ButtonType } from './enums';
-import {NextRouter} from "next/router";
+import { NextRouter } from 'next/router';
 
 type Props = {
   size?: ButtonSize;
@@ -11,6 +11,7 @@ type Props = {
   children?: React.ReactNode;
   round?: boolean;
   loading?: boolean;
+  fullSize?: boolean;
   onClick?: () => void;
 };
 const Button: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const Button: React.FC<Props> = ({
   loading,
   style,
   children,
+  fullSize = false,
   onClick,
 }) => {
   return (
@@ -28,6 +30,7 @@ const Button: React.FC<Props> = ({
       size={size}
       type={type}
       round={round}
+      fullSize={fullSize}
       onClick={onClick}
     >
       <ButtonContent>
@@ -72,6 +75,20 @@ const ButtonBody = styled.button<any>`
       : props.size === ButtonSize.Medium
       ? '40px'
       : '48px'};
+  width: ${(props) => (props.fullSize ? '100%' : 'fit-content')};
+
+  &:hover {
+    border-color: ${(props) =>
+      props.type === ButtonType.Primary
+        ? 'rgba(#e6e8ec, 0.8)'
+        : 'rgba(51, 51, 51, 0.8)'};
+    background: ${(props) =>
+      props.type === ButtonType.Primary ? 'none' : 'rgba(51, 51, 51, 0.8)'};
+    color: ${(props) =>
+      props.type === ButtonType.Primary
+        ? 'rgba(35, 38, 47, 0.8)'
+        : 'rgba(#fff, 0.8)'};
+  }
 `;
 
 const ButtonContent = styled.div`

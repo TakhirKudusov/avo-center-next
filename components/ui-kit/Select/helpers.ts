@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction } from "react";
-import { SelectItem } from "./types";
+import { Dispatch, SetStateAction } from 'react';
+import { SelectItem } from './types';
 
 const handleDropdownExpand =
   (setExpanded: Dispatch<SetStateAction<boolean>>) => () => {
@@ -7,10 +7,14 @@ const handleDropdownExpand =
   };
 
 const handleDropdownItemClick =
-  (item: SelectItem, setSelected: Dispatch<SetStateAction<SelectItem | undefined>>, setExpanded: Dispatch<SetStateAction<boolean>>) =>
-    () => {
-      setSelected(item);
-      setExpanded(false);
-    };
+  (
+    item: SelectItem,
+    setSelected: Dispatch<SetStateAction<SelectItem | undefined>>,
+    setExpanded: Dispatch<SetStateAction<boolean>>,
+  ) =>
+  () => {
+    setSelected(item);
+    setExpanded(false);
+  };
 
 export { handleDropdownExpand, handleDropdownItemClick };
