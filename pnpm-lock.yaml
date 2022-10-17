@@ -12,6 +12,7 @@ specifiers:
   axios: ^1.1.2
   babel-plugin-inline-react-svg: ^2.0.1
   babel-plugin-styled-components: ^2.0.7
+  clsx: ^1.2.1
   eslint: 8.22.0
   eslint-config-next: 12.3.0
   http-proxy-middleware: ^2.0.6
@@ -30,6 +31,7 @@ dependencies:
   axios: 1.1.2
   babel-plugin-inline-react-svg: 2.0.1_@babel+core@7.19.3
   babel-plugin-styled-components: 2.0.7_styled-components@5.3.6
+  clsx: 1.2.1
   http-proxy-middleware: 2.0.6
   moment: 2.29.4
   next: 12.3.0_6tziyx3dehkoeijunclpkpolha
@@ -1433,6 +1435,11 @@ packages:
     resolution: {integrity: sha512-ROoL94jJH2dUVML2Y/5PEDNaSHgeOdSDicUyS7izcF63G6sTc/FTjLub4b8Il9S8S0beOfYt0TaA5qvFK+w0wA==}
     dependencies:
       mimic-response: 1.0.1
+    dev: false
+
+  /clsx/1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+    engines: {node: '>=6'}
     dev: false
 
   /color-convert/1.9.3:

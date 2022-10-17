@@ -1,17 +1,22 @@
-import { memo, useEffect } from 'react';
+import React, { Dispatch, memo, useEffect } from 'react';
 import styled from 'styled-components';
 import { handleSetActiveClick } from '../../../common/helpers';
+import { Tab } from '../common/types';
 
 type Props = {
-  name: string;
+  name: Tab;
   Icon: React.FC;
+  setCurrentTab: Dispatch<React.SetStateAction<Tab>>;
 };
 
-const CategoryListItem: React.FC<Props> = ({ name, Icon }) => {
+const CategoryListItem: React.FC<Props> = ({ name, Icon, setCurrentTab }) => {
   return (
     <Container
       className={'category-list-item'}
-      onClick={(e) => handleSetActiveClick(e, 'category-list-item', 'active')}
+      onClick={(e) => {
+        handleSetActiveClick(e, 'category-list-item', 'active');
+        setCurrentTab(name);
+      }}
     >
       <Icon />
       <p>{name}</p>
@@ -38,6 +43,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     color: #777e91;
+    text-transform: capitalize;
   }
   &.active p {
     color: #23262f;

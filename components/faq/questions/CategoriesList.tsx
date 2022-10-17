@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import { categoriesList } from '../common/constants';
 import CategoryListItem from './CategoryListItem';
-import { useEffect } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import { ClassNames } from '../common/enums';
+import { Tab } from '../common/types';
 
-const CategoriesList: React.FC = () => {
+type Props = {
+  setCurrentTab: Dispatch<React.SetStateAction<Tab>>;
+};
+
+const CategoriesList: React.FC<Props> = ({ setCurrentTab }) => {
   useEffect(() => {
     const firstElFromList = document.querySelector(
       `.${ClassNames.CATEGORY_LIST_ITEM}`,
@@ -16,7 +21,12 @@ const CategoriesList: React.FC = () => {
     <Container>
       {categoriesList?.map((el, i) => {
         return (
-          <CategoryListItem key={el.name + i} name={el.name} Icon={el.Icon} />
+          <CategoryListItem
+            key={el.name + i}
+            name={el.name}
+            Icon={el.Icon}
+            setCurrentTab={setCurrentTab}
+          />
         );
       })}
     </Container>
