@@ -18,7 +18,6 @@ const QuestionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 1120px;
 `;
 
 const BlockWrapper = styled.div`
@@ -26,7 +25,7 @@ const BlockWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 80px 160px 136px;
+  padding: 80px 160px 0 160px;
   background: #fcfcfd;
 `;
 
