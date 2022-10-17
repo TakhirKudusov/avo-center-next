@@ -32,9 +32,8 @@ Build:
   cache:
     paths:
       - .next/
-
-publish:
-  image: node:latest
+Deploy:
+  <<: *base_rules
   stage: deploy
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_REF_NAME =~ /^v\d+\.\d+\.\d+.*$/
