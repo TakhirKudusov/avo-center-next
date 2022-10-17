@@ -4,10 +4,11 @@ import BidItem from './BidItem';
 
 type Props = {
   items: Bid[];
+  elemPerRow?: number;
 };
-const BidGrid: React.FC<Props> = ({ items }) => {
+const BidGrid: React.FC<Props> = ({ items, elemPerRow = 4 }) => {
   return (
-    <Grid>
+    <Grid elemPerRow={elemPerRow}>
       {items.map((item, index) => (
         <BidItem key={`bid-item-${index}`} bid={item} />
       ))}
@@ -15,10 +16,11 @@ const BidGrid: React.FC<Props> = ({ items }) => {
   );
 };
 
-const Grid = styled.div`
+const Grid = styled.div<{ elemPerRow: number }>`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: ${({ elemPerRow }) =>
+    `repeat(${elemPerRow || 4}, 1fr)`};
   column-gap: 32px;
   row-gap: 24px;
 `;

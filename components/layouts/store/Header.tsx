@@ -43,9 +43,11 @@ const Header = () => {
               Upload
             </Button>
           </Link>
-          <Button size={ButtonSize.Medium} type={ButtonType.Secondary}>
-            Connect Wallet
-          </Button>
+          <Link href={'/profile'} onClick={handleClick}>
+            <Button size={ButtonSize.Medium} type={ButtonType.Secondary}>
+              Connect Wallet
+            </Button>
+          </Link>
           <Select
             items={languages}
             size={SelectItemSize.Small}
