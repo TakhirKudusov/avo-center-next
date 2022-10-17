@@ -27,6 +27,9 @@ prepare:deps:
   cache:
     <<: *global_cache
     policy: push
+  only:
+    - merge_requests
+    - master
 
 test:build:
   stage: test
@@ -35,6 +38,9 @@ test:build:
   cache:
     <<: *global_cache
     policy: pull
+  only:
+    - merge_requests
+    - master
 
 pages:
   stage: deploy
