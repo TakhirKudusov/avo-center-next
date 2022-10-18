@@ -15,3 +15,8 @@ export type Question = {
 };
 
 export type QuestionId = '1' | '2' | '3' | '4' | '5';
+
+export type HandleDeleteElFromArrFunc<T extends any> = (
+  arr: T[],
+  el: number,
+) => T[];

@@ -3,13 +3,16 @@ import CategoriesList from './CategoriesList';
 import { useState } from 'react';
 import { Tab } from '../common/types';
 import Tabs from '../tabs/Tabs';
+import CategoryListItem from './CategoryListItem';
 
 const MainContent: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<Tab>('general');
 
   return (
     <Container>
-      <CategoriesList setCurrentTab={setCurrentTab} />
+      <CategoriesList>
+        <CategoryListItem setCurrentTab={setCurrentTab} />
+      </CategoriesList>
       <TabContainer>
         <Tabs tabType={currentTab} />
       </TabContainer>

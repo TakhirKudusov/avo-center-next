@@ -15,19 +15,62 @@ const Body: React.FC<Props> = ({ data, openedQuestions, closedQuestions }) => {
   const isClosed = closedQuestions.includes(data.id);
 
   const styles = clsx({
-    active: isOpened && true,
-    inactive: isClosed && true,
+    active: isOpened,
+    inactive: isClosed,
   });
 
   return (
-    <Container className={styles}>
-      <p>{data.body}</p>
-      <a href={data.link} rel="noreferrer" target={'_blank'}>
-        <Button>Learn more</Button>
-      </a>
-    </Container>
+    <Wrapper className={styles}>
+      <Container>
+        <BodyText>{data.body}</BodyText>
+        <a href={data.link} rel="noreferrer" target={'_blank'}>
+          <Button>Learn more</Button>
+        </a>
+      </Container>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  height: 0;
+  overflow: hidden;
+  @keyframes slideDown {
+    from {
+      height: 0;
+    }
+    to {
+      height: 220px;
+    }
+  }
+  @keyframes slideUp {
+    from {
+      height: 220px;
+    }
+    to {
+      height: 0;
+    }
+  }
+  &.active {
+    height: 220px;
+    animation-duration: 0.5s;
+    animation-name: slideDown;
+  }
+  &.inactive {
+    animation-duration: 0.5s;
+    animation-name: slideUp;
+  }
+`;
+
+const BodyText = styled.p`
+  width: 735px;
+  height: fit-content;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #777e91;
+`;
 
 const Button = styled.div`
   cursor: pointer;
@@ -56,50 +99,12 @@ const Button = styled.div`
 `;
 
 const Container = styled.div`
-  overflow: hidden;
-  height: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
   gap: 24px;
   width: 735px;
-  &.active {
-    height: 220px;
-    animation-duration: 0.5s;
-    animation-name: slideDown;
-    @keyframes slideDown {
-      from {
-        height: 0;
-      }
-      to {
-        height: 220px;
-      }
-    }
-  }
-  &.inactive {
-    animation-duration: 0.5s;
-    animation-name: slideUp;
-    @keyframes slideUp {
-      from {
-        height: 220px;
-      }
-      to {
-        height: 0;
-      }
-    }
-  }
-
-  p {
-    width: 735px;
-    height: fit-content;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #777e91;
-  }
 `;
 
 export default memo(Body);

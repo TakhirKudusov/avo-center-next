@@ -1,15 +1,12 @@
 import styled from 'styled-components';
-import { categoriesList } from '../common/constants';
-import CategoryListItem from './CategoryListItem';
-import React, { Dispatch, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { ClassNames } from '../common/enums';
-import { Tab } from '../common/types';
 
 type Props = {
-  setCurrentTab: Dispatch<React.SetStateAction<Tab>>;
+  children: ReactNode;
 };
 
-const CategoriesList: React.FC<Props> = ({ setCurrentTab }) => {
+const CategoriesList: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     const firstElFromList = document.querySelector(
       `.${ClassNames.CATEGORY_LIST_ITEM}`,
@@ -17,20 +14,7 @@ const CategoriesList: React.FC<Props> = ({ setCurrentTab }) => {
     firstElFromList?.classList.add(ClassNames.ACTIVE);
   }, []);
 
-  return (
-    <Container>
-      {categoriesList?.map((el, i) => {
-        return (
-          <CategoryListItem
-            key={el.name + i}
-            name={el.name}
-            Icon={el.Icon}
-            setCurrentTab={setCurrentTab}
-          />
-        );
-      })}
-    </Container>
-  );
+  return <Container>{children}</Container>;
 };
 
 const Container = styled.div`

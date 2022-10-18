@@ -1,5 +1,5 @@
 import Header from './Header';
-import { questionsData } from '../../common/constants';
+import { QUESTIONS_DATA } from '../../common/constants';
 import Body from './Body';
 import { useEffect, useState } from 'react';
 import { QuestionId } from '../../common/types';
@@ -8,22 +8,18 @@ const General: React.FC = () => {
   const [openedQuestions, setOpenedQuestions] = useState<QuestionId[]>([]);
   const [closedQuestions, setClosedQuestions] = useState<QuestionId[]>([]);
 
-  useEffect(() => {
-    console.log(closedQuestions);
-  }, [closedQuestions]);
-
   return (
     <>
-      {questionsData.map((el) => {
+      {QUESTIONS_DATA.map((el) => {
         return (
           <div key={el.id}>
             <Header
+              id={el.id}
               name={el.name}
               setOpenedQuestions={setOpenedQuestions}
-              openedQuestionsArr={openedQuestions}
+              openedQuestions={openedQuestions}
               setClosedQuestions={setClosedQuestions}
-              closedQuestionsArr={closedQuestions}
-              id={el.id}
+              closedQuestions={closedQuestions}
             />
             <Body
               data={{
