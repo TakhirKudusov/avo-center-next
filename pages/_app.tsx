@@ -1,10 +1,21 @@
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import {Global} from "../components/common";
-import {AppWithPageLayout} from "../common/types";
+import { Global } from '../components/common';
+import { AppWithPageLayout } from '../common/types';
+import { wrapper } from '../redux/store';
+import { getUserInfo } from '../common/helpers/jwt-token.helper';
+import { useAppDispatch } from '../redux/hooks';
+import { setUser } from '../redux/slicers/authSlicer';
+import { useEffect } from 'react';
 
-function MyApp({ Component, pageProps }: AppWithPageLayout) {
+function App({ Component, pageProps }: AppWithPageLayout) {
+  const dispatch = useAppDispatch();
   const router = useRouter();
+
+  useEffect(() => {
+    const user = getUserInfo();
+    dispatch(setUser(user));
+  }, []);
 
   return (
     <>
@@ -20,4 +31,4 @@ function MyApp({ Component, pageProps }: AppWithPageLayout) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(App);
