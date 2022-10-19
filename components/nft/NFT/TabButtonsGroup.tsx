@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { handleSetActiveClick } from '../common/helpers';
+import { handleSetActiveClick } from '../../common/helpers';
 import React from 'react';
 
 const TabButtonsGroup: React.FC = () => {

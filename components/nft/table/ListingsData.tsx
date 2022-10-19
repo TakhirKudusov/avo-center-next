@@ -1,7 +1,8 @@
 import { ListingData } from '../common/types';
 import styled from 'styled-components';
-import { fromNameFormatter, handleSetActiveClick } from '../common/helpers';
+import { fromNameFormatter } from '../common/helpers';
 import { memo } from 'react';
+import { handleSetActiveClick } from '../../common/helpers';
 
 type Props = {
   listingsData: ListingData[];

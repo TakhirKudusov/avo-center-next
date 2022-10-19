@@ -1,7 +1,5 @@
 import { ListingData } from '../common/types';
-import UpSideCorner from '../../../assets/svg/up-side-corner.svg';
 import styled from 'styled-components';
-import { fromNameFormatter, handleSetActiveClick } from '../common/helpers';
 import React, { memo } from 'react';
 import TableHeadBlock from '../table/TableHeadBlock';
 import { tableHeadTitles } from '../common/constants';
