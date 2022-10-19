@@ -2,7 +2,6 @@ import { memo } from 'react';
 import styled from 'styled-components';
 import LoadingSVG from '../../../assets/svg/loading.svg';
 import { ButtonSize, ButtonType } from './enums';
-import { NextRouter } from 'next/router';
 
 type Props = {
   size?: ButtonSize;
