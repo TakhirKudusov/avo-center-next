@@ -1,0 +1,1 @@
+export type THandler = ((value: boolean) => void) | undefined;

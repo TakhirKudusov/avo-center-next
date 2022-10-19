@@ -13,5 +13,6 @@ export const getUserInfo = (): (IUser & { iat: number }) | null => {
   const { NEXT_PUBLIC_ACCESS_SECRET_TOKEN } = process.env;
   const accessToken = localStorage.getItem('accessToken');
 
-  return jwt.decode<IUser>(accessToken ?? '', NEXT_PUBLIC_ACCESS_SECRET_TOKEN ?? '');
+  // TODO fix types
+  return jwt.decode(accessToken ?? '', (NEXT_PUBLIC_ACCESS_SECRET_TOKEN ?? '12345') as any) as any;
 };
