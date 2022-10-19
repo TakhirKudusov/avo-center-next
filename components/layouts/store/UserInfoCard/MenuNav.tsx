@@ -8,8 +8,9 @@ const MenuNav = () => {
 
   return (
     <MenuNavWrapper>
-      {getNavItems(router).map((item) => (
+      {getNavItems(router).map((item, index) => (
         <MenuNavItem
+          key={`switch-${index}`}
           icon={item.icon}
           label={item.label}
           controller={item.controller}
