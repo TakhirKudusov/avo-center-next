@@ -7,22 +7,37 @@ import {
   ButtonType,
   CoppyToClipboard,
   Divider,
+  // Modal,
   RoundButton,
 } from '../../ui-kit';
 import { links } from './constants';
 import CopySVG from '../../../assets/svg/copy.svg';
 import ShareIconSvg from '../../../assets/svg/share-icon.svg';
+import { useState } from 'react';
 
 type Props = { isUserProfile: boolean };
 
 const ProfileCard = ({ isUserProfile }: Props) => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
 
   const cardUrl = '/images/profile.png';
   const userName = 'Enrico Cole';
   const walletId = '0xc4c16a645...b21a';
   const description =
     'A wholesome farm owner in Montana. Upcoming gallery solo show in Germany';
+
+  const handleFollow = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleConfirm = () => {
+    handleClose();
+  };
 
   return (
     <CardContainer>
@@ -36,7 +51,12 @@ const ProfileCard = ({ isUserProfile }: Props) => {
       </WalletId>
       <Description>{description}</Description>
       <ButtonsWrapper>
-        <Button fullSize size={ButtonSize.Medium} type={ButtonType.Secondary}>
+        <Button
+          onClick={handleFollow}
+          fullSize
+          size={ButtonSize.Medium}
+          type={ButtonType.Secondary}
+        >
           {isUserProfile ? 'Create NFT' : 'Follow'}
         </Button>
         <CoppyToClipboard text={router.pathname}>
@@ -52,6 +72,22 @@ const ProfileCard = ({ isUserProfile }: Props) => {
       </Links>
       <Divider />
       <MembershipInfo>Member since Mar 15, 2021</MembershipInfo>
+      {/* TODO: remove */}
+      {/* <Modal
+        title="Checkout"
+        open={open}
+        confirmBtnName="I understand, continue"
+        cancelBtnName="Cancel"
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+      >
+        <div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic iusto
+          incidunt, earum reprehenderit magni nihil inventore consectetur
+          repudiandae! Rem voluptas odio iure numquam porro, facere ex culpa
+          alias neque voluptates.F
+        </div>
+      </Modal> */}
     </CardContainer>
   );
 };
@@ -84,7 +120,6 @@ const Avatar = styled.div<{ avatarUrl: string }>`
 `;
 
 const Title = styled.div`
-  /* font-family: 'Poppins'; */
   font-size: 24px;
   color: #23262f;
   font-weight: 600;
