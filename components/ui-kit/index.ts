@@ -11,3 +11,4 @@ export { default as Tag } from './Tag';
 export { default as Divider } from './Divider';
 export { default as RoundButton } from './RoundButton';
 export { default as CoppyToClipboard } from './CoppyToClipboard';
+export { default as Tooltip } from './Tooltip';

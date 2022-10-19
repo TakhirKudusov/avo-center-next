@@ -8,6 +8,7 @@ import { TAuthState } from '../../../redux/types';
 import { FlexContainer } from '../../common';
 import Logo from '../../common/components/Logo';
 import ConnectWallet from '../../modals/ConnectWallet';
+import { Tooltip } from '../../ui-kit';
 import Button from '../../ui-kit/Button/Button';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 import Select from '../../ui-kit/Select';
@@ -86,14 +87,16 @@ const Header = () => {
                   <WalletNumber>0X3a5...4m243</WalletNumber>
                 </Button>
               </Link>
-              <Button
-                style={{ marginLeft: '4px' }}
-                size={ButtonSize.Medium}
-                type={ButtonType.Secondary}
-              >
-                7.00698
-                <WalletCurrency>AVO</WalletCurrency>
-              </Button>
+              <Tooltip content={<div>content</div>}>
+                <Button
+                  style={{ marginLeft: '4px' }}
+                  size={ButtonSize.Medium}
+                  type={ButtonType.Secondary}
+                >
+                  7.00698
+                  <WalletCurrency>AVO</WalletCurrency>
+                </Button>
+              </Tooltip>
             </AuthorizedActionButtons>
           )}
           <Select
