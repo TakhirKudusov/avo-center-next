@@ -21,6 +21,7 @@ import {
 } from './helpers';
 import Notifications from './Notifications';
 import SearchBar from './SearchBar';
+import UserInfoCard from './UserInfoCard';
 
 const Header = () => {
   const [isConnectWalletVisible, setIsConnectWalletVisible] = useState(false);
@@ -87,7 +88,7 @@ const Header = () => {
                   <WalletNumber>0X3a5...4m243</WalletNumber>
                 </Button>
               </Link>
-              <Tooltip content={<div>content</div>}>
+              <Tooltip content={<UserInfoCard />}>
                 <Button
                   style={{ marginLeft: '4px' }}
                   size={ButtonSize.Medium}
