@@ -19,6 +19,7 @@ import {
   handleUploadClick,
   handleWalletConnectClick,
 } from './helpers';
+import NotificationCard from './NotificationCard';
 import Notifications from './Notifications';
 import SearchBar from './SearchBar';
 import UserInfoCard from './UserInfoCard';
@@ -48,7 +49,9 @@ const Header = () => {
         </Link>
         <ActionsBar>
           <SearchBar />
-          <Notifications />
+          <Tooltip content={<NotificationCard />}>
+            <Notifications />
+          </Tooltip>
           {!user && (
             <AnonymousActionButtons>
               <Button

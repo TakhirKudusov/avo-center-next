@@ -17,6 +17,7 @@ const NotificationsWrapper = styled.div`
   justify-content: center;
   margin-left: 20px;
   margin-right: 20px;
+  height: 40px;
   cursor: pointer;
 `;
 
