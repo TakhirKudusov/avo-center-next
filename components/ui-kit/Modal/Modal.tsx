@@ -39,8 +39,8 @@ const Modal = ({
         <Modal.Wrapper ref={wrapperRef}>
           <Modal.Title title={title} onClose={onClose} />
           <Modal.Content>{children}</Modal.Content>
-          <Modal.Footer>
-            {hasFooter ? (
+          {hasFooter && (
+            <Modal.Footer>
               <>
                 <Button
                   fullSize
@@ -53,10 +53,8 @@ const Modal = ({
                   {cancelBtnName}
                 </Button>
               </>
-            ) : (
-              <div />
-            )}
-          </Modal.Footer>
+            </Modal.Footer>
+          )}
         </Modal.Wrapper>
       </ShadowBoxWrapper>
     </ReactPortal>
@@ -80,7 +78,7 @@ const ShadowBoxWrapper = styled.div<{ open: boolean }>`
 `;
 
 const ModalWrapper = styled.div`
-  width: 450px;
+  width: fit-content;
   height: fit-content;
   min-height: 250px;
   background: white;

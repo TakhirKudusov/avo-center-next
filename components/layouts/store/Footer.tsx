@@ -29,6 +29,9 @@ const Footer = () => {
                   <LinkItem>
                     <Link href={''}>Create item</Link>
                   </LinkItem>
+                  <LinkItem>
+                    <Link href={'/faq'}>FAQ</Link>
+                  </LinkItem>
                 </LinkSectionBody>
               </LinkSection>
               <LinkSection>

@@ -64,7 +64,7 @@ export const signin = createAsyncThunk<
         ...handleSignMessageResponse,
       });
       console.log('LOGGED IN', handleAuthenticateResponse.data);
-      setAccessToken(handleAuthenticateResponse.data.data.accessToken.accessToken);
+      setAccessToken(handleAuthenticateResponse.data.accessToken.accessToken);
       const user = getUserInfo();
       return user
     } catch (error) {

@@ -36,16 +36,21 @@ const CreatorNetwork = () => {
           </InfoItem>
         </InfoItems>
         <Auction />
-        <Button type={ButtonType.Secondary} size={ButtonSize.Large}>
-          <Link href={"/nft/newNFT"} >
+        <Link href={'/nft/newNFT'}>
+          <Button
+            type={ButtonType.Secondary}
+            size={ButtonSize.Large}
+            fullSize={true}
+          >
             Place a bid
-          </Link>
-        </Button>
+          </Button>
+        </Link>
 
         <Button
           type={ButtonType.Primary}
           size={ButtonSize.Large}
           style={{ marginTop: '8px' }}
+          fullSize={true}
         >
           View item
         </Button>
