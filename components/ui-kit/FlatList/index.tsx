@@ -35,7 +35,9 @@ const FlatList: React.FC<Props> = ({ items, onChange }) => {
           </FlatListItem>
         ))}
       </FlatListWrapper>
-      <FlatListChildren>{activeItem?.children}</FlatListChildren>
+      {!!activeItem?.children && (
+        <FlatListChildren>{activeItem?.children}</FlatListChildren>
+      )}
     </FlatListContainer>
   );
 };

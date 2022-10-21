@@ -1,14 +1,16 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { useAppDispatch } from '../../../../redux/hooks';
 import { getNavItems } from './helpers';
 import MenuNavItem from './MenuNavItem';
 
 const MenuNav = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   return (
     <MenuNavWrapper>
-      {getNavItems(router).map((item, index) => (
+      {getNavItems(router, dispatch).map((item, index) => (
         <MenuNavItem
           key={`switch-${index}`}
           icon={item.icon}

@@ -5,8 +5,13 @@ import LampSVG from '../../../../assets/svg/lamp.svg';
 import LogoutSVG from '../../../../assets/svg/logout.svg';
 import { TMenuItem } from './types';
 import { Switch } from '../../../ui-kit';
+import { AppDispatch } from '../../../../redux/store';
+import { signout } from '../../../../redux/slicers/authSlicer';
 
-const getNavItems = (router: NextRouter): TMenuItem[] => [
+const getNavItems = (
+  router: NextRouter,
+  dispatch: AppDispatch,
+): TMenuItem[] => [
   {
     icon: <UserSVG />,
     label: 'My profile',
@@ -32,6 +37,7 @@ const getNavItems = (router: NextRouter): TMenuItem[] => [
     label: 'Disconnect',
     clickHandler: () => {
       console.log('logout');
+      dispatch(signout());
     },
   },
 ];

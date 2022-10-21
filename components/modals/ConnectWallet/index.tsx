@@ -50,22 +50,10 @@ const ConnectWallet = () => {
 };
 
 const ConnectWalletWrapper = styled.div`
-  position: fixed;
-  width: 448px;
-  height: 360px;
-  padding: 32px;
-  background: #fcfcfd;
-  box-shadow: 0px 64px 64px -48px rgba(31, 47, 70, 0.12);
-  border-radius: 20px;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: auto;
-
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 386px;
 `;
 
 export default ConnectWallet;
