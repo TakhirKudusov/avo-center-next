@@ -40,6 +40,11 @@ const SearchInput = styled.input`
   box-sizing: border-box;
   font-size: 12px;
   outline: none;
+
+  &:focus {
+    border-color: rgba(51, 51, 51, 0.5);
+    box-shadow: 0 5px 20px 0 rgb(0 0 0 / 7%);
+  }
 `;
 
 export default SearchBar;

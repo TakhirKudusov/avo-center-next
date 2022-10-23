@@ -5,9 +5,11 @@ import PlusSVG from '../../../assets/svg/plus.svg';
 
 type Props = {
   style?: any;
+  label?: string;
   onCountChange?: (value: number) => void;
 };
-const Counter: React.FC<Props> = ({ style, onCountChange }) => {
+
+const Counter: React.FC<Props> = ({ style, label, onCountChange }) => {
   const [count, setCount] = useState(0);
 
   const handleCountDown =
@@ -30,15 +32,18 @@ const Counter: React.FC<Props> = ({ style, onCountChange }) => {
   };
 
   return (
-    <CounterWrapper style={style}>
-      <RoundButton onClick={handleCountDown(setCount)} type="button">
-        <MinusSVG />
-      </RoundButton>
-      <CounterValue>{count}</CounterValue>
-      <RoundButton onClick={handleCountUp(setCount)} type="button">
-        <PlusSVG />
-      </RoundButton>
-    </CounterWrapper>
+    <>
+      <CounterLabel htmlFor="counter">{label}</CounterLabel>
+      <CounterWrapper id="counter" style={style}>
+        <RoundButton onClick={handleCountDown(setCount)} type="button">
+          <MinusSVG />
+        </RoundButton>
+        <CounterValue>{count}</CounterValue>
+        <RoundButton onClick={handleCountUp(setCount)} type="button">
+          <PlusSVG />
+        </RoundButton>
+      </CounterWrapper>
+    </>
   );
 };
 
@@ -50,6 +55,14 @@ const CounterWrapper = styled.div`
   border: 2px solid #e6e8ec;
   border-radius: 12px;
   padding: 8px 16px;
+  margin-top: 10px;
+`;
+
+const CounterLabel = styled.label`
+  color: #b1b5c3;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
 `;
 
 const RoundButton = styled.button`
