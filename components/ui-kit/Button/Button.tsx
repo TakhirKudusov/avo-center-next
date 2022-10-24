@@ -10,6 +10,8 @@ type Props = {
   children?: React.ReactNode;
   round?: boolean;
   loading?: boolean;
+  disabled?: boolean;
+  failed?: boolean;
   fullSize?: boolean;
   onClick?: () => void;
 };
@@ -18,26 +20,39 @@ const Button: React.FC<Props> = ({
   type = ButtonType.Primary,
   round,
   loading,
+  disabled,
+  failed,
   style,
   children,
   fullSize = false,
   onClick,
 }) => {
+  const getButtonName = () => {
+    if (failed) {
+      return 'Failed';
+    }
+
+    return children;
+  };
+
   return (
     <ButtonBody
       style={style}
       size={size}
       type={type}
+      disabled={disabled || failed}
       round={round}
       fullSize={fullSize}
-      onClick={onClick}
+      failed={failed}
+      onClick={loading || disabled ? () => null : onClick}
     >
       <ButtonContent>
-        {children}
-        {loading && (
+        {loading ? (
           <LoadingWrapper>
-            <LoadingSVG />
+            <LoadingSVG color="#FCFCFD" />
           </LoadingWrapper>
+        ) : (
+          getButtonName()
         )}
       </ButtonContent>
     </ButtonBody>
@@ -49,18 +64,36 @@ const ButtonBody = styled.button<any>`
   border: 2px solid;
   box-sizing: border-box;
   font-family: 'DM Sans', sans-serif;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? 'unset' : 'pointer')};
   transition: all 0.3s;
   font-size: ${(props) =>
     [ButtonSize.Small, ButtonSize.Medium].includes(props.size)
       ? '14px'
       : '16px'};
   border-color: ${(props) =>
-    props.type === ButtonType.Primary ? '#e6e8ec' : 'rgba(51, 51, 51, 1)'};
-  background: ${(props) =>
-    props.type === ButtonType.Primary ? 'none' : 'rgba(51, 51, 51, 1)'};
-  color: ${(props) =>
-    props.type === ButtonType.Primary ? 'rgba(35, 38, 47, 1)' : '#fff'};
+    props.type === ButtonType.Primary || props.disabled
+      ? '#e6e8ec'
+      : 'rgba(51, 51, 51, 1)'};
+  background: ${(props) => {
+    if (props.type === ButtonType.Primary || props.disabled) {
+      return 'none';
+    }
+
+    return 'rgba(51, 51, 51, 1)';
+  }};
+  color: ${(props) => {
+    if (props.type === ButtonType.Primary) {
+      return 'rgba(35, 38, 47, 1)';
+    }
+    if (props.failed) {
+      return '#EF466F';
+    }
+    if (props.disabled) {
+      return '#777e91';
+    }
+
+    return '#fff';
+  }};
   border-radius: ${(props) => (props.round ? '90px' : '8px')};
   padding: ${(props) =>
     props.size === ButtonSize.Small
@@ -77,12 +110,23 @@ const ButtonBody = styled.button<any>`
   width: ${(props) => (props.fullSize ? '100%' : 'fit-content')};
 
   &:hover {
-    border-color: ${(props) =>
-      props.type === ButtonType.Primary
-        ? 'rgba(#e6e8ec, 0.8)'
-        : 'rgba(51, 51, 51, 0.8)'};
-    background: ${(props) =>
-      props.type === ButtonType.Primary ? 'none' : 'rgba(51, 51, 51, 0.8)'};
+    border-color: ${(props) => {
+      if (props.type === ButtonType.Primary) {
+        return 'rgba(#e6e8ec, 0.8)';
+      }
+      if (props.disabled) {
+        return '#E6E8EC';
+      }
+
+      return 'rgba(51, 51, 51, 0.8)';
+    }};
+    background: ${(props) => {
+      if (props.type === ButtonType.Primary || props.disabled) {
+        return 'none';
+      }
+
+      return 'rgba(51, 51, 51, 0.8)';
+    }};
     color: ${(props) =>
       props.type === ButtonType.Primary
         ? 'rgba(35, 38, 47, 0.8)'

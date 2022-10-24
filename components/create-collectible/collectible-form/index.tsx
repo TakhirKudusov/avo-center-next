@@ -77,7 +77,7 @@ const CollectibleForm = () => {
           Create item <ArrowRightSVG style={{ marginLeft: '15px' }} />
         </Button>
         <AutoSaving>
-          Auto saving <LoadingSVG />
+          Auto saving <LoadingSVG color="#23262F" />
         </AutoSaving>
       </FormFooter>
     </CollectibleFormWrapper>

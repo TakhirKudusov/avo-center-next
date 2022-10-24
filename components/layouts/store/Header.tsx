@@ -61,6 +61,14 @@ const Header = () => {
           <Logo />
         </Link>
         <ActionsBar>
+          <Link href={'/modals'}>
+            <Button
+              size={ButtonSize.Medium}
+              type={ButtonType.Primary}
+            >
+              Modals
+            </Button>
+          </Link>
           <SearchBar />
           <Tooltip content={<NotificationCard />}>
             <Notifications />

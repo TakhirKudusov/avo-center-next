@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { memo, useRef } from 'react';
 
 import Button from '../Button/Button';
-import { ButtonType } from '../Button/enums';
+import { ButtonSize, ButtonType } from '../Button/enums';
 import ReactPortal from '../ReactPortal';
 import { useOnClickOutside } from '../../common/hooks/useOnClickOutside';
 
@@ -31,7 +31,7 @@ const Modal = ({
 }: Props) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  useOnClickOutside(wrapperRef, onClose);
+  // useOnClickOutside(wrapperRef, onClose);
 
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
@@ -42,16 +42,21 @@ const Modal = ({
           {hasFooter && (
             <Modal.Footer>
               <>
-                <Button
-                  fullSize
-                  type={ButtonType.Secondary}
-                  onClick={onConfirm}
-                >
-                  {confirmBtnName}
-                </Button>
-                <Button fullSize onClick={onClose}>
-                  {cancelBtnName}
-                </Button>
+                {confirmBtnName && (
+                  <Button
+                    fullSize
+                    type={ButtonType.Secondary}
+                    size={ButtonSize.Large}
+                    onClick={onConfirm}
+                  >
+                    {confirmBtnName}
+                  </Button>
+                )}
+                {cancelBtnName && (
+                  <Button fullSize onClick={onClose}>
+                    {cancelBtnName}
+                  </Button>
+                )}
               </>
             </Modal.Footer>
           )}
@@ -80,7 +85,7 @@ const ShadowBoxWrapper = styled.div<{ open: boolean }>`
 const ModalWrapper = styled.div`
   width: fit-content;
   height: fit-content;
-  min-height: 250px;
+  min-height: 150px;
   background: white;
   color: white;
   z-index: 10;

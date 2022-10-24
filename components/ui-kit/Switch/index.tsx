@@ -1,23 +1,28 @@
 import { memo, useState } from 'react';
 import styled from 'styled-components';
 import { handleClick } from './helpers';
-import { THandler } from './types';
+import { SwitchThemes, THandler } from './types';
 
 type Props = {
+  theme?: SwitchThemes;
   value?: boolean;
   onChange?: THandler;
 };
-const Switch: React.FC<Props> = ({ value, onChange }) => {
+const Switch: React.FC<Props> = ({ theme = 'green', value, onChange }) => {
   const [active, setActive] = useState(!!value);
 
   return (
-    <SwitchWrapper onClick={handleClick(setActive, onChange)} active={active}>
+    <SwitchWrapper
+      theme={theme}
+      onClick={handleClick(setActive, onChange)}
+      active={active}
+    >
       <SwitchRound />
     </SwitchWrapper>
   );
 };
 
-const SwitchWrapper = styled.div<{ active: boolean }>`
+const SwitchWrapper = styled.div<{ active: boolean; theme: SwitchThemes }>`
   display: flex;
   align-items: center;
   padding: 4px;
@@ -25,7 +30,16 @@ const SwitchWrapper = styled.div<{ active: boolean }>`
   width: 40px;
   height: 20px;
   border-radius: 32px;
-  background: ${(props) => (props.active ? '#45B36B' : '#e6e8ec')};
+  background: ${(props) => {
+    if (props.active && props.theme === 'green') {
+      return '#45B36B';
+    }
+    if (props.active && props.theme === 'blue') {
+      return '#3772FF';
+    }
+
+    return '#e6e8ec';
+  }};
   transition: all 0.3s;
   cursor: pointer;
 
@@ -33,7 +47,16 @@ const SwitchWrapper = styled.div<{ active: boolean }>`
     transition: all 0.3s;
     transform: ${(props) =>
       props.active ? 'translate(20px)' : 'translate(0px)'};
-    background: ${(props) => (props.active ? '#FCFCFD' : '#141416')};
+    background: ${(props) => {
+      if (!props.active && props.theme === 'green') {
+        return '#141416';
+      }
+      if (!props.active && props.theme === 'blue') {
+        return '#3772FF';
+      }
+
+      return '#FCFCFD';
+    }};
   }
 `;
 
