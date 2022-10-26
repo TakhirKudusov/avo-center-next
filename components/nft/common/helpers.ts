@@ -42,21 +42,6 @@ const getPastTime = (timeOfEvent: string): string | undefined => {
   }
 };
 
-const calculateTimeLeft = (endTime: string): TimeBeforeEnd | undefined => {
-  const difference = +new Date(endTime) - +new Date();
-  let timeLeft: TimeBeforeEnd;
-
-  if (difference > 0) {
-    timeLeft = {
-      days: calculateTime(difference, DateTypes.days),
-      hours: calculateTime(difference, DateTypes.hours),
-      mins: calculateTime(difference, DateTypes.mins),
-      secs: calculateTime(difference, DateTypes.secs),
-    };
-    return timeLeft;
-  }
-};
-
 const fromNameFormatter = (name: string): string => {
   if (name.length > 10) {
     return name.substring(0, 10).padEnd(13, '.');
@@ -64,4 +49,4 @@ const fromNameFormatter = (name: string): string => {
   return name;
 };
 
-export { calculateTimeLeft, fromNameFormatter, getPastTime };
+export { calculateTime, fromNameFormatter, getPastTime };

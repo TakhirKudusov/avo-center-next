@@ -1,20 +1,25 @@
 import styled from 'styled-components';
 
-const Timer = () => {
+import { TimeBeforeEnd } from '../../nft/common/types';
+import { getTimeItemData } from '../../ui-kit/Timer/utils';
+
+type Props = {
+  timeBeforeEnd?: TimeBeforeEnd;
+};
+
+const Timer = ({ timeBeforeEnd }: Props) => {
+  const timeValues = getTimeItemData(timeBeforeEnd);
+
   return (
     <TimerBody>
-      <TimerItem>
-        <TimerValue>19</TimerValue>
-        <TimerLabel>Hrs</TimerLabel>
-      </TimerItem>
-      <TimerItem>
-        <TimerValue>24</TimerValue>
-        <TimerLabel>mins</TimerLabel>
-      </TimerItem>
-      <TimerItem>
-        <TimerValue>19</TimerValue>
-        <TimerLabel>secs</TimerLabel>
-      </TimerItem>
+      {timeValues
+        ?.splice(1, timeValues?.length)
+        .map(({ digit, value }, index) => (
+          <TimerItem key={index}>
+            <TimerValue>{value}</TimerValue>
+            <TimerLabel>{digit}</TimerLabel>
+          </TimerItem>
+        ))}
     </TimerBody>
   );
 };
