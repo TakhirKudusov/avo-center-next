@@ -1,20 +1,24 @@
-import { FieldProps } from 'formik';
+import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
 import { useState } from 'react';
 import styled from 'styled-components';
 import MinusSVG from '../../../assets/svg/minus.svg';
 import PlusSVG from '../../../assets/svg/plus.svg';
+import { TFormFieldProps } from '../../../common/types';
 import { THandler } from '../Switch/types';
 import { handleCountDown, handleCountUp } from './helpers';
 
 type Props = {
-  hasSchema: boolean;
-  hasError: boolean;
+  hasSchema?: boolean;
+  hasError?: boolean;
   style?: any;
   label?: string;
+  field?: FieldInputProps<any>;
+  form?: FormikProps<any>;
+  meta?: FieldMetaProps<any>;
   onCountChange?: THandler;
 };
 
-const Counter: React.FC<Props & FieldProps> = ({
+const Counter: React.FC<Props & TFormFieldProps> = ({
   hasError = false,
   hasSchema = false,
   field,
@@ -31,8 +35,8 @@ const Counter: React.FC<Props & FieldProps> = ({
       <CounterWrapper hasError={hasError} id="counter" style={style}>
         <RoundButton
           onClick={handleCountDown(
-            field?.name,
-            form,
+            field?.name ?? '',
+            form ?? ({} as any),
             hasSchema,
             onCountChange,
             setCount,
@@ -44,8 +48,8 @@ const Counter: React.FC<Props & FieldProps> = ({
         <CounterValue>{count}</CounterValue>
         <RoundButton
           onClick={handleCountUp(
-            field?.name,
-            form,
+            field?.name ?? '',
+            form ?? ({} as any),
             hasSchema,
             onCountChange,
             setCount,

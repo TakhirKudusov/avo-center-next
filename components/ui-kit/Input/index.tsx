@@ -1,17 +1,21 @@
-import { FieldProps } from 'formik';
+import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
 import { ChangeEventHandler, HTMLInputTypeAttribute } from 'react';
 import styled from 'styled-components';
+import { TFormFieldProps } from '../../../common/types';
 import { handleChange } from './helpers';
 
 type Props = {
-  hasSchema: boolean;
-  hasError: boolean;
+  hasSchema?: boolean;
+  hasError?: boolean;
   placeholder?: string;
   width?: number;
   type?: HTMLInputTypeAttribute;
+  field?: FieldInputProps<any>;
+  form?: FormikProps<any>;
+  meta?: FieldMetaProps<any>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 };
-const Input: React.FC<Props & FieldProps> = ({
+const Input: React.FC<Props & TFormFieldProps> = ({
   hasError = false,
   hasSchema = false,
   type,
@@ -28,7 +32,12 @@ const Input: React.FC<Props & FieldProps> = ({
       width={width}
       placeholder={placeholder}
       hasError={hasError}
-      onChange={handleChange(field?.name, form, hasSchema, onChange)}
+      onChange={handleChange(
+        field?.name ?? '',
+        form ?? ({} as any),
+        hasSchema,
+        onChange,
+      )}
     />
   );
 };

@@ -1,35 +1,45 @@
-import { FieldProps } from 'formik';
+import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
 import { useState } from 'react';
 import styled from 'styled-components';
 import ChevronDownSVG from '../../../assets/svg/chevron-down.svg';
+import { TFormFieldProps } from '../../../common/types';
 import { SelectItemBackground } from './enums';
 import { SelectItemSize } from './enums/selectItemSize.enum';
 import { handleDropdownExpand, handleDropdownItemClick } from './helpers';
 import { SelectItem } from './types';
 
 type Props = {
-  hasError: boolean;
-  hasSchema: boolean;
+  hasError?: boolean;
+  hasSchema?: boolean;
   items?: SelectItem[];
   background?: SelectItemBackground;
   placeholder?: string;
   size?: SelectItemSize;
   showImage?: boolean;
+  value?: SelectItem;
   style?: any;
+  field?: FieldInputProps<any>;
+  form?: FormikProps<any>;
+  meta?: FieldMetaProps<any>;
+  // TODO Add onChange
 };
-const Select: React.FC<Props & FieldProps> = ({
+const Select: React.FC<Props & TFormFieldProps> = ({
   background = SelectItemBackground.None,
   size = SelectItemSize.Small,
   placeholder = 'Select item',
   hasError = false,
+  hasSchema = false,
   field,
-  hasSchema,
   form,
   showImage,
+  value,
   style,
   items,
 }) => {
-  const selectedItem = items?.find((item) => item.value === field?.value);
+  const selectedItem = items?.find((item) => {
+    const curValue = field?.value ?? value;
+    return item.value === curValue || item.value === curValue?.value;
+  });
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState<SelectItem | undefined>(
     selectedItem,
@@ -61,8 +71,8 @@ const Select: React.FC<Props & FieldProps> = ({
             isSelected={item.value === selected?.value}
             onClick={handleDropdownItemClick(
               item,
-              field?.name,
-              form,
+              field?.name ?? '',
+              form ?? ({} as any),
               hasSchema,
               setSelected,
               setExpanded,
