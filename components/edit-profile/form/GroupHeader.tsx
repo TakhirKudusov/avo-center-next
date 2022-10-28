@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 import ExclamationSVG from '../../../assets/svg/exclamation.svg';
+import { memo, ReactNode } from 'react';
+import { HeaderTextEnum } from '../common/enums';
 
-const Name = () => {
+type Props = {
+  header: HeaderTextEnum;
+};
+
+const GroupHeader = ({ header }: Props) => {
   return (
     <>
-      <Name.Header>
-        <Name.HeaderText>Account info</Name.HeaderText>
-        <Name.ExclamationIcon />
-      </Name.Header>
+      <GroupHeader.Header type={header}>
+        <GroupHeader.HeaderText>{header}</GroupHeader.HeaderText>
+        {header === 'Account info' && <GroupHeader.ExclamationIcon />}
+      </GroupHeader.Header>
     </>
   );
 };
@@ -17,7 +23,6 @@ const ExclamationIcon = styled(ExclamationSVG)`
 `;
 
 const HeaderText = styled.p`
-  width: 272px;
   height: 24px;
   font-family: 'Poppins';
   font-style: normal;
@@ -26,19 +31,22 @@ const HeaderText = styled.p`
   line-height: 24px;
   color: #23262f;
   margin-top: 0;
+  margin-bottom: 0;
 `;
 
-const Header = styled.div`
+const Header = styled.div<{ type?: string }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   width: 744px;
   height: 24px;
+  margin-bottom: 20px;
+  margin-top: ${({ type }) => type === 'Social' && '20px'};
 `;
 
-Name.Header = Header;
-Name.HeaderText = HeaderText;
-Name.ExclamationIcon = ExclamationIcon;
+GroupHeader.Header = Header;
+GroupHeader.HeaderText = HeaderText;
+GroupHeader.ExclamationIcon = ExclamationIcon;
 
-export default Name;
+export default memo(GroupHeader);

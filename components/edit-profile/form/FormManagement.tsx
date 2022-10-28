@@ -1,18 +1,35 @@
-import styled from 'styled-components';
+import { FormAction, FormData, FormItem } from '../common/types';
+import React, { Dispatch, memo } from 'react';
+import FormInput from './FormInput';
+import { FormNames } from '../common/enums';
+import FormTextarea from './FormTextarea';
+import AddAdditionalSocialAccount from './AddAdditionalSocialAccount';
 
-const Body = () => {
-  return <Body.Container></Body.Container>;
+type Props = {
+  data: FormItem;
+  dispatch: Dispatch<FormAction>;
+  state: FormData;
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 32px;
-  width: 744px;
-  height: 280px;
-`;
+const FormManagement: React.FC<Props> = ({ data, dispatch, state }) => {
+  switch (data.name) {
+    case FormNames.NAME:
+      return <FormInput dispatch={dispatch} data={data} state={state.name} />;
+    case FormNames.BIO:
+      return <FormTextarea dispatch={dispatch} data={data} state={state.bio} />;
+    case FormNames.PORTFOLIO_OR_WEBSITE:
+      return (
+        <FormInput dispatch={dispatch} data={data} state={state.website} />
+      );
+    case FormNames.TWITTER:
+      return (
+        <FormInput dispatch={dispatch} data={data} state={state.twitter} />
+      );
+    case FormNames.ADDITIONAL_SOCIAL_ACCOUNT:
+      return <AddAdditionalSocialAccount />;
+    default:
+      return <div></div>;
+  }
+};
 
-Body.Container = Container;
-
-export default Body;
+export default memo(FormManagement);

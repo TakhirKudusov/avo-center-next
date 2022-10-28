@@ -1,43 +1,53 @@
 import Header from './GroupHeader';
-import {
-  ErrorMessages,
-  FormActionKind,
-  FormNames,
-  FormPlaceHolders,
-  HeaderTextEnum,
-} from '../common/enums';
 import InputContainer from './InputContainer';
 import { Input } from '../../ui-kit';
-import React, { Dispatch } from 'react';
+import React, { Dispatch, memo } from 'react';
 import { FormAction, FormData, FormItem, ItemData } from '../common/types';
+import TwitterButton from './TwitterButton';
+import styled from 'styled-components';
 
 type Props = {
   dispatch: Dispatch<FormAction>;
-  data: ItemData;
+  state: ItemData;
+  data: FormItem;
 };
 
-const Name: React.FC<Props> = ({ dispatch, state }) => {
+const FormInput: React.FC<Props> = ({ dispatch, state, data }) => {
   return (
     <>
-      <Header header={HeaderTextEnum.ACCOUNT_INFO} />
+      {data.groupHeader && <Header header={data.groupHeader} />}
       <InputContainer
-        errorMessage={ErrorMessages.ERROR_WITH_NAME}
-        isError={state.name.isError}
-        header={FormNames.NAME}
+        errorMessage={data.errorMessage!}
+        isError={state.isError}
+        header={data.name}
       >
-        <Input
-          value={state.name.value}
-          placeholder={FormPlaceHolders.ENTER_YOUR_DISPLAY_NAME}
-          onChange={(e) =>
-            dispatch({
-              type: FormActionKind.ADD_NAME,
-              payload: e.target.value,
-            })
-          }
-        />
+        <Wrapper>
+          <Input
+            isError={state.isError}
+            width={data?.width}
+            value={state.value}
+            placeholder={data.placeHolder}
+            onChange={(e) =>
+              dispatch({
+                type: data.actionType,
+                payload: e.target.value,
+              })
+            }
+          />
+          {data.hasButton && (
+            <TwitterButton state={state.value} isError={state.isError} />
+          )}
+        </Wrapper>
       </InputContainer>
     </>
   );
 };
 
-export default Name;
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+`;
+
+export default memo(FormInput);
