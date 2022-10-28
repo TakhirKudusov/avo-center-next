@@ -23,7 +23,7 @@ const Input: React.FC<Props & FieldProps> = ({
 }) => {
   return (
     <InputItem
-      value={field.value}
+      value={field?.value}
       type={type}
       width={width}
       placeholder={placeholder}
