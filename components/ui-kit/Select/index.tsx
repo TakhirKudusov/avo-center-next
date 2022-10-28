@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { FieldProps } from 'formik';
+import { useState } from 'react';
 import styled from 'styled-components';
 import ChevronDownSVG from '../../../assets/svg/chevron-down.svg';
 import { SelectItemBackground } from './enums';
@@ -7,25 +8,32 @@ import { handleDropdownExpand, handleDropdownItemClick } from './helpers';
 import { SelectItem } from './types';
 
 type Props = {
-  items: SelectItem[];
+  hasError: boolean;
+  hasSchema: boolean;
+  items?: SelectItem[];
   background?: SelectItemBackground;
   placeholder?: string;
   size?: SelectItemSize;
   showImage?: boolean;
-  value?: SelectItem;
   style?: any;
 };
-const Select: React.FC<Props> = ({
+const Select: React.FC<Props & FieldProps> = ({
   background = SelectItemBackground.None,
   size = SelectItemSize.Small,
   placeholder = 'Select item',
-  value,
+  hasError = false,
+  field,
+  hasSchema,
+  form,
   showImage,
   style,
   items,
 }) => {
+  const selectedItem = items?.find((item) => item.value === field?.value);
   const [expanded, setExpanded] = useState(false);
-  const [selected, setSelected] = useState<SelectItem | undefined>(value);
+  const [selected, setSelected] = useState<SelectItem | undefined>(
+    selectedItem,
+  );
 
   return (
     <SelectBody>
@@ -34,6 +42,7 @@ const Select: React.FC<Props> = ({
         background={background}
         size={size}
         onClick={handleDropdownExpand(setExpanded)}
+        hasError={hasError}
       >
         {showImage && (
           <SelectDropdownItemImage
@@ -45,12 +54,19 @@ const Select: React.FC<Props> = ({
           <ChevronDownSVG />
         </ChevronWrapper>
       </SelectHeader>
-      <SelectDropdown expanded={expanded} size={size}>
-        {items.map((item, index) => (
+      <SelectDropdown expanded={expanded} size={size} style={style}>
+        {items?.map((item, index) => (
           <SelectDropdownItem
             key={`drop-down-${index}`}
             isSelected={item.value === selected?.value}
-            onClick={handleDropdownItemClick(item, setSelected, setExpanded)}
+            onClick={handleDropdownItemClick(
+              item,
+              field?.name,
+              form,
+              hasSchema,
+              setSelected,
+              setExpanded,
+            )}
           >
             {showImage && (
               <SelectDropdownItemImage
@@ -69,7 +85,11 @@ const SelectBody = styled.div<any>`
   position: relative;
 `;
 
-const SelectHeader = styled.div<any>`
+const SelectHeader = styled.div<{
+  background: SelectItemBackground;
+  size: SelectItemSize;
+  hasError: boolean;
+}>`
   position: relative;
   font-size: 14px;
   border: 2px solid #e6e8ec;
@@ -88,6 +108,7 @@ const SelectHeader = styled.div<any>`
     props.size === SelectItemSize.Small ? '10px 10px' : '12px 16px'};
   border-radius: ${(props) =>
     props.background === SelectItemBackground.None ? '8px' : '12px'};
+  border-color: ${(props) => (props.hasError ? '#ef466f' : '#e6e8ec')};
   padding-right: 40px;
 `;
 
