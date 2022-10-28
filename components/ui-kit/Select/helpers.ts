@@ -1,3 +1,4 @@
+import { FormikProps } from 'formik';
 import { Dispatch, SetStateAction } from 'react';
 import { SelectItem } from './types';
 
@@ -9,12 +10,21 @@ const handleDropdownExpand =
 const handleDropdownItemClick =
   (
     item: SelectItem,
+    fieldName: string,
+    form: FormikProps<any>,
+    hasSchema: boolean,
     setSelected: Dispatch<SetStateAction<SelectItem | undefined>>,
     setExpanded: Dispatch<SetStateAction<boolean>>,
   ) =>
-  () => {
-    setSelected(item);
-    setExpanded(false);
-  };
+    () => {
+      form?.setFieldTouched(fieldName, true);
+      form?.setFieldValue(fieldName, item.value);
+
+      if (hasSchema) {
+        form?.validateField(fieldName);
+      }
+      setSelected(item);
+      setExpanded(false);
+    };
 
 export { handleDropdownExpand, handleDropdownItemClick };

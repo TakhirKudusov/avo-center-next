@@ -1,14 +1,20 @@
 import styled from 'styled-components';
 import { Timer } from './Timer';
 
-const Auction = () => {
+import { TimeBeforeEnd } from '../../nft/common/types';
+
+type Props = {
+  timeBeforeEnd?: TimeBeforeEnd;
+};
+
+const Auction = ({ timeBeforeEnd }: Props) => {
   return (
     <AuctionWrapper>
       <BidTitle>Current Bid</BidTitle>
       <BidValue>1.00 AVO</BidValue>
       <BidPrice>$3,618.36</BidPrice>
       <AuctionTitle>Auction ending in</AuctionTitle>
-      <Timer />
+      <Timer timeBeforeEnd={timeBeforeEnd} />
     </AuctionWrapper>
   );
 };
@@ -17,7 +23,7 @@ const AuctionWrapper = styled.div`
   font-family: 'Poppins', sans-serif;
   background: #fcfcfd;
   border: 2px solid #e6e8ec;
-  box-shadow: 0px 64px 64px -48px rgba(31, 47, 70, 0.12);
+  box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
   border-radius: 24px;
   padding: 32px 0;
   margin-top: 40px;

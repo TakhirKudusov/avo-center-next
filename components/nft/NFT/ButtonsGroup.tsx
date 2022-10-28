@@ -24,7 +24,7 @@ const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
+  padding: 0;
   gap: 8px;
   width: 516px;
   height: 48px;

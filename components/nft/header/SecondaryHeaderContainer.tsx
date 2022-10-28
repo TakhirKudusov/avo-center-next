@@ -57,7 +57,7 @@ const ParametersContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px;
+  padding: 0;
   gap: 16px;
 `;
 

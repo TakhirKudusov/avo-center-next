@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import React, { memo } from 'react';
-import { TimeBeforeEnd } from '../common/types';
+
+import { TimeBeforeEnd } from '../../nft/common/types';
+
+import { getTimeItemData } from './utils';
 
 type Props = {
   timeBeforeEnd: TimeBeforeEnd;
@@ -11,11 +14,11 @@ const Timer: React.FC<Props> = ({ timeBeforeEnd }) => {
     <TimeContainer>
       <EndsParagraph>End in</EndsParagraph>
       <TimeGroup>
-        {Object.entries(timeBeforeEnd).map((item, index) => {
+        {getTimeItemData(timeBeforeEnd)?.map(({ digit, value }, index) => {
           return (
             <TimeItem key={index}>
-              <span>{item[1]}</span>
-              <span>{item[0]}</span>
+              <TimeValue>{value}</TimeValue>
+              <TimeDigit>{digit}</TimeDigit>
             </TimeItem>
           );
         })}
@@ -62,15 +65,17 @@ const TimeItem = styled.p`
   line-height: 24px;
   color: #23262f;
   text-transform: uppercase;
-  & :last-child {
-    font-size: 12px;
-    color: #777e90;
-    position: relative;
-    bottom: -3px;
-  }
-  & :first-child {
-    width: 30px;
-  }
+`;
+
+const TimeValue = styled.span`
+  width: 30px;
+`;
+
+const TimeDigit = styled.span`
+  font-size: 12px;
+  color: #777e90;
+  position: relative;
+  bottom: -3px;
 `;
 
 export default memo(Timer);

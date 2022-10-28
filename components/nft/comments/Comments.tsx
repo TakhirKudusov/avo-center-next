@@ -67,7 +67,7 @@ const CommentsBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
+  padding: 0;
   gap: 24px;
   height: 508px;
 `;

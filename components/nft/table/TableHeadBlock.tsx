@@ -22,7 +22,7 @@ const TableHead = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 16px 0px;
+  padding: 16px 0;
   gap: 58px;
 `;
 

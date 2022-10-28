@@ -1,45 +1,61 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
+import { useState } from 'react';
 import styled from 'styled-components';
 import MinusSVG from '../../../assets/svg/minus.svg';
 import PlusSVG from '../../../assets/svg/plus.svg';
+import { TFormFieldProps } from '../../../common/types';
+import { THandler } from '../Switch/types';
+import { handleCountDown, handleCountUp } from './helpers';
 
 type Props = {
+  hasSchema?: boolean;
+  hasError?: boolean;
   style?: any;
   label?: string;
-  onCountChange?: (value: number) => void;
+  field?: FieldInputProps<any>;
+  form?: FormikProps<any>;
+  meta?: FieldMetaProps<any>;
+  onCountChange?: THandler;
 };
 
-const Counter: React.FC<Props> = ({ style, label, onCountChange }) => {
+const Counter: React.FC<Props & TFormFieldProps> = ({
+  hasError = false,
+  hasSchema = false,
+  field,
+  form,
+  style,
+  label,
+  onCountChange,
+}) => {
   const [count, setCount] = useState(0);
-
-  const handleCountDown =
-    (setCount: Dispatch<SetStateAction<number>>) => () => {
-      setCount((prev) => {
-        if (onCountChange) {
-          onCountChange(prev - 1);
-        }
-        return prev > 0 ? prev - 1 : prev;
-      });
-    };
-
-  const handleCountUp = (setCount: Dispatch<SetStateAction<number>>) => () => {
-    setCount((prev) => {
-      if (onCountChange) {
-        onCountChange(prev + 1);
-      }
-      return prev + 1;
-    });
-  };
 
   return (
     <>
-      <CounterLabel htmlFor="counter">{label}</CounterLabel>
-      <CounterWrapper id="counter" style={style}>
-        <RoundButton onClick={handleCountDown(setCount)} type="button">
+      {!!label && <CounterLabel htmlFor="counter">{label}</CounterLabel>}
+      <CounterWrapper hasError={hasError} id="counter" style={style}>
+        <RoundButton
+          onClick={handleCountDown(
+            field?.name ?? '',
+            form ?? ({} as any),
+            hasSchema,
+            onCountChange,
+            setCount,
+          )}
+          type="button"
+        >
           <MinusSVG />
         </RoundButton>
         <CounterValue>{count}</CounterValue>
-        <RoundButton onClick={handleCountUp(setCount)} type="button">
+        <RoundButton
+          onClick={handleCountUp(
+            field?.name ?? '',
+            form ?? ({} as any),
+            hasSchema,
+            onCountChange,
+            setCount,
+          )}
+          type="button"
+        >
           <PlusSVG />
         </RoundButton>
       </CounterWrapper>
@@ -47,7 +63,7 @@ const Counter: React.FC<Props> = ({ style, label, onCountChange }) => {
   );
 };
 
-const CounterWrapper = styled.div`
+const CounterWrapper = styled.div<{ hasError: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,7 +71,8 @@ const CounterWrapper = styled.div`
   border: 2px solid #e6e8ec;
   border-radius: 12px;
   padding: 8px 16px;
-  margin-top: 10px;
+
+  border-color: ${(props) => (props.hasError ? '#ef466f' : '#e6e8ec')};
 `;
 
 const CounterLabel = styled.label`

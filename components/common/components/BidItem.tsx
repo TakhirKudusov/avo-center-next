@@ -47,7 +47,7 @@ const BidWrapper = styled.div`
   flex-direction: column;
   background: #fff;
   border-radius: 20px;
-  box-shadow: 0px 0px 40px -2px rgba(31, 47, 70, 0.12);
+  box-shadow: 0 0 40px -2px rgba(31, 47, 70, 0.12);
   overflow: hidden;
 `;
 

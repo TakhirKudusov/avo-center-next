@@ -79,7 +79,7 @@ const ServiceFeeWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px;
+  padding: 0;
   gap: 12px;
   width: 516px;
   height: 24px;

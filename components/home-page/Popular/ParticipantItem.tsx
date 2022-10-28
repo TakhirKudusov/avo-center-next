@@ -56,7 +56,7 @@ const ParticipantWrapper = styled.div`
   transition: all 0.3s;
 
   &:hover {
-    box-shadow: 0px 64px 64px -48px rgba(31, 47, 70, 0.12);
+    box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
     height: 263px;
 
     & > div:last-child > div:first-child {
