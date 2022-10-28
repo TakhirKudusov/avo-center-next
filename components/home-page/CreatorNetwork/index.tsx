@@ -6,8 +6,12 @@ import Button from '../../ui-kit/Button/Button';
 import Auction from './Auction';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 import Link from 'next/link';
+import { useTimer } from '../../ui-kit';
+import { NFTData } from '../../../mock-data/tagsData';
 
 const CreatorNetwork = () => {
+  const { timeBeforeEnd } = useTimer(NFTData);
+
   return (
     <CreatorNetworkWrapper>
       <Player />
@@ -35,7 +39,7 @@ const CreatorNetwork = () => {
             </InfoItemBody>
           </InfoItem>
         </InfoItems>
-        <Auction />
+        <Auction timeBeforeEnd={timeBeforeEnd} />
         <Link href={'/nft/newNFT'}>
           <Button
             type={ButtonType.Secondary}

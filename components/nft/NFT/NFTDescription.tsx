@@ -2,29 +2,18 @@ import SecondaryHeaderContainer from '../header/SecondaryHeaderContainer';
 import React, { memo, useEffect, useState } from 'react';
 import { NFT, TimeBeforeEnd } from '../common/types';
 import styled from 'styled-components';
-import { calculateTimeLeft } from '../common/helpers';
 import NFTActions from './NFTActions';
 import NFTListingsBlock from './NFTListingsBlock';
-import Timer from '../timer/Timer';
 import TabButtonsGroup from './TabButtonsGroup';
+import { NFTDescriptionData } from './types';
+import { Timer, useTimer } from '../../ui-kit';
 
 type Props = {
-  data: Omit<NFT, 'image' | 'tags'>;
+  data: NFTDescriptionData;
 };
 
 const NFTDescription: React.FC<Props> = ({ data }) => {
-  const [timeBeforeEnd, setTimeBeforeEnd] = useState<
-    TimeBeforeEnd | undefined
-  >();
-
-  useEffect(() => {
-    if (data?.bid?.isOnBid) {
-      const intervalId = setInterval(() => {
-        setTimeBeforeEnd(calculateTimeLeft(data.bid?.endTime!));
-      }, 1000);
-      return () => clearInterval(intervalId);
-    }
-  }, []);
+  const { timeBeforeEnd } = useTimer(data);
 
   return (
     <div>
