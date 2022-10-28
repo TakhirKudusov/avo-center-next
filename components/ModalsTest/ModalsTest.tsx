@@ -161,7 +161,10 @@ const ModalsTest = () => {
         >
           <>
             <PlaceBidInfo>You are about to purchase AvoNFT</PlaceBidInfo>
-            <Counter label="BID PRICE" style={{ width: '384px' }} />
+            <Counter
+              label="BID PRICE"
+              style={{ width: '384px', marginTop: '10px' }}
+            />
           </>
         </StepModal>
         {/* ///////////////////////////////////////////////////////////////////////////// */}

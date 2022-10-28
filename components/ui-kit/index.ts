@@ -14,4 +14,6 @@ export { default as CoppyToClipboard } from './CoppyToClipboard';
 export { default as Tooltip } from './Tooltip';
 export { default as Switch } from './Switch';
 export { default as Modal } from './Modal';
+export { default as FormItem } from './FormItem';
+export { default as Form } from './Form';
 export { default as Timer, useTimer } from './Timer';
