@@ -16,14 +16,6 @@ export enum FormNames {
   PHOTO_OF_DOCUMENTS = 'photo of documents',
 }
 
-export enum FormTypes {
-  INPUT = 'input',
-  TEXTAREA = 'textarea',
-  SOCIAL_MEDIA_INPUT = 'social-media-input',
-  ADD_SOCIAL_MEDIA_BTN = 'add-social-media-btn',
-  PHOTO_UPLOADER = 'photo-uploader',
-}
-
 export enum FormPlaceHolders {
   ENTER_YOUR_DISPLAY_NAME = 'Enter your display name',
   ABOUT_YOURSELF_IN_A_FEW_WORDS = 'About yourself in a few words',

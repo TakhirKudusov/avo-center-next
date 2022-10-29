@@ -9,14 +9,7 @@ type Props = {
 
 const AddAdditionalSocialAccountButton = ({ setIsOpen }: Props) => {
   return (
-    <Button
-      onClick={() =>
-        setIsOpen((prev) => {
-          console.log(!prev);
-          return !prev;
-        })
-      }
-    >
+    <Button onClick={() => setIsOpen((prev) => !prev)}>
       <AddAdditionalSocialAccountButton.UnionIcon />
       <AddAdditionalSocialAccountButton.ButtonText>
         Add more social account
