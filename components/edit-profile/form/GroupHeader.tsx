@@ -41,8 +41,7 @@ const Header = styled.div<{ type?: string }>`
   align-items: flex-start;
   width: 744px;
   height: 24px;
-  margin-bottom: 20px;
-  margin-top: ${({ type }) => type === 'Social' && '20px'};
+  margin-top: ${({ type }) => type === 'Social' && '50px'};
 `;
 
 GroupHeader.Header = Header;

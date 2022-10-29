@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import UserCard from '../user-card';
-import Form from '../form';
+import FormBody from '../form';
 
 const Body = () => {
   return (
     <Body.Container>
       <UserCard />
-      <Form />
+      <FormBody />
     </Body.Container>
   );
 };

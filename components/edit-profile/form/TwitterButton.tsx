@@ -1,63 +1,21 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { Button } from '../../ui-kit';
 
-type Props = {
-  isError: boolean;
-  state: string;
-};
-
-const TwitterButton = ({ isError, state }: Props) => {
+const TwitterButton = () => {
   return (
-    <TwitterButton.Btn isError={isError} state={state}>
-      Verify account
-    </TwitterButton.Btn>
+    <TwitterButton.Wrapper>
+      <Button size={0}>Verify account</Button>
+    </TwitterButton.Wrapper>
   );
 };
 
-const Btn = styled.button<{ isError?: boolean; state?: string }>`
+const Wrapper = styled.div<{ isError?: boolean; state?: string }>`
   position: relative;
-  right: 17.5%;
-  top: 10px;
-  width: 120px;
-  height: 32px;
-  border-radius: 10px;
-  background-color: #fafafb;
-  font-family: 'DM Sans';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 16px;
-  text-align: center;
-  border-width: 2px;
-  border-style: solid;
-  ${({ isError, state }) => {
-    if (state === '') {
-      return css`
-        border-color: #e6e8ec;
-        color: #76787b;
-      `;
-    } else if (isError) {
-      return css`
-        border-color: #c7aeb5;
-        color: #76787b;
-      `;
-    } else {
-      return css`
-        border-color: #e6e8ec;
-        cursor: pointer;
-        color: #23262f;
-      `;
-    }
-  }}
-  // border: 2px solid ${({ isError }) => (isError ? '#c7aeb5' : '#e6e8ec')};
-  // color: ${({ isError }) => (isError ? '#76787b' : '#23262f')};
-  // cursor: ${({ isError }) => !isError && 'pointer'};
-  transition: 0.5s;
-  &:hover {
-    background-color: ${({ isError, state }) =>
-      !isError && state !== '' && '#e6e8ec'};
-  }
+  left: 29%;
+  bottom: 42px;
+  margin-bottom: -10px;
 `;
 
-TwitterButton.Btn = Btn;
+TwitterButton.Wrapper = Wrapper;
 
 export default TwitterButton;
