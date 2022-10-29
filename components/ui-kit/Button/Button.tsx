@@ -39,7 +39,7 @@ const Button: React.FC<Props> = ({
     <ButtonBody
       style={style}
       size={size}
-      type={type}
+      btnType={type}
       disabled={disabled || failed}
       round={round}
       fullSize={fullSize}
@@ -59,76 +59,85 @@ const Button: React.FC<Props> = ({
   );
 };
 
-const ButtonBody = styled.button<any>`
+const ButtonBody = styled.button<{
+  disabled?: boolean;
+  size: ButtonSize;
+  btnType: ButtonType;
+  failed?: boolean;
+  round?: boolean;
+  fullSize?: boolean;
+}>`
   font-weight: 700;
-  border: 2px solid;
+  border: ${({ btnType }) =>
+    btnType === ButtonType.Outlined ? 'none' : '2px solid'};
   box-sizing: border-box;
   font-family: 'DM Sans', sans-serif;
-  cursor: ${(props) => (props.disabled ? 'unset' : 'pointer')};
+  cursor: ${({ disabled }) => (disabled ? 'unset' : 'pointer')};
   transition: all 0.3s;
-  font-size: ${(props) =>
-    [ButtonSize.Small, ButtonSize.Medium].includes(props.size)
-      ? '14px'
-      : '16px'};
-  border-color: ${(props) =>
-    props.type === ButtonType.Primary || props.disabled
+  font-size: ${({ size }) =>
+    [ButtonSize.Small, ButtonSize.Medium].includes(size) ? '14px' : '16px'};
+  border-color: ${({ btnType, disabled }) =>
+    btnType === ButtonType.Primary || disabled
       ? '#e6e8ec'
       : 'rgba(51, 51, 51, 1)'};
-  background: ${(props) => {
-    if (props.type === ButtonType.Primary || props.disabled) {
+  background: ${({ btnType, disabled }) => {
+    if (btnType !== ButtonType.Secondary || disabled) {
       return 'none';
     }
 
     return 'rgba(51, 51, 51, 1)';
   }};
-  color: ${(props) => {
-    if (props.type === ButtonType.Primary) {
+  color: ${({ btnType, disabled, failed }) => {
+    if (btnType === ButtonType.Outlined) {
+      return '#777E91';
+    }
+    if (btnType === ButtonType.Primary) {
       return 'rgba(35, 38, 47, 1)';
     }
-    if (props.failed) {
+    if (failed) {
       return '#EF466F';
     }
-    if (props.disabled) {
+    if (disabled) {
       return '#777e91';
     }
 
     return '#fff';
   }};
-  border-radius: ${(props) => (props.round ? '90px' : '8px')};
-  padding: ${(props) =>
-    props.size === ButtonSize.Small
+  border-radius: ${({ round }) => (round ? '90px' : '8px')};
+  padding: ${({ size }) =>
+    size === ButtonSize.Small
       ? '4px 12px'
-      : props.size === ButtonSize.Medium
+      : size === ButtonSize.Medium
       ? '8px 14px'
       : '10px 24px'};
-  height: ${(props) =>
-    props.size === ButtonSize.Small
+  height: ${({ size }) =>
+    size === ButtonSize.Small
       ? '32px'
-      : props.size === ButtonSize.Medium
+      : size === ButtonSize.Medium
       ? '40px'
       : '48px'};
-  width: ${(props) => (props.fullSize ? '100%' : 'fit-content')};
+  width: ${({ fullSize }) => (fullSize ? '100%' : 'fit-content')};
 
   &:hover {
-    border-color: ${(props) => {
-      if (props.type === ButtonType.Primary) {
+    border-color: ${({ btnType, disabled }) => {
+      if (btnType === ButtonType.Primary) {
         return 'rgba(#e6e8ec, 0.8)';
       }
-      if (props.disabled) {
+      if (disabled) {
         return '#E6E8EC';
       }
 
       return 'rgba(51, 51, 51, 0.8)';
     }};
-    background: ${(props) => {
-      if (props.type === ButtonType.Primary || props.disabled) {
+    background: ${({ btnType, disabled }) => {
+      if (btnType !== ButtonType.Secondary || disabled) {
         return 'none';
       }
 
       return 'rgba(51, 51, 51, 0.8)';
     }};
-    color: ${(props) =>
-      props.type === ButtonType.Primary
+    color: ${({ btnType }) =>
+      btnType === ButtonType.Primary
         ? 'rgba(35, 38, 47, 0.8)'
         : 'rgba(#fff, 0.8)'};
   }
