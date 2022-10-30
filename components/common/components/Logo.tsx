@@ -1,20 +1,24 @@
 import { useRouter } from 'next/router';
+import { ForwardedRef, forwardRef } from 'react';
 import styled from 'styled-components';
 import LogoSVG from '../../../assets/svg/logo.svg';
 
-const Logo = () => {
+const Logo = forwardRef((props: {}, ref: ForwardedRef<HTMLDivElement>) => {
   const router = useRouter();
 
   const handleClick = () => {
     router.push('/');
   };
+
   return (
-    <LogoWrapper onClick={handleClick}>
+    <LogoWrapper ref={ref} onClick={handleClick}>
       <LogoSVG />
       <LogoTitle>AvoNFT</LogoTitle>
     </LogoWrapper>
   );
-};
+});
+
+Logo.displayName = 'Logo';
 
 const LogoWrapper = styled.div`
   display: flex;

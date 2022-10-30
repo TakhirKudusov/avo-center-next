@@ -94,7 +94,7 @@ const CollectibleForm = () => {
             <Button
               style={{ color: '#fff' }}
               size={ButtonSize.Large}
-              type={ButtonType.Secondary}
+              btnType={ButtonType.Secondary}
             >
               Create item <ArrowRightSVG style={{ marginLeft: '15px' }} />
             </Button>

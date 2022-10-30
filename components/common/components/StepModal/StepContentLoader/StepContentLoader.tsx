@@ -34,6 +34,8 @@ const StyledEllipseLoading = styled(EllipseLoading)`
   -webkit-animation: spin 1.5s linear infinite;
   -moz-animation: spin 1.5s linear infinite;
   animation: spin 1.5s linear infinite;
+  margin-right: 4px;
+  margin-left: 4px;
 
   @-moz-keyframes spin {
     100% {

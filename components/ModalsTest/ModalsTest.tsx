@@ -95,13 +95,12 @@ const ModalsTest = () => {
       totalBidAmount: 0,
     });
   };
-  const handleServiceFeeChange = (e: any) => {
-    const { value } = e.target;
-
-    setPutOnSaleData({
-      price: value,
-      totalBidAmount: +(value * 0.015).toFixed(2),
-    });
+  const handleServiceFeeChange = (value: string | number) => {
+    if (typeof value === 'number')
+      setPutOnSaleData({
+        price: value,
+        totalBidAmount: +(value * 0.015).toFixed(2),
+      });
   };
 
   return (
@@ -110,35 +109,35 @@ const ModalsTest = () => {
         <Button
           onClick={handleContactWalletOpen}
           size={ButtonSize.Medium}
-          type={ButtonType.Primary}
+          btnType={ButtonType.Primary}
         >
           Connect wallet
         </Button>
         <Button
           onClick={handlePlaceBidOpen}
           size={ButtonSize.Medium}
-          type={ButtonType.Primary}
+          btnType={ButtonType.Primary}
         >
           Place a Bid
         </Button>
         <Button
           onClick={handlePurchaseOpen}
           size={ButtonSize.Medium}
-          type={ButtonType.Primary}
+          btnType={ButtonType.Primary}
         >
           Purchase
         </Button>
         <Button
           onClick={handleAcceptBidOpen}
           size={ButtonSize.Medium}
-          type={ButtonType.Primary}
+          btnType={ButtonType.Primary}
         >
           Accept Bid
         </Button>
         <Button
           onClick={handlePutOnSaleOpen}
           size={ButtonSize.Medium}
-          type={ButtonType.Primary}
+          btnType={ButtonType.Primary}
         >
           Put on Sale
         </Button>
@@ -267,6 +266,7 @@ const ModalsTest = () => {
             </PutOnSaleWrapper>
             <PutOnSaleAmountWrapper>
               <Input
+                value={putOnSaleData.price}
                 type="number"
                 onChange={handleServiceFeeChange}
                 placeholder="Enter your price"

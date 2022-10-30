@@ -1,10 +1,17 @@
-import { ChangeEventHandler, HTMLInputTypeAttribute, memo } from 'react';
+import {
+  ChangeEventHandler,
+  HTMLInputTypeAttribute,
+  memo,
+  useEffect,
+  useState,
+} from 'react';
 import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
 import styled, { css } from 'styled-components';
 import { TFormFieldProps } from '../../../common/types';
-import { handleChange } from './helpers';
+import useConnectForm from '../useConnectForm';
 
 type Props = {
+  value: string | number;
   hasSchema?: boolean;
   hasError?: boolean;
   placeholder?: string;
@@ -13,8 +20,7 @@ type Props = {
   field?: FieldInputProps<any>;
   form?: FormikProps<any>;
   meta?: FieldMetaProps<any>;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  value?: string;
+  onChange?: (value: string | number) => void;
   isError?: boolean;
 };
 
@@ -23,24 +29,30 @@ const Input: React.FC<Props & TFormFieldProps> = ({
   hasSchema = false,
   type,
   width,
+  value,
   placeholder,
   field,
   form,
   onChange,
 }) => {
+  const [curValue, setCurValue] = useState<string | number>(field?.value || '');
+
+  const inputValue = value ?? curValue;
+
+  useConnectForm(curValue, form, field, hasSchema, onChange);
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setCurValue(event.target.value);
+  };
+
   return (
     <InputItem
-      value={field?.value}
+      value={inputValue}
       type={type}
       width={width}
       placeholder={placeholder}
       hasError={hasError}
-      onChange={handleChange(
-        field?.name ?? '',
-        form ?? ({} as any),
-        hasSchema,
-        onChange,
-      )}
+      onChange={handleChange}
     />
   );
 };

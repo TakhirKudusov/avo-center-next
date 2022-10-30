@@ -14,7 +14,7 @@ const WalletCard = () => {
       </InfoRow>
       <Button
         size={ButtonSize.Small}
-        type={ButtonType.Primary}
+        btnType={ButtonType.Primary}
         fullSize={true}
         style={{ marginTop: '10px' }}
       >

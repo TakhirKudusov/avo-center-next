@@ -5,7 +5,7 @@ import MinusSVG from '../../../assets/svg/minus.svg';
 import PlusSVG from '../../../assets/svg/plus.svg';
 import { TFormFieldProps } from '../../../common/types';
 import { THandler } from '../Switch/types';
-import { handleCountDown, handleCountUp } from './helpers';
+import useConnectForm from '../useConnectForm';
 
 type Props = {
   hasSchema?: boolean;
@@ -29,33 +29,33 @@ const Counter: React.FC<Props & TFormFieldProps> = ({
 }) => {
   const [count, setCount] = useState(0);
 
+  useConnectForm(count, form, field, hasSchema, onCountChange);
+
+  const handleCountDown = () => {
+    setCount((prev) => {
+      const value = prev > 0 ? prev - 1 : prev;
+
+      return value;
+    });
+  };
+
+  const handleCountUp = () => {
+    setCount((prev) => {
+      const value = prev + 1;
+
+      return value;
+    });
+  };
+
   return (
     <>
       {!!label && <CounterLabel htmlFor="counter">{label}</CounterLabel>}
       <CounterWrapper hasError={hasError} id="counter" style={style}>
-        <RoundButton
-          onClick={handleCountDown(
-            field?.name ?? '',
-            form ?? ({} as any),
-            hasSchema,
-            onCountChange,
-            setCount,
-          )}
-          type="button"
-        >
+        <RoundButton onClick={handleCountDown} type="button">
           <MinusSVG />
         </RoundButton>
         <CounterValue>{count}</CounterValue>
-        <RoundButton
-          onClick={handleCountUp(
-            field?.name ?? '',
-            form ?? ({} as any),
-            hasSchema,
-            onCountChange,
-            setCount,
-          )}
-          type="button"
-        >
+        <RoundButton onClick={handleCountUp} type="button">
           <PlusSVG />
         </RoundButton>
       </CounterWrapper>

@@ -1,11 +1,11 @@
-import { memo } from 'react';
+import { ForwardedRef, forwardRef, memo } from 'react';
 import styled from 'styled-components';
 import LoadingSVG from '../../../assets/svg/loading.svg';
 import { ButtonSize, ButtonType } from './enums';
 
 type Props = {
   size?: ButtonSize;
-  type?: ButtonType;
+  btnType?: ButtonType;
   style?: Object;
   children?: React.ReactNode;
   round?: boolean;
@@ -15,49 +15,57 @@ type Props = {
   fullSize?: boolean;
   onClick?: () => void;
 };
-const Button: React.FC<Props> = ({
-  size = ButtonSize.Medium,
-  type = ButtonType.Primary,
-  round,
-  loading,
-  disabled,
-  failed,
-  style,
-  children,
-  fullSize = false,
-  onClick,
-}) => {
-  const getButtonName = () => {
-    if (failed) {
-      return 'Failed';
-    }
+const Button: React.FC<Props> = forwardRef(
+  (
+    {
+      size = ButtonSize.Medium,
+      btnType = ButtonType.Primary,
+      round,
+      loading,
+      disabled,
+      failed,
+      style,
+      children,
+      fullSize = false,
+      onClick,
+    },
+    ref: ForwardedRef<HTMLButtonElement>,
+  ) => {
+    const getButtonName = () => {
+      if (failed) {
+        return 'Failed';
+      }
 
-    return children;
-  };
+      return children;
+    };
 
-  return (
-    <ButtonBody
-      style={style}
-      size={size}
-      btnType={type}
-      disabled={disabled || failed}
-      round={round}
-      fullSize={fullSize}
-      failed={failed}
-      onClick={loading || disabled ? () => null : onClick}
-    >
-      <ButtonContent>
-        {loading ? (
-          <LoadingWrapper>
-            <LoadingSVG color="#FCFCFD" />
-          </LoadingWrapper>
-        ) : (
-          getButtonName()
-        )}
-      </ButtonContent>
-    </ButtonBody>
-  );
-};
+    return (
+      <ButtonBody
+        ref={ref}
+        btnType={btnType}
+        style={style}
+        size={size}
+        disabled={disabled || failed}
+        round={round}
+        fullSize={fullSize}
+        failed={failed}
+        onClick={loading || disabled ? () => null : onClick}
+      >
+        <ButtonContent>
+          {loading ? (
+            <LoadingWrapper>
+              <LoadingSVG color="#FCFCFD" />
+            </LoadingWrapper>
+          ) : (
+            getButtonName()
+          )}
+        </ButtonContent>
+      </ButtonBody>
+    );
+  },
+);
+
+Button.displayName = 'Button';
 
 const ButtonBody = styled.button<{
   disabled?: boolean;

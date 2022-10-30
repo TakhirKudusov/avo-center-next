@@ -11,7 +11,7 @@ const CreatedTab = () => {
       <Button
         style={{ width: 137 }}
         size={ButtonSize.Medium}
-        type={ButtonType.Secondary}
+        btnType={ButtonType.Secondary}
       >
         Fill
       </Button>

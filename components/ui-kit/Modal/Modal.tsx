@@ -4,7 +4,7 @@ import { memo, useRef } from 'react';
 import Button from '../Button/Button';
 import { ButtonSize, ButtonType } from '../Button/enums';
 import ReactPortal from '../ReactPortal';
-import { useOnClickOutside } from '../../common/hooks/useOnClickOutside';
+// import { useOnClickOutside } from '../../common/hooks/useOnClickOutside';
 
 import { ModalContent, ModalFooter, ModalTitle } from './components';
 
@@ -45,7 +45,7 @@ const Modal = ({
                 {confirmBtnName && (
                   <Button
                     fullSize
-                    type={ButtonType.Secondary}
+                    btnType={ButtonType.Secondary}
                     size={ButtonSize.Large}
                     onClick={onConfirm}
                   >

@@ -62,7 +62,7 @@ const Header = () => {
         </Link>
         <ActionsBar>
           <Link href={'/modals'}>
-            <Button size={ButtonSize.Medium} type={ButtonType.Primary}>
+            <Button size={ButtonSize.Medium} btnType={ButtonType.Primary}>
               Modals
             </Button>
           </Link>
@@ -75,13 +75,13 @@ const Header = () => {
           {/*    <Button*/}
           {/*      onClick={handleUploadClick()}*/}
           {/*      size={ButtonSize.Medium}*/}
-          {/*      type={ButtonType.Primary}*/}
+          {/*      btnType={ButtonType.Primary}*/}
           {/*    >*/}
           {/*      Upload*/}
           {/*    </Button>*/}
           {/*    <Button*/}
           {/*      size={ButtonSize.Medium}*/}
-          {/*      type={ButtonType.Secondary}*/}
+          {/*      btnType={ButtonType.Secondary}*/}
           {/*      onClick={handleWalletConnectClick(setIsConnectWalletVisible)}*/}
           {/*    >*/}
           {/*      Connect Wallet*/}
@@ -93,7 +93,7 @@ const Header = () => {
               <Button
                 onClick={handleUploadClick()}
                 size={ButtonSize.Medium}
-                type={ButtonType.Primary}
+                btnType={ButtonType.Primary}
               >
                 Create NFT
               </Button>
@@ -101,7 +101,7 @@ const Header = () => {
                 <Button
                   style={{ marginLeft: '12px' }}
                   size={ButtonSize.Medium}
-                  type={ButtonType.Secondary}
+                  btnType={ButtonType.Secondary}
                 >
                   <WalletIcon>
                     <WalletSVG />
@@ -113,7 +113,7 @@ const Header = () => {
                 <Button
                   style={{ marginLeft: '4px' }}
                   size={ButtonSize.Medium}
-                  type={ButtonType.Secondary}
+                  btnType={ButtonType.Secondary}
                 >
                   7.00698
                   <WalletCurrency>AVO</WalletCurrency>

@@ -90,8 +90,8 @@ const FormBody = () => {
           </Text>
           <Divider />
           <FormFooter>
-            <Button type={ButtonType.Secondary}>Update Profile</Button>
-            <Button type={ButtonType.Outlined}>
+            <Button btnType={ButtonType.Secondary}>Update Profile</Button>
+            <Button btnType={ButtonType.Outlined}>
               <CircleCloseIcon />
               Clear all
             </Button>

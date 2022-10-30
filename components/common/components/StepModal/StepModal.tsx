@@ -147,7 +147,7 @@ const StepModal: FC<Props> = ({
                     <Button
                       onClick={startStep}
                       size={ButtonSize.Large}
-                      type={ButtonType.Secondary}
+                      btnType={ButtonType.Secondary}
                       loading={loading}
                       fullSize
                       failed={hasError}
