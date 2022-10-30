@@ -11,7 +11,7 @@ const ButtonsGroup: React.FC<Props> = ({ buttonsParameters }) => {
     <ButtonsWrapper>
       {buttonsParameters?.map((el, i) => {
         return (
-          <Button key={i} type={el.type}>
+          <Button key={i} btnType={el.type}>
             <p>{el.name}</p>
           </Button>
         );

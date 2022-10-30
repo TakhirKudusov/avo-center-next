@@ -23,7 +23,7 @@ const UploadItem: React.FC<Props> = ({ onItemClick }) => {
           <Link href="/collections/create-single">
             <Button
               onClick={handleClick(onItemClick)}
-              type={ButtonType.Primary}
+              btnType={ButtonType.Primary}
             >
               Create single
             </Button>
@@ -36,7 +36,7 @@ const UploadItem: React.FC<Props> = ({ onItemClick }) => {
           <Link href="/collections/create-single">
             <Button
               onClick={handleClick(onItemClick)}
-              type={ButtonType.Secondary}
+              btnType={ButtonType.Secondary}
             >
               Create Collection
             </Button>

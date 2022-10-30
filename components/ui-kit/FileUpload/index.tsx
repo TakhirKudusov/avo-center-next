@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import UploadSVG from '../../../assets/svg/upload.svg';
 import { useDropzone } from 'react-dropzone';
-import { useEffect } from 'react';
 import { TFormFieldProps } from '../../../common/types';
 import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
+import useConnectForm from '../useConnectForm';
 
 // TODO Настроить тип
 // type UploadedFile = File & { path: string };
@@ -29,20 +29,7 @@ const FileUpload: React.FC<Props & TFormFieldProps> = ({
 }) => {
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({});
 
-  useEffect(() => {
-    const fieldName = field?.name ?? '';
-
-    form?.setFieldTouched(fieldName, true);
-    form?.setFieldValue(fieldName, acceptedFiles);
-
-    if (hasSchema) {
-      form?.validateField(fieldName);
-    }
-
-    if (onChange) {
-      onChange(acceptedFiles);
-    }
-  }, [acceptedFiles]);
+  useConnectForm(acceptedFiles, form, field, hasSchema, onChange);
 
   return (
     <FileUploadWrapper {...getRootProps()}>
@@ -103,10 +90,15 @@ const FileUploadSection = styled.div<{ hasError: boolean }>`
   align-items: center;
   justify-content: center;
   background: #f4f5f6;
+  cursor: pointer;
   border-radius: 16px;
   margin-top: 16px;
   gap: 11px;
   border: ${(props) => (props.hasError ? '2px solid #ef466f' : 'none')};
+
+  &:hover {
+    background: rgba(244, 245, 246, 0.6);
+  }
 `;
 
 const FileUploadContent = styled.div`

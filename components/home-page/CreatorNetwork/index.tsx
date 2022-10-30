@@ -42,7 +42,7 @@ const CreatorNetwork = () => {
         <Auction timeBeforeEnd={timeBeforeEnd} />
         <Link href={'/nft/newNFT'}>
           <Button
-            type={ButtonType.Secondary}
+            btnType={ButtonType.Secondary}
             size={ButtonSize.Large}
             fullSize={true}
           >
@@ -51,7 +51,7 @@ const CreatorNetwork = () => {
         </Link>
 
         <Button
-          type={ButtonType.Primary}
+          btnType={ButtonType.Primary}
           size={ButtonSize.Large}
           style={{ marginTop: '8px' }}
           fullSize={true}

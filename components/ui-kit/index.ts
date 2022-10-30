@@ -17,3 +17,5 @@ export { default as Modal } from './Modal';
 export { default as FormItem } from './FormItem';
 export { default as Form } from './Form';
 export { default as Timer, useTimer } from './Timer';
+export { default as MultiRangeSlider } from './MultiRangeSlider';
+export { default as RangeSlider } from './RangeSlider';

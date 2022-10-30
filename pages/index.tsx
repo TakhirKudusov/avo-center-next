@@ -24,7 +24,7 @@ const Home = () => {
         <PageContainer>
           <PageDesc>Create, explore, & collect digital art NFTs.</PageDesc>
           <PageTitle>The new creative economy.</PageTitle>
-          <Button type={ButtonType.Primary} size={ButtonSize.Large}>
+          <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>
             Start your search
           </Button>
           <CreatorNetwork />

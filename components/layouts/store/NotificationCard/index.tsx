@@ -8,7 +8,7 @@ const NotificationCard = () => {
     <NotificationCardWrapper>
       <NotificationCardHeader>
         <NotificationCardTitle>Notifications</NotificationCardTitle>
-        <Button type={ButtonType.Secondary} size={ButtonSize.Medium}>
+        <Button btnType={ButtonType.Secondary} size={ButtonSize.Medium}>
           See all
         </Button>
       </NotificationCardHeader>

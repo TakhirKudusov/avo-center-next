@@ -31,7 +31,7 @@ const Discover = () => {
               style={{ width: '180px' }}
             ></Select>
             <FlatList items={GENRES} onChange={handleGenreChange} />
-            <Button size={ButtonSize.Large} type={ButtonType.Secondary}>
+            <Button size={ButtonSize.Large} btnType={ButtonType.Secondary}>
               <FilterBtnContent>
                 Filter
                 <CloseSVG />

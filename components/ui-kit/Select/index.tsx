@@ -1,11 +1,12 @@
 import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
 import styled from 'styled-components';
 import ChevronDownSVG from '../../../assets/svg/chevron-down.svg';
 import { TFormFieldProps } from '../../../common/types';
+import useConnectForm from '../useConnectForm';
 import { SelectItemBackground } from './enums';
 import { SelectItemSize } from './enums/selectItemSize.enum';
-import { handleDropdownExpand, handleDropdownItemClick } from './helpers';
+import { handleDropdownExpand } from './helpers';
 import { SelectItem } from './types';
 
 type Props = {
@@ -21,8 +22,9 @@ type Props = {
   field?: FieldInputProps<any>;
   form?: FormikProps<any>;
   meta?: FieldMetaProps<any>;
-  // TODO Add onChange
+  onChange?: (value: any) => void;
 };
+
 const Select: React.FC<Props & TFormFieldProps> = ({
   background = SelectItemBackground.None,
   size = SelectItemSize.Small,
@@ -35,6 +37,7 @@ const Select: React.FC<Props & TFormFieldProps> = ({
   value,
   style,
   items,
+  onChange,
 }) => {
   const selectedItem = items?.find((item) => {
     const curValue = field?.value ?? value;
@@ -44,6 +47,19 @@ const Select: React.FC<Props & TFormFieldProps> = ({
   const [selected, setSelected] = useState<SelectItem | undefined>(
     selectedItem,
   );
+
+  useConnectForm(selected?.value, form, field, hasSchema, onChange);
+
+  const handleDropdownItemClick =
+    (
+      item: SelectItem,
+      setSelected: Dispatch<SelectItem | undefined>,
+      setExpanded: Dispatch<boolean>,
+    ) =>
+    () => {
+      setSelected(item);
+      setExpanded(false);
+    };
 
   return (
     <SelectBody>
@@ -69,14 +85,7 @@ const Select: React.FC<Props & TFormFieldProps> = ({
           <SelectDropdownItem
             key={`drop-down-${index}`}
             isSelected={item.value === selected?.value}
-            onClick={handleDropdownItemClick(
-              item,
-              field?.name ?? '',
-              form ?? ({} as any),
-              hasSchema,
-              setSelected,
-              setExpanded,
-            )}
+            onClick={handleDropdownItemClick(item, setSelected, setExpanded)}
           >
             {showImage && (
               <SelectDropdownItemImage

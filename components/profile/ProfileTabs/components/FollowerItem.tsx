@@ -24,7 +24,7 @@ const FollowerItem = ({
           <Button
             style={{ borderRadius: 90 }}
             size={ButtonSize.Small}
-            type={
+            btnType={
               followType === FollowType.FOLLOW
                 ? ButtonType.Secondary
                 : ButtonType.Primary

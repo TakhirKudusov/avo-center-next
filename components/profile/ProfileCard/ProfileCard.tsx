@@ -55,7 +55,7 @@ const ProfileCard = ({ isUserProfile }: Props) => {
           onClick={handleFollow}
           fullSize
           size={ButtonSize.Medium}
-          type={ButtonType.Secondary}
+          btnType={ButtonType.Secondary}
         >
           {isUserProfile ? 'Create NFT' : 'Follow'}
         </Button>
