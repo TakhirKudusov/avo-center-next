@@ -23,7 +23,7 @@ import { ReactEventHandler, useState } from 'react';
 import CircleCloseSVG from '../../../assets/svg/circle-close.svg';
 
 const FormBody = () => {
-  const [fieldOpen, setIsFieldOpen] = useState<boolean>();
+  const [fieldOpen, setIsFieldOpen] = useState<boolean | null>(null);
 
   const handleSubmitClick = () => (e: ReactEventHandler<HTMLFormElement>) => {
     console.log(e);

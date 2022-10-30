@@ -6,7 +6,7 @@ import { UnknownObject } from '../../../common/types';
 type Props = {
   title: string;
   width: number;
-  isFieldOpen?: boolean;
+  isFieldOpen?: boolean | null;
   canBeHidden?: boolean;
 };
 const FormItem: React.FC<Props & any> = ({
@@ -35,7 +35,7 @@ const FormItem: React.FC<Props & any> = ({
 };
 
 const AnimationWrapper = styled.div<{
-  isFieldOpen?: boolean;
+  isFieldOpen?: boolean | null;
   canBeHidden?: boolean;
 }>`
   overflow: hidden;

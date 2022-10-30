@@ -4,7 +4,7 @@ import UnionSVG from '../../../assets/svg/circle-union.svg';
 import { Dispatch, memo, ReactEventHandler, SetStateAction } from 'react';
 
 type Props = {
-  setIsOpen: Dispatch<SetStateAction<boolean | undefined>>;
+  setIsOpen: Dispatch<SetStateAction<boolean | null>>;
 };
 
 const AddSocAccBtn = ({ setIsOpen }: Props) => {
