@@ -22,7 +22,6 @@ const TextAreaBlock: React.FC = () => {
 
 const SendButton = styled.button`
   display: flex;
-  flex-direction: row;
   align-self: flex-end;
   justify-content: center;
   padding: 6px 10px;
@@ -36,14 +35,10 @@ const SendButton = styled.button`
   right: 6px;
   cursor: pointer;
   border: none;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -o-transition: 0.5s;
   & p {
     width: 30px;
     height: 16px;
     font-family: 'DM Sans';
-    font-style: normal;
     font-weight: 700;
     font-size: 12px;
     line-height: 16px;
@@ -65,7 +60,6 @@ const TextAreaContainer = styled.div`
 
 const TextAreaWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   padding-left: 8px;
@@ -100,7 +94,6 @@ const TextArea = styled.textarea`
   border-radius: 8px;
   resize: none;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;

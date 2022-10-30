@@ -31,7 +31,6 @@ const TabContainer = styled.div`
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   width: 1120px;
   margin-top: 80px;

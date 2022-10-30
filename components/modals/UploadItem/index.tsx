@@ -20,7 +20,7 @@ const UploadItem: React.FC<Props> = ({ onItemClick }) => {
           <UploadItemCardImage
             style={{ backgroundImage: `url(/images/single-collectible.jpg)` }}
           />
-          <Link href={'/collections/create-single'}>
+          <Link href="/collections/create-single">
             <Button
               onClick={handleClick(onItemClick)}
               type={ButtonType.Primary}
@@ -33,7 +33,7 @@ const UploadItem: React.FC<Props> = ({ onItemClick }) => {
           <UploadItemCardImage
             style={{ backgroundImage: `url(/images/collection.jpg)` }}
           />
-          <Link href={'/collections/create-single'}>
+          <Link href="/collections/create-single">
             <Button
               onClick={handleClick(onItemClick)}
               type={ButtonType.Secondary}

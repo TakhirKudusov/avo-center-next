@@ -75,7 +75,6 @@ const FileUploadWrapper = styled.div`
 
 const ElementTitle = styled.div`
   font-family: 'Poppins', sans-serif;
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;

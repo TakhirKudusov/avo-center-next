@@ -13,7 +13,7 @@ const UsersReply: React.FC<Props> = ({ commentsData }) => {
     <>
       {commentsData?.map((el, i) => {
         return (
-          <ReplyContainer key={i}>
+          <ReplyContainer key={el.name + i}>
             <OwnerAvatar image={el.image} />
             <UserComment
               commentsData={el}
@@ -29,7 +29,6 @@ const UsersReply: React.FC<Props> = ({ commentsData }) => {
 
 const ReplyContainer = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   gap: 10px;
   height: 84px;

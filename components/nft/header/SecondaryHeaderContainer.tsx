@@ -37,7 +37,6 @@ const Header = styled.h1`
   width: 564px;
   height: 96px;
   font-family: 'DM Sans';
-  font-style: normal;
   font-weight: 700;
   font-size: 40px;
   line-height: 48px;
@@ -55,15 +54,13 @@ const NFTPrice = styled(BidPriceWrapper)`
 
 const ParametersContainer = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
-  padding: 0px;
+  padding: 0;
   gap: 16px;
 `;
 
 const ParameterParagraph = styled.p`
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;

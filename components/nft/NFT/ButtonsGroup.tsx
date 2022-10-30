@@ -22,9 +22,8 @@ const ButtonsGroup: React.FC<Props> = ({ buttonsParameters }) => {
 
 const ButtonsWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
+  padding: 0;
   gap: 8px;
   width: 516px;
   height: 48px;
@@ -32,7 +31,6 @@ const ButtonsWrapper = styled.div`
 
 const Button = styled.button<any>`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 16px 24px;
@@ -57,12 +55,8 @@ const Button = styled.button<any>`
         return '2px solid #E6E8EC';
     }
   }};
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -o-transition: 0.5s;
   p {
     font-family: 'DM Sans';
-    font-style: normal;
     font-weight: 700;
     font-size: 16px;
     line-height: 16px;

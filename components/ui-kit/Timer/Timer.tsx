@@ -36,7 +36,6 @@ const EndsParagraph = styled.p`
   width: 278px;
   height: 16px;
   font-family: 'DM Sans';
-  font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 16px;
@@ -46,7 +45,6 @@ const EndsParagraph = styled.p`
 
 const TimeGroup = styled.div`
   display: flex;
-  flex-direction: row;
   margin-top: -10px;
   width: 346px;
   height: 24px;
@@ -55,11 +53,9 @@ const TimeGroup = styled.div`
 
 const TimeItem = styled.p`
   display: flex;
-  flex-direction: row;
   width: 71px;
   height: 24px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 600;
   font-size: 20px;
   line-height: 24px;

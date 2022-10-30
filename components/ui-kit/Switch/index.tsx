@@ -40,7 +40,6 @@ const SwitchWrapper = styled.div<{ active: boolean; theme: SwitchThemes }>`
 
     return '#e6e8ec';
   }};
-  transition: all 0.3s;
   cursor: pointer;
 
   & > div {

@@ -48,7 +48,7 @@ const BidWrapper = styled.div`
   flex-direction: column;
   background: #fff;
   border-radius: 20px;
-  box-shadow: 0px 14px 39px -2px rgb(31 47 70 / 12%);
+  box-shadow: 0 14px 39px -2px rgb(31 47 70 / 12%);
   overflow: hidden;
   height: 469px;
 `;
@@ -93,7 +93,6 @@ const BidFeature = styled.div`
   align-items: center;
   gap: 8px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;

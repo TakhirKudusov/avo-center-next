@@ -23,7 +23,7 @@ const Body: React.FC<Props> = ({ data, openedQuestions, closedQuestions }) => {
     <Wrapper className={styles}>
       <Container>
         <BodyText>{data.body}</BodyText>
-        <a href={data.link} rel="noreferrer" target={'_blank'}>
+        <a href={data.link} rel="noreferrer" target="_blank">
           <Button>Learn more</Button>
         </a>
       </Container>
@@ -65,7 +65,6 @@ const BodyText = styled.p`
   width: 735px;
   height: fit-content;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
@@ -75,7 +74,6 @@ const BodyText = styled.p`
 const Button = styled.div`
   cursor: pointer;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -84,15 +82,11 @@ const Button = styled.div`
   border: 2px solid #e6e8ec;
   border-radius: 8px;
   font-family: 'DM Sans';
-  font-style: normal;
   font-weight: 700;
   font-size: 14px;
   line-height: 16px;
   text-align: center;
   color: #23262f;
-  -webkit-transition: 0.5s ease;
-  -moz-transition: 0.5s ease;
-  -o-transition: 0.5s ease;
   &:hover {
     background-color: #e6e8ec;
   }

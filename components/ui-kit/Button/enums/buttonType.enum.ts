@@ -1,6 +1,7 @@
 enum ButtonType {
   Primary,
-  Secondary
+  Secondary,
+  Outlined,
 }
 
 export { ButtonType };

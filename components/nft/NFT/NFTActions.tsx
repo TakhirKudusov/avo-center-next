@@ -43,7 +43,6 @@ const Container = styled.div`
 
 const PriceWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0;
@@ -56,7 +55,6 @@ const PriceInCrypto = styled.p`
   width: 105px;
   height: 32px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 600;
   font-size: 24px;
   line-height: 32px;
@@ -67,7 +65,6 @@ const ConvertedPrice = styled.p`
   width: 66px;
   height: 24px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
@@ -76,10 +73,9 @@ const ConvertedPrice = styled.p`
 
 const ServiceFeeWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px;
+  padding: 0;
   gap: 12px;
   width: 516px;
   height: 24px;
@@ -87,7 +83,6 @@ const ServiceFeeWrapper = styled.div`
 
 const FeeTextWrapper = styled.p`
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;

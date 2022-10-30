@@ -104,7 +104,6 @@ const SectionSelect = styled.div`
 
 const SectionSelectTitle = styled.div`
   font-family: 'DM Sans', sans-serif;
-  font-style: normal;
   font-weight: 700;
   font-size: 40px;
   line-height: 48px;

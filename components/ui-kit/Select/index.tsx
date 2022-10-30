@@ -136,7 +136,6 @@ const ChevronWrapper = styled.div<any>`
       ? 'none'
       : '2px solid #E6E8EC'};
   border-radius: 50%;
-  transition: all 0.3s;
   transform: ${(props) => (props.rotated ? 'rotate(180deg)' : 'rotate(0deg)')};
 `;
 
@@ -151,7 +150,7 @@ const SelectDropdown = styled.div<any>`
   padding: 8px;
   background: #fcfcfd;
   border: 2px solid #e6e8ec;
-  box-shadow: 0px 64px 64px -48px rgba(31, 47, 70, 0.12);
+  box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
   border-radius: 12px;
 
   top: ${(props) => (props.size === SelectItemSize.Small ? '48px' : '56px')};
@@ -164,7 +163,6 @@ const SelectDropdownItem = styled.div<any>`
   align-items: center;
   gap: 10px;
   border-radius: 8px;
-  transition: all 0.3s;
   background: ${(props) => (props.isSelected ? '#efefef' : 'none')};
   cursor: pointer;
 

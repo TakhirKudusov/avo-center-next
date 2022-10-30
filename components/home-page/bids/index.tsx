@@ -69,7 +69,6 @@ const CreatorList = styled.div`
 
 const CreatorsCaption = styled.div`
   font-family: 'Poppins', sans-serif;
-  font-style: normal;
   font-weight: 600;
   font-size: 12px;
   line-height: 20px;

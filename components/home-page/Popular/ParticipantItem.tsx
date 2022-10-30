@@ -53,10 +53,9 @@ const ParticipantWrapper = styled.div`
   height: 247px;
   background: #fcfcfd;
   border-radius: 16px;
-  transition: all 0.3s;
 
   &:hover {
-    box-shadow: 0px 64px 64px -48px rgba(31, 47, 70, 0.12);
+    box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
     height: 263px;
 
     & > div:last-child > div:first-child {
@@ -103,7 +102,6 @@ const ParticipantAvatar = styled.div`
   border-radius: 50%;
   background-size: cover;
   background-position: center;
-  transition: all 0.3s;
 `;
 
 const ParticipantVerifiedIcon = styled.div`
@@ -125,7 +123,6 @@ const ParticipantAvoAmount = styled.div`
   display: flex;
   gap: 3px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;

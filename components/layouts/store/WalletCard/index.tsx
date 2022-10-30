@@ -33,7 +33,7 @@ const WalletCardInfoWrapper = styled.div`
   height: 140px;
   padding: 8px 8px 12px;
   background: #fcfcfd;
-  box-shadow: 0px 3px 18px -10px rgba(15, 15, 15, 0.2);
+  box-shadow: 0 3px 18px -10px rgba(15, 15, 15, 0.2);
   border-radius: 16px;
 `;
 

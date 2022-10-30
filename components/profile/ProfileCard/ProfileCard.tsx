@@ -103,7 +103,7 @@ const CardContainer = styled.div`
   border-radius: 16px;
   padding: 32px 35px;
   background-color: #ffffff;
-  box-shadow: 0px 40px 32px -24px rgba(15, 15, 15, 0.12);
+  box-shadow: 0 40px 32px -24px rgba(15, 15, 15, 0.12);
   display: flex;
   flex-direction: column;
   align-items: center;

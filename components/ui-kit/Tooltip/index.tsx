@@ -50,11 +50,10 @@ const TooltipContent = styled.div<{
   position: absolute;
   margin-top: 20px;
   background: #fcfcfd;
-  box-shadow: 0px 9px 45px -6px rgba(31, 47, 70, 0.12);
+  box-shadow: 0 9px 45px -6px rgba(31, 47, 70, 0.12);
   border-radius: 12px;
   min-width: 190px;
   padding: 30px 14px;
-  transition: all 0.3s;
   left: ${(props) =>
     props.offset ? `calc(50% - (${props.offset}px / 2))` : '-50%'};
   opacity: ${(props) => (props.active ? '1' : '0')};

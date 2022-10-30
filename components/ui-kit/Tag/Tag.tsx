@@ -30,7 +30,6 @@ const Tag = styled.div<{ type: 'primary' | 'default' }>`
   font-size: 12px;
   line-height: 12px;
   font-family: 'Poppins';
-  font-style: normal;
 `;
 
 export default memo(Tag);

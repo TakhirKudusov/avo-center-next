@@ -49,14 +49,12 @@ const OwnerCommentsDataWrapper = styled.div`
 
 const CreatorsName = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
   padding: 0;
   gap: 24px;
   width: 628px;
   height: 24px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
@@ -68,7 +66,6 @@ const CreatorCommentText = styled.div`
   width: 998px;
   height: 24px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;

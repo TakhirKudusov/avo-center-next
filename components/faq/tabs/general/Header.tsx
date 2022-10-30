@@ -47,7 +47,6 @@ const QuestionHeader: React.FC<Props> = ({
 
 const HeaderText = styled.p`
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
@@ -61,7 +60,6 @@ const IconContainer = styled.div`
 
 const Header = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0;

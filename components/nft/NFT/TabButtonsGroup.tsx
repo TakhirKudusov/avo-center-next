@@ -6,19 +6,19 @@ const TabButtonsGroup: React.FC = () => {
   return (
     <TabButtonsContainer>
       <TabButton
-        className={'tab-btn active'}
+        className="tab-btn active"
         onClick={(e) => handleSetActiveClick(e, 'tab-btn', 'active')}
       >
         <p>Info</p>
       </TabButton>
       <TabButton
-        className={'tab-btn'}
+        className="tab-btn"
         onClick={(e) => handleSetActiveClick(e, 'tab-btn', 'active')}
       >
         <p>Owners</p>
       </TabButton>
       <TabButton
-        className={'tab-btn'}
+        className="tab-btn"
         onClick={(e) => handleSetActiveClick(e, 'tab-btn', 'active')}
       >
         <p>History</p>
@@ -29,7 +29,6 @@ const TabButtonsGroup: React.FC = () => {
 
 const TabButtonsContainer = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   padding: 6px;
   gap: 10px;
@@ -39,7 +38,6 @@ const TabButtonsContainer = styled.div`
 
 const TabButton = styled.button`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 6px 12px;
@@ -49,15 +47,11 @@ const TabButton = styled.button`
   background-color: #fafafb;
   color: #777e91;
   cursor: pointer;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -o-transition: 0.5s;
   &:hover {
     background-color: #e6e8ec;
   }
   p {
     font-family: 'DM Sans';
-    font-style: normal;
     font-weight: 700;
     font-size: 14px;
     line-height: 16px;

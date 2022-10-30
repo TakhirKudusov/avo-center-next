@@ -11,8 +11,8 @@ const HideAnswers: React.FC<Props> = ({ commentsQuantity }) => {
     <Container>
       <HideButton>
         <p>Hide answers</p>
-        <div className={'svg-btn-wrapper'}>
-          <UpSideCornerSVG className={'svg-btn'} />
+        <div className="svg-btn-wrapper">
+          <UpSideCornerSVG className="svg-btn" />
         </div>
       </HideButton>
       <TextContainer>
@@ -24,7 +24,6 @@ const HideAnswers: React.FC<Props> = ({ commentsQuantity }) => {
 
 const TextContainer = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -34,7 +33,6 @@ const TextContainer = styled.div`
     width: 95px;
     height: 24px;
     font-family: 'Poppins';
-    font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
@@ -44,7 +42,6 @@ const TextContainer = styled.div`
 
 const HideButton = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 4px;
@@ -55,7 +52,6 @@ const HideButton = styled.div`
     width: 94px;
     height: 24px;
     font-family: 'Poppins';
-    font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
@@ -74,7 +70,6 @@ const HideButton = styled.div`
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 4px;

@@ -14,13 +14,11 @@ const ListingsData: React.FC<Props> = ({ listingsData }) => {
       {listingsData?.map((item, index) => {
         return (
           <TableLineWrapper key={index}>
-            <TableCell type={'primary'}>
-              {fromNameFormatter(item.from)}
-            </TableCell>
-            <TableCell type={'transparent'}>{item.expiration}</TableCell>
-            <TableCell type={'thickened'}>{item.price} AVO</TableCell>
+            <TableCell type="primary">{fromNameFormatter(item.from)}</TableCell>
+            <TableCell type="transparent">{item.expiration}</TableCell>
+            <TableCell type="thickened">{item.price} AVO</TableCell>
             <ActionButton
-              className={'action-btn'}
+              className="action-btn"
               onClick={(e) => handleSetActiveClick(e, 'action-btn', 'active')}
             >
               <p>Accept</p>
@@ -34,7 +32,6 @@ const ListingsData: React.FC<Props> = ({ listingsData }) => {
 
 const ActionButton = styled.button`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   background-color: #fafafb;
@@ -45,14 +42,10 @@ const ActionButton = styled.button`
   border: 1px solid #e6e8ec;
   border-radius: 50px;
   cursor: pointer;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -o-transition: 0.5s;
   p {
     width: 43px;
     height: 16px;
     font-family: 'DM Sans';
-    font-style: normal;
     font-weight: 700;
     font-size: 12px;
     line-height: 16px;
@@ -80,7 +73,6 @@ const TableLineWrapper = styled.div`
   width: 564px;
   height: 68px;
   display: flex;
-  flex-direction: row;
   justify-content: start;
   align-items: center;
   padding: 18px 0;
@@ -92,7 +84,6 @@ const TableCell = styled.p<any>`
   width: 100px;
   height: 21px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: ${(props) => {
     switch (props.type) {
       case 'thickened':
