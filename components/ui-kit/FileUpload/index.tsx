@@ -1,20 +1,68 @@
 import styled from 'styled-components';
 import UploadSVG from '../../../assets/svg/upload.svg';
+import { useDropzone } from 'react-dropzone';
+import { useEffect } from 'react';
+import { TFormFieldProps } from '../../../common/types';
+import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
+
+// TODO Настроить тип
+// type UploadedFile = File & { path: string };
 
 type Props = {
-  title: string;
+  label: string;
   description: string;
+  hasSchema?: boolean;
+  hasError?: boolean;
+  field?: FieldInputProps<any>;
+  form?: FormikProps<any>;
+  meta?: FieldMetaProps<any>;
+  onChange?: (files: File[]) => void;
 };
-const FileUpload: React.FC<Props> = ({ title, description }) => {
+const FileUpload: React.FC<Props & TFormFieldProps> = ({
+  hasError = false,
+  hasSchema = false,
+  label,
+  description,
+  field,
+  form,
+  onChange,
+}) => {
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({});
+
+  useEffect(() => {
+    const fieldName = field?.name ?? '';
+
+    form?.setFieldTouched(fieldName, true);
+    form?.setFieldValue(fieldName, acceptedFiles);
+
+    if (hasSchema) {
+      form?.validateField(fieldName);
+    }
+
+    if (onChange) {
+      onChange(acceptedFiles);
+    }
+  }, [acceptedFiles]);
+
   return (
-    <FileUploadWrapper>
-      <ElementTitle>{title}</ElementTitle>
+    <FileUploadWrapper {...getRootProps()}>
+      <ElementTitle>{label}</ElementTitle>
       <ElementDescription>{description}</ElementDescription>
-      <FileUploadSection>
-        <UploadSVG />
-        <UploadAllowedTypes>
-          PNG, GIF, WEBP, MP4 or MP3. Max 1Gb.
-        </UploadAllowedTypes>
+      <FileInput {...getInputProps()} />
+      <FileUploadSection hasError={hasError}>
+        <FileUploadContent>
+          <UploadSVG />
+          <UploadAllowedTypes>
+            PNG, GIF, WEBP, MP4 or MP3. Max 1Gb.
+          </UploadAllowedTypes>
+        </FileUploadContent>
+        <FilesWrapper>
+          {acceptedFiles.map((file: any) => (
+            <FileItem key={file.path}>
+              {file.path} - {file.size} bytes
+            </FileItem>
+          ))}
+        </FilesWrapper>
       </FileUploadSection>
     </FileUploadWrapper>
   );
@@ -47,9 +95,10 @@ const ElementDescription = styled.div`
   margin-top: 4px;
 `;
 
-const FileUploadSection = styled.div`
+const FileUploadSection = styled.div<{ hasError: boolean }>`
   width: 100%;
-  height: 182px;
+  min-height: 182px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,9 +107,35 @@ const FileUploadSection = styled.div`
   border-radius: 16px;
   margin-top: 16px;
   gap: 11px;
+  border: ${(props) => (props.hasError ? '2px solid #ef466f' : 'none')};
 `;
 
+const FileUploadContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+`;
+
+const FileInput = styled.input``;
+
 const UploadAllowedTypes = styled.div`
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: #777e91;
+`;
+
+const FilesWrapper = styled.ul`
+  list-style: none;
+  padding: 0 20px;
+  margin-bottom: -20px;
+  margin-top: 0;
+`;
+
+const FileItem = styled.li`
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-size: 12px;

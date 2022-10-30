@@ -5,14 +5,20 @@ import { UnknownObject } from '../../../common/types';
 
 type Props = {
   title: string;
-  width: number;
+  width?: number;
+  marginTop?: number;
 };
-const FormItem: React.FC<Props & any> = ({ title, width, ...rest }) => {
+const FormItem: React.FC<Props & any> = ({
+  marginTop = 32,
+  title,
+  width,
+  ...rest
+}) => {
   const { errors, validationSchema, submitCount } =
     useFormikContext<UnknownObject>();
 
   return (
-    <FormItemWrapper width={width}>
+    <FormItemWrapper width={width} marginTop={marginTop}>
       <FormItemTitle>{title}</FormItemTitle>
       <Field
         {...rest}
@@ -24,12 +30,13 @@ const FormItem: React.FC<Props & any> = ({ title, width, ...rest }) => {
   );
 };
 
-const FormItemWrapper = styled.div<{ width: number }>`
+const FormItemWrapper = styled.div<{ width: number; marginTop: number }>`
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 32px;
+  margin-top: ${({ marginTop }) =>
+    Number.isInteger(marginTop) ? `${marginTop}px` : '32px'};
   width: ${({ width }) => (width ? `${width}px` : '100%')};
 `;
 
@@ -44,8 +51,10 @@ const FormItemTitle = styled.div`
 
 const FormItemErrors = styled.div`
   position: absolute;
-  bottom: -22px;
+  bottom: -20px;
   color: #ef466f;
+  font-size: 14px;
+  white-space: nowrap;
 `;
 
 export default memo(FormItem);

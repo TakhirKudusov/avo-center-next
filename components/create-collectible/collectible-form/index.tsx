@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import * as Yup from 'yup';
 import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
 import LoadingSVG from '../../../assets/svg/loading.svg';
 import { FormRow } from '../../common';
@@ -15,18 +14,13 @@ import Button from '../../ui-kit/Button/Button';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 import Select from '../../ui-kit/Select';
 import { SelectItemSize } from '../../ui-kit/Select/enums';
-import { NETWORKS } from './constants';
+import { FORM_SCHEMA, NETWORKS } from './constants';
+import { CollectibleFormItemName } from './types';
 
 const CollectibleForm = () => {
-  const formSchema = Yup.object().shape({
-    network: Yup.string().required('Field network is required'),
-    itemName: Yup.string().required('Field itemName is required'),
-    price: Yup.string().required('Field price is required'),
-    license: Yup.string().required('Field license is required'),
-  });
-  const initialValues = { network: '1' };
+  const initialValues = {};
 
-  const onSubmit = async (values: any, formikProps: any) => {
+  const onSubmit = () => async (values: any, formikProps: any) => {
     console.log(values, formikProps);
   };
 
@@ -34,18 +28,21 @@ const CollectibleForm = () => {
     <CollectibleFormWrapper>
       <Form
         initialValues={initialValues}
-        formSchema={formSchema}
-        onSubmit={onSubmit}
+        formSchema={FORM_SCHEMA}
+        onSubmit={onSubmit()}
       >
         <>
-          <FileUpload
-            title="Upload file"
+          <FormItem
+            label="Upload file"
+            name={CollectibleFormItemName.File}
             description="Drag or choose your file to upload"
+            marginTop={0}
+            component={FileUpload}
           />
           <SectionTitle>Item details</SectionTitle>
           <FormItem
             title="Network"
-            name="network"
+            name={CollectibleFormItemName.Network}
             component={Select}
             items={NETWORKS}
             width={300}
@@ -53,26 +50,26 @@ const CollectibleForm = () => {
           />
           <FormItem
             title="Item name"
-            name="itemName"
+            name={CollectibleFormItemName.Name}
             placeholder='e. g. "Redeemable Bitcoin Card with logo"'
             component={Input}
           />
           <FormItem
             title="Description"
-            name="description"
+            name={CollectibleFormItemName.Description}
             placeholder="e. g. “After purchasing you will able to recived the logo...”"
             component={Input}
           />
           <FormRow>
             <FormItem
               title="Royalties"
-              name="royalties"
+              name={CollectibleFormItemName.Royalties}
               component={Counter}
               width={190}
             ></FormItem>
             <FormItem
               title="Price"
-              name="price"
+              name={CollectibleFormItemName.Price}
               component={Select}
               items={NETWORKS}
               placeholder="e. g. Size"
@@ -80,16 +77,16 @@ const CollectibleForm = () => {
             />
           </FormRow>
           <FormItem
-            name="license"
             title="License"
+            name={CollectibleFormItemName.License}
             component={Select}
             items={NETWORKS}
             placeholder="License"
             size={SelectItemSize.Medium}
           />
           <FormItem
-            name="timer"
             title="Timer"
+            name={CollectibleFormItemName.Timer}
             component={DatePicker}
             width={191}
           />
