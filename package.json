@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:gen": "openapi --input ./swagger/openapi.json --output ./swagger/autogen/ --client axios",
     "start": "next start",
     "lint": "next lint"
   },
@@ -24,6 +25,7 @@
     "react": "17.0.2",
     "react-detect-click-outside": "^1.1.7",
     "react-dom": "17.0.2",
+    "react-dropzone": "^14.2.3",
     "react-is": ">= 16.8.0",
     "react-redux": "^8.0.4",
     "styled-components": "^5.3.5",
@@ -38,6 +40,7 @@
     "@types/styled-components": "^5.1.26",
     "eslint": "^8.22.0",
     "eslint-config-next": "12.3.0",
+    "openapi-typescript-codegen": "^0.23.0",
     "prettier": "^2.7.1",
     "typescript": "4.8.3"
   },
