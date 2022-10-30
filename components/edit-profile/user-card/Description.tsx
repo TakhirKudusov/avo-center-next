@@ -20,7 +20,6 @@ const Text = styled.p`
   width: 170px;
   height: 60px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
@@ -35,7 +34,6 @@ const HeaderText = styled.p`
   width: 102px;
   height: 24px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
@@ -44,7 +42,6 @@ const HeaderText = styled.p`
 
 const Header = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 4px;
   width: 122px;

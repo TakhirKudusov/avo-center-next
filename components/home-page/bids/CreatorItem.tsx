@@ -87,7 +87,6 @@ const CreatorAvoAmount = styled.div`
   display: flex;
   gap: 3px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;

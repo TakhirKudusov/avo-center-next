@@ -14,7 +14,6 @@ const UserCard = () => {
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   gap: 32px;
   width: 344px;

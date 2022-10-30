@@ -29,7 +29,6 @@ const LikeButton = () => {
 
 const LikeButtonWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   padding: 0;
   gap: 20px;

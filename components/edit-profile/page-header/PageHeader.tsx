@@ -37,6 +37,9 @@ const ChevronIcon = styled(ChevronIconSVG)`
 const ChevronWrapper = styled.div`
   width: 24px;
   height: 24px;
+  position: relative;
+  top: 3px;
+  right: 7px;
 `;
 
 const CurrPathText = styled.p`
@@ -54,29 +57,22 @@ const PrevPathText = styled.p`
 
 const BreadCrumb = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 0;
   gap: 24px;
   height: 24px;
   width: 189px;
-  & p {
-    height: 16px;
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 16px;
-    text-align: center;
-    transition: 0.5s;
-  }
+  font-family: 'DM Sans';
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
 `;
 
 const BreadCrumbWrapper = styled.div`
   margin: 80px auto auto auto;
   display: flex;
-  flex-direction: row;
   align-items: center;
   padding: 24px 15px;
   gap: 10px;

@@ -16,7 +16,6 @@ const SubText = styled.p`
   width: 736px;
   height: 24px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
@@ -29,7 +28,6 @@ const MainText = styled.p`
   width: 352px;
   height: 56px;
   font-family: 'DM Sans';
-  font-style: normal;
   font-weight: 700;
   font-size: 48px;
   line-height: 56px;

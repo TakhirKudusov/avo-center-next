@@ -8,101 +8,81 @@ import {
   Input,
 } from '../../ui-kit';
 import * as Yup from 'yup';
-import { validationRegExps } from '../common/constants';
+import { FORM_SCHEMA, VALIDATION_REGEXPS } from '../common/constants';
 import {
-  ErrorMessages,
-  FormFieldType,
-  FormNames,
-  FormPlaceHolders,
-  HeaderTextEnum,
+  ErrorMessage,
+  FormName,
+  FormPlaceHolder,
+  PrimaryHeaderText,
 } from '../common/enums';
 import GroupHeader from './GroupHeader';
 import Textarea from '../../ui-kit/Textarea';
 import TwitterButton from './TwitterButton';
-import AddAdditionalSocialAccountButton from './AddAdditionalSocialAccountButton';
-import { useState } from 'react';
+import AddAdditionalSocialAccountButton from './AddSocAccBtn';
+import { ReactEventHandler, useState } from 'react';
 import CircleCloseSVG from '../../../assets/svg/circle-close.svg';
 
 const FormBody = () => {
   const [fieldOpen, setIsFieldOpen] = useState<boolean>();
 
-  const formSchema = Yup.object().shape({
-    name: Yup.string().matches(
-      validationRegExps.name,
-      ErrorMessages.ERROR_WITH_NAME,
-    ),
-    bio: Yup.string().matches(
-      validationRegExps.bio,
-      ErrorMessages.ERROR_WITH_BIO,
-    ),
-    website: Yup.string().matches(
-      validationRegExps.url,
-      ErrorMessages.ERROR_WITH_WEBSITE,
-    ),
-    twitter: Yup.string().matches(
-      validationRegExps.twitter,
-      ErrorMessages.ERROR_WITH_TWITTER,
-    ),
-    additionalSocialAccount: Yup.string().matches(
-      validationRegExps.url,
-      ErrorMessages.ERROR_WITH_ADDITIONAL_ACCOUNT,
-    ),
-  });
+  const handleSubmitClick = () => (e: ReactEventHandler<HTMLFormElement>) => {
+    console.log(e);
+  };
 
   return (
     <FormBody.Container>
       <Form
-        formSchema={formSchema}
+        formSchema={FORM_SCHEMA}
         initialValues={{}}
-        onSubmit={(e) => console.log(e)}
+        onSubmit={handleSubmitClick()}
       >
         <>
-          <GroupHeader header={HeaderTextEnum.ACCOUNT_INFO} />
+          <GroupHeader header={PrimaryHeaderText.ACCOUNT_INFO} />
           <FormItem
-            title={FormNames.NAME}
-            name={FormFieldType.NAME}
-            placeholder={FormPlaceHolders.ENTER_YOUR_DISPLAY_NAME}
+            title={FormName.NAME}
+            name={FormName.NAME}
+            placeholder={FormPlaceHolder.ENTER_YOUR_DISPLAY_NAME}
             component={Input}
           />
           <FormItem
-            title={FormNames.BIO}
-            name={FormFieldType.BIO}
-            placeholder={FormPlaceHolders.ABOUT_YOURSELF_IN_A_FEW_WORDS}
+            title={FormName.BIO}
+            name={FormName.BIO}
+            placeholder={FormPlaceHolder.ABOUT_YOURSELF_IN_A_FEW_WORDS}
             component={Textarea}
-            height={'96'}
+            height={96}
           />
-          <GroupHeader header={HeaderTextEnum.SOCIAL} />
+          <GroupHeader header={PrimaryHeaderText.SOCIAL} />
           <FormItem
-            title={FormNames.PORTFOLIO_OR_WEBSITE}
-            name={FormFieldType.WEBSITE}
-            placeholder={FormPlaceHolders.ENTER_URL}
+            title={FormName.PORTFOLIO_OR_WEBSITE}
+            name={FormName.PORTFOLIO_OR_WEBSITE}
+            placeholder={FormPlaceHolder.ENTER_URL}
             component={Input}
           />
 
           <FormItem
-            title={FormNames.TWITTER}
-            name={FormFieldType.TWITTER}
-            placeholder={FormPlaceHolders.TWITTER_USERNAME}
+            title={FormName.TWITTER}
+            name={FormName.TWITTER}
+            placeholder={FormPlaceHolder.TWITTER_USERNAME}
             component={Input}
-            width={'352'}
+            width={352}
           />
           <TwitterButton />
           <AddAdditionalSocialAccountButton setIsOpen={setIsFieldOpen} />
           <FormItem
-            title={FormNames.ADDITIONAL_SOCIAL_ACCOUNT}
-            name={FormFieldType.ADDITIONAL_SOCIAL_ACCOUNT}
-            placeholder={FormPlaceHolders.ADDITIONAL_ACCOUNT}
+            title={FormName.ADDITIONAL_SOCIAL_ACCOUNT}
+            name={FormName.ADDITIONAL_SOCIAL_ACCOUNT}
+            placeholder={FormPlaceHolder.ADDITIONAL_ACCOUNT}
             component={Input}
-            width={'352'}
+            width={352}
             isFieldOpen={fieldOpen}
             canBeHidden={true}
           />
           <FormItem
-            title={FormNames.PHOTO_OF_DOCUMENTS}
-            name={FormFieldType.PHOTO}
+            title={FormName.PHOTO_OF_DOCUMENTS}
+            name={FormName.PHOTO_OF_DOCUMENTS}
             component={Input}
             type="file"
-            width="125"
+            width={125}
           />
           <Text>
             To update your settings you should sign message through your wallet.
@@ -130,7 +110,6 @@ const CircleCloseIcon = styled(CircleCloseSVG)`
 
 const FormFooter = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
   margin-top: 40px;
   gap: 32px;
@@ -140,7 +119,6 @@ const FormFooter = styled.div`
 
 const Text = styled.p`
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;

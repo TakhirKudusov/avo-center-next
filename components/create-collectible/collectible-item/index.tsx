@@ -93,7 +93,6 @@ const BidFeature = styled.div`
   align-items: center;
   gap: 8px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;

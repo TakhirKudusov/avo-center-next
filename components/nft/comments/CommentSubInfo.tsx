@@ -25,7 +25,6 @@ const CommentSubInfo: React.FC<Props> = ({ likes, time, withReply }) => {
 
 const OwnerCommentInfoBlock = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   padding: 0;
   gap: 20px;
@@ -36,7 +35,6 @@ const OwnerCommentInfoBlock = styled.div`
 const OwnerComment = styled.div<any>`
   height: 24px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: ${(props) => props.weight};
   font-size: 14px;
   line-height: 24px;

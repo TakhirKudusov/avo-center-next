@@ -20,7 +20,6 @@ const TableHead = styled.div`
   width: 564px;
   height: 50px;
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   padding: 16px 0;
   gap: 58px;
@@ -30,7 +29,6 @@ const ColumnHead = styled.p`
   width: 100px;
   height: 18px;
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;

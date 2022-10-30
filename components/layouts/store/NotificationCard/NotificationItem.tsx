@@ -30,7 +30,6 @@ const NotificationItemWrapper = styled.div`
   gap: 24px;
   padding: 18px 16px;
   border-radius: 16px;
-  transition: all 0.3s;
   cursor: pointer;
 
   &:hover {

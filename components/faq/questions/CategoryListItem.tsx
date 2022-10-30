@@ -21,18 +21,12 @@ const CategoryListItem: React.FC<Props> = ({ setCurrentTab }) => {
         return (
           <Container
             key={i}
-            className={'category-list-item'}
+            className="category-list-item"
             onClick={handleActiveClick(el.name)}
           >
             <el.Icon />
-            <Text className={'category-list-item__text'}>{el.name}</Text>
+            <Text className="category-list-item__text">{el.name}</Text>
           </Container>
-          // <CategoryListItem
-          //     key={el.name + i}
-          //     name={el.name}
-          //     Icon={el.Icon}
-          //     setCurrentTab={setCurrentTab}
-          // />
         );
       })}
     </>
@@ -42,7 +36,6 @@ const CategoryListItem: React.FC<Props> = ({ setCurrentTab }) => {
 const Text = styled.p`
   padding-top: 2px;
   font-family: 'DM Sans';
-  font-style: normal;
   font-weight: 700;
   font-size: 14px;
   line-height: 16px;
@@ -54,7 +47,6 @@ const Text = styled.p`
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
   padding: 0;
   gap: 16px;

@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, HTMLInputTypeAttribute } from 'react';
+import React, { ChangeEventHandler, HTMLInputTypeAttribute, memo } from 'react';
 import styled from 'styled-components';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   height?: number;
   onChange?: ChangeEventHandler<HTMLTextAreaElement>;
   value?: string;
-  isError?: boolean;
+  hasError?: boolean;
 };
 
 const Textarea = ({
@@ -16,24 +16,24 @@ const Textarea = ({
   height,
   onChange,
   value,
-  isError,
+  hasError,
 }: Props) => {
   return (
-    <Textarea.TextareaItem
+    <Textarea.StyledTextarea
       placeholder={placeholder}
       width={width}
       height={height}
       onChange={onChange}
       value={value}
-      isError={isError}
+      hasError={hasError}
     />
   );
 };
 
-const TextareaItem = styled.textarea<{
+const StyledTextarea = styled.textarea<{
   width?: number;
   height?: number;
-  isError?: boolean;
+  hasError?: boolean;
 }>`
   font-family: 'Poppins', sans-serif;
   background-color: #fcfcfd;
@@ -42,20 +42,19 @@ const TextareaItem = styled.textarea<{
   font-size: 14px;
   line-height: 24px;
   color: #777e91;
-  border: 2px solid ${({ isError }) => (isError ? '#c7aeb5' : '#e6e8ec')};
+  border: 2px solid ${({ hasError }) => (hasError ? '#c7aeb5' : '#e6e8ec')};
   border-radius: 8px;
   outline: none;
   width: ${({ width }) => (width ? `${width}px` : '100%')};
   height: ${({ height }) => (height ? `${height}px` : '100%')};
   resize: none;
-  transition: 0.5s;
   &:focus {
-    border-color: ${({ isError }) =>
-      isError ? 'rgb(192,0,67)' : 'rgba(51, 51, 51, 0.5)'};
+    border-color: ${({ hasError }) =>
+      hasError ? 'rgb(192,0,67)' : 'rgba(51, 51, 51, 0.5)'};
     box-shadow: 0 5px 20px 0 rgb(0 0 0 / 7%);
   }
 `;
 
-Textarea.TextareaItem = TextareaItem;
+Textarea.StyledTextarea = StyledTextarea;
 
-export default Textarea;
+export default memo(Textarea);

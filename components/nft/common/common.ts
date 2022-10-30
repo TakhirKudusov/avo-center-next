@@ -16,14 +16,12 @@ const NFTDescriptionContainer = styled.div`
 
 const NFTDescriptionWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   gap: 56px;
 `;
 
 const TagsWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   gap: 8px;
   margin-top: 26px;

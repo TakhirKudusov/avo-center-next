@@ -27,7 +27,6 @@ const WalletItemWrapper = styled.div`
   border-radius: 76px;
   padding: 10px;
   cursor: pointer;
-  transition: all 0.3s;
 
   &:hover {
     background: #f2f2f2;

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { Button } from '../../ui-kit';
+import { Button, ButtonSize } from '../../ui-kit';
 
 const TwitterButton = () => {
   return (
     <TwitterButton.Wrapper>
-      <Button size={0}>Verify account</Button>
+      <Button size={ButtonSize.Small}>Verify account</Button>
     </TwitterButton.Wrapper>
   );
 };

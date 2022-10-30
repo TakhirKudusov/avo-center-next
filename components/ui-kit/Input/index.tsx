@@ -46,9 +46,9 @@ const Input: React.FC<Props & TFormFieldProps> = ({
 };
 
 const InputItem = styled.input<{
-  width?: number;
   hasError: boolean;
   type?: string;
+  width?: number;
 }>`
   ${({ type, width, hasError }) => {
     switch (type) {
@@ -57,27 +57,26 @@ const InputItem = styled.input<{
           &::-webkit-file-upload-button {
             visibility: hidden;
           }
+
           &::before {
             display: inline-flex;
             content: 'Upload ID';
             padding-top: 12px;
             padding-left: 44px;
             padding-right: 16px;
-            width: 61.04px;
-            height: 24.04px;
+            width: 61px;
+            height: 24px;
             border: 2px solid #e6e8ec;
             border-radius: 8px;
             justify-content: center;
             font-family: 'DM Sans';
-            font-style: normal;
             font-weight: 700;
             font-size: 14px;
             line-height: 12px;
             color: #777e90;
             cursor: pointer;
-            background: url('/images/download.png') no-repeat;
+            background: url('/images/download.png') no-repeat left 16px center;
             background-size: 16px 16px;
-            background-position: left 16px center;
           }
         `;
       default:
@@ -93,7 +92,6 @@ const InputItem = styled.input<{
           border-radius: 8px;
           outline: none;
           width: ${width ? `${width}px` : '100%'};
-          transition: 0.5s;
           border-color: ${hasError ? '#ef466f' : '#e6e8ec'};
           &:focus {
             border-color: ${hasError

@@ -39,7 +39,7 @@ const AnimationWrapper = styled.div<{
   canBeHidden?: boolean;
 }>`
   overflow: hidden;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   height: ${({ canBeHidden }) => canBeHidden && 0};
   ${({ isFieldOpen }) => {
     switch (isFieldOpen) {

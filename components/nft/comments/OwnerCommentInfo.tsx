@@ -20,7 +20,6 @@ const OwnerCommentInfo: React.FC<Props> = ({ likes, time, withReply }) => {
 
 const OwnerCommentInfoWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0;

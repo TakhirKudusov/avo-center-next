@@ -73,7 +73,6 @@ const ButtonBody = styled.button<{
   box-sizing: border-box;
   font-family: 'DM Sans', sans-serif;
   cursor: ${({ disabled }) => (disabled ? 'unset' : 'pointer')};
-  transition: all 0.3s;
   font-size: ${({ size }) =>
     [ButtonSize.Small, ButtonSize.Medium].includes(size) ? '14px' : '16px'};
   border-color: ${({ btnType, disabled }) =>

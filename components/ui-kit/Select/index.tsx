@@ -136,7 +136,6 @@ const ChevronWrapper = styled.div<any>`
       ? 'none'
       : '2px solid #E6E8EC'};
   border-radius: 50%;
-  transition: all 0.3s;
   transform: ${(props) => (props.rotated ? 'rotate(180deg)' : 'rotate(0deg)')};
 `;
 
@@ -164,7 +163,6 @@ const SelectDropdownItem = styled.div<any>`
   align-items: center;
   gap: 10px;
   border-radius: 8px;
-  transition: all 0.3s;
   background: ${(props) => (props.isSelected ? '#efefef' : 'none')};
   cursor: pointer;
 

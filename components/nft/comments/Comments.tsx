@@ -46,7 +46,6 @@ const Header = styled.div`
   margin-bottom: 48px;
   height: 48px;
   font-family: 'DM Sans';
-  font-style: normal;
   font-weight: 700;
   font-size: 40px;
   line-height: 48px;
@@ -57,7 +56,6 @@ const Header = styled.div`
 
 const CommentsWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   padding: 0;
   gap: 16px;

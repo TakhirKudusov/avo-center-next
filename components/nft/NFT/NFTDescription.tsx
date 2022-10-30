@@ -33,7 +33,6 @@ const NFTDescription: React.FC<Props> = ({ data }) => {
 
 const Description = styled.p`
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;

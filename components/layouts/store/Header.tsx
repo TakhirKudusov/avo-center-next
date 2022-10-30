@@ -62,10 +62,7 @@ const Header = () => {
         </Link>
         <ActionsBar>
           <Link href={'/modals'}>
-            <Button
-              size={ButtonSize.Medium}
-              type={ButtonType.Primary}
-            >
+            <Button size={ButtonSize.Medium} type={ButtonType.Primary}>
               Modals
             </Button>
           </Link>
@@ -73,25 +70,25 @@ const Header = () => {
           <Tooltip content={<NotificationCard />}>
             <Notifications />
           </Tooltip>
+          {/*{!user && (*/}
+          {/*  <AnonymousActionButtons>*/}
+          {/*    <Button*/}
+          {/*      onClick={handleUploadClick()}*/}
+          {/*      size={ButtonSize.Medium}*/}
+          {/*      type={ButtonType.Primary}*/}
+          {/*    >*/}
+          {/*      Upload*/}
+          {/*    </Button>*/}
+          {/*    <Button*/}
+          {/*      size={ButtonSize.Medium}*/}
+          {/*      type={ButtonType.Secondary}*/}
+          {/*      onClick={handleWalletConnectClick(setIsConnectWalletVisible)}*/}
+          {/*    >*/}
+          {/*      Connect Wallet*/}
+          {/*    </Button>*/}
+          {/*  </AnonymousActionButtons>*/}
+          {/*)}*/}
           {!user && (
-            <AnonymousActionButtons>
-              <Button
-                onClick={handleUploadClick()}
-                size={ButtonSize.Medium}
-                type={ButtonType.Primary}
-              >
-                Upload
-              </Button>
-              <Button
-                size={ButtonSize.Medium}
-                type={ButtonType.Secondary}
-                onClick={handleWalletConnectClick(setIsConnectWalletVisible)}
-              >
-                Connect Wallet
-              </Button>
-            </AnonymousActionButtons>
-          )}
-          {!!user && (
             <AuthorizedActionButtons>
               <Button
                 onClick={handleUploadClick()}
