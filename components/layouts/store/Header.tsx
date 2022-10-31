@@ -70,25 +70,25 @@ const Header = () => {
           <Tooltip content={<NotificationCard />}>
             <Notifications />
           </Tooltip>
-          {/*{!user && (*/}
-          {/*  <AnonymousActionButtons>*/}
-          {/*    <Button*/}
-          {/*      onClick={handleUploadClick()}*/}
-          {/*      size={ButtonSize.Medium}*/}
-          {/*      btnType={ButtonType.Primary}*/}
-          {/*    >*/}
-          {/*      Upload*/}
-          {/*    </Button>*/}
-          {/*    <Button*/}
-          {/*      size={ButtonSize.Medium}*/}
-          {/*      btnType={ButtonType.Secondary}*/}
-          {/*      onClick={handleWalletConnectClick(setIsConnectWalletVisible)}*/}
-          {/*    >*/}
-          {/*      Connect Wallet*/}
-          {/*    </Button>*/}
-          {/*  </AnonymousActionButtons>*/}
-          {/*)}*/}
           {!user && (
+            <AnonymousActionButtons>
+              <Button
+                onClick={handleUploadClick()}
+                size={ButtonSize.Medium}
+                btnType={ButtonType.Primary}
+              >
+                Upload
+              </Button>
+              <Button
+                size={ButtonSize.Medium}
+                btnType={ButtonType.Secondary}
+                onClick={handleWalletConnectClick(setIsConnectWalletVisible)}
+              >
+                Connect Wallet
+              </Button>
+            </AnonymousActionButtons>
+          )}
+          {user && (
             <AuthorizedActionButtons>
               <Button
                 onClick={handleUploadClick()}
