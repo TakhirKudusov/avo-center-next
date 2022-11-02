@@ -12,4 +12,22 @@ type TDateValue = TDate & {
   isDisabled?: boolean;
 };
 
-export { type TDateValue, type TDate };
+type TTimeType = 'am' | 'pm';
+
+type TTime = {
+  hour: string;
+  type: TTimeType;
+};
+
+type TDateTime = {
+  date: TDateValue;
+  time: TTime | undefined;
+};
+
+export {
+  type TDateValue,
+  type TDate,
+  type TTime,
+  type TTimeType,
+  type TDateTime,
+};
