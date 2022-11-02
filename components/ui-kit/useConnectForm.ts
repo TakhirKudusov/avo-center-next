@@ -21,7 +21,7 @@ const useConnectForm = (
     if (onChange) {
       onChange(formItemValue);
     }
-  }, [formItemValue]);
+  }, [form, hasSchema, field?.name, onChange, formItemValue]);
 };
 
 export default useConnectForm;
