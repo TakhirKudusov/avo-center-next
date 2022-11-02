@@ -7,6 +7,7 @@ import { getUserInfo } from '../common/helpers/jwt-token.helper';
 import { useAppDispatch } from '../redux/hooks';
 import { setUser } from '../redux/slicers/authSlicer';
 import { useEffect } from 'react';
+import '../components/ui-kit/DatePicker/DatePicker.css';
 
 function App({ Component, pageProps }: AppWithPageLayout) {
   const dispatch = useAppDispatch();

@@ -14,6 +14,7 @@ import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 import Select from '../../ui-kit/Select';
 import { SelectItemSize } from '../../ui-kit/Select/enums';
 import { SelectItem } from '../../ui-kit/Select/types';
+import { TooltipPosition } from '../../ui-kit/Tooltip/types';
 import { handleWalletConnectClick } from './helpers';
 import NotificationCard from './NotificationCard';
 import Notifications from './Notifications';
@@ -67,7 +68,10 @@ const Header = () => {
             </Button>
           </Link>
           <SearchBar />
-          <Tooltip content={<NotificationCard />}>
+          <Tooltip
+            content={<NotificationCard />}
+            position={TooltipPosition.Center}
+          >
             <Notifications />
           </Tooltip>
           {!user && (
@@ -109,7 +113,10 @@ const Header = () => {
                   <WalletNumber>0X3a5...4m243</WalletNumber>
                 </Button>
               </Link>
-              <Tooltip content={<UserInfoCard />}>
+              <Tooltip
+                content={<UserInfoCard />}
+                position={TooltipPosition.Center}
+              >
                 <Button
                   style={{ marginLeft: '4px' }}
                   size={ButtonSize.Medium}

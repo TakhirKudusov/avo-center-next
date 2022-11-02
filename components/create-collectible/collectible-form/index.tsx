@@ -88,7 +88,7 @@ const CollectibleForm = () => {
             title="Timer"
             name={CollectibleFormItemName.Timer}
             component={DatePicker}
-            width={191}
+            width={220}
           />
           <FormFooter>
             <Button

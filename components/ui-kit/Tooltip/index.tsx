@@ -2,12 +2,18 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import styled from 'styled-components';
 import { handleActivation } from './helpers';
+import { TooltipPosition } from './types';
 
 type Props = {
   children: JSX.Element;
   content: JSX.Element;
+  position?: TooltipPosition;
 };
-const Tooltip: React.FC<Props> = ({ children, content }) => {
+const Tooltip: React.FC<Props> = ({
+  children,
+  content,
+  position = TooltipPosition.Left,
+}) => {
   const [active, setActive] = useState(false);
   const [wrapperWidth, setWrapperWidth] = useState<number | undefined>();
 
@@ -29,7 +35,12 @@ const Tooltip: React.FC<Props> = ({ children, content }) => {
       <TooltipChildrenWrapper onClick={handleActivation(setActive)}>
         {children}
       </TooltipChildrenWrapper>
-      <TooltipContent ref={contentRef} offset={wrapperWidth} active={active}>
+      <TooltipContent
+        ref={contentRef}
+        offset={wrapperWidth}
+        active={active}
+        position={position}
+      >
         <ArrowUp />
         {content}
       </TooltipContent>
@@ -46,6 +57,7 @@ const TooltipChildrenWrapper = styled.span``;
 const TooltipContent = styled.div<{
   offset: number | undefined;
   active: boolean;
+  position?: TooltipPosition;
 }>`
   position: absolute;
   margin-top: 20px;
@@ -54,10 +66,30 @@ const TooltipContent = styled.div<{
   border-radius: 12px;
   min-width: 190px;
   padding: 30px 14px;
-  left: ${(props) =>
-    props.offset ? `calc(50% - (${props.offset}px / 2))` : '-50%'};
-  opacity: ${(props) => (props.active ? '1' : '0')};
-  visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
+  left: ${({ offset, position }) => {
+    if (position === TooltipPosition.Left) {
+      return '0';
+    }
+    if (position === TooltipPosition.Right) {
+      return 'auto';
+    }
+    if (position === TooltipPosition.Center) {
+      return offset ? `calc(50% - (${offset}px / 2))` : '-50%';
+    }
+  }};
+  right: ${({ position }) => {
+    if (position === TooltipPosition.Right) {
+      return '0';
+    }
+    if (position === TooltipPosition.Left) {
+      return 'auto';
+    }
+    if (position === TooltipPosition.Center) {
+      return 'auto';
+    }
+  }};
+  opacity: ${({ active }) => (active ? '1' : '0')};
+  visibility: ${({ active }) => (active ? 'visible' : 'hidden')};
 `;
 
 const ArrowUp = styled.div`

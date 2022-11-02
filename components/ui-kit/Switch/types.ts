@@ -1,3 +1,5 @@
-export type THandler = ((value: boolean | number | string) => void) | undefined;
+export type THandler<T = boolean | number | string> =
+  | ((value: T) => void)
+  | undefined;
 
 export type SwitchThemes = 'green' | 'blue';
