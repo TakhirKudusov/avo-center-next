@@ -113,7 +113,7 @@ const Header: React.FC<Props> = ({
         arrow.setAttribute('tabindex', '-1');
       }
     });
-  }, [isMonthSelectorOpen, isYearSelectorOpen]);
+  }, [isMonthSelectorOpen, isYearSelectorOpen, isRtl]);
 
   const getMonthYearText = (isInitialActiveChild: any) => {
     const date = getSlideDate({

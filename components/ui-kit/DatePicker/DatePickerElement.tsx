@@ -155,7 +155,7 @@ const DatePickerElement: React.FC<Props> = ({
     ) {
       calendarContainerElement.current!.classList.add('-top');
     }
-  }, [isCalendarOpen]);
+  }, [isCalendarOpen, calendarPopperPosition]);
 
   const handleCalendarChange = (newValue: TDateValue) => {
     const valueType = getValueType(value!);

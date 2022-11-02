@@ -16,7 +16,7 @@ function App({ Component, pageProps }: AppWithPageLayout) {
   useEffect(() => {
     const user = getUserInfo();
     dispatch(setUser(user));
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

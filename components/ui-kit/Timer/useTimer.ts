@@ -15,7 +15,7 @@ export const useTimer = (data: NFTDescriptionData) => {
       }, 1000);
       return () => clearInterval(intervalId);
     }
-  }, []);
+  }, [data.bid?.endTime, data.bid?.isOnBid]);
 
   return { timeBeforeEnd };
 };

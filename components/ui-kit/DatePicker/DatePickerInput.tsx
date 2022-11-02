@@ -114,5 +114,6 @@ DatePickerInput.defaultProps = {
   inputClassName: '',
   inputName: '',
 };
+DatePickerInput.displayName = 'DatePickerInput';
 
 export default memo(DatePickerInput);
