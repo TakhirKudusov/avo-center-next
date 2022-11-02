@@ -74,7 +74,7 @@
   --cl-color-error: #ff2929;
   font-size: 10px;
   background: rgba(244, 245, 246, 1);
-  border-radius: 1em;
+  border-radius: 20px;
   position: relative;
   user-select: none;
   padding-top: 1.2em;
