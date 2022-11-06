@@ -1,8 +1,9 @@
 import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
-import { Dispatch, useState } from 'react';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ChevronDownSVG from '../../../assets/svg/chevron-down.svg';
 import { TFormFieldProps } from '../../../common/types';
+import { useOnClickOutside } from '../../common/hooks';
 import useConnectForm from '../useConnectForm';
 import { SelectItemBackground } from './enums';
 import { SelectItemSize } from './enums/selectItemSize.enum';
@@ -41,24 +42,35 @@ const Select: React.FC<Props & TFormFieldProps> = ({
 }) => {
   const selectedItem = items?.find((item) => {
     const curValue = field?.value ?? value;
+
     return item.value === curValue || item.value === curValue?.value;
   });
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState<SelectItem | undefined>(
     selectedItem,
   );
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const dropdownItemsRef = useRef<HTMLDivElement | null>(null);
+
+  const handleDropdownClose = () => {
+    setExpanded(false);
+  };
 
   useConnectForm(selected?.value, form, field, hasSchema, onChange);
+  useOnClickOutside(wrapperRef, handleDropdownClose, dropdownItemsRef);
 
   const handleDropdownItemClick =
     (
       item: SelectItem,
-      setSelected: Dispatch<SelectItem | undefined>,
-      setExpanded: Dispatch<boolean>,
+      setSelected: Dispatch<SetStateAction<SelectItem | undefined>>,
     ) =>
     () => {
-      setSelected(item);
-      setExpanded(false);
+      setSelected((prev) => {
+        if (prev === item) return selectedItem;
+
+        return item;
+      });
+      handleDropdownClose();
     };
 
   return (
@@ -80,12 +92,17 @@ const Select: React.FC<Props & TFormFieldProps> = ({
           <ChevronDownSVG />
         </ChevronWrapper>
       </SelectHeader>
-      <SelectDropdown expanded={expanded} size={size} style={style}>
+      <SelectDropdown
+        ref={dropdownItemsRef}
+        expanded={expanded}
+        size={size}
+        style={style}
+      >
         {items?.map((item, index) => (
           <SelectDropdownItem
             key={`drop-down-${index}`}
             isSelected={item.value === selected?.value}
-            onClick={handleDropdownItemClick(item, setSelected, setExpanded)}
+            onClick={handleDropdownItemClick(item, setSelected)}
           >
             {showImage && (
               <SelectDropdownItemImage
@@ -148,7 +165,7 @@ const ChevronWrapper = styled.div<any>`
   transform: ${(props) => (props.rotated ? 'rotate(180deg)' : 'rotate(0deg)')};
 `;
 
-const SelectDropdown = styled.div<any>`
+const SelectDropdown = styled.div<{ size: SelectItemSize; expanded: boolean }>`
   display: ${(props) => (props.expanded ? 'flex' : 'none')};
   flex-direction: column;
   gap: 10px;

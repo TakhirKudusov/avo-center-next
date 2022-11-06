@@ -41,7 +41,7 @@ const Tooltip: React.FC<Props> = ({
         active={active}
         position={position}
       >
-        <ArrowUp />
+        <ArrowUp position={position} />
         {content}
       </TooltipContent>
     </TooltipWrapper>
@@ -92,10 +92,19 @@ const TooltipContent = styled.div<{
   visibility: ${({ active }) => (active ? 'visible' : 'hidden')};
 `;
 
-const ArrowUp = styled.div`
+const ArrowUp = styled.div<{ position?: TooltipPosition }>`
   position: absolute;
   top: -16px;
-  left: calc(50% - 16px);
+  left: ${({ position }) => {
+    if (position === TooltipPosition.Right) {
+      return 'calc(50% + 58px)';
+    }
+    if (position === TooltipPosition.Left) {
+      return 'calc(50% - 90px)';
+    }
+
+    return 'calc(50% - 16px)';
+  }};
   width: 0;
   height: 0;
   border-left: 16px solid transparent;

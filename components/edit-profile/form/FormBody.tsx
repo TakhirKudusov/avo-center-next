@@ -92,7 +92,7 @@ const FormBody = () => {
           <FormFooter>
             <Button btnType={ButtonType.Secondary}>Update Profile</Button>
             <Button btnType={ButtonType.Outlined}>
-              <CircleCloseIcon />
+              <CircleCloseIcon color="#777E91" />
               Clear all
             </Button>
           </FormFooter>
