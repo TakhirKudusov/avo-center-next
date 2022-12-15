@@ -49,10 +49,18 @@ const BidWrapper = styled.div`
   border-radius: 20px;
   box-shadow: 0 0 40px -2px rgba(31, 47, 70, 0.12);
   overflow: hidden;
+  width: 256px;
+  display: inline-block;
+
+  &:nth-of-type(n) {
+    margin-right: 25px;
+  }
+  &:last-of-type {
+    margin-right: 0;
+  }
 `;
 
 const BidImage = styled.div`
-  width: 256px;
   height: 236px;
   background: #ccc;
   background-size: cover;

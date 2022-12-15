@@ -10,6 +10,7 @@ type Props = {
   avatar: string;
   rank: number;
 };
+
 const ParticipantItem: React.FC<Props> = ({
   name,
   avoAmount,
@@ -18,36 +19,51 @@ const ParticipantItem: React.FC<Props> = ({
 }) => {
   return (
     <ParticipantWrapper>
-      <ParticipantHeader>
-        <ParticipantRank rank={rank} />
-        <ActionBtns>
-          <ActionBtn>
-            <SquarePlusSVG />
-          </ActionBtn>
-          <ActionBtn>
-            <ArrowExpandSVG />
-          </ActionBtn>
-        </ActionBtns>
-      </ParticipantHeader>
-      <ParticipantBody>
-        <ParticipantAvatar
-          style={{ backgroundImage: `url(/images/${avatar})` }}
-        >
-          <ParticipantVerifiedIcon>
-            <VerifiedSVG />
-          </ParticipantVerifiedIcon>
-        </ParticipantAvatar>
-        <ParticipantName>{name}</ParticipantName>
-        <ParticipantAvoAmount>
-          <ParticipantAvoAmountValue>{avoAmount}</ParticipantAvoAmountValue>
-          <ParticipantAvoAmountCurrency>AVO</ParticipantAvoAmountCurrency>
-        </ParticipantAvoAmount>
-      </ParticipantBody>
+      <ParticipantContent>
+        <ParticipantHeader>
+          <ParticipantRank rank={rank} />
+          <ActionBtns>
+            <ActionBtn>
+              <SquarePlusSVG />
+            </ActionBtn>
+            <ActionBtn>
+              <ArrowExpandSVG />
+            </ActionBtn>
+          </ActionBtns>
+        </ParticipantHeader>
+        <ParticipantBody>
+          <ParticipantAvatar
+            style={{ backgroundImage: `url(/images/${avatar})` }}
+          >
+            <ParticipantVerifiedIcon>
+              <VerifiedSVG />
+            </ParticipantVerifiedIcon>
+          </ParticipantAvatar>
+          <ParticipantName>{name}</ParticipantName>
+          <ParticipantAvoAmount>
+            <ParticipantAvoAmountValue>{avoAmount}</ParticipantAvoAmountValue>
+            <ParticipantAvoAmountCurrency>AVO</ParticipantAvoAmountCurrency>
+          </ParticipantAvoAmount>
+        </ParticipantBody>
+      </ParticipantContent>
     </ParticipantWrapper>
   );
 };
 
 const ParticipantWrapper = styled.div`
+  height: 263px;
+  display: inline-flex;
+
+  &:nth-of-type(n) {
+    margin-right: 32px;
+  }
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+`;
+
+const ParticipantContent = styled.div`
   padding: 24px;
   width: 198.4px;
   height: 247px;

@@ -32,7 +32,15 @@ const hotBids: Bid[] = [
     total: 20,
     available: 10,
     highestBid: 0.001
-  }
+  },
+  {
+    image: 'hotbid1.jpg',
+    name: 'Amazing digital 2',
+    avoAmonut: 2.45,
+    total: 20,
+    available: 10,
+    highestBid: 0.001
+  },
 ];
 
 export { hotBids };
