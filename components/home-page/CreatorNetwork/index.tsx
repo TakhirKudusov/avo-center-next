@@ -9,14 +9,19 @@ import Link from 'next/link';
 import { useTimer } from '../../ui-kit';
 import { NFTData } from '../../../mock-data/tagsData';
 
-const CreatorNetwork = () => {
+//TODO: remove index
+type Props = {
+  index: number;
+};
+
+const CreatorNetwork = ({ index }: Props) => {
   const { timeBeforeEnd } = useTimer(NFTData);
 
   return (
     <CreatorNetworkWrapper>
       <Player />
       <InfoBar>
-        <Title>the creator network®</Title>
+        <Title>the creator network {index}®</Title>
         <InfoItems>
           <InfoItem>
             <InfoItemImage
@@ -58,23 +63,16 @@ const CreatorNetwork = () => {
         >
           View item
         </Button>
-        <Arrows>
-          <Arrow>
-            <ArrowLeftSVG />
-          </Arrow>
-          <Arrow>
-            <ArrowRightSVG />
-          </Arrow>
-        </Arrows>
       </InfoBar>
     </CreatorNetworkWrapper>
   );
 };
 
 const CreatorNetworkWrapper = styled.div`
-  margin-top: 128px;
+  margin-top: 48px;
   display: flex;
   gap: 128px;
+  padding: 0 5px;
 `;
 
 const Player = styled.div`

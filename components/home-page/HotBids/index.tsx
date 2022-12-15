@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import ArrowLeftSVG from '../../../assets/svg/arrow-left.svg';
-import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
 import { ContentContainer, FlexContainer } from '../../common';
 import BidItem from '../../common/components/BidItem';
+import { ReactSlick } from '../../ui-kit';
+
 import { hotBids } from './constants';
 
 const HotBids = () => {
@@ -12,20 +12,12 @@ const HotBids = () => {
         <ContentContainer>
           <HotBidsHeader>
             <HotBidsTitle>Hot bid</HotBidsTitle>
-            <Arrows>
-              <Arrow>
-                <ArrowLeftSVG />
-              </Arrow>
-              <Arrow>
-                <ArrowRightSVG />
-              </Arrow>
-            </Arrows>
           </HotBidsHeader>
-          <BidsWrapper>
+          <ReactSlick slidesPerRow={4}>
             {hotBids.map((bid, index) => (
               <BidItem key={`bid-item-${index}`} bid={bid} />
             ))}
-          </BidsWrapper>
+          </ReactSlick>
         </ContentContainer>
       </FlexContainer>
     </HotBidsWrapper>
@@ -52,31 +44,6 @@ const HotBidsTitle = styled.div`
   line-height: 48px;
   letter-spacing: -0.01em;
   color: #23262f;
-`;
-
-const Arrows = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const Arrow = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 2px solid #e6e8ec;
-  border-radius: 50%;
-  color: #777e91;
-  cursor: pointer;
-`;
-
-const BidsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  margin-top: 64px;
 `;
 
 export default HotBids;

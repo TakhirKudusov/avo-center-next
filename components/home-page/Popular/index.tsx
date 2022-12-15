@@ -11,6 +11,7 @@ import {
 } from '../../ui-kit/Select/enums';
 import { SelectItem } from '../../ui-kit/Select/types';
 import Select from '../../ui-kit/Select';
+import { ReactSlick } from '../../ui-kit';
 
 const Popular = () => {
   const dates: SelectItem[] = [
@@ -25,42 +26,34 @@ const Popular = () => {
   ];
   return (
     <PopularWrapper>
-      <FlexContainer>
-        <ContentContainer>
-          <SectionHeader>
-            <SectionTitles>
-              <SectionTitle>Popular</SectionTitle>
-              <SectionSelect>
-                <SectionSelectTitle>Sellers</SectionSelectTitle>
-                <DownArrowSVG />
-              </SectionSelect>
-            </SectionTitles>
-            <Select
-              items={dates}
-              background={SelectItemBackground.White}
-              size={SelectItemSize.Medium}
-              style={{ width: '256px' }}
-            ></Select>
-          </SectionHeader>
-          <Participants>
-            <Arrow style={{ left: '-70px' }}>
-              <ArrowLeftSVG />
-            </Arrow>
-            {sellers.map(({ name, avoAmount, avatar }, index) => (
-              <ParticipantItem
-                key={`participant-item-${index}`}
-                name={name}
-                avoAmount={avoAmount}
-                avatar={avatar}
-                rank={index + 1}
-              />
-            ))}
-            <Arrow style={{ right: '-70px' }}>
-              <ArrowRightSVG />
-            </Arrow>
-          </Participants>
-        </ContentContainer>
-      </FlexContainer>
+      <ContentContainer>
+        <SectionHeader>
+          <SectionTitles>
+            <SectionTitle>Popular</SectionTitle>
+            <SectionSelect>
+              <SectionSelectTitle>Sellers</SectionSelectTitle>
+              <DownArrowSVG />
+            </SectionSelect>
+          </SectionTitles>
+          <Select
+            items={dates}
+            background={SelectItemBackground.White}
+            size={SelectItemSize.Medium}
+            style={{ width: '256px' }}
+          ></Select>
+        </SectionHeader>
+        <ReactSlick slidesPerRow={5}>
+          {sellers.map(({ name, avoAmount, avatar }, index) => (
+            <ParticipantItem
+              key={`participant-item-${index}`}
+              name={name}
+              avoAmount={avoAmount}
+              avatar={avatar}
+              rank={index + 1}
+            />
+          ))}
+        </ReactSlick>
+      </ContentContainer>
     </PopularWrapper>
   );
 };
@@ -75,6 +68,8 @@ const PopularWrapper = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: 1150px;
+  margin: 0 auto;
 `;
 
 const SectionHeader = styled.div`
@@ -117,20 +112,6 @@ const Participants = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 32px;
-`;
-
-const Arrow = styled.div`
-  position: absolute;
-  top: 110px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 2px solid #e6e8ec;
-  border-radius: 50%;
-  color: #777e91;
-  cursor: pointer;
 `;
 
 export default Popular;
