@@ -246,7 +246,7 @@ const ModalsTest = () => {
           <>
             <PutOnSaleWrapper>
               <PutOnSaleCircle>
-                <CoinSVG />
+                <CoinSVG color="#FCFCFD" />
               </PutOnSaleCircle>
               <PutOnSaleOptionWrapper>
                 <PutOnSaleOption>

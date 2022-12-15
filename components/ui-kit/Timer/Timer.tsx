@@ -12,7 +12,7 @@ type Props = {
 const Timer: React.FC<Props> = ({ timeBeforeEnd }) => {
   return (
     <TimeContainer>
-      <EndsParagraph>End in</EndsParagraph>
+      <EndsParagraph>Ends in</EndsParagraph>
       <TimeGroup>
         {getTimeItemData(timeBeforeEnd)?.map(({ digit, value }, index) => {
           return (

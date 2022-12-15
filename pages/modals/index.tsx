@@ -1,14 +1,15 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { ContentContainer, FlexContainer } from '../../components/common';
 import StoreLayout from '../../components/layouts/store';
 import ModalsTest from '../../components/ModalsTest';
+import Filters from './Filters';
 
 function Modals() {
   return (
     <StyledFlexContainer>
       <PageContainer>
         <ModalsTest />
+        <Filters />
       </PageContainer>
     </StyledFlexContainer>
   );
@@ -20,11 +21,6 @@ const StyledFlexContainer = styled(FlexContainer)`
 
 const PageContainer = styled(ContentContainer)`
   position: relative;
-`;
-
-const ProfileWrapper = styled.div`
-  padding-left: 160px;
-  margin-top: 80px;
 `;
 
 Modals.PageLayout = StoreLayout;

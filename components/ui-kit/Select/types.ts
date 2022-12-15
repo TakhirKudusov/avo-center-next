@@ -1,5 +1,5 @@
 export type SelectItem = {
   value: string | number | boolean;
-  label: string | number;
+  label: JSX.Element | string | number;
   image?: string;
 };

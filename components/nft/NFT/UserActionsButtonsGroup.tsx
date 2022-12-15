@@ -3,13 +3,19 @@ import { RadioButton } from '../../ui-kit/Button/RadioButton';
 import ThreeDotsSVG from '../../../assets/svg/three-dots.svg';
 import ShareSVG from '../../../assets/svg/share.svg';
 import LoveSVG from '../../../assets/svg/love.svg';
+import { Tooltip } from '../../ui-kit';
+import { TooltipPosition } from '../../ui-kit/Tooltip/types';
+
+import TokenActions from './TokenActions';
 
 const UserActionsButtonsGroup: React.FC = () => {
   return (
     <Container>
-      <RadioButton>
-        <ThreeDotsSVG />
-      </RadioButton>
+      <Tooltip content={<TokenActions />} position={TooltipPosition.Right}>
+        <RadioButton>
+          <ThreeDotsSVG />
+        </RadioButton>
+      </Tooltip>
       <RadioButton>
         <ShareSVG />
       </RadioButton>
