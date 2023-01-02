@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { ContentContainer, FlexContainer } from '../../components/common';
 import StoreLayout from '../../components/layouts/store';
+import Filters from '../../components/modals/Filters';
 import ModalsTest from '../../components/ModalsTest';
-import Filters from './Filters';
 
 function Modals() {
   return (
