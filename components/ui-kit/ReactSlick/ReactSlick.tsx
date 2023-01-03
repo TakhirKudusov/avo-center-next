@@ -8,31 +8,37 @@ import 'slick-carousel/slick/slick-theme.css';
 type Props = {
   hasDots?: boolean;
   slidesPerRow?: number;
+  screenSize?: number;
 };
 
 const ReactSlick: FC<PropsWithChildren<Props>> = ({
   children,
   hasDots = false,
   slidesPerRow,
-}) => {
-  console.log(children);
-
-  return (
-    <StyledSlider
-      nextArrow={<StyledArrowRight slidesPerRow={slidesPerRow} />}
-      prevArrow={<StyledArrowLeft slidesPerRow={slidesPerRow} />}
-      slidesPerRow={slidesPerRow}
-      arrows
-      dots={hasDots}
-    >
-      {children}
-    </StyledSlider>
-  );
-};
+  screenSize,
+}) => (
+  <StyledSlider
+    nextArrow={
+      <StyledArrowRight screenSize={screenSize} slidesPerRow={slidesPerRow} />
+    }
+    prevArrow={
+      <StyledArrowLeft screenSize={screenSize} slidesPerRow={slidesPerRow} />
+    }
+    slidesPerRow={slidesPerRow}
+    arrows
+    dots={hasDots}
+  >
+    {children}
+  </StyledSlider>
+);
 
 const StyledSlider = styled(Slider)`
   .slick-track {
     margin-top: 80px;
+
+    @media (max-width: 415px) {
+      margin-top: 24px;
+    }
   }
 
   .slick-slide > div {
@@ -63,7 +69,10 @@ const StyledArrow = styled.div`
   }
 `;
 
-const StyledArrowRight = styled(StyledArrow)<{ slidesPerRow?: number }>`
+const StyledArrowRight = styled(StyledArrow)<{
+  slidesPerRow?: number;
+  screenSize?: number;
+}>`
   top: ${({ slidesPerRow }) => {
     if (slidesPerRow === 4) {
       return 0;
@@ -89,12 +98,21 @@ const StyledArrowRight = styled(StyledArrow)<{ slidesPerRow?: number }>`
   }};
   bottom: ${({ slidesPerRow }) => (slidesPerRow === 1 ? '30px' : 'unset')};
 
+  @media (max-width: 415px) {
+    bottom: ${({ slidesPerRow }) => (slidesPerRow === 1 ? '-80px' : 'unset')};
+    right: ${({ slidesPerRow, screenSize }) =>
+      slidesPerRow === 1 ? `${screenSize && screenSize / 2 - 60}px` : 'unset'};
+  }
+
   &::before {
     content: url(arrow-right.svg);
   }
 `;
 
-const StyledArrowLeft = styled(StyledArrow)<{ slidesPerRow?: number }>`
+const StyledArrowLeft = styled(StyledArrow)<{
+  slidesPerRow?: number;
+  screenSize?: number;
+}>`
   top: ${({ slidesPerRow }) => {
     if (slidesPerRow === 4) {
       return 0;
@@ -117,6 +135,12 @@ const StyledArrowLeft = styled(StyledArrow)<{ slidesPerRow?: number }>`
   }};
   right: ${({ slidesPerRow }) => (slidesPerRow === 1 ? '310px' : '50px')};
   bottom: ${({ slidesPerRow }) => (slidesPerRow === 1 ? '30px' : 'unset')};
+
+  @media (max-width: 415px) {
+    bottom: ${({ slidesPerRow }) => (slidesPerRow === 1 ? '-80px' : 'unset')};
+    right: ${({ slidesPerRow, screenSize }) =>
+      slidesPerRow === 1 ? `${screenSize && screenSize / 2 - 20}px` : '50px'};
+  }
 
   &::before {
     content: url(arrow-left.svg);

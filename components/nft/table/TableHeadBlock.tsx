@@ -23,6 +23,12 @@ const TableHead = styled.div`
   align-items: flex-start;
   padding: 16px 0;
   gap: 58px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
 `;
 
 const ColumnHead = styled.p`

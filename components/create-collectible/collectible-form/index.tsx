@@ -40,14 +40,15 @@ const CollectibleForm = () => {
             component={FileUpload}
           />
           <SectionTitle>Item details</SectionTitle>
-          <FormItem
-            title="Network"
-            name={CollectibleFormItemName.Network}
-            component={Select}
-            items={NETWORKS}
-            width={300}
-            size={SelectItemSize.Medium}
-          />
+          <NetworkWrapper>
+            <FormItem
+              title="Network"
+              name={CollectibleFormItemName.Network}
+              component={Select}
+              items={NETWORKS}
+              size={SelectItemSize.Medium}
+            />
+          </NetworkWrapper>
           <FormItem
             title="Item name"
             name={CollectibleFormItemName.Name}
@@ -60,13 +61,14 @@ const CollectibleForm = () => {
             placeholder="e. g. “After purchasing you will able to recived the logo...”"
             component={Input}
           />
-          <FormRow>
-            <FormItem
-              title="Royalties"
-              name={CollectibleFormItemName.Royalties}
-              component={Counter}
-              width={190}
-            ></FormItem>
+          <StyledFormRow>
+            <RoyaltiesWrapper>
+              <FormItem
+                title="Royalties"
+                name={CollectibleFormItemName.Royalties}
+                component={Counter}
+              />
+            </RoyaltiesWrapper>
             <FormItem
               title="Price"
               name={CollectibleFormItemName.Price}
@@ -74,8 +76,9 @@ const CollectibleForm = () => {
               items={NETWORKS}
               placeholder="e. g. Size"
               size={SelectItemSize.Medium}
+              style={{ width: '100%' }}
             />
-          </FormRow>
+          </StyledFormRow>
           <FormItem
             title="License"
             name={CollectibleFormItemName.License}
@@ -84,12 +87,13 @@ const CollectibleForm = () => {
             placeholder="License"
             size={SelectItemSize.Medium}
           />
-          <FormItem
+          {/* TODO: add adaptivity for Timer and uncomment */}
+          {/* <FormItem
             title="Timer"
             name={CollectibleFormItemName.Timer}
             component={DatePicker}
             width={260}
-          />
+          /> */}
           <FormFooter>
             <Button
               style={{ color: '#fff' }}
@@ -139,6 +143,28 @@ const AutoSaving = styled.div`
   font-size: 16px;
   line-height: 16px;
   color: #23262f;
+`;
+
+const NetworkWrapper = styled.div`
+  width: 300px;
+
+  @media (max-width: 415px) {
+    width: 100%;
+  }
+`;
+
+const StyledFormRow = styled.div`
+  @media (max-width: 415px) {
+    flex-direction: column;
+  }
+`;
+
+const RoyaltiesWrapper = styled.div`
+  width: 190px;
+
+  @media (max-width: 415px) {
+    width: 100%;
+  }
 `;
 
 export default CollectibleForm;

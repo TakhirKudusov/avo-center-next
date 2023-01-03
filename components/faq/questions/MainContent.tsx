@@ -25,15 +25,26 @@ const TabContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
-  width: 735px;
   gap: 40px;
 `;
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 1120px;
   margin-top: 80px;
+  width: 100%;
+  gap: 140px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 415px) {
+    width: 100%;
+    height: auto;
+    gap: 40px;
+    margin-top: 40px;
+  }
 `;
 
 export default MainContent;

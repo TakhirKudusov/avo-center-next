@@ -1,6 +1,7 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import styled from 'styled-components';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { handleActivation } from './helpers';
 import { TooltipPosition } from './types';
 
@@ -17,6 +18,8 @@ const Tooltip: React.FC<Props> = ({
   const [active, setActive] = useState(false);
   const [wrapperWidth, setWrapperWidth] = useState<number | undefined>();
 
+  const { screenSize } = useAdaptiveSlider();
+
   const contentRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useDetectClickOutside({
     onTriggered: () => {
@@ -31,7 +34,7 @@ const Tooltip: React.FC<Props> = ({
   }, [contentRef.current?.clientWidth, children]);
 
   return (
-    <TooltipWrapper ref={wrapperRef}>
+    <TooltipWrapper ref={wrapperRef} screenSize={screenSize}>
       <TooltipChildrenWrapper onClick={handleActivation(setActive)}>
         {children}
       </TooltipChildrenWrapper>
@@ -48,8 +51,8 @@ const Tooltip: React.FC<Props> = ({
   );
 };
 
-const TooltipWrapper = styled.span`
-  position: relative;
+const TooltipWrapper = styled.span<{ screenSize: number }>`
+  position: ${({ screenSize }) => (screenSize > 1024 ? 'relative' : 'static')};
 `;
 
 const TooltipChildrenWrapper = styled.span``;

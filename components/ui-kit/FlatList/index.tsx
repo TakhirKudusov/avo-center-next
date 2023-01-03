@@ -51,9 +51,14 @@ const FlatListWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
+
+  @media (max-width: 415px) {
+    overflow: scroll;
+  }
 `;
 
 const FlatListItem = styled.button<any>`
+  min-width: fit-content;
   font-family: 'DM Sans', sans-serif;
   font-weight: 700;
   font-size: 14px;
@@ -74,6 +79,10 @@ const FlatListChildren = styled.div`
   margin-top: 42px;
   width: fit-content;
   margin-bottom: 48px;
+
+  @media (max-width: 415px) {
+    width: 100%;
+  }
 `;
 
 export default FlatList;

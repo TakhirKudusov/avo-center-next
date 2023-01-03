@@ -18,6 +18,12 @@ const Header = styled.div`
   gap: 480px;
   border-top: 1px solid #e6e8ec;
   text-align: start;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
 `;
 
 const HeaderText = styled.p`

@@ -24,6 +24,16 @@ const ListingWrapper = styled.div`
   width: 564px;
   height: 366px;
   margin-top: 56px;
+
+  @media (max-width: 1024px) {
+    width: auto;
+    padding-right: 80px;
+  }
+
+  @media (max-width: 1024px) {
+    width: auto;
+    padding-right: 32px;
+  }
 `;
 
 export default memo(NFTListingsBlock);

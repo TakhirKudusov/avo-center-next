@@ -26,6 +26,10 @@ const OwnerCommentInfoWrapper = styled.div`
   gap: 4px;
   height: 24px;
   margin-bottom: 12px;
+
+  @media (max-width: 1024px) {
+    height: auto;
+  }
 `;
 
 export default memo(OwnerCommentInfo);

@@ -32,6 +32,15 @@ const ReplyContainer = styled.div`
   align-items: flex-start;
   gap: 10px;
   height: 84px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+
+  @media (max-width: 415px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 export default memo(UsersReply);

@@ -78,6 +78,12 @@ const TableLineWrapper = styled.div`
   padding: 18px 0;
   gap: 52px;
   border-top: 1px solid #e6e8ec;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
 `;
 
 const TableCell = styled.p<any>`

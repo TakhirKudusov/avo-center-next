@@ -43,6 +43,10 @@ const CollectionItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 80px;
+
+  @media (max-width: 415px) {
+    margin-top: 12px;
+  }
 `;
 
 const MainItem = styled.div`

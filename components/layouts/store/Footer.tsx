@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+
 import { FlexContainer } from '../../common';
 import Logo from '../../common/components/Logo';
+import { Divider } from '../../ui-kit';
 
 const Footer = () => {
   return (
@@ -16,6 +18,7 @@ const Footer = () => {
                 <br /> Economy.
               </Tagline>
             </CompanyInfo>
+            <StyledDivider style={{ margin: '32px 0' }} />
             <LinkSections>
               <LinkSection>
                 <LinkSectionTitle>Actions</LinkSectionTitle>
@@ -34,6 +37,7 @@ const Footer = () => {
                   </LinkItem>
                 </LinkSectionBody>
               </LinkSection>
+              <StyledDivider style={{ margin: 0 }} />
               <LinkSection>
                 <LinkSectionTitle>Info</LinkSectionTitle>
                 <LinkSectionBody>
@@ -52,10 +56,11 @@ const Footer = () => {
           </FooterContent>
           <FooterBottom>
             <Copyright>Copyright © 2022 AVONFT. All rights reserved</Copyright>
-            <Cookies>
+            {/* TODO: remove if unnecessary */}
+            {/* <Cookies>
               <CookiesLabel>We use cookies for better service.</CookiesLabel>
               <CookiesBtn>Accept</CookiesBtn>
-            </Cookies>
+            </Cookies> */}
           </FooterBottom>
         </FlexContainer>
       </FooterWrapper>
@@ -66,13 +71,30 @@ const Footer = () => {
 const FooterWrapper = styled.div`
   background: #fcfcfd;
   border-top: 2px solid #e6e8ec;
-  padding: 80px 0 32px;
+  padding: 32px 0 32px 32px;
+
+  @media (max-width: 415px) {
+    padding-left: 32px;
+  }
 `;
 
 const FooterContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 415px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;
+
+const StyledDivider = styled(Divider)`
+  display: none;
+
+  @media (max-width: 415px) {
+    display: block;
+  }
 `;
 
 const CompanyInfo = styled.div`
@@ -94,6 +116,12 @@ const LinkSections = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 90px;
+
+  @media (max-width: 415px) {
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+  }
 `;
 
 const LinkSection = styled.div`
@@ -136,6 +164,10 @@ const FooterBottom = styled.div`
   font-size: 12px;
   line-height: 20px;
   margin-top: 48px;
+
+  @media (max-width: 415px) {
+    flex-direction: column;
+  }
 `;
 
 const Copyright = styled.div`

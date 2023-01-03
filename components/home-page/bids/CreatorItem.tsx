@@ -38,6 +38,10 @@ const CreatorItemWrapper = styled.div`
   &:last-of-type {
     border-bottom: none;
   }
+
+  @media (max-width: 1024px) {
+    border-bottom: none;
+  }
 `;
 
 const CreatorAvatar = styled.div`

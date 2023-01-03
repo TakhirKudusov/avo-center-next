@@ -51,6 +51,10 @@ const BidWrapper = styled.div`
   box-shadow: 0 14px 39px -2px rgb(31 47 70 / 12%);
   overflow: hidden;
   height: 469px;
+
+  @media (max-width: 415px) {
+    display: none;
+  }
 `;
 
 const BidImage = styled.div`

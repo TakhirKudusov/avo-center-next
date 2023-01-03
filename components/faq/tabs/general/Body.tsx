@@ -62,7 +62,7 @@ const Wrapper = styled.div`
 `;
 
 const BodyText = styled.p`
-  width: 735px;
+  width: 100%;
   height: fit-content;
   font-family: 'Poppins';
   font-weight: 400;
@@ -98,7 +98,7 @@ const Container = styled.div`
   align-items: flex-start;
   padding: 0;
   gap: 24px;
-  width: 735px;
+  width: 100%;
 `;
 
 export default memo(Body);

@@ -27,6 +27,10 @@ const ButtonsWrapper = styled.div`
   gap: 8px;
   width: 516px;
   height: 48px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const Button = styled.button<any>`
@@ -39,6 +43,10 @@ const Button = styled.button<any>`
   height: 48px;
   border-radius: 10px;
   cursor: pointer;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
   background: ${(props) => {
     switch (props.type) {
       case 'primary':
@@ -69,7 +77,7 @@ const Button = styled.button<any>`
           return '#23262F';
       }
     }}
-  }
+  };
   &:hover {
     background-color: ${(props) => {
       switch (props.type) {

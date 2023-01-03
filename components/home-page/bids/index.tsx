@@ -23,26 +23,29 @@ const Bids = () => {
           />
         ))}
       </BidsList>
-      <CreatorList>
+      <CreatorListWrapper>
         <CreatorsCaption>Latest upload from creators 🔥</CreatorsCaption>
-        {creators.map(({ name, avatar, uploadNumber, avoAmount }, index) => (
-          <CreatorItem
-            key={`creator-item-${index}`}
-            name={name}
-            avatar={avatar}
-            uploadNumber={uploadNumber}
-            avoAmount={avoAmount}
-          />
-        ))}
-        <Button
+        <CreatorList>
+          {creators.map(({ name, avatar, uploadNumber, avoAmount }, index) => (
+            <CreatorItem
+              key={`creator-item-${index}`}
+              name={name}
+              avatar={avatar}
+              uploadNumber={uploadNumber}
+              avoAmount={avoAmount}
+            />
+          ))}
+        </CreatorList>
+        {/* TODO: remove if unnecessary */}
+        {/* <Button
           size={ButtonSize.Medium}
           style={{ width: 'fit-content', marginTop: '10px' }}
           round={true}
         >
           <span>Discover more</span>
           <RightArrowSVG style={{ marginLeft: '12px' }} />
-        </Button>
-      </CreatorList>
+        </Button> */}
+      </CreatorListWrapper>
     </BidsWrapper>
   );
 };
@@ -52,6 +55,15 @@ const BidsWrapper = styled.div`
   display: flex;
   width: 100%;
   gap: 32px;
+  flex-wrap: wrap;
+
+  @media (max-width: 1024px) {
+    /* width: 100%; */
+  }
+
+  @media (max-width: 415px) {
+    display: block;
+  }
 `;
 
 const BidsList = styled.div`
@@ -60,11 +72,28 @@ const BidsList = styled.div`
   gap: 32px;
 `;
 
+const CreatorListWrapper = styled.div`
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
 const CreatorList = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 32px;
   border-left: 1px solid #e6e8ec;
+
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    padding-left: 0;
+    border-left: none;
+  }
+
+  @media (max-width: 415px) {
+    overflow: scroll;
+  }
 `;
 
 const CreatorsCaption = styled.div`
@@ -73,6 +102,16 @@ const CreatorsCaption = styled.div`
   font-size: 12px;
   line-height: 20px;
   color: #777e91;
+  text-align: center;
+
+  @media (max-width: 1024px) {
+    text-align: left;
+  }
+
+  @media (max-width: 415px) {
+    text-align: left;
+    margin-top: 40px;
+  }
 `;
 
 export default Bids;

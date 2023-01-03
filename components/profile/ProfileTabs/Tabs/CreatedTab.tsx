@@ -27,6 +27,11 @@ const TabWrapper = styled.div`
   align-items: center;
   padding-left: 120px;
   margin-bottom: 220px;
+
+  @media (max-width: 415px) {
+    padding-left: 10px;
+    margin-bottom: 80px;
+  }
 `;
 
 const TabTitle = styled.h2`
@@ -34,6 +39,10 @@ const TabTitle = styled.h2`
   text-align: center;
   color: #001240;
   margin-bottom: 0;
+
+  @media (max-width: 415px) {
+    font-size: 22px;
+  }
 `;
 
 const TabSubTitle = styled.p`

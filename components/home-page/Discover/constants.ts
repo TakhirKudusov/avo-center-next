@@ -14,26 +14,32 @@ const GENRES: ListItem[] = [
   {
     id: 1,
     label: 'All items',
+    value: 'allItems',
   },
   {
     id: 2,
     label: 'Art',
+    value: 'art',
   },
   {
     id: 3,
     label: 'Game',
+    value: 'game',
   },
   {
     id: 4,
     label: 'Photography',
+    value: 'photography',
   },
   {
     id: 5,
     label: 'Music',
+    value: 'music',
   },
   {
     id: 6,
     label: 'Video',
+    value: 'video',
   },
 ];
 

@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import styled from 'styled-components';
+import { useAdaptiveSlider } from '../common/hooks/useAdaptiveSlider';
 import { FlexContainer } from '../components/common';
 import Bids from '../components/home-page/bids';
 import CreatorNetwork from '../components/home-page/CreatorNetwork';
@@ -25,6 +26,8 @@ const Home = () => {
     },
   ];
 
+  const { screenSize } = useAdaptiveSlider(1);
+
   return (
     <div>
       <Head>
@@ -42,7 +45,7 @@ const Home = () => {
               Start your search
             </Button>
           </CreateExploreWrapper>
-          <ReactSlick slidesPerRow={1}>
+          <ReactSlick screenSize={screenSize} slidesPerRow={1}>
             {creativeEconomeMock.map((elem) => elem.item)}
           </ReactSlick>
           <Bids />
@@ -51,7 +54,7 @@ const Home = () => {
       <Popular />
       <HotBids />
       <HotCollections />
-      <Discover />
+      {/* <Discover /> */}
     </div>
   );
 };
@@ -77,6 +80,10 @@ const PageDesc = styled.div`
   color: rgba(119, 126, 144, 1);
   padding-top: 128px;
   text-transform: uppercase;
+
+  @media (max-width: 415px) {
+    padding-top: 64px;
+  }
 `;
 
 const PageTitle = styled.h1`

@@ -53,12 +53,20 @@ const FollowerContainer = styled.div`
 const FollowerWrapper = styled.div`
   display: flex;
   margin-bottom: 32px;
+
+  @media (max-width: 415px) {
+    flex-direction: column;
+  }
 `;
 
 const FollowerInfoWrapper = styled.div`
   display: grid;
   grid-template-columns: 2fr 2fr;
   gap: 20px;
+
+  @media (max-width: 415px) {
+    justify-items: center;
+  }
 `;
 
 const Avatar = styled.img`
@@ -93,6 +101,13 @@ const Frames = styled.div`
   display: flex;
   gap: 8px;
   margin-left: 130px;
+
+  @media (max-width: 415px) {
+    flex-wrap: wrap;
+    margin-left: 0;
+    justify-content: flex-end;
+    margin-top: 30px;
+  }
 `;
 
 const Frame = styled.img`

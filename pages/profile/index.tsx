@@ -86,12 +86,36 @@ const Cover = styled.div`
   margin: 82px auto;
   background-repeat: no-repeat;
   background-size: contain;
+
+  @media (max-width: 1024px) {
+    width: 1024px;
+  }
+
+  @media (max-width: 415px) {
+    width: 375px;
+    height: 100px;
+    margin: 82px auto;
+  }
 `;
 
 const ProfileWrapper = styled.div`
   padding-left: 160px;
+
+  @media (max-width: 1024px) {
+    padding-left: 80px;
+  }
+
+  @media (max-width: 415px) {
+    padding-left: 0;
+  }
 `;
 
 const CardsWrapper = styled.div`
   padding-left: 320px;
+
+  @media (max-width: 415px) {
+    padding-left: 0;
+    margin-top: 500px;
+    margin-bottom: 40px;
+  }
 `;

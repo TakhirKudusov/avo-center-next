@@ -34,7 +34,6 @@ const HeaderContainer = styled.div`
 `;
 
 const Header = styled.h1`
-  width: 564px;
   height: 96px;
   font-family: 'DM Sans';
   font-weight: 700;
@@ -43,6 +42,10 @@ const Header = styled.h1`
   letter-spacing: -0.01em;
   color: #23262f;
   margin: 0;
+
+  @media (max-width: 1024px) {
+    height: auto;
+  }
 `;
 
 const NFTPrice = styled(BidPriceWrapper)`

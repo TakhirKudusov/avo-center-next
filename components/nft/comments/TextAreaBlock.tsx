@@ -56,6 +56,10 @@ const TextAreaContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const TextAreaWrapper = styled.div`
@@ -66,6 +70,10 @@ const TextAreaWrapper = styled.div`
   gap: 6px;
   width: 1056px;
   height: 40px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const SendMessageButtonWrapper = styled.div`
@@ -108,6 +116,10 @@ const TextArea = styled.textarea`
     color: #777e91;
     position: relative;
     top: 3px;
+  }
+
+  @media (max-width: 1024px) {
+    width: 100%;
   }
 `;
 

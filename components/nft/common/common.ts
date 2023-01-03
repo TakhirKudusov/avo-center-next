@@ -18,6 +18,17 @@ const NFTDescriptionWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 56px;
+
+  @media (max-width: 1024px) {
+    width: 1024px;
+    padding: 0 80px;
+  }
+
+  @media (max-width: 415px) {
+    width: 375px;
+    padding: 0 32px;
+    flex-direction: column;
+  }
 `;
 
 const TagsWrapper = styled.div`

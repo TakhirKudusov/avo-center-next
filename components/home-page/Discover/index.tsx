@@ -30,7 +30,7 @@ const Discover = () => {
               background={SelectItemBackground.White}
               size={SelectItemSize.Medium}
               style={{ width: '180px' }}
-            ></Select>
+            />
             <FlatList items={GENRES} onChange={handleGenreChange} />
             <Button size={ButtonSize.Large} btnType={ButtonType.Secondary}>
               <FilterBtnContent>
@@ -89,6 +89,7 @@ const SectionTitle = styled.div`
 const FilterRow = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 80px;
   padding-bottom: 32px;
   border-bottom: 1px solid #e6e8ec;

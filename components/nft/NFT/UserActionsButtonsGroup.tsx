@@ -8,23 +8,48 @@ import { TooltipPosition } from '../../ui-kit/Tooltip/types';
 
 import TokenActions from './TokenActions';
 
-const UserActionsButtonsGroup: React.FC = () => {
+type Props = {
+  screenSize: 'large' | 'small';
+};
+
+const UserActionsButtonsGroup: React.FC<Props> = ({ screenSize }) => {
   return (
-    <Container>
-      <Tooltip content={<TokenActions />} position={TooltipPosition.Right}>
-        <RadioButton>
-          <ThreeDotsSVG />
-        </RadioButton>
-      </Tooltip>
-      <RadioButton>
-        <ShareSVG />
-      </RadioButton>
-      <LikeButtonContainer>
-        <RadioButton>
-          <LoveSVG />
-        </RadioButton>
-        <p>3</p>
-      </LikeButtonContainer>
+    <Container screenSize={screenSize}>
+      {screenSize === 'large' ? (
+        <>
+          <Tooltip content={<TokenActions />} position={TooltipPosition.Right}>
+            <RadioButton>
+              <ThreeDotsSVG />
+            </RadioButton>
+          </Tooltip>
+          <RadioButton>
+            <ShareSVG />
+          </RadioButton>
+          <LikeButtonContainer>
+            <RadioButton>
+              <LoveSVG />
+            </RadioButton>
+            <p>3</p>
+          </LikeButtonContainer>
+        </>
+      ) : (
+        <>
+          <RadioButton>
+            <ShareSVG />
+          </RadioButton>
+          <LikeButtonContainer>
+            <StyledRadioButton>
+              <LoveSVG />
+              <p>3</p>
+            </StyledRadioButton>
+          </LikeButtonContainer>
+          <Tooltip content={<TokenActions />} position={TooltipPosition.Right}>
+            <RadioButton>
+              <ThreeDotsSVG />
+            </RadioButton>
+          </Tooltip>
+        </>
+      )}
     </Container>
   );
 };
@@ -50,14 +75,25 @@ const LikeButtonContainer = styled.div`
   }
 `;
 
-const Container = styled.div`
+const Container = styled.div<{ screenSize: 'large' | 'small' }>`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ screenSize }) =>
+    screenSize === 'large' ? 'column' : 'raw'};
   align-items: flex-start;
-  padding: 0;
-  gap: 16px;
-  width: 48px;
-  height: 204px;
+  justify-content: space-between;
+  padding: ${({ screenSize }) => (screenSize === 'large' ? 0 : '8px')};
+  gap: ${({ screenSize }) => (screenSize === 'large' ? '16px' : '24px')};
+  width: ${({ screenSize }) => (screenSize === 'large' ? '48px' : '237px')};
+  height: ${({ screenSize }) => (screenSize === 'large' ? '204px' : '64px')};
+  background: ${({ screenSize }) => (screenSize === 'large' ? 'none' : '#fff')};
+  border-radius: 64px;
+  align-self: ${({ screenSize }) =>
+    screenSize === 'large' ? 'auto' : 'center'};
+`;
+
+const StyledRadioButton = styled(RadioButton)`
+  width: 77px;
+  gap: 10px;
 `;
 
 export default UserActionsButtonsGroup;

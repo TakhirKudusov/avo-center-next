@@ -76,6 +76,10 @@ const Container = styled.div`
   width: 1056px;
   height: 24px;
   margin-top: 7px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 export default memo(HideAnswers);

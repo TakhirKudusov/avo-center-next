@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import WalletSVG from '../../../assets/svg/wallet.svg';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { useAppSelector } from '../../../redux/hooks';
 import { TAuthState } from '../../../redux/types';
 import { FlexContainer } from '../../common';
@@ -15,27 +16,35 @@ import Select from '../../ui-kit/Select';
 import { SelectItemSize } from '../../ui-kit/Select/enums';
 import { SelectItem } from '../../ui-kit/Select/types';
 import { TooltipPosition } from '../../ui-kit/Tooltip/types';
+import BurgerSVG from '../../../assets/svg/burger-icon.svg';
+import CircleCloseSVG from '../../../assets/svg/circle-close.svg';
+
 import { handleWalletConnectClick } from './helpers';
 import NotificationCard from './NotificationCard';
 import Notifications from './Notifications';
 import SearchBar from './SearchBar';
 import UserInfoCard from './UserInfoCard';
+import { SmallScreenMenu } from './SmallScreenMenu';
+
+const languages: SelectItem[] = [
+  {
+    value: 'en',
+    label: 'EN',
+  },
+  {
+    value: 'ru',
+    label: 'RU',
+  },
+];
 
 const Header = () => {
   const [isConnectWalletVisible, setIsConnectWalletVisible] = useState(false);
   const [isUploadItemVisible, setIsUploadItemVisible] = useState(false);
+  const [isSmallScreenMenuVisible, setIsSmallScreenMenuVisible] =
+    useState(false);
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
 
-  const languages: SelectItem[] = [
-    {
-      value: 'en',
-      label: 'EN',
-    },
-    {
-      value: 'ru',
-      label: 'RU',
-    },
-  ];
+  const { screenSize } = useAdaptiveSlider();
 
   const handleConnectWalletClose = () => {
     setIsConnectWalletVisible(false);
@@ -49,6 +58,24 @@ const Header = () => {
     setIsUploadItemVisible(true);
   };
 
+  const handleSmallScreenClick = () => {
+    setIsSmallScreenMenuVisible((prev) => !prev);
+  };
+
+  const handleMenuClose = () => {
+    setIsSmallScreenMenuVisible(false);
+  };
+
+  const handleMenuUploadClick = () => {
+    handleUploadClick()();
+    handleMenuClose();
+  };
+
+  const handleMenuWalletConnect = () => {
+    handleWalletConnectClick(setIsConnectWalletVisible)();
+    handleMenuClose();
+  };
+
   useEffect(() => {
     if (user) {
       handleConnectWalletClose();
@@ -58,82 +85,107 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <FlexContainer style={{ justifyContent: 'space-between' }}>
-        <Link href={'/'}>
-          <Logo />
-        </Link>
-        <ActionsBar>
-          <Link href={'/modals'}>
-            <Button size={ButtonSize.Medium} btnType={ButtonType.Primary}>
-              Modals
-            </Button>
-          </Link>
-          <SearchBar />
-          <Tooltip
-            content={<NotificationCard />}
-            position={TooltipPosition.Center}
-          >
-            <Notifications />
-          </Tooltip>
-          {!user && (
-            <AnonymousActionButtons>
-              <Button
-                onClick={handleUploadClick()}
-                size={ButtonSize.Medium}
-                btnType={ButtonType.Primary}
-              >
-                Upload
-              </Button>
-              <Button
-                size={ButtonSize.Medium}
-                btnType={ButtonType.Secondary}
-                onClick={handleWalletConnectClick(setIsConnectWalletVisible)}
-              >
-                Connect Wallet
-              </Button>
-            </AnonymousActionButtons>
-          )}
-          {user && (
-            <AuthorizedActionButtons>
-              <Button
-                onClick={handleUploadClick()}
-                size={ButtonSize.Medium}
-                btnType={ButtonType.Primary}
-              >
-                Create NFT
-              </Button>
-              <Link href={'/profile'}>
-                <Button
-                  style={{ marginLeft: '12px' }}
-                  size={ButtonSize.Medium}
-                  btnType={ButtonType.Secondary}
-                >
-                  <WalletIcon>
-                    <WalletSVG />
-                  </WalletIcon>
-                  <WalletNumber>0X3a5...4m243</WalletNumber>
+        {screenSize >= 1024 ? (
+          <>
+            <Link href={'/'}>
+              <Logo />
+            </Link>
+            <ActionsBar>
+              <Link href={'/modals'}>
+                <Button size={ButtonSize.Medium} btnType={ButtonType.Primary}>
+                  Modals
                 </Button>
               </Link>
+              <SearchBar />
               <Tooltip
-                content={<UserInfoCard />}
+                content={<NotificationCard screenSize={screenSize} />}
                 position={TooltipPosition.Center}
               >
-                <Button
-                  style={{ marginLeft: '4px' }}
-                  size={ButtonSize.Medium}
-                  btnType={ButtonType.Secondary}
-                >
-                  7.00698
-                  <WalletCurrency>AVO</WalletCurrency>
-                </Button>
+                <Notifications />
               </Tooltip>
-            </AuthorizedActionButtons>
-          )}
-          <Select
-            items={languages}
-            size={SelectItemSize.Small}
-            value={languages[0]}
-          />
-        </ActionsBar>
+              {!user && (
+                <AnonymousActionButtons>
+                  <Button
+                    onClick={handleUploadClick()}
+                    size={ButtonSize.Medium}
+                    btnType={ButtonType.Primary}
+                  >
+                    Upload
+                  </Button>
+                  <Button
+                    size={ButtonSize.Medium}
+                    btnType={ButtonType.Secondary}
+                    onClick={handleWalletConnectClick(
+                      setIsConnectWalletVisible,
+                    )}
+                  >
+                    Connect Wallet
+                  </Button>
+                </AnonymousActionButtons>
+              )}
+              {user && (
+                <AuthorizedActionButtons>
+                  <Button
+                    onClick={handleUploadClick()}
+                    size={ButtonSize.Medium}
+                    btnType={ButtonType.Primary}
+                  >
+                    Create NFT
+                  </Button>
+                  <Link href={'/profile'}>
+                    <Button
+                      style={{ marginLeft: '12px' }}
+                      size={ButtonSize.Medium}
+                      btnType={ButtonType.Secondary}
+                    >
+                      <WalletIcon>
+                        <WalletSVG />
+                      </WalletIcon>
+                      <WalletNumber>0X3a5...4m243</WalletNumber>
+                    </Button>
+                  </Link>
+                  <Tooltip
+                    content={<UserInfoCard />}
+                    position={TooltipPosition.Center}
+                  >
+                    <Button
+                      style={{ marginLeft: '4px' }}
+                      size={ButtonSize.Medium}
+                      btnType={ButtonType.Secondary}
+                    >
+                      7.00698
+                      <WalletCurrency>AVO</WalletCurrency>
+                    </Button>
+                  </Tooltip>
+                </AuthorizedActionButtons>
+              )}
+              <Select
+                items={languages}
+                size={SelectItemSize.Small}
+                value={languages[0]}
+              />
+            </ActionsBar>
+          </>
+        ) : (
+          <>
+            <Link href={'/'}>
+              <Logo />
+            </Link>
+            <Tooltip
+              content={<NotificationCard screenSize={screenSize} />}
+              position={TooltipPosition.Center}
+            >
+              <Notifications />
+            </Tooltip>
+            <RoundButton onClick={handleSmallScreenClick} type="button">
+              {isSmallScreenMenuVisible ? (
+                <CircleCloseSVG color="#777E91" />
+              ) : (
+                <BurgerSVG />
+              )}
+            </RoundButton>
+          </>
+        )}
       </FlexContainer>
       <Modal
         title="Connect wallet"
@@ -151,6 +203,85 @@ const Header = () => {
       >
         <UploadItem onItemClick={handleUploadItemClose} />
       </Modal>
+      {isSmallScreenMenuVisible && (
+        <SmallScreenMenu>
+          <>
+            <SearchBar fullSize onKeyEnterDown={handleMenuClose} />
+            <Link href={'/modals'}>
+              <Button
+                size={ButtonSize.Medium}
+                btnType={ButtonType.Primary}
+                fullSize
+                onClick={handleMenuClose}
+              >
+                Modals
+              </Button>
+            </Link>
+            {!user && (
+              <>
+                <Button
+                  onClick={handleMenuUploadClick}
+                  size={ButtonSize.Medium}
+                  btnType={ButtonType.Primary}
+                  fullSize
+                >
+                  Upload
+                </Button>
+                <Button
+                  size={ButtonSize.Medium}
+                  btnType={ButtonType.Secondary}
+                  fullSize
+                  onClick={handleMenuWalletConnect}
+                >
+                  Connect Wallet
+                </Button>
+              </>
+            )}
+            {user && (
+              <AuthorizedActionButtons>
+                <Button
+                  onClick={handleMenuUploadClick}
+                  size={ButtonSize.Medium}
+                  btnType={ButtonType.Primary}
+                >
+                  Create NFT
+                </Button>
+                <Link href={'/profile'}>
+                  <Button
+                    style={{ marginLeft: '12px' }}
+                    size={ButtonSize.Medium}
+                    btnType={ButtonType.Secondary}
+                  >
+                    <WalletIcon>
+                      <WalletSVG />
+                    </WalletIcon>
+                    <WalletNumber>0X3a5...4m243</WalletNumber>
+                  </Button>
+                </Link>
+                <Tooltip
+                  content={<UserInfoCard />}
+                  position={TooltipPosition.Center}
+                >
+                  <Button
+                    style={{ marginLeft: '4px' }}
+                    size={ButtonSize.Medium}
+                    btnType={ButtonType.Secondary}
+                  >
+                    7.00698
+                    <WalletCurrency>AVO</WalletCurrency>
+                  </Button>
+                </Tooltip>
+              </AuthorizedActionButtons>
+            )}
+            <Select
+              items={languages}
+              size={SelectItemSize.Small}
+              value={languages[0]}
+              // onChange={handleMenuClose}
+            />
+          </>
+        </SmallScreenMenu>
+      )}
     </HeaderWrapper>
   );
 };
@@ -201,6 +332,16 @@ const WalletIcon = styled.div`
 const WalletNumber = styled.div`
   margin-top: -4px;
   margin-left: 12px;
+`;
+
+const RoundButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 100px;
+  background: none;
+  cursor: pointer;
 `;
 
 export default Header;

@@ -55,6 +55,10 @@ const UploadItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 586px;
+
+  @media (max-width: 415px) {
+    width: 260px;
+  }
 `;
 
 const UploadItemDesc = styled.div`
@@ -64,12 +68,22 @@ const UploadItemDesc = styled.div`
   line-height: 24px;
   text-align: center;
   color: #777e91;
+
+  @media (max-width: 415px) {
+    font-size: 10px;
+    line-height: 16px;
+  }
 `;
 
 const UploadItemCards = styled.div`
   display: flex;
   gap: 32px;
   align-items: center;
+
+  @media (max-width: 415px) {
+    flex-direction: column;
+    gap: 6px;
+  }
 `;
 
 const UploadItemCard = styled.div`
@@ -83,6 +97,12 @@ const UploadItemCard = styled.div`
   width: 50%;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 415px) {
+    width: 100%;
+    gap: 10px;
+    padding: 8px;
+  }
 `;
 
 const UploadItemCardImage = styled.div`
@@ -92,6 +112,11 @@ const UploadItemCardImage = styled.div`
   background-size: cover;
   width: 243px;
   height: 178px;
+
+  @media (max-width: 415px) {
+    width: 160px;
+    height: 120px;
+  }
 `;
 
 const UploadItemDescBottom = styled.div`
@@ -102,6 +127,12 @@ const UploadItemDescBottom = styled.div`
   text-align: center;
   color: #777e91;
   margin-top: 24px;
+
+  @media (max-width: 415px) {
+    margin-top: 12px;
+    font-size: 10px;
+    line-height: 16px;
+  }
 `;
 
 export default UploadItem;

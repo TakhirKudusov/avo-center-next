@@ -6,10 +6,12 @@ import WalletItem from './WalletItem';
 import { Wallet } from './types';
 import { useAppDispatch } from '../../../redux/hooks';
 import { signin } from '../../../redux/slicers/authSlicer';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 
 const ConnectWallet = () => {
   // const [loading, setLoading] = useState(false); // Loading button state
   const dispatch = useAppDispatch();
+  const { screenSize } = useAdaptiveSlider();
 
   const wallets: Wallet[] = [
     {
@@ -36,7 +38,7 @@ const ConnectWallet = () => {
   ];
 
   return (
-    <ConnectWalletWrapper>
+    <ConnectWalletWrapper screenSize={screenSize}>
       {wallets.map((wallet, index) => (
         <WalletItem
           key={`wallet-${index}`}
@@ -49,11 +51,11 @@ const ConnectWallet = () => {
   );
 };
 
-const ConnectWalletWrapper = styled.div`
+const ConnectWalletWrapper = styled.div<{ screenSize: number }>`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 386px;
+  width: ${({ screenSize }) => (screenSize >= 1024 ? '386px' : '260px')};
 `;
 
 export default ConnectWallet;

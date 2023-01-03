@@ -15,6 +15,7 @@ const QuestionsBlock: React.FC = () => {
 
 const QuestionsContainer = styled.div`
   margin-top: 80px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -27,6 +28,14 @@ const BlockWrapper = styled.div`
   align-items: center;
   padding: 80px 160px 0 160px;
   background: #fcfcfd;
+
+  @media (max-width: 1024px) {
+    padding: 80px 80px 0 80px;
+  }
+
+  @media (max-width: 415px) {
+    padding: 40px 40px 0 40px;
+  }
 `;
 
 export default QuestionsBlock;

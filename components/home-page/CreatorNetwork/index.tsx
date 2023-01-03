@@ -21,7 +21,7 @@ const CreatorNetwork = ({ index }: Props) => {
     <CreatorNetworkWrapper>
       <Player />
       <InfoBar>
-        <Title>the creator network {index}®</Title>
+        <Title>Marco carrillo {index}®</Title>
         <InfoItems>
           <InfoItem>
             <InfoItemImage
@@ -73,6 +73,14 @@ const CreatorNetworkWrapper = styled.div`
   display: flex;
   gap: 128px;
   padding: 0 5px;
+
+  @media (max-width: 1024px) {
+    gap: 32px;
+  }
+
+  @media (max-width: 415px) {
+    flex-direction: column;
+  }
 `;
 
 const Player = styled.div`
@@ -81,6 +89,16 @@ const Player = styled.div`
   background-image: url(/images/player.jpg);
   min-width: 640px;
   height: 800px;
+
+  @media (max-width: 1024px) {
+    min-width: 520px;
+  }
+
+  @media (max-width: 415px) {
+    height: 478px;
+    background-size: contain;
+    min-width: auto;
+  }
 `;
 
 const InfoBar = styled.div`

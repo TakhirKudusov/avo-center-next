@@ -37,6 +37,16 @@ const Comments: React.FC<Props> = ({ commentsData }) => {
 const BlockWrapper = styled.div`
   margin-top: 100px;
   margin-bottom: 96px;
+
+  @media (max-width: 1024px) {
+    padding-left: 80px;
+    width: 100vw;
+  }
+
+  @media (max-width: 415px) {
+    padding-left: 32px;
+    width: auto;
+  }
 `;
 
 const Header = styled.div`
@@ -68,6 +78,16 @@ const CommentsBlock = styled.div`
   padding: 0;
   gap: 24px;
   height: 508px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+
+  @media (max-width: 415px) {
+    width: 100%;
+    min-width: 340px;
+    height: auto;
+  }
 `;
 
 export default memo(Comments);

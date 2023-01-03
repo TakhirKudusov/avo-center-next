@@ -9,6 +9,7 @@ type Props = {
   canBeHidden?: boolean;
   width?: number;
   marginTop?: number;
+  style?: Object;
 };
 const FormItem: React.FC<Props & any> = ({
   title,
@@ -16,13 +17,18 @@ const FormItem: React.FC<Props & any> = ({
   isFieldOpen,
   canBeHidden,
   marginTop = 32,
+  style,
   ...rest
 }) => {
   const { errors, validationSchema, submitCount } =
     useFormikContext<UnknownObject>();
 
   return (
-    <AnimationWrapper canBeHidden={canBeHidden} isFieldOpen={isFieldOpen}>
+    <AnimationWrapper
+      style={style}
+      canBeHidden={canBeHidden}
+      isFieldOpen={isFieldOpen}
+    >
       <FormItemWrapper marginTop={marginTop} width={width}>
         <FormItemTitle>{title}</FormItemTitle>
         <Field
@@ -94,6 +100,10 @@ const FormItemTitle = styled.div`
   text-transform: uppercase;
   color: #b1b5c4;
   width: 300px;
+
+  @media (max-width: 415px) {
+    width: 100%;
+  }
 `;
 
 const FormItemErrors = styled.div`

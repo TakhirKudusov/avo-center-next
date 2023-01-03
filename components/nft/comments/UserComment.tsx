@@ -41,10 +41,27 @@ const CurrentOwnerBlock = styled.div`
   padding: 0;
   gap: 12px;
   height: 136px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+
+  @media (max-width: 415px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const OwnerCommentsDataWrapper = styled.div`
   height: 84px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+
+  @media (max-width: 415px) {
+    height: auto;
+  }
 `;
 
 const CreatorsName = styled.div`
@@ -60,6 +77,11 @@ const CreatorsName = styled.div`
   line-height: 24px;
   color: #23262f;
   margin-bottom: 6px;
+
+  @media (max-width: 1024px) {
+    width: auto;
+    height: auto;
+  }
 `;
 
 const CreatorCommentText = styled.div`
@@ -71,6 +93,11 @@ const CreatorCommentText = styled.div`
   line-height: 24px;
   margin-bottom: 6px;
   color: #23262f;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 export default memo(UserComment);

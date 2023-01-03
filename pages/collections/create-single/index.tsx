@@ -44,6 +44,10 @@ const ContentWrapper = styled.div`
   padding-top: 128px;
   width: 100%;
   padding-bottom: 112px;
+
+  @media (max-width: 415px) {
+    padding-top: 80px;
+  }
 `;
 
 const ContentHeading = styled.div`

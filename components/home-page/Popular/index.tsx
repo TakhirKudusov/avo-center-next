@@ -12,6 +12,7 @@ import {
 import { SelectItem } from '../../ui-kit/Select/types';
 import Select from '../../ui-kit/Select';
 import { ReactSlick } from '../../ui-kit';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 
 const Popular = () => {
   const dates: SelectItem[] = [
@@ -24,6 +25,9 @@ const Popular = () => {
       value: '2',
     },
   ];
+
+  const { screenSize, slidesPerRow } = useAdaptiveSlider(5);
+
   return (
     <PopularWrapper>
       <ContentContainer>
@@ -35,14 +39,17 @@ const Popular = () => {
               <DownArrowSVG />
             </SectionSelect>
           </SectionTitles>
-          <Select
-            items={dates}
-            background={SelectItemBackground.White}
-            size={SelectItemSize.Medium}
-            style={{ width: '256px' }}
-          ></Select>
+          <TimeframeWrapper>
+            <SelectLabel>Timeframe</SelectLabel>
+            <Select
+              items={dates}
+              background={SelectItemBackground.White}
+              size={SelectItemSize.Medium}
+              style={{ width: '256px' }}
+            />
+          </TimeframeWrapper>
         </SectionHeader>
-        <ReactSlick slidesPerRow={5}>
+        <ReactSlick screenSize={screenSize} slidesPerRow={slidesPerRow}>
           {sellers.map(({ name, avoAmount, avatar }, index) => (
             <ParticipantItem
               key={`participant-item-${index}`}
@@ -63,6 +70,11 @@ const PopularWrapper = styled.div`
   padding: 128px 144px;
   margin-top: 128px;
   height: 663px;
+
+  @media (max-width: 415px) {
+    padding: 64px 15px;
+    margin-top: 64px;
+  }
 `;
 
 const ContentContainer = styled.div`
@@ -76,6 +88,11 @@ const SectionHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 415px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const SectionTitles = styled.div`
@@ -104,14 +121,38 @@ const SectionSelectTitle = styled.div`
   line-height: 48px;
   letter-spacing: -0.01em;
   color: #23262f;
+
+  @media (max-width: 1024px) {
+    /* width: 100%; */
+  }
+
+  @media (max-width: 415px) {
+    display: block;
+  }
 `;
 
-const Participants = styled.div`
-  position: relative;
-  margin-top: 64px;
-  display: flex;
-  align-items: flex-start;
-  gap: 32px;
+const TimeframeWrapper = styled.div`
+  @media (max-width: 415px) {
+    margin-top: 24px;
+  }
 `;
+
+const SelectLabel = styled.div`
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+  text-transform: uppercase;
+  color: #b1b5c4;
+  margin-bottom: 12px;
+`;
+
+// const Participants = styled.div`
+//   position: relative;
+//   margin-top: 64px;
+//   display: flex;
+//   align-items: flex-start;
+//   gap: 32px;
+// `;
 
 export default Popular;

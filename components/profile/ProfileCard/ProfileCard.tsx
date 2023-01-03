@@ -107,6 +107,12 @@ const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 415px) {
+    top: 160px;
+    width: 85%;
+    left: 35px;
+  }
 `;
 
 const Avatar = styled.div<{ avatarUrl: string }>`

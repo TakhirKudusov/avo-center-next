@@ -39,6 +39,10 @@ const Container = styled.div`
   border: 1px solid #e6e8ec;
   box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
   border-radius: 16px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const PriceWrapper = styled.div`
@@ -49,6 +53,10 @@ const PriceWrapper = styled.div`
   gap: 12px;
   width: 516px;
   height: 32px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const PriceInCrypto = styled.p`
@@ -79,6 +87,10 @@ const ServiceFeeWrapper = styled.div`
   gap: 12px;
   width: 516px;
   height: 24px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const FeeTextWrapper = styled.p`
