@@ -26,6 +26,10 @@ const Text = styled.p`
   display: flex;
   align-items: center;
   color: #777e91;
+
+  @media (max-width: 415px) {
+    width: 100%;
+  }
 `;
 
 const ConfirmIcon = styled(ConfirmGreenSVG)``;
@@ -46,6 +50,10 @@ const Header = styled.div`
   gap: 4px;
   width: 122px;
   height: 24px;
+
+  @media (max-width: 415px) {
+    width: 100%;
+  }
 `;
 
 const Container = styled.div`
@@ -54,6 +62,11 @@ const Container = styled.div`
   align-items: flex-start;
   width: 192px;
   height: 92px;
+
+  @media (max-width: 415px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 Description.Header = Header;

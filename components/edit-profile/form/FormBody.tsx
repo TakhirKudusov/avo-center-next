@@ -15,6 +15,7 @@ import TwitterButton from './TwitterButton';
 import AddAdditionalSocialAccountButton from './AddSocAccBtn';
 import { ReactEventHandler, useState } from 'react';
 import CircleCloseSVG from '../../../assets/svg/circle-close.svg';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 
 const FormBody = () => {
   const [fieldOpen, setIsFieldOpen] = useState<boolean | null>(null);
@@ -22,6 +23,8 @@ const FormBody = () => {
   const handleSubmitClick = () => (e: ReactEventHandler<HTMLFormElement>) => {
     console.log(e);
   };
+
+  const { screenSize } = useAdaptiveSlider();
 
   return (
     <FormBody.Container>
@@ -84,8 +87,10 @@ const FormBody = () => {
           </Text>
           <Divider />
           <FormFooter>
-            <Button btnType={ButtonType.Secondary}>Update Profile</Button>
-            <Button btnType={ButtonType.Outlined}>
+            <Button fullSize={screenSize <= 414} btnType={ButtonType.Secondary}>
+              Update Profile
+            </Button>
+            <Button fullSize={screenSize <= 414} btnType={ButtonType.Outlined}>
               <CircleCloseIcon color="#777E91" />
               Clear all
             </Button>
@@ -107,8 +112,11 @@ const FormFooter = styled.div`
   align-items: center;
   margin-top: 40px;
   gap: 32px;
-  width: 285px;
   height: 48px;
+
+  @media (max-width: 415px) {
+    flex-direction: column;
+  }
 `;
 
 const Text = styled.p`
@@ -125,7 +133,7 @@ const Text = styled.p`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 744px;
+  width: 100%;
 `;
 
 FormBody.Container = Container;

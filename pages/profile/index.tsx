@@ -121,8 +121,10 @@ const Cover = styled.div`
 
   @media (max-width: 415px) {
     width: 375px;
-    height: 100px;
+    height: 230px;
     margin: 82px auto;
+    background-size: cover;
+    padding: 48px 24px;
   }
 `;
 

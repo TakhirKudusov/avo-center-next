@@ -20,6 +20,11 @@ const UserAvatar = styled.div`
   background: url('/images/profile-photo.png');
   background-size: cover;
   margin-left: 15px;
+
+  @media (max-width: 415px) {
+    width: 72px;
+    height: 72px;
+  }
 `;
 
 const CameraButton = styled.input`
@@ -42,11 +47,21 @@ const CameraButton = styled.input`
   &:hover {
     background-color: #515261;
   }
+
+  @media (max-width: 415px) {
+    bottom: 32%;
+    left: 39%;
+  }
 `;
 
 const Container = styled.div`
   width: 128px;
   height: 128px;
+
+  @media (max-width: 415px) {
+    width: 72px;
+    height: 72px;
+  }
 `;
 
 Avatar.Container = Container;

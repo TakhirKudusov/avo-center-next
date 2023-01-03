@@ -16,7 +16,14 @@ const Container = styled.div`
   align-items: flex-start;
   padding: 0;
   gap: 32px;
-  width: 1150px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 415px) {
+    flex-direction: column;
+  }
 `;
 
 Body.Container = Container;

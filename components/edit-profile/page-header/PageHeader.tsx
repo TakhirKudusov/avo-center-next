@@ -77,7 +77,7 @@ const BreadCrumbWrapper = styled.div`
   padding: 24px 15px;
   gap: 10px;
   height: 72px;
-  width: 1150px;
+  width: 100%;
 `;
 
 const HeaderDivider = styled(Divider)`

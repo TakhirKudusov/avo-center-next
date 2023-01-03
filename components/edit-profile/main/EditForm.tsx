@@ -17,6 +17,14 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 64px;
+
+  @media (max-width: 1024px) {
+    padding: 0 64px;
+  }
+
+  @media (max-width: 415px) {
+    padding: 0 32px;
+  }
 `;
 
 EditForm.Container = Container;

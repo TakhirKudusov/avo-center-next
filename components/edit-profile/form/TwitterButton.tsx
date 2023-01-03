@@ -11,9 +11,14 @@ const TwitterButton = () => {
 
 const Wrapper = styled.div<{ isError?: boolean; state?: string }>`
   position: relative;
-  left: 29%;
+  left: 27%;
   bottom: 42px;
   margin-bottom: -10px;
+  width: fit-content;
+
+  @media (max-width: 415px) {
+    left: 61%;
+  }
 `;
 
 TwitterButton.Wrapper = Wrapper;

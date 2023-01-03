@@ -109,7 +109,7 @@ const CardContainer = styled.div`
   align-items: center;
 
   @media (max-width: 415px) {
-    top: 160px;
+    top: 290px;
     width: 85%;
     left: 35px;
   }
