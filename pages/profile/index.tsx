@@ -1,9 +1,12 @@
 import styled from 'styled-components';
+import Link from 'next/link';
 
 import StoreLayout from '../../components/layouts/store';
 import { ProfileCard } from '../../components/profile';
 import FlatList from '../../components/ui-kit/FlatList';
 import { ContentContainer, FlexContainer } from '../../components/common';
+import ImageSVG from '../../assets/svg/image.svg';
+import EditSVG from '../../assets/svg/edit.svg';
 
 import { FollowType } from '../../components/profile/ProfileTabs/constants';
 import {
@@ -13,6 +16,7 @@ import {
 } from '../../components/profile/ProfileTabs';
 import { useState } from 'react';
 import { ListItem } from '../../components/ui-kit/FlatList/types';
+import { Button, ButtonSize, ButtonType } from '../../components/ui-kit';
 
 function Profile() {
   const [isUserProfile, setIsUserProfile] = useState(false);
@@ -55,7 +59,26 @@ function Profile() {
   return (
     <StyledFlexContainer>
       <PageContainer>
-        <Cover />
+        <Cover>
+          <Button
+            style={{ color: '#fff', border: '2px solid #777E91' }}
+            size={ButtonSize.Medium}
+            btnType={ButtonType.Primary}
+          >
+            Edit cover photo
+            <StyledImageSVG />
+          </Button>
+          <Link href={'/profile/edit'}>
+            <Button
+              style={{ color: '#fff', border: '2px solid #777E91' }}
+              size={ButtonSize.Medium}
+              btnType={ButtonType.Primary}
+            >
+              Edit profile
+              <StyledEditSVG />
+            </Button>
+          </Link>
+        </Cover>
         <ProfileWrapper>
           <ProfileCard isUserProfile={isUserProfile} />
           <CardsWrapper>
@@ -86,6 +109,11 @@ const Cover = styled.div`
   margin: 82px auto;
   background-repeat: no-repeat;
   background-size: contain;
+  padding: 32px 160px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 15px;
 
   @media (max-width: 1024px) {
     width: 1024px;
@@ -95,6 +123,22 @@ const Cover = styled.div`
     width: 375px;
     height: 100px;
     margin: 82px auto;
+  }
+`;
+
+const StyledImageSVG = styled(ImageSVG)`
+  margin-left: 12px;
+
+  & > path {
+    fill: #fff;
+  }
+`;
+
+const StyledEditSVG = styled(EditSVG)`
+  margin-left: 12px;
+
+  & > path {
+    fill: #fff;
   }
 `;
 

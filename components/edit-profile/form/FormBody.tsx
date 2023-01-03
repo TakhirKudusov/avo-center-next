@@ -7,14 +7,8 @@ import {
   FormItem,
   Input,
 } from '../../ui-kit';
-import * as Yup from 'yup';
-import { FORM_SCHEMA, VALIDATION_REGEXPS } from '../common/constants';
-import {
-  ErrorMessage,
-  FormName,
-  FormPlaceHolder,
-  PrimaryHeaderText,
-} from '../common/enums';
+import { FORM_SCHEMA, ProfileFormItemName } from '../common/constants';
+import { FormName, FormPlaceHolder, PrimaryHeaderText } from '../common/enums';
 import GroupHeader from './GroupHeader';
 import Textarea from '../../ui-kit/Textarea';
 import TwitterButton from './TwitterButton';
@@ -40,13 +34,13 @@ const FormBody = () => {
           <GroupHeader header={PrimaryHeaderText.ACCOUNT_INFO} />
           <FormItem
             title={FormName.NAME}
-            name={FormName.NAME}
+            name={ProfileFormItemName.NAME}
             placeholder={FormPlaceHolder.ENTER_YOUR_DISPLAY_NAME}
             component={Input}
           />
           <FormItem
             title={FormName.BIO}
-            name={FormName.BIO}
+            name={ProfileFormItemName.BIO}
             placeholder={FormPlaceHolder.ABOUT_YOURSELF_IN_A_FEW_WORDS}
             component={Textarea}
             height={96}
@@ -54,14 +48,14 @@ const FormBody = () => {
           <GroupHeader header={PrimaryHeaderText.SOCIAL} />
           <FormItem
             title={FormName.PORTFOLIO_OR_WEBSITE}
-            name={FormName.PORTFOLIO_OR_WEBSITE}
+            name={ProfileFormItemName.PORTFOLIO_OR_WEBSITE}
             placeholder={FormPlaceHolder.ENTER_URL}
             component={Input}
           />
 
           <FormItem
             title={FormName.TWITTER}
-            name={FormName.TWITTER}
+            name={ProfileFormItemName.TWITTER}
             placeholder={FormPlaceHolder.TWITTER_USERNAME}
             component={Input}
             width={352}
@@ -70,7 +64,7 @@ const FormBody = () => {
           <AddAdditionalSocialAccountButton setIsOpen={setIsFieldOpen} />
           <FormItem
             title={FormName.ADDITIONAL_SOCIAL_ACCOUNT}
-            name={FormName.ADDITIONAL_SOCIAL_ACCOUNT}
+            name={ProfileFormItemName.ADDITIONAL_SOCIAL_ACCOUNT}
             placeholder={FormPlaceHolder.ADDITIONAL_ACCOUNT}
             component={Input}
             width={352}
@@ -79,7 +73,7 @@ const FormBody = () => {
           />
           <FormItem
             title={FormName.PHOTO_OF_DOCUMENTS}
-            name={FormName.PHOTO_OF_DOCUMENTS}
+            name={ProfileFormItemName.PHOTO_OF_DOCUMENTS}
             component={Input}
             type="file"
             width={125}
