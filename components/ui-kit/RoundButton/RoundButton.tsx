@@ -3,12 +3,13 @@ import styled from 'styled-components';
 
 type Props = {
   icon: JSX.Element;
+  id?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
-const RoundButton = ({ icon, onClick, ...rest }: Props) => {
+const RoundButton = ({ id, icon, onClick, ...rest }: Props) => {
   return (
-    <ButtonWrapper onClick={onClick} {...rest}>
+    <ButtonWrapper id={id} onClick={onClick} {...rest}>
       {icon}
     </ButtonWrapper>
   );

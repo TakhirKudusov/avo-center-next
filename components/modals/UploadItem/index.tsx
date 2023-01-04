@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
+import { Paths } from '../../../common/enums/paths';
 import { Button, ButtonType } from '../../ui-kit';
 
 type Props = {
@@ -20,7 +22,7 @@ const UploadItem: React.FC<Props> = ({ onItemClick }) => {
           <UploadItemCardImage
             style={{ backgroundImage: `url(/images/single-collectible.jpg)` }}
           />
-          <Link href="/collections/create-single">
+          <Link href={Paths.COLLECTIONS_CREATE_SINGLE}>
             <Button
               onClick={handleClick(onItemClick)}
               btnType={ButtonType.Primary}
@@ -33,7 +35,7 @@ const UploadItem: React.FC<Props> = ({ onItemClick }) => {
           <UploadItemCardImage
             style={{ backgroundImage: `url(/images/collection.jpg)` }}
           />
-          <Link href="/collections/create-single">
+          <Link href={Paths.COLLECTIONS_CREATE_SINGLE}>
             <Button
               onClick={handleClick(onItemClick)}
               btnType={ButtonType.Secondary}
@@ -55,6 +57,10 @@ const UploadItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 586px;
+
+  @media (${devices.mobile}) {
+    width: 260px;
+  }
 `;
 
 const UploadItemDesc = styled.div`
@@ -64,12 +70,22 @@ const UploadItemDesc = styled.div`
   line-height: 24px;
   text-align: center;
   color: #777e91;
+
+  @media (${devices.mobile}) {
+    font-size: 10px;
+    line-height: 16px;
+  }
 `;
 
 const UploadItemCards = styled.div`
   display: flex;
   gap: 32px;
   align-items: center;
+
+  @media (${devices.mobile}) {
+    flex-direction: column;
+    gap: 6px;
+  }
 `;
 
 const UploadItemCard = styled.div`
@@ -83,6 +99,12 @@ const UploadItemCard = styled.div`
   width: 50%;
   justify-content: center;
   align-items: center;
+
+  @media (${devices.mobile}) {
+    width: 100%;
+    gap: 10px;
+    padding: 8px;
+  }
 `;
 
 const UploadItemCardImage = styled.div`
@@ -92,6 +114,11 @@ const UploadItemCardImage = styled.div`
   background-size: cover;
   width: 243px;
   height: 178px;
+
+  @media (${devices.mobile}) {
+    width: 160px;
+    height: 120px;
+  }
 `;
 
 const UploadItemDescBottom = styled.div`
@@ -102,6 +129,12 @@ const UploadItemDescBottom = styled.div`
   text-align: center;
   color: #777e91;
   margin-top: 24px;
+
+  @media (${devices.mobile}) {
+    margin-top: 12px;
+    font-size: 10px;
+    line-height: 16px;
+  }
 `;
 
 export default UploadItem;

@@ -1,32 +1,41 @@
 import SecondaryHeaderContainer from '../header/SecondaryHeaderContainer';
-import React, { memo, useEffect, useState } from 'react';
-import { NFT, TimeBeforeEnd } from '../common/types';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import NFTActions from './NFTActions';
 import NFTListingsBlock from './NFTListingsBlock';
 import TabButtonsGroup from './TabButtonsGroup';
 import { NFTDescriptionData } from './types';
 import { Timer, useTimer } from '../../ui-kit';
+import { devices } from '../../../common/constants';
 
 type Props = {
   data: NFTDescriptionData;
+  screenSize: 'large' | 'small';
 };
 
-const NFTDescription: React.FC<Props> = ({ data }) => {
+const NFTDescription: React.FC<Props> = ({ data, screenSize }) => {
   const { timeBeforeEnd } = useTimer(data);
 
   return (
     <div>
       <SecondaryHeaderContainer data={data} />
       <Description>{data.desc}</Description>
+      {screenSize === 'small' && (
+        <LicenseWrapper>
+          <License>{data.license}</License>&nbsp;
+          <span>{data.exclusiveFullLicense}</span>
+        </LicenseWrapper>
+      )}
       <NFTMenuContainer>
         {data?.bid?.isOnBid && timeBeforeEnd && (
           <Timer timeBeforeEnd={timeBeforeEnd} />
         )}
-        <TabButtonsGroup />
+        <TabButtonsGroup screenSize={screenSize} />
         <NFTActions price={data.price} convertedPrice={data.convertedPrice} />
       </NFTMenuContainer>
-      <NFTListingsBlock listingsData={data.listingsData} />
+      {screenSize === 'large' && (
+        <NFTListingsBlock listingsData={data.listingsData} />
+      )}
     </div>
   );
 };
@@ -40,6 +49,15 @@ const Description = styled.p`
   width: 564px;
   padding-bottom: 40px;
   margin: 0;
+
+  @media (${devices.tablet}) {
+    width: auto;
+    padding-bottom: 16px;
+  }
+
+  @media (${devices.mobile}) {
+    width: auto;
+  }
 `;
 
 const NFTMenuContainer = styled.div`
@@ -47,6 +65,20 @@ const NFTMenuContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
+`;
+
+const LicenseWrapper = styled.div`
+  @media (${devices.tablet}) {
+    margin-bottom: 32px;
+  }
+
+  @media (${devices.mobile}) {
+    margin-bottom: 32px;
+  }
+`;
+
+const License = styled.span`
+  color: #777e90;
 `;
 
 export default memo(NFTDescription);

@@ -1,30 +1,43 @@
+import { FC } from 'react';
 import styled from 'styled-components';
+import { devices, screenSizes } from '../../../../common/constants';
 import { Button, ButtonSize, ButtonType } from '../../../ui-kit';
 import { NOTIFICATION_LIST } from './constants';
 import NotificationItem from './NotificationItem';
 
-const NotificationCard = () => {
-  return (
-    <NotificationCardWrapper>
-      <NotificationCardHeader>
-        <NotificationCardTitle>Notifications</NotificationCardTitle>
+type Props = { screenSize: number };
+
+const NotificationCard: FC<Props> = ({ screenSize }) => (
+  <NotificationCardWrapper>
+    <NotificationCardHeader>
+      <NotificationCardTitle>Notifications</NotificationCardTitle>
+      {screenSize >= screenSizes.tablet && (
         <Button btnType={ButtonType.Secondary} size={ButtonSize.Medium}>
           See all
         </Button>
-      </NotificationCardHeader>
-      <NotificationCardBody>
-        {NOTIFICATION_LIST.map((notification, index) => (
-          <NotificationItem {...notification} key={`notification-${index}`} />
-        ))}
-      </NotificationCardBody>
-    </NotificationCardWrapper>
-  );
-};
+      )}
+    </NotificationCardHeader>
+    <NotificationCardBody>
+      {NOTIFICATION_LIST.map((notification, index) => (
+        <NotificationItem {...notification} key={`notification-${index}`} />
+      ))}
+    </NotificationCardBody>
+    {screenSize < screenSizes.tablet && (
+      <Button btnType={ButtonType.Secondary} size={ButtonSize.Medium} fullSize>
+        See all
+      </Button>
+    )}
+  </NotificationCardWrapper>
+);
 
 const NotificationCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 368px;
+
+  @media (${devices.mobile}) {
+    width: 300px;
+  }
 `;
 
 const NotificationCardHeader = styled.div`

@@ -5,6 +5,7 @@ import OwnerAvatar from './OwnerAvatar';
 import HideAnswers from './HideAnswers';
 import UserComment from './UserComment';
 import UsersReply from './UsersReply';
+import { devices } from '../../../common/constants';
 
 type Props = {
   commentsData: CommentsData;
@@ -37,6 +38,16 @@ const Comments: React.FC<Props> = ({ commentsData }) => {
 const BlockWrapper = styled.div`
   margin-top: 100px;
   margin-bottom: 96px;
+
+  @media (${devices.tablet}) {
+    padding-left: 80px;
+    width: 100vw;
+  }
+
+  @media (${devices.mobile}) {
+    padding-left: 32px;
+    width: auto;
+  }
 `;
 
 const Header = styled.div`
@@ -68,6 +79,16 @@ const CommentsBlock = styled.div`
   padding: 0;
   gap: 24px;
   height: 508px;
+
+  @media (${devices.tablet}) {
+    width: 100%;
+  }
+
+  @media (${devices.mobile}) {
+    width: 100%;
+    min-width: 340px;
+    height: auto;
+  }
 `;
 
 export default memo(Comments);

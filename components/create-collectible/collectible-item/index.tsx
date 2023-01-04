@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 import BidPrice from '../../common/components/BidPrice';
 import { Bid } from '../../home-page/HotBids/types';
 
@@ -51,6 +52,10 @@ const BidWrapper = styled.div`
   box-shadow: 0 14px 39px -2px rgb(31 47 70 / 12%);
   overflow: hidden;
   height: 469px;
+
+  @media (${devices.mobile}) {
+    display: none;
+  }
 `;
 
 const BidImage = styled.div`

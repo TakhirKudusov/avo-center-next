@@ -1,31 +1,27 @@
 import styled from 'styled-components';
-import ArrowLeftSVG from '../../../assets/svg/arrow-left.svg';
-import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
+import { devices } from '../../../common/constants';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { ContentContainer, FlexContainer } from '../../common';
 import BidItem from '../../common/components/BidItem';
+import { ReactSlick } from '../../ui-kit';
+
 import { hotBids } from './constants';
 
 const HotBids = () => {
+  const { screenSize, slidesPerRow } = useAdaptiveSlider(4);
+
   return (
     <HotBidsWrapper>
       <FlexContainer>
         <ContentContainer>
           <HotBidsHeader>
             <HotBidsTitle>Hot bid</HotBidsTitle>
-            <Arrows>
-              <Arrow>
-                <ArrowLeftSVG />
-              </Arrow>
-              <Arrow>
-                <ArrowRightSVG />
-              </Arrow>
-            </Arrows>
           </HotBidsHeader>
-          <BidsWrapper>
+          <ReactSlick screenSize={screenSize} slidesPerRow={slidesPerRow}>
             {hotBids.map((bid, index) => (
               <BidItem key={`bid-item-${index}`} bid={bid} />
             ))}
-          </BidsWrapper>
+          </ReactSlick>
         </ContentContainer>
       </FlexContainer>
     </HotBidsWrapper>
@@ -37,6 +33,14 @@ const HotBidsWrapper = styled.div`
   flex-direction: column;
   background: #fcfcfd;
   padding: 136px 0 128px;
+
+  @media (${devices.tablet}) {
+    padding-left: 65px;
+  }
+
+  @media (${devices.mobile}) {
+    padding: 64px 0 80px;
+  }
 `;
 
 const HotBidsHeader = styled.div`
@@ -52,31 +56,6 @@ const HotBidsTitle = styled.div`
   line-height: 48px;
   letter-spacing: -0.01em;
   color: #23262f;
-`;
-
-const Arrows = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const Arrow = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 2px solid #e6e8ec;
-  border-radius: 50%;
-  color: #777e91;
-  cursor: pointer;
-`;
-
-const BidsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  margin-top: 64px;
 `;
 
 export default HotBids;

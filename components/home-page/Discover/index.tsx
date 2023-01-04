@@ -12,6 +12,7 @@ import { BID_LIST, GENRES, PERIODS, SORT_CONFIG_LIST } from './constants';
 import BidGrid from '../../common/components/BidGrid';
 import Select from '../../ui-kit/Select';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
+import { MultiRangeSlider } from '../../ui-kit';
 
 const Discover = () => {
   const handleGenreChange = (item: ListItem) => {
@@ -29,7 +30,7 @@ const Discover = () => {
               background={SelectItemBackground.White}
               size={SelectItemSize.Medium}
               style={{ width: '180px' }}
-            ></Select>
+            />
             <FlatList items={GENRES} onChange={handleGenreChange} />
             <Button size={ButtonSize.Large} btnType={ButtonType.Secondary}>
               <FilterBtnContent>
@@ -50,6 +51,14 @@ const Discover = () => {
                 ></Select>
               </SortItem>
             ))}
+            <SortItem>
+              <MultiRangeSlider
+                label="price range"
+                step={0.01}
+                min={0.01}
+                max={10}
+              />
+            </SortItem>
           </SortRow>
           <BidGrid items={BID_LIST} />
           <ButtonWrapper>
@@ -80,6 +89,7 @@ const SectionTitle = styled.div`
 const FilterRow = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 80px;
   padding-bottom: 32px;
   border-bottom: 1px solid #e6e8ec;

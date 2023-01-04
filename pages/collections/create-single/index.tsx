@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import styled from 'styled-components';
 import RightArrowSVG from '../../../assets/svg/right-arrow.svg';
+import { devices } from '../../../common/constants';
 import { FlexContainer, PageContainer } from '../../../components/common';
 import CollectibleForm from '../../../components/create-collectible/collectible-form';
 import CollectibleItem from '../../../components/create-collectible/collectible-item';
@@ -44,6 +45,10 @@ const ContentWrapper = styled.div`
   padding-top: 128px;
   width: 100%;
   padding-bottom: 112px;
+
+  @media (${devices.mobile}) {
+    padding-top: 80px;
+  }
 `;
 
 const ContentHeading = styled.div`

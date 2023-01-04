@@ -28,7 +28,6 @@ const OwnerCommentInfoBlock = styled.div`
   align-items: flex-start;
   padding: 0;
   gap: 20px;
-  width: 156px;
   height: 24px;
 `;
 

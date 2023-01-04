@@ -8,6 +8,8 @@ export type NFT = {
   total: string;
   available: string;
   desc: string;
+  license: string;
+  exclusiveFullLicense: string;
   listingsData: ListingData[];
   tags: NFTTag[];
   bid?: {
@@ -52,4 +54,4 @@ export type Buttons = {
   type?: string;
 };
 
-export type TableHeadTitles = ['From', 'Expiration', 'Price'];
+export type TableHeadTitles = string[];

@@ -46,6 +46,7 @@ const TimerValue = styled.div`
   text-align: center;
   letter-spacing: -0.01em;
   color: #141416;
+  width: 40px;
 `;
 
 const TimerLabel = styled.div`

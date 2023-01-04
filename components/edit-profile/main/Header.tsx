@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 
 const Header = () => {
   return (
@@ -13,7 +14,7 @@ const Header = () => {
 };
 
 const SubText = styled.p`
-  width: 736px;
+  width: 100%;
   height: 24px;
   font-family: 'Poppins';
   font-weight: 400;
@@ -25,7 +26,7 @@ const SubText = styled.p`
 `;
 
 const MainText = styled.p`
-  width: 352px;
+  width: 100%;
   height: 56px;
   font-family: 'DM Sans';
   font-weight: 700;
@@ -41,9 +42,13 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
-  width: 1120px;
+  width: 100%;
   height: 96px;
   margin-top: 80px;
+
+  @media (${devices.mobile}) {
+    margin-top: 32px;
+  }
 `;
 
 Header.MainText = MainText;

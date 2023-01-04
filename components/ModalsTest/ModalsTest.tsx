@@ -20,9 +20,13 @@ import {
   PURCHASE_STEPS,
   PUT_ON_SALE_STEPS,
 } from './constants';
+import { useAdaptiveSlider } from '../../common/hooks/useAdaptiveSlider';
+import { screenSizes } from '../../common/constants';
 
 const ModalsTest = () => {
   const [openConntectWallet, setOpenConntectWallet] = useState(false);
+
+  const { screenSize } = useAdaptiveSlider();
 
   const handleContactWalletOpen = () => {
     setOpenConntectWallet(true);
@@ -162,7 +166,10 @@ const ModalsTest = () => {
             <PlaceBidInfo>You are about to purchase AvoNFT</PlaceBidInfo>
             <Counter
               label="BID PRICE"
-              style={{ width: '384px', marginTop: '10px' }}
+              style={{
+                width: screenSize >= screenSizes.tablet ? '384px' : '260px',
+                marginTop: '10px',
+              }}
             />
           </>
         </StepModal>
@@ -179,7 +186,10 @@ const ModalsTest = () => {
             <PurchaseInfo>You are about to purchase AvoNFT</PurchaseInfo>
             <Counter
               label="Amount"
-              style={{ width: '384px', marginBottom: 32 }}
+              style={{
+                width: screenSize >= screenSizes.tablet ? '384px' : '260px',
+                marginBottom: 32,
+              }}
             />
             <PurchaseAmountWrapper>
               <PurchaseAmount>
@@ -212,7 +222,7 @@ const ModalsTest = () => {
           onClose={handleAcceptBidClose}
         >
           <>
-            <AcceptBidAmoutWrapper>
+            <AcceptBidAmoutWrapper screenSize={screenSize}>
               <AvoCircleWrapper>
                 <AvoCircle />
                 <AvoCircleText>
@@ -244,9 +254,9 @@ const ModalsTest = () => {
           onClose={handlePutOnSaleClose}
         >
           <>
-            <PutOnSaleWrapper>
+            <PutOnSaleWrapper screenSize={screenSize}>
               <PutOnSaleCircle>
-                <CoinSVG />
+                <CoinSVG color="#FCFCFD" />
               </PutOnSaleCircle>
               <PutOnSaleOptionWrapper>
                 <PutOnSaleOption>
@@ -344,11 +354,12 @@ const AvoEditInfo = styled.div`
   font-family: 'Poppins';
 `;
 
-const AcceptBidAmoutWrapper = styled.div`
+const AcceptBidAmoutWrapper = styled.div<{ screenSize: number }>`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 384px;
+  width: ${({ screenSize }) =>
+    screenSize >= screenSizes.tablet ? '384px' : '260px'};
 `;
 
 const AcceptBidAmount = styled.div`
@@ -391,10 +402,11 @@ const AvoCircleText = styled.span`
 `;
 ////////////////////////////////////////////////////////////////////////////////////
 
-const PutOnSaleWrapper = styled.div`
+const PutOnSaleWrapper = styled.div<{ screenSize: number }>`
   display: flex;
   gap: 16px;
-  width: 384px;
+  width: ${({ screenSize }) =>
+    screenSize >= screenSizes.tablet ? '384px' : '260px'};
   margin-bottom: 32px;
 `;
 

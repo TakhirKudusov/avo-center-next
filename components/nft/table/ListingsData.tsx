@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { fromNameFormatter } from '../common/helpers';
 import { memo } from 'react';
 import { handleSetActiveClick } from '../../common/helpers';
+import { devices } from '../../../common/constants';
 
 type Props = {
   listingsData: ListingData[];
@@ -78,6 +79,18 @@ const TableLineWrapper = styled.div`
   padding: 18px 0;
   gap: 52px;
   border-top: 1px solid #e6e8ec;
+
+  @media (${devices.tablet}) {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  @media (${devices.mobile}) {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
 `;
 
 const TableCell = styled.p<any>`

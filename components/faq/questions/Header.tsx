@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import Link from 'next/link';
+import { devices } from '../../../common/constants';
+import { Paths } from '../../../common/enums/paths';
 
 const Header: React.FC = () => {
   return (
@@ -10,15 +12,14 @@ const Header: React.FC = () => {
       </Container>
       <DescParagraph>
         Join Stacks community now to get free updates and also alot of freebies
-        are waiting for you or <Link href="/faq">Contact Support</Link>
+        are waiting for you or <Link href={Paths.FAQ}>Contact Support</Link>
       </DescParagraph>
     </QuestionsHeader>
   );
 };
 
 const HeaderText = styled.h1`
-  width: 736px;
-  height: 56px;
+  width: 100%;
   font-family: 'DM Sans';
   font-weight: 700;
   font-size: 48px;
@@ -30,7 +31,6 @@ const HeaderText = styled.h1`
 
 const ParagraphText = styled.p`
   width: 172px;
-  height: 12px;
   font-family: 'Poppins';
   font-weight: 700;
   font-size: 12px;
@@ -51,14 +51,21 @@ const DescParagraph = styled.p`
     color: #0066ff;
     font-weight: 500;
   }
+
+  @media (${devices.tablet}) {
+    width: 100%;
+  }
+
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 736px;
-  height: 80px;
+  width: 100%;
 `;
 
 const QuestionsHeader = styled.div`
@@ -66,8 +73,7 @@ const QuestionsHeader = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
-  width: 736px;
-  height: 148px;
+  width: 100%;
 `;
 
 export default Header;

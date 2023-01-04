@@ -8,6 +8,8 @@ const NFTData: NFT = {
   total: '20',
   available: '10',
   desc: 'This NFT Card will give you Access to Special Airdrops. To learn more about please visit',
+  license: 'License:',
+  exclusiveFullLicense: 'Exclusive full license',
   listingsData: [
     {
       from: 'MegaMiner1131231',
@@ -42,7 +44,7 @@ const NFTData: NFT = {
   ],
   bid: {
     isOnBid: true,
-    endTime: '2022-12-12T12:00:00+03:00',
+    endTime: '2023-01-28T12:00:00+03:00',
   },
 };
 

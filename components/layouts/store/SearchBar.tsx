@@ -1,20 +1,33 @@
-import { useState } from 'react';
+import { KeyboardEventHandler, useState } from 'react';
 import styled from 'styled-components';
 import SearchSVG from '../../../assets/svg/search.svg';
 
-const SearchBar = () => {
+type Props = {
+  fullSize?: boolean;
+  onKeyEnterDown?: KeyboardEventHandler<HTMLInputElement>;
+};
+
+const SearchBar: React.FC<Props> = ({ fullSize, onKeyEnterDown }) => {
   const [value, setValue] = useState('');
 
   const handleChange = () => (e: any) => {
     setValue(e.target.value);
   };
 
+  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    if (onKeyEnterDown && event.key === 'Enter') {
+      onKeyEnterDown(event);
+    }
+  };
+
   return (
     <SearchWrapper>
       <SearchInput
+        fullSize={fullSize}
         value={value}
         placeholder="Search"
         onChange={handleChange()}
+        onKeyDown={handleKeyDown}
       />
       {!value && <SearchSVG />}
     </SearchWrapper>
@@ -30,9 +43,9 @@ const SearchWrapper = styled.div`
     right: 13px;
   }
 `;
-const SearchInput = styled.input`
+const SearchInput = styled.input<{ fullSize?: boolean }>`
   font-family: 'Poppins', sans-serif;
-  width: 256px;
+  width: ${({ fullSize }) => (fullSize ? '100%' : '256px')};
   height: 40px;
   border: 2px solid #e6e8ec;
   border-radius: 8px;
