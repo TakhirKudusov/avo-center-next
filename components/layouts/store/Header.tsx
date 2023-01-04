@@ -14,7 +14,6 @@ import Button from '../../ui-kit/Button/Button';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 import Select from '../../ui-kit/Select';
 import { SelectItemSize } from '../../ui-kit/Select/enums';
-import { SelectItem } from '../../ui-kit/Select/types';
 import { TooltipPosition } from '../../ui-kit/Tooltip/types';
 import BurgerSVG from '../../../assets/svg/burger-icon.svg';
 import CircleCloseSVG from '../../../assets/svg/circle-close.svg';
@@ -27,17 +26,7 @@ import UserInfoCard from './UserInfoCard';
 import { SmallScreenMenu } from './SmallScreenMenu';
 import { screenSizes } from '../../../common/constants';
 import { Paths } from '../../../common/enums/paths';
-
-const languages: SelectItem[] = [
-  {
-    value: 'en',
-    label: 'EN',
-  },
-  {
-    value: 'ru',
-    label: 'RU',
-  },
-];
+import { languages } from './constants';
 
 const Header = () => {
   const [isConnectWalletVisible, setIsConnectWalletVisible] = useState(false);
