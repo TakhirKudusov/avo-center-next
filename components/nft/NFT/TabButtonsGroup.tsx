@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 import { handleSetActiveClick } from '../../common/helpers';
 import React from 'react';
+import { devices } from '../../../common/constants';
 
-const TabButtonsGroup: React.FC = () => {
+type Props = {
+  screenSize: 'large' | 'small';
+};
+
+const TabButtonsGroup: React.FC<Props> = ({ screenSize }) => {
   return (
     <TabButtonsContainer>
       <TabButton
@@ -23,6 +28,14 @@ const TabButtonsGroup: React.FC = () => {
       >
         <p>History</p>
       </TabButton>
+      {screenSize === 'small' && (
+        <TabButton
+          className="tab-btn"
+          onClick={(e) => handleSetActiveClick(e, 'tab-btn', 'active')}
+        >
+          <p>Bids</p>
+        </TabButton>
+      )}
     </TabButtonsContainer>
   );
 };
@@ -34,6 +47,14 @@ const TabButtonsContainer = styled.div`
   gap: 10px;
   width: 564px;
   height: 40px;
+
+  @media (${devices.tablet}) {
+    width: auto;
+  }
+
+  @media (${devices.mobile}) {
+    width: auto;
+  }
 `;
 
 const TabButton = styled.button`

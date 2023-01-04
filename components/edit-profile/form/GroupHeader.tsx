@@ -39,7 +39,7 @@ const Header = styled.div<{ type?: string }>`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 744px;
+  width: 100%;
   height: 24px;
   margin-top: ${({ type }) => type === 'Social' && '50px'};
 `;

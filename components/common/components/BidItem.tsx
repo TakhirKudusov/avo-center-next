@@ -53,7 +53,7 @@ const BidWrapper = styled.div`
   display: inline-block;
 
   &:nth-of-type(n) {
-    margin-right: 25px;
+    margin-right: 32px;
   }
   &:last-of-type {
     margin-right: 0;

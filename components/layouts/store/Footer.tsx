@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
+import { Paths } from '../../../common/enums/paths';
+
 import { FlexContainer } from '../../common';
 import Logo from '../../common/components/Logo';
+import { Divider } from '../../ui-kit';
 
 const Footer = () => {
   return (
@@ -16,35 +20,37 @@ const Footer = () => {
                 <br /> Economy.
               </Tagline>
             </CompanyInfo>
+            <StyledDivider style={{ margin: '32px 0' }} />
             <LinkSections>
               <LinkSection>
                 <LinkSectionTitle>Actions</LinkSectionTitle>
                 <LinkSectionBody>
                   <LinkItem>
-                    <Link href={''}>Discover</Link>
+                    <Link href={Paths.EMPTY}>Discover</Link>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={''}>Connect wallet</Link>
+                    <Link href={Paths.EMPTY}>Connect wallet</Link>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={''}>Create item</Link>
+                    <Link href={Paths.EMPTY}>Create item</Link>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={'/faq'}>FAQ</Link>
+                    <Link href={Paths.FAQ}>FAQ</Link>
                   </LinkItem>
                 </LinkSectionBody>
               </LinkSection>
+              <StyledDivider style={{ margin: 0 }} />
               <LinkSection>
                 <LinkSectionTitle>Info</LinkSectionTitle>
                 <LinkSectionBody>
                   <LinkItem>
-                    <Link href={''}>Download</Link>
+                    <Link href={Paths.EMPTY}>Download</Link>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={''}>Demos</Link>
+                    <Link href={Paths.EMPTY}>Demos</Link>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={''}>Support</Link>
+                    <Link href={Paths.EMPTY}>Support</Link>
                   </LinkItem>
                 </LinkSectionBody>
               </LinkSection>
@@ -52,10 +58,11 @@ const Footer = () => {
           </FooterContent>
           <FooterBottom>
             <Copyright>Copyright © 2022 AVONFT. All rights reserved</Copyright>
-            <Cookies>
+            {/* TODO: remove if unnecessary */}
+            {/* <Cookies>
               <CookiesLabel>We use cookies for better service.</CookiesLabel>
               <CookiesBtn>Accept</CookiesBtn>
-            </Cookies>
+            </Cookies> */}
           </FooterBottom>
         </FlexContainer>
       </FooterWrapper>
@@ -66,13 +73,30 @@ const Footer = () => {
 const FooterWrapper = styled.div`
   background: #fcfcfd;
   border-top: 2px solid #e6e8ec;
-  padding: 80px 0 32px;
+  padding: 32px 0 32px 32px;
+
+  @media (${devices.mobile}) {
+    padding-left: 32px;
+  }
 `;
 
 const FooterContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (${devices.mobile}) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;
+
+const StyledDivider = styled(Divider)`
+  display: none;
+
+  @media (${devices.mobile}) {
+    display: block;
+  }
 `;
 
 const CompanyInfo = styled.div`
@@ -94,6 +118,12 @@ const LinkSections = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 90px;
+
+  @media (${devices.mobile}) {
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+  }
 `;
 
 const LinkSection = styled.div`
@@ -136,6 +166,10 @@ const FooterBottom = styled.div`
   font-size: 12px;
   line-height: 20px;
   margin-top: 48px;
+
+  @media (${devices.mobile}) {
+    flex-direction: column;
+  }
 `;
 
 const Copyright = styled.div`
@@ -143,27 +177,27 @@ const Copyright = styled.div`
   color: #777e91;
 `;
 
-const Cookies = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`;
+// const Cookies = styled.div`
+//   display: flex;
+//   align-items: center;
+//   gap: 16px;
+// `;
 
-const CookiesLabel = styled.div`
-  font-family: 'Poppins';
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 20px;
-  color: #23262f;
-`;
+// const CookiesLabel = styled.div`
+//   font-family: 'Poppins';
+//   font-weight: 400;
+//   font-size: 12px;
+//   line-height: 20px;
+//   color: #23262f;
+// `;
 
-const CookiesBtn = styled.button`
-  background: none;
-  border: none;
-  padding: none;
-  font-weight: 600;
-  color: #3772ff;
-  cursor: pointer;
-`;
+// const CookiesBtn = styled.button`
+//   background: none;
+//   border: none;
+//   padding: none;
+//   font-weight: 600;
+//   color: #3772ff;
+//   cursor: pointer;
+// `;
 
 export default Footer;

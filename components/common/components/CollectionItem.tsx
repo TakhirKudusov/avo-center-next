@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 import { Collection } from './types';
 
 type Props = {
@@ -43,6 +44,10 @@ const CollectionItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 80px;
+
+  @media (${devices.mobile}) {
+    margin-top: 12px;
+  }
 `;
 
 const MainItem = styled.div`

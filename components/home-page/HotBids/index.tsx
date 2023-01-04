@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { ContentContainer, FlexContainer } from '../../common';
 import BidItem from '../../common/components/BidItem';
 import { ReactSlick } from '../../ui-kit';
@@ -6,6 +8,8 @@ import { ReactSlick } from '../../ui-kit';
 import { hotBids } from './constants';
 
 const HotBids = () => {
+  const { screenSize, slidesPerRow } = useAdaptiveSlider(4);
+
   return (
     <HotBidsWrapper>
       <FlexContainer>
@@ -13,7 +17,7 @@ const HotBids = () => {
           <HotBidsHeader>
             <HotBidsTitle>Hot bid</HotBidsTitle>
           </HotBidsHeader>
-          <ReactSlick slidesPerRow={4}>
+          <ReactSlick screenSize={screenSize} slidesPerRow={slidesPerRow}>
             {hotBids.map((bid, index) => (
               <BidItem key={`bid-item-${index}`} bid={bid} />
             ))}
@@ -29,6 +33,14 @@ const HotBidsWrapper = styled.div`
   flex-direction: column;
   background: #fcfcfd;
   padding: 136px 0 128px;
+
+  @media (${devices.tablet}) {
+    padding-left: 65px;
+  }
+
+  @media (${devices.mobile}) {
+    padding: 64px 0 80px;
+  }
 `;
 
 const HotBidsHeader = styled.div`

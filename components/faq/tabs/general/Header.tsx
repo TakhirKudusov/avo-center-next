@@ -63,7 +63,7 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0;
-  width: 735px;
+  width: 100%;
   cursor: pointer;
   margin: 32px 0 0 0;
 `;
@@ -73,7 +73,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 735px;
+  width: 100%;
 `;
 
 export default memo(QuestionHeader);

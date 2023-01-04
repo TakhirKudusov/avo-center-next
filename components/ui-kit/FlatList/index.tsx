@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 import { ListItem } from './types';
 
 type Props = {
@@ -51,9 +52,14 @@ const FlatListWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
+
+  @media (${devices.mobile}) {
+    overflow: scroll;
+  }
 `;
 
 const FlatListItem = styled.button<any>`
+  min-width: fit-content;
   font-family: 'DM Sans', sans-serif;
   font-weight: 700;
   font-size: 14px;
@@ -74,6 +80,10 @@ const FlatListChildren = styled.div`
   margin-top: 42px;
   width: fit-content;
   margin-bottom: 48px;
+
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
 `;
 
 export default FlatList;

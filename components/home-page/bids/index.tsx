@@ -6,6 +6,7 @@ import CreatorItem from './CreatorItem';
 import MainBid from './MainBid';
 import RightArrowSVG from '../../../assets/svg/right-arrow.svg';
 import { ButtonSize } from '../../ui-kit/Button/enums';
+import { devices } from '../../../common/constants';
 
 const Bids = () => {
   return (
@@ -23,26 +24,29 @@ const Bids = () => {
           />
         ))}
       </BidsList>
-      <CreatorList>
+      <CreatorListWrapper>
         <CreatorsCaption>Latest upload from creators 🔥</CreatorsCaption>
-        {creators.map(({ name, avatar, uploadNumber, avoAmount }, index) => (
-          <CreatorItem
-            key={`creator-item-${index}`}
-            name={name}
-            avatar={avatar}
-            uploadNumber={uploadNumber}
-            avoAmount={avoAmount}
-          />
-        ))}
-        <Button
+        <CreatorList>
+          {creators.map(({ name, avatar, uploadNumber, avoAmount }, index) => (
+            <CreatorItem
+              key={`creator-item-${index}`}
+              name={name}
+              avatar={avatar}
+              uploadNumber={uploadNumber}
+              avoAmount={avoAmount}
+            />
+          ))}
+        </CreatorList>
+        {/* TODO: remove if unnecessary */}
+        {/* <Button
           size={ButtonSize.Medium}
           style={{ width: 'fit-content', marginTop: '10px' }}
           round={true}
         >
           <span>Discover more</span>
           <RightArrowSVG style={{ marginLeft: '12px' }} />
-        </Button>
-      </CreatorList>
+        </Button> */}
+      </CreatorListWrapper>
     </BidsWrapper>
   );
 };
@@ -52,6 +56,15 @@ const BidsWrapper = styled.div`
   display: flex;
   width: 100%;
   gap: 32px;
+  flex-wrap: wrap;
+
+  @media (${devices.tablet}) {
+    /* width: 100%; */
+  }
+
+  @media (${devices.mobile}) {
+    display: block;
+  }
 `;
 
 const BidsList = styled.div`
@@ -60,11 +73,28 @@ const BidsList = styled.div`
   gap: 32px;
 `;
 
+const CreatorListWrapper = styled.div`
+  @media (${devices.tablet}) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
 const CreatorList = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 32px;
   border-left: 1px solid #e6e8ec;
+
+  @media (${devices.tablet}) {
+    flex-direction: row;
+    padding-left: 0;
+    border-left: none;
+  }
+
+  @media (${devices.mobile}) {
+    overflow: scroll;
+  }
 `;
 
 const CreatorsCaption = styled.div`
@@ -73,6 +103,16 @@ const CreatorsCaption = styled.div`
   font-size: 12px;
   line-height: 20px;
   color: #777e91;
+  text-align: center;
+
+  @media (${devices.tablet}) {
+    text-align: left;
+  }
+
+  @media (${devices.mobile}) {
+    text-align: left;
+    margin-top: 40px;
+  }
 `;
 
 export default Bids;

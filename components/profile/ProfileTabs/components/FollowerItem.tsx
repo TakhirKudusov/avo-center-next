@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../../common/constants';
 import { Button, ButtonSize, ButtonType, Divider } from '../../../ui-kit';
 import { FollowType } from '../constants';
 import { Follower } from '../types';
@@ -53,12 +54,20 @@ const FollowerContainer = styled.div`
 const FollowerWrapper = styled.div`
   display: flex;
   margin-bottom: 32px;
+
+  @media (${devices.mobile}) {
+    flex-direction: column;
+  }
 `;
 
 const FollowerInfoWrapper = styled.div`
   display: grid;
   grid-template-columns: 2fr 2fr;
   gap: 20px;
+
+  @media (${devices.mobile}) {
+    justify-items: center;
+  }
 `;
 
 const Avatar = styled.img`
@@ -93,6 +102,13 @@ const Frames = styled.div`
   display: flex;
   gap: 8px;
   margin-left: 130px;
+
+  @media (${devices.mobile}) {
+    flex-wrap: wrap;
+    margin-left: 0;
+    justify-content: flex-end;
+    margin-top: 30px;
+  }
 `;
 
 const Frame = styled.img`

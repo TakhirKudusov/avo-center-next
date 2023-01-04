@@ -2,6 +2,7 @@ import ButtonsGroup from './ButtonsGroup';
 import { NFTButtons } from '../common/constants';
 import styled from 'styled-components';
 import { memo } from 'react';
+import { devices } from '../../../common/constants';
 
 type Props = {
   price: string;
@@ -39,6 +40,14 @@ const Container = styled.div`
   border: 1px solid #e6e8ec;
   box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
   border-radius: 16px;
+
+  @media (${devices.tablet}) {
+    width: 100%;
+  }
+
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
 `;
 
 const PriceWrapper = styled.div`
@@ -49,6 +58,14 @@ const PriceWrapper = styled.div`
   gap: 12px;
   width: 516px;
   height: 32px;
+
+  @media (${devices.tablet}) {
+    width: 100%;
+  }
+
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
 `;
 
 const PriceInCrypto = styled.p`
@@ -79,6 +96,14 @@ const ServiceFeeWrapper = styled.div`
   gap: 12px;
   width: 516px;
   height: 24px;
+
+  @media (${devices.tablet}) {
+    width: 100%;
+  }
+
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
 `;
 
 const FeeTextWrapper = styled.p`

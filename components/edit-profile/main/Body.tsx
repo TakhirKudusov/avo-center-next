@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import UserCard from '../user-card';
 import FormBody from '../form';
+import { devices } from '../../../common/constants';
 
 const Body = () => {
   return (
@@ -16,7 +17,14 @@ const Container = styled.div`
   align-items: flex-start;
   padding: 0;
   gap: 32px;
-  width: 1150px;
+
+  @media (${devices.tablet}) {
+    flex-direction: column;
+  }
+
+  @media (${devices.mobile}) {
+    flex-direction: column;
+  }
 `;
 
 Body.Container = Container;

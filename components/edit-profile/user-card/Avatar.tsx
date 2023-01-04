@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 
 const Avatar = () => {
   return (
@@ -20,6 +21,11 @@ const UserAvatar = styled.div`
   background: url('/images/profile-photo.png');
   background-size: cover;
   margin-left: 15px;
+
+  @media (${devices.mobile}) {
+    width: 72px;
+    height: 72px;
+  }
 `;
 
 const CameraButton = styled.input`
@@ -42,11 +48,21 @@ const CameraButton = styled.input`
   &:hover {
     background-color: #515261;
   }
+
+  @media (${devices.mobile}) {
+    bottom: 32%;
+    left: 39%;
+  }
 `;
 
 const Container = styled.div`
   width: 128px;
   height: 128px;
+
+  @media (${devices.mobile}) {
+    width: 72px;
+    height: 72px;
+  }
 `;
 
 Avatar.Container = Container;

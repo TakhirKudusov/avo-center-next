@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Step } from '../types';
 import CheckSVG from '../../../../../assets/svg/check.svg';
 import StepContentLoader from '../StepContentLoader';
+import { devices } from '../../../../../common/constants';
 
 type Props = {
   step: Step;
@@ -38,10 +39,10 @@ const StepWrapper = styled.div`
   margin-bottom: 16px;
   margin-top: 32px;
 
-  @media (min-width: 375px) {
+  @media (${devices.mobile}) {
     width: 279px;
   }
-  @media (min-width: 1024px) {
+  @media (${devices.tablet}) {
     width: 384px;
   }
 `;

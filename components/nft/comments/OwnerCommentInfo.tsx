@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 import CommentSubInfo from './CommentSubInfo';
 import LikeButton from './LikeButton';
 
@@ -26,6 +27,10 @@ const OwnerCommentInfoWrapper = styled.div`
   gap: 4px;
   height: 24px;
   margin-bottom: 12px;
+
+  @media (${devices.tablet}) {
+    height: auto;
+  }
 `;
 
 export default memo(OwnerCommentInfo);

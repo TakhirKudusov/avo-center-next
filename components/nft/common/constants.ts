@@ -10,6 +10,6 @@ const NFTButtons: Buttons[] = [
   },
 ];
 
-const tableHeadTitles: TableHeadTitles = ['From', 'Expiration', 'Price'];
+const tableHeadTitles: TableHeadTitles = ['From', 'Expiration', 'Price', ''];
 
 export { NFTButtons, tableHeadTitles };

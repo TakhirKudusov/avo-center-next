@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 import BidPrice from '../../common/components/BidPrice';
 
 const MainBid = () => {
@@ -37,6 +38,10 @@ const BidPhoto = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 12px;
+
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
 `;
 
 const BidBody = styled.div`
@@ -45,6 +50,10 @@ const BidBody = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (${devices.mobile}) {
+    margin: 24px 0;
+  }
 `;
 
 const BidDetails = styled.div`
@@ -71,6 +80,10 @@ const BidName = styled.div`
   font-size: 24px;
   line-height: 32px;
   color: #23262f;
+
+  @media (${devices.mobile}) {
+    font-size: 16px;
+  }
 `;
 
 const BidCount = styled.div`

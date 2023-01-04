@@ -8,6 +8,8 @@ import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 import Link from 'next/link';
 import { useTimer } from '../../ui-kit';
 import { NFTData } from '../../../mock-data/tagsData';
+import { devices } from '../../../common/constants';
+import { Paths } from '../../../common/enums/paths';
 
 //TODO: remove index
 type Props = {
@@ -21,7 +23,7 @@ const CreatorNetwork = ({ index }: Props) => {
     <CreatorNetworkWrapper>
       <Player />
       <InfoBar>
-        <Title>the creator network {index}®</Title>
+        <Title>Marco carrillo {index}®</Title>
         <InfoItems>
           <InfoItem>
             <InfoItemImage
@@ -45,7 +47,7 @@ const CreatorNetwork = ({ index }: Props) => {
           </InfoItem>
         </InfoItems>
         <Auction timeBeforeEnd={timeBeforeEnd} />
-        <Link href={'/nft/newNFT'}>
+        <Link href={Paths.NEW_NFT}>
           <Button
             btnType={ButtonType.Secondary}
             size={ButtonSize.Large}
@@ -73,6 +75,14 @@ const CreatorNetworkWrapper = styled.div`
   display: flex;
   gap: 128px;
   padding: 0 5px;
+
+  @media (${devices.tablet}) {
+    gap: 32px;
+  }
+
+  @media (${devices.mobile}) {
+    flex-direction: column;
+  }
 `;
 
 const Player = styled.div`
@@ -81,6 +91,16 @@ const Player = styled.div`
   background-image: url(/images/player.jpg);
   min-width: 640px;
   height: 800px;
+
+  @media (${devices.tablet}) {
+    min-width: 520px;
+  }
+
+  @media (${devices.mobile}) {
+    height: 478px;
+    background-size: contain;
+    min-width: auto;
+  }
 `;
 
 const InfoBar = styled.div`

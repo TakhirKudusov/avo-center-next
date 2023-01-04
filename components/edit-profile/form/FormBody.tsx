@@ -7,20 +7,16 @@ import {
   FormItem,
   Input,
 } from '../../ui-kit';
-import * as Yup from 'yup';
-import { FORM_SCHEMA, VALIDATION_REGEXPS } from '../common/constants';
-import {
-  ErrorMessage,
-  FormName,
-  FormPlaceHolder,
-  PrimaryHeaderText,
-} from '../common/enums';
+import { FORM_SCHEMA, ProfileFormItemName } from '../common/constants';
+import { FormName, FormPlaceHolder, PrimaryHeaderText } from '../common/enums';
 import GroupHeader from './GroupHeader';
 import Textarea from '../../ui-kit/Textarea';
 import TwitterButton from './TwitterButton';
 import AddAdditionalSocialAccountButton from './AddSocAccBtn';
 import { ReactEventHandler, useState } from 'react';
 import CircleCloseSVG from '../../../assets/svg/circle-close.svg';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
+import { devices, screenSizes } from '../../../common/constants';
 
 const FormBody = () => {
   const [fieldOpen, setIsFieldOpen] = useState<boolean | null>(null);
@@ -28,6 +24,8 @@ const FormBody = () => {
   const handleSubmitClick = () => (e: ReactEventHandler<HTMLFormElement>) => {
     console.log(e);
   };
+
+  const { screenSize } = useAdaptiveSlider();
 
   return (
     <FormBody.Container>
@@ -40,13 +38,13 @@ const FormBody = () => {
           <GroupHeader header={PrimaryHeaderText.ACCOUNT_INFO} />
           <FormItem
             title={FormName.NAME}
-            name={FormName.NAME}
+            name={ProfileFormItemName.NAME}
             placeholder={FormPlaceHolder.ENTER_YOUR_DISPLAY_NAME}
             component={Input}
           />
           <FormItem
             title={FormName.BIO}
-            name={FormName.BIO}
+            name={ProfileFormItemName.BIO}
             placeholder={FormPlaceHolder.ABOUT_YOURSELF_IN_A_FEW_WORDS}
             component={Textarea}
             height={96}
@@ -54,14 +52,14 @@ const FormBody = () => {
           <GroupHeader header={PrimaryHeaderText.SOCIAL} />
           <FormItem
             title={FormName.PORTFOLIO_OR_WEBSITE}
-            name={FormName.PORTFOLIO_OR_WEBSITE}
+            name={ProfileFormItemName.PORTFOLIO_OR_WEBSITE}
             placeholder={FormPlaceHolder.ENTER_URL}
             component={Input}
           />
 
           <FormItem
             title={FormName.TWITTER}
-            name={FormName.TWITTER}
+            name={ProfileFormItemName.TWITTER}
             placeholder={FormPlaceHolder.TWITTER_USERNAME}
             component={Input}
             width={352}
@@ -70,7 +68,7 @@ const FormBody = () => {
           <AddAdditionalSocialAccountButton setIsOpen={setIsFieldOpen} />
           <FormItem
             title={FormName.ADDITIONAL_SOCIAL_ACCOUNT}
-            name={FormName.ADDITIONAL_SOCIAL_ACCOUNT}
+            name={ProfileFormItemName.ADDITIONAL_SOCIAL_ACCOUNT}
             placeholder={FormPlaceHolder.ADDITIONAL_ACCOUNT}
             component={Input}
             width={352}
@@ -79,7 +77,7 @@ const FormBody = () => {
           />
           <FormItem
             title={FormName.PHOTO_OF_DOCUMENTS}
-            name={FormName.PHOTO_OF_DOCUMENTS}
+            name={ProfileFormItemName.PHOTO_OF_DOCUMENTS}
             component={Input}
             type="file"
             width={125}
@@ -90,8 +88,16 @@ const FormBody = () => {
           </Text>
           <Divider />
           <FormFooter>
-            <Button btnType={ButtonType.Secondary}>Update Profile</Button>
-            <Button btnType={ButtonType.Outlined}>
+            <Button
+              fullSize={screenSize <= screenSizes.mobileL}
+              btnType={ButtonType.Secondary}
+            >
+              Update Profile
+            </Button>
+            <Button
+              fullSize={screenSize <= screenSizes.mobileL}
+              btnType={ButtonType.Outlined}
+            >
               <CircleCloseIcon color="#777E91" />
               Clear all
             </Button>
@@ -113,8 +119,11 @@ const FormFooter = styled.div`
   align-items: center;
   margin-top: 40px;
   gap: 32px;
-  width: 285px;
   height: 48px;
+
+  @media (${devices.mobile}) {
+    flex-direction: column;
+  }
 `;
 
 const Text = styled.p`
@@ -131,7 +140,7 @@ const Text = styled.p`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 744px;
+  width: 100%;
 `;
 
 FormBody.Container = Container;

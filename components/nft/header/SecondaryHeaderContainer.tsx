@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { memo } from 'react';
 import { NFT } from '../common/types';
 import { BidPriceWrapper } from '../../common/components/BidPrice';
+import { devices } from '../../../common/constants';
 
 type Props = {
   data: Omit<NFT, 'image' | 'tags'>;
@@ -34,7 +35,6 @@ const HeaderContainer = styled.div`
 `;
 
 const Header = styled.h1`
-  width: 564px;
   height: 96px;
   font-family: 'DM Sans';
   font-weight: 700;
@@ -43,6 +43,14 @@ const Header = styled.h1`
   letter-spacing: -0.01em;
   color: #23262f;
   margin: 0;
+
+  @media (${devices.tablet}) {
+    height: auto;
+  }
+
+  @media (${devices.mobile}) {
+    height: auto;
+  }
 `;
 
 const NFTPrice = styled(BidPriceWrapper)`
