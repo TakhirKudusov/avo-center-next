@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { screenSizes } from '../constants';
 
 export const useAdaptiveSlider = (defaultSliderCount: number = 4) => {
   const [screenSize, setScreenSize] = useState(0);
@@ -9,13 +10,13 @@ export const useAdaptiveSlider = (defaultSliderCount: number = 4) => {
   }, []);
 
   useEffect(() => {
-    if (screenSize > 1024) {
+    if (screenSize > screenSizes.tablet) {
       setSlidesPerRow(defaultSliderCount);
     }
-    if (screenSize <= 1024 && screenSize > 414) {
+    if (screenSize <= screenSizes.tablet && screenSize > screenSizes.mobileL) {
       setSlidesPerRow(defaultSliderCount - 1);
     }
-    if (screenSize <= 414) {
+    if (screenSize <= screenSizes.mobileL) {
       setSlidesPerRow(1);
     }
   }, [defaultSliderCount, screenSize]);

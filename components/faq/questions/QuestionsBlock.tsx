@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 import Header from './Header';
 import MainContent from './MainContent';
 
@@ -29,11 +30,11 @@ const BlockWrapper = styled.div`
   padding: 80px 160px 0 160px;
   background: #fcfcfd;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     padding: 80px 80px 0 80px;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     padding: 40px 40px 0 40px;
   }
 `;

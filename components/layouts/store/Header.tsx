@@ -25,6 +25,8 @@ import Notifications from './Notifications';
 import SearchBar from './SearchBar';
 import UserInfoCard from './UserInfoCard';
 import { SmallScreenMenu } from './SmallScreenMenu';
+import { screenSizes } from '../../../common/constants';
+import { Paths } from '../../../common/enums/paths';
 
 const languages: SelectItem[] = [
   {
@@ -85,13 +87,13 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <FlexContainer style={{ justifyContent: 'space-between' }}>
-        {screenSize >= 1024 ? (
+        {screenSize >= screenSizes.tablet ? (
           <>
-            <Link href={'/'}>
+            <Link href={Paths.EMPTY}>
               <Logo />
             </Link>
             <ActionsBar>
-              <Link href={'/modals'}>
+              <Link href={Paths.MODALS}>
                 <Button size={ButtonSize.Medium} btnType={ButtonType.Primary}>
                   Modals
                 </Button>
@@ -132,7 +134,7 @@ const Header = () => {
                   >
                     Create NFT
                   </Button>
-                  <Link href={'/profile'}>
+                  <Link href={Paths.PROFILE}>
                     <Button
                       style={{ marginLeft: '12px' }}
                       size={ButtonSize.Medium}
@@ -168,7 +170,7 @@ const Header = () => {
           </>
         ) : (
           <>
-            <Link href={'/'}>
+            <Link href={Paths.EMPTY}>
               <Logo />
             </Link>
             <Tooltip
@@ -207,7 +209,7 @@ const Header = () => {
         <SmallScreenMenu>
           <>
             <SearchBar fullSize onKeyEnterDown={handleMenuClose} />
-            <Link href={'/modals'}>
+            <Link href={Paths.MODALS}>
               <Button
                 size={ButtonSize.Medium}
                 btnType={ButtonType.Primary}
@@ -246,7 +248,7 @@ const Header = () => {
                 >
                   Create NFT
                 </Button>
-                <Link href={'/profile'}>
+                <Link href={Paths.PROFILE}>
                   <Button
                     style={{ marginLeft: '12px' }}
                     size={ButtonSize.Medium}

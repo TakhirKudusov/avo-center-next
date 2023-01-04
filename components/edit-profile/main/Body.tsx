@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import UserCard from '../user-card';
 import FormBody from '../form';
+import { devices } from '../../../common/constants';
 
 const Body = () => {
   return (
@@ -17,11 +18,11 @@ const Container = styled.div`
   padding: 0;
   gap: 32px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     flex-direction: column;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     flex-direction: column;
   }
 `;

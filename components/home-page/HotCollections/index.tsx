@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices, screenSizes } from '../../../common/constants';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { ContentContainer, FlexContainer } from '../../common';
 import CollectionItem from '../../common/components/CollectionItem';
@@ -13,7 +14,7 @@ const HotCollections = () => {
       <FlexContainer>
         <ContentContainer>
           <HotCollectionsTitle>Hot collections</HotCollectionsTitle>
-          {screenSize >= 1024 ? (
+          {screenSize >= screenSizes.tablet ? (
             <HotColectionsBody>
               {hotCollections.slice(0, 3).map((collection, index) => (
                 <CollectionItem
@@ -44,7 +45,7 @@ const HotCollectionsWrapper = styled.div`
   background: #f4f5f6;
   padding: 128px 0 128px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     padding-top: 64px;
   }
 `;

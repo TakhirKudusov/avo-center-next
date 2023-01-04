@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 import BidPrice from '../../common/components/BidPrice';
 import { Bid } from '../../home-page/HotBids/types';
 
@@ -52,7 +53,7 @@ const BidWrapper = styled.div`
   overflow: hidden;
   height: 469px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     display: none;
   }
 `;

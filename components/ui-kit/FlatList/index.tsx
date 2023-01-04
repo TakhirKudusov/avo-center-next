@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 import { ListItem } from './types';
 
 type Props = {
@@ -52,7 +53,7 @@ const FlatListWrapper = styled.div`
   align-items: center;
   gap: 12px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     overflow: scroll;
   }
 `;
@@ -80,7 +81,7 @@ const FlatListChildren = styled.div`
   width: fit-content;
   margin-bottom: 48px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;

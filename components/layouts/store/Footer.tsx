@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
+import { Paths } from '../../../common/enums/paths';
 
 import { FlexContainer } from '../../common';
 import Logo from '../../common/components/Logo';
@@ -24,16 +26,16 @@ const Footer = () => {
                 <LinkSectionTitle>Actions</LinkSectionTitle>
                 <LinkSectionBody>
                   <LinkItem>
-                    <Link href={''}>Discover</Link>
+                    <Link href={Paths.EMPTY}>Discover</Link>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={''}>Connect wallet</Link>
+                    <Link href={Paths.EMPTY}>Connect wallet</Link>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={''}>Create item</Link>
+                    <Link href={Paths.EMPTY}>Create item</Link>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={'/faq'}>FAQ</Link>
+                    <Link href={Paths.FAQ}>FAQ</Link>
                   </LinkItem>
                 </LinkSectionBody>
               </LinkSection>
@@ -42,13 +44,13 @@ const Footer = () => {
                 <LinkSectionTitle>Info</LinkSectionTitle>
                 <LinkSectionBody>
                   <LinkItem>
-                    <Link href={''}>Download</Link>
+                    <Link href={Paths.EMPTY}>Download</Link>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={''}>Demos</Link>
+                    <Link href={Paths.EMPTY}>Demos</Link>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={''}>Support</Link>
+                    <Link href={Paths.EMPTY}>Support</Link>
                   </LinkItem>
                 </LinkSectionBody>
               </LinkSection>
@@ -73,7 +75,7 @@ const FooterWrapper = styled.div`
   border-top: 2px solid #e6e8ec;
   padding: 32px 0 32px 32px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     padding-left: 32px;
   }
 `;
@@ -83,7 +85,7 @@ const FooterContent = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -92,7 +94,7 @@ const FooterContent = styled.div`
 const StyledDivider = styled(Divider)`
   display: none;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     display: block;
   }
 `;
@@ -117,7 +119,7 @@ const LinkSections = styled.div`
   align-items: flex-start;
   gap: 90px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     flex-direction: column;
     gap: 32px;
     width: 100%;
@@ -165,7 +167,7 @@ const FooterBottom = styled.div`
   line-height: 20px;
   margin-top: 48px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     flex-direction: column;
   }
 `;
@@ -175,27 +177,27 @@ const Copyright = styled.div`
   color: #777e91;
 `;
 
-const Cookies = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`;
+// const Cookies = styled.div`
+//   display: flex;
+//   align-items: center;
+//   gap: 16px;
+// `;
 
-const CookiesLabel = styled.div`
-  font-family: 'Poppins';
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 20px;
-  color: #23262f;
-`;
+// const CookiesLabel = styled.div`
+//   font-family: 'Poppins';
+//   font-weight: 400;
+//   font-size: 12px;
+//   line-height: 20px;
+//   color: #23262f;
+// `;
 
-const CookiesBtn = styled.button`
-  background: none;
-  border: none;
-  padding: none;
-  font-weight: 600;
-  color: #3772ff;
-  cursor: pointer;
-`;
+// const CookiesBtn = styled.button`
+//   background: none;
+//   border: none;
+//   padding: none;
+//   font-weight: 600;
+//   color: #3772ff;
+//   cursor: pointer;
+// `;
 
 export default Footer;

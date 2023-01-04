@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { handleSetActiveClick } from '../../common/helpers';
 import React from 'react';
+import { devices } from '../../../common/constants';
 
 type Props = {
   screenSize: 'large' | 'small';
@@ -47,7 +48,11 @@ const TabButtonsContainer = styled.div`
   width: 564px;
   height: 40px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    width: auto;
+  }
+
+  @media (${devices.mobile}) {
     width: auto;
   }
 `;

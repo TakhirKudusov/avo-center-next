@@ -5,6 +5,7 @@ import TableHeadBlock from '../table/TableHeadBlock';
 import { tableHeadTitles } from '../common/constants';
 import ListingHeader from './ListingHeader';
 import ListingsData from '../table/ListingsData';
+import { devices } from '../../../common/constants';
 
 type Props = {
   listingsData: ListingData[];
@@ -25,12 +26,12 @@ const ListingWrapper = styled.div`
   height: 366px;
   margin-top: 56px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     width: auto;
     padding-right: 80px;
   }
 
-  @media (max-width: 1024px) {
+  @media (${devices.mobile}) {
     width: auto;
     padding-right: 32px;
   }

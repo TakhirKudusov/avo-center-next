@@ -1,6 +1,7 @@
 import { Field, useFormikContext } from 'formik';
 import { memo } from 'react';
 import styled, { css } from 'styled-components';
+import { devices } from '../../../common/constants';
 import { UnknownObject } from '../../../common/types';
 
 type Props = {
@@ -101,7 +102,7 @@ const FormItemTitle = styled.div`
   color: #b1b5c4;
   width: 300px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;

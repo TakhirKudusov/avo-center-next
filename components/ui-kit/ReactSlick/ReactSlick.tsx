@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { devices } from '../../../common/constants';
 
 type Props = {
   hasDots?: boolean;
@@ -36,7 +37,7 @@ const StyledSlider = styled(Slider)`
   .slick-track {
     margin-top: 80px;
 
-    @media (max-width: 415px) {
+    @media (${devices.mobile}) {
       margin-top: 24px;
     }
   }
@@ -98,7 +99,7 @@ const StyledArrowRight = styled(StyledArrow)<{
   }};
   bottom: ${({ slidesPerRow }) => (slidesPerRow === 1 ? '30px' : 'unset')};
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     bottom: ${({ slidesPerRow }) => (slidesPerRow === 1 ? '-80px' : 'unset')};
     right: ${({ slidesPerRow, screenSize }) =>
       slidesPerRow === 1 ? `${screenSize && screenSize / 2 - 60}px` : 'unset'};
@@ -136,7 +137,7 @@ const StyledArrowLeft = styled(StyledArrow)<{
   right: ${({ slidesPerRow }) => (slidesPerRow === 1 ? '310px' : '50px')};
   bottom: ${({ slidesPerRow }) => (slidesPerRow === 1 ? '30px' : 'unset')};
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     bottom: ${({ slidesPerRow }) => (slidesPerRow === 1 ? '-80px' : 'unset')};
     right: ${({ slidesPerRow, screenSize }) =>
       slidesPerRow === 1 ? `${screenSize && screenSize / 2 - 20}px` : '50px'};

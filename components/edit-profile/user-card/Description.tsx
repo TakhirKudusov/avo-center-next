@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ConfirmGreenSVG from '../../../assets/svg/confirm-green.svg';
+import { devices } from '../../../common/constants';
 
 const Description = () => {
   return (
@@ -27,7 +28,7 @@ const Text = styled.p`
   align-items: center;
   color: #777e91;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;
@@ -51,7 +52,7 @@ const Header = styled.div`
   width: 122px;
   height: 24px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;
@@ -63,7 +64,7 @@ const Container = styled.div`
   width: 192px;
   height: 92px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
     height: auto;
   }

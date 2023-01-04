@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 
 type Props = {
   name: string;
@@ -39,7 +40,7 @@ const CreatorItemWrapper = styled.div`
     border-bottom: none;
   }
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     border-bottom: none;
   }
 `;

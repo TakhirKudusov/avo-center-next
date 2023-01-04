@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 
 const Header = styled.div`
   margin-top: 80px;
@@ -19,12 +20,12 @@ const NFTDescriptionWrapper = styled.div`
   align-items: flex-start;
   gap: 56px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     width: 1024px;
     padding: 0 80px;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 375px;
     padding: 0 32px;
     flex-direction: column;

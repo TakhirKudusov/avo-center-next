@@ -6,6 +6,7 @@ import CreatorItem from './CreatorItem';
 import MainBid from './MainBid';
 import RightArrowSVG from '../../../assets/svg/right-arrow.svg';
 import { ButtonSize } from '../../ui-kit/Button/enums';
+import { devices } from '../../../common/constants';
 
 const Bids = () => {
   return (
@@ -57,11 +58,11 @@ const BidsWrapper = styled.div`
   gap: 32px;
   flex-wrap: wrap;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     /* width: 100%; */
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     display: block;
   }
 `;
@@ -73,7 +74,7 @@ const BidsList = styled.div`
 `;
 
 const CreatorListWrapper = styled.div`
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     display: flex;
     flex-direction: column;
   }
@@ -85,13 +86,13 @@ const CreatorList = styled.div`
   padding-left: 32px;
   border-left: 1px solid #e6e8ec;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     flex-direction: row;
     padding-left: 0;
     border-left: none;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     overflow: scroll;
   }
 `;
@@ -104,11 +105,11 @@ const CreatorsCaption = styled.div`
   color: #777e91;
   text-align: center;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     text-align: left;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     text-align: left;
     margin-top: 40px;
   }

@@ -6,6 +6,7 @@ import NFTListingsBlock from './NFTListingsBlock';
 import TabButtonsGroup from './TabButtonsGroup';
 import { NFTDescriptionData } from './types';
 import { Timer, useTimer } from '../../ui-kit';
+import { devices } from '../../../common/constants';
 
 type Props = {
   data: NFTDescriptionData;
@@ -49,12 +50,13 @@ const Description = styled.p`
   padding-bottom: 40px;
   margin: 0;
 
-  @media (max-width: 415px) {
-    width: auto;
-  }
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     width: auto;
     padding-bottom: 16px;
+  }
+
+  @media (${devices.mobile}) {
+    width: auto;
   }
 `;
 
@@ -66,7 +68,11 @@ const NFTMenuContainer = styled.div`
 `;
 
 const LicenseWrapper = styled.div`
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    margin-bottom: 32px;
+  }
+
+  @media (${devices.mobile}) {
     margin-bottom: 32px;
   }
 `;

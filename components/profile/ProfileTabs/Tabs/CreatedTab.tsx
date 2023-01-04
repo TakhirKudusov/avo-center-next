@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../../common/constants';
 import { Button, ButtonSize, ButtonType } from '../../../ui-kit';
 
 const CreatedTab = () => {
@@ -28,7 +29,7 @@ const TabWrapper = styled.div`
   padding-left: 120px;
   margin-bottom: 220px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     padding-left: 10px;
     margin-bottom: 80px;
   }
@@ -40,7 +41,7 @@ const TabTitle = styled.h2`
   color: #001240;
   margin-bottom: 0;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     font-size: 22px;
   }
 `;

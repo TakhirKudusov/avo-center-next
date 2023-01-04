@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
+import { Paths } from '../../../common/enums/paths';
 import { Button, ButtonType } from '../../ui-kit';
 
 type Props = {
@@ -20,7 +22,7 @@ const UploadItem: React.FC<Props> = ({ onItemClick }) => {
           <UploadItemCardImage
             style={{ backgroundImage: `url(/images/single-collectible.jpg)` }}
           />
-          <Link href="/collections/create-single">
+          <Link href={Paths.COLLECTIONS_CREATE_SINGLE}>
             <Button
               onClick={handleClick(onItemClick)}
               btnType={ButtonType.Primary}
@@ -33,7 +35,7 @@ const UploadItem: React.FC<Props> = ({ onItemClick }) => {
           <UploadItemCardImage
             style={{ backgroundImage: `url(/images/collection.jpg)` }}
           />
-          <Link href="/collections/create-single">
+          <Link href={Paths.COLLECTIONS_CREATE_SINGLE}>
             <Button
               onClick={handleClick(onItemClick)}
               btnType={ButtonType.Secondary}
@@ -56,7 +58,7 @@ const UploadItemWrapper = styled.div`
   flex-direction: column;
   width: 586px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 260px;
   }
 `;
@@ -69,7 +71,7 @@ const UploadItemDesc = styled.div`
   text-align: center;
   color: #777e91;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     font-size: 10px;
     line-height: 16px;
   }
@@ -80,7 +82,7 @@ const UploadItemCards = styled.div`
   gap: 32px;
   align-items: center;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     flex-direction: column;
     gap: 6px;
   }
@@ -98,7 +100,7 @@ const UploadItemCard = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
     gap: 10px;
     padding: 8px;
@@ -113,7 +115,7 @@ const UploadItemCardImage = styled.div`
   width: 243px;
   height: 178px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 160px;
     height: 120px;
   }
@@ -128,7 +130,7 @@ const UploadItemDescBottom = styled.div`
   color: #777e91;
   margin-top: 24px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     margin-top: 12px;
     font-size: 10px;
     line-height: 16px;

@@ -16,6 +16,7 @@ import AddAdditionalSocialAccountButton from './AddSocAccBtn';
 import { ReactEventHandler, useState } from 'react';
 import CircleCloseSVG from '../../../assets/svg/circle-close.svg';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
+import { devices, screenSizes } from '../../../common/constants';
 
 const FormBody = () => {
   const [fieldOpen, setIsFieldOpen] = useState<boolean | null>(null);
@@ -87,10 +88,16 @@ const FormBody = () => {
           </Text>
           <Divider />
           <FormFooter>
-            <Button fullSize={screenSize <= 414} btnType={ButtonType.Secondary}>
+            <Button
+              fullSize={screenSize <= screenSizes.mobileL}
+              btnType={ButtonType.Secondary}
+            >
               Update Profile
             </Button>
-            <Button fullSize={screenSize <= 414} btnType={ButtonType.Outlined}>
+            <Button
+              fullSize={screenSize <= screenSizes.mobileL}
+              btnType={ButtonType.Outlined}
+            >
               <CircleCloseIcon color="#777E91" />
               Clear all
             </Button>
@@ -114,7 +121,7 @@ const FormFooter = styled.div`
   gap: 32px;
   height: 48px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     flex-direction: column;
   }
 `;

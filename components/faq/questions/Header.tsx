@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import Link from 'next/link';
+import { devices } from '../../../common/constants';
+import { Paths } from '../../../common/enums/paths';
 
 const Header: React.FC = () => {
   return (
@@ -10,7 +12,7 @@ const Header: React.FC = () => {
       </Container>
       <DescParagraph>
         Join Stacks community now to get free updates and also alot of freebies
-        are waiting for you or <Link href="/faq">Contact Support</Link>
+        are waiting for you or <Link href={Paths.FAQ}>Contact Support</Link>
       </DescParagraph>
     </QuestionsHeader>
   );
@@ -50,11 +52,11 @@ const DescParagraph = styled.p`
     font-weight: 500;
   }
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     width: 100%;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;

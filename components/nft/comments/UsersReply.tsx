@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import OwnerAvatar from './OwnerAvatar';
 import { CommentsData, OwnerMessage } from '../common/types';
 import UserComment from './UserComment';
+import { devices } from '../../../common/constants';
 
 type Props = {
   commentsData: OwnerMessage[];
@@ -33,11 +34,11 @@ const ReplyContainer = styled.div`
   gap: 10px;
   height: 84px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     width: 100%;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
     height: auto;
   }

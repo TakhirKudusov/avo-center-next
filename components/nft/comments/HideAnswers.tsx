@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import UpSideCornerSVG from '../../../assets/svg/up-side-corner.svg';
 import { memo } from 'react';
+import { devices } from '../../../common/constants';
 
 type Props = {
   commentsQuantity: string;
@@ -77,7 +78,11 @@ const Container = styled.div`
   height: 24px;
   margin-top: 7px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    width: 100%;
+  }
+
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;

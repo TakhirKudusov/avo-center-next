@@ -4,6 +4,7 @@ import TextAreaBlock from './TextAreaBlock';
 import { getPastTime } from '../common/helpers';
 import { CommentsData, OwnerMessage } from '../common/types';
 import { memo } from 'react';
+import { devices } from '../../../common/constants';
 
 type Props = {
   commentsData: OwnerMessage;
@@ -42,11 +43,11 @@ const CurrentOwnerBlock = styled.div`
   gap: 12px;
   height: 136px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     width: 100%;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
     height: auto;
   }
@@ -55,11 +56,11 @@ const CurrentOwnerBlock = styled.div`
 const OwnerCommentsDataWrapper = styled.div`
   height: 84px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     width: 100%;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     height: auto;
   }
 `;
@@ -78,7 +79,12 @@ const CreatorsName = styled.div`
   color: #23262f;
   margin-bottom: 6px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    width: auto;
+    height: auto;
+  }
+
+  @media (${devices.mobile}) {
     width: auto;
     height: auto;
   }
@@ -94,7 +100,12 @@ const CreatorCommentText = styled.div`
   margin-bottom: 6px;
   color: #23262f;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    width: 100%;
+    height: auto;
+  }
+
+  @media (${devices.mobile}) {
     width: 100%;
     height: auto;
   }

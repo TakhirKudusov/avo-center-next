@@ -17,6 +17,8 @@ import {
 import { useState } from 'react';
 import { ListItem } from '../../components/ui-kit/FlatList/types';
 import { Button, ButtonSize, ButtonType } from '../../components/ui-kit';
+import { devices } from '../../common/constants';
+import { Paths } from '../../common/enums/paths';
 
 function Profile() {
   const [isUserProfile, setIsUserProfile] = useState(false);
@@ -68,7 +70,7 @@ function Profile() {
             Edit cover photo
             <StyledImageSVG />
           </Button>
-          <Link href={'/profile/edit'}>
+          <Link href={Paths.PROFILE_EDIT}>
             <Button
               style={{ color: '#fff', border: '2px solid #777E91' }}
               size={ButtonSize.Medium}
@@ -115,11 +117,11 @@ const Cover = styled.div`
   align-items: flex-end;
   gap: 15px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     width: 1024px;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 375px;
     height: 230px;
     margin: 82px auto;
@@ -147,11 +149,11 @@ const StyledEditSVG = styled(EditSVG)`
 const ProfileWrapper = styled.div`
   padding-left: 160px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     padding-left: 80px;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     padding-left: 0;
   }
 `;
@@ -159,7 +161,7 @@ const ProfileWrapper = styled.div`
 const CardsWrapper = styled.div`
   padding-left: 320px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     padding-left: 0;
     margin-top: 500px;
     margin-bottom: 40px;

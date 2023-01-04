@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
 import LoadingSVG from '../../../assets/svg/loading.svg';
+import { devices } from '../../../common/constants';
 import { FormRow } from '../../common';
 import {
   Counter,
@@ -148,13 +149,13 @@ const AutoSaving = styled.div`
 const NetworkWrapper = styled.div`
   width: 300px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;
 
 const StyledFormRow = styled.div`
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     flex-direction: column;
   }
 `;
@@ -162,7 +163,7 @@ const StyledFormRow = styled.div`
 const RoyaltiesWrapper = styled.div`
   width: 190px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;

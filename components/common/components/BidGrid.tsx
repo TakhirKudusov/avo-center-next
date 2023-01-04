@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { screenSizes } from '../../../common/constants';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { Bid } from '../../home-page/HotBids/types';
 import { ReactSlick } from '../../ui-kit';
@@ -13,7 +14,7 @@ const BidGrid: React.FC<Props> = ({ items, elemPerRow = 4 }) => {
 
   return (
     <>
-      {screenSize > 1024 ? (
+      {screenSize > screenSizes.tablet ? (
         <Grid elemPerRow={elemPerRow}>
           {items.map((item, index) => (
             <BidItem key={`bid-item-${index}`} bid={item} />

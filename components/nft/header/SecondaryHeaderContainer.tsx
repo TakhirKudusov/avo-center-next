@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { memo } from 'react';
 import { NFT } from '../common/types';
 import { BidPriceWrapper } from '../../common/components/BidPrice';
+import { devices } from '../../../common/constants';
 
 type Props = {
   data: Omit<NFT, 'image' | 'tags'>;
@@ -43,7 +44,11 @@ const Header = styled.h1`
   color: #23262f;
   margin: 0;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    height: auto;
+  }
+
+  @media (${devices.mobile}) {
     height: auto;
   }
 `;

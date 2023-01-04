@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React, { memo } from 'react';
 import { Buttons } from '../common/types';
+import { devices } from '../../../common/constants';
 
 type Props = {
   buttonsParameters: Buttons[];
@@ -28,7 +29,10 @@ const ButtonsWrapper = styled.div`
   width: 516px;
   height: 48px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    width: 100%;
+  }
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;
@@ -44,9 +48,13 @@ const Button = styled.button<any>`
   border-radius: 10px;
   cursor: pointer;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     width: 100%;
   }
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
+
   background: ${(props) => {
     switch (props.type) {
       case 'primary':

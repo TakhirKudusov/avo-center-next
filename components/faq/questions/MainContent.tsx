@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Tab } from '../common/types';
 import Tabs from '../tabs/Tabs';
 import CategoryListItem from './CategoryListItem';
+import { devices } from '../../../common/constants';
 
 const MainContent: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<Tab>('general');
@@ -35,15 +36,16 @@ const Container = styled.div`
   width: 100%;
   gap: 140px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     flex-direction: column;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
     height: auto;
     gap: 40px;
     margin-top: 40px;
+    flex-direction: column;
   }
 `;
 

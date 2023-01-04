@@ -6,6 +6,7 @@ import { NFTDescriptionContainer, NFTDescriptionWrapper } from '../index';
 import UserActionsButtonsGroup from './UserActionsButtonsGroup';
 import styled from 'styled-components';
 import NFTListingsBlock from './NFTListingsBlock';
+import { devices, screenSizes } from '../../../common/constants';
 
 type Props = {
   NFTData: NFT;
@@ -16,7 +17,9 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
   const [screenSize, setScreenSize] = useState<'large' | 'small'>('large');
 
   useEffect(() => {
-    setScreenSize(window?.screen.width > 1024 ? 'large' : 'small');
+    setScreenSize(
+      window?.screen.width > screenSizes.tablet ? 'large' : 'small',
+    );
   }, []);
 
   return (
@@ -49,22 +52,22 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
 const Container = styled(NFTDescriptionWrapper)`
   width: 1224px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     width: 1024px;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 375px;
     padding: 0 32px;
   }
 `;
 
 const StyledNFTDescriptionWrapper = styled(NFTDescriptionWrapper)`
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     padding: 0 80px 0 0;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     padding: 0;
     margin: auto;
   }

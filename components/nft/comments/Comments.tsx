@@ -5,6 +5,7 @@ import OwnerAvatar from './OwnerAvatar';
 import HideAnswers from './HideAnswers';
 import UserComment from './UserComment';
 import UsersReply from './UsersReply';
+import { devices } from '../../../common/constants';
 
 type Props = {
   commentsData: CommentsData;
@@ -38,12 +39,12 @@ const BlockWrapper = styled.div`
   margin-top: 100px;
   margin-bottom: 96px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     padding-left: 80px;
     width: 100vw;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     padding-left: 32px;
     width: auto;
   }
@@ -79,11 +80,11 @@ const CommentsBlock = styled.div`
   gap: 24px;
   height: 508px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     width: 100%;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 100%;
     min-width: 340px;
     height: auto;

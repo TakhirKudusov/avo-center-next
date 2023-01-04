@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 
 const Header = () => {
   return (
@@ -45,7 +46,7 @@ const Container = styled.div`
   height: 96px;
   margin-top: 80px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     margin-top: 32px;
   }
 `;

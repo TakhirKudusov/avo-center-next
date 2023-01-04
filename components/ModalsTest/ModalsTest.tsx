@@ -21,6 +21,7 @@ import {
   PUT_ON_SALE_STEPS,
 } from './constants';
 import { useAdaptiveSlider } from '../../common/hooks/useAdaptiveSlider';
+import { screenSizes } from '../../common/constants';
 
 const ModalsTest = () => {
   const [openConntectWallet, setOpenConntectWallet] = useState(false);
@@ -166,7 +167,7 @@ const ModalsTest = () => {
             <Counter
               label="BID PRICE"
               style={{
-                width: screenSize >= 1024 ? '384px' : '260px',
+                width: screenSize >= screenSizes.tablet ? '384px' : '260px',
                 marginTop: '10px',
               }}
             />
@@ -186,7 +187,7 @@ const ModalsTest = () => {
             <Counter
               label="Amount"
               style={{
-                width: screenSize >= 1024 ? '384px' : '260px',
+                width: screenSize >= screenSizes.tablet ? '384px' : '260px',
                 marginBottom: 32,
               }}
             />
@@ -357,7 +358,8 @@ const AcceptBidAmoutWrapper = styled.div<{ screenSize: number }>`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: ${({ screenSize }) => (screenSize >= 1024 ? '384px' : '260px')};
+  width: ${({ screenSize }) =>
+    screenSize >= screenSizes.tablet ? '384px' : '260px'};
 `;
 
 const AcceptBidAmount = styled.div`
@@ -403,7 +405,8 @@ const AvoCircleText = styled.span`
 const PutOnSaleWrapper = styled.div<{ screenSize: number }>`
   display: flex;
   gap: 16px;
-  width: ${({ screenSize }) => (screenSize >= 1024 ? '384px' : '260px')};
+  width: ${({ screenSize }) =>
+    screenSize >= screenSizes.tablet ? '384px' : '260px'};
   margin-bottom: 32px;
 `;
 

@@ -14,6 +14,7 @@ import { links } from './constants';
 import CopySVG from '../../../assets/svg/copy.svg';
 import ShareIconSvg from '../../../assets/svg/share-icon.svg';
 import { useState } from 'react';
+import { devices } from '../../../common/constants';
 
 type Props = { isUserProfile: boolean };
 
@@ -108,7 +109,7 @@ const CardContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     top: 290px;
     width: 85%;
     left: 35px;

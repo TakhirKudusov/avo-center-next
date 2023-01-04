@@ -1,5 +1,6 @@
 import UpSideCorner from '../../../assets/svg/up-side-corner.svg';
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 
 const ListingHeader = () => {
   return (
@@ -19,7 +20,13 @@ const Header = styled.div`
   border-top: 1px solid #e6e8ec;
   text-align: start;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  @media (${devices.mobile}) {
     width: 100%;
     justify-content: space-between;
     gap: 0;

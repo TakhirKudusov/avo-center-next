@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
+import { devices, screenSizes } from '../../../../common/constants';
 import { Button, ButtonSize, ButtonType } from '../../../ui-kit';
 import { NOTIFICATION_LIST } from './constants';
 import NotificationItem from './NotificationItem';
@@ -10,7 +11,7 @@ const NotificationCard: FC<Props> = ({ screenSize }) => (
   <NotificationCardWrapper>
     <NotificationCardHeader>
       <NotificationCardTitle>Notifications</NotificationCardTitle>
-      {screenSize >= 1024 && (
+      {screenSize >= screenSizes.tablet && (
         <Button btnType={ButtonType.Secondary} size={ButtonSize.Medium}>
           See all
         </Button>
@@ -21,7 +22,7 @@ const NotificationCard: FC<Props> = ({ screenSize }) => (
         <NotificationItem {...notification} key={`notification-${index}`} />
       ))}
     </NotificationCardBody>
-    {screenSize < 1024 && (
+    {screenSize < screenSizes.tablet && (
       <Button btnType={ButtonType.Secondary} size={ButtonSize.Medium} fullSize>
         See all
       </Button>
@@ -34,7 +35,7 @@ const NotificationCardWrapper = styled.div`
   flex-direction: column;
   width: 368px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     width: 300px;
   }
 `;

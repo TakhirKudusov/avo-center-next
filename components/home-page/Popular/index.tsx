@@ -13,6 +13,7 @@ import { SelectItem } from '../../ui-kit/Select/types';
 import Select from '../../ui-kit/Select';
 import { ReactSlick } from '../../ui-kit';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
+import { devices } from '../../../common/constants';
 
 const Popular = () => {
   const dates: SelectItem[] = [
@@ -71,7 +72,7 @@ const PopularWrapper = styled.div`
   margin-top: 128px;
   height: 663px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     padding: 64px 15px;
     margin-top: 64px;
   }
@@ -89,7 +90,7 @@ const SectionHeader = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -122,17 +123,13 @@ const SectionSelectTitle = styled.div`
   letter-spacing: -0.01em;
   color: #23262f;
 
-  @media (max-width: 1024px) {
-    /* width: 100%; */
-  }
-
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     display: block;
   }
 `;
 
 const TimeframeWrapper = styled.div`
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     margin-top: 24px;
   }
 `;

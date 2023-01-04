@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { fromNameFormatter } from '../common/helpers';
 import { memo } from 'react';
 import { handleSetActiveClick } from '../../common/helpers';
+import { devices } from '../../../common/constants';
 
 type Props = {
   listingsData: ListingData[];
@@ -79,7 +80,13 @@ const TableLineWrapper = styled.div`
   gap: 52px;
   border-top: 1px solid #e6e8ec;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  @media (${devices.mobile}) {
     width: 100%;
     justify-content: space-between;
     gap: 0;

@@ -1,6 +1,7 @@
 import { TableHeadTitles } from '../common/types';
 import React, { memo } from 'react';
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 
 type Props = {
   tableHeadTitles: TableHeadTitles;
@@ -24,7 +25,13 @@ const TableHead = styled.div`
   padding: 16px 0;
   gap: 58px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  @media (${devices.mobile}) {
     width: 100%;
     justify-content: space-between;
     gap: 0;

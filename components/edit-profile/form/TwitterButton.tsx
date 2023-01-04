@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 import { Button, ButtonSize } from '../../ui-kit';
 
 const TwitterButton = () => {
@@ -16,7 +17,7 @@ const Wrapper = styled.div<{ isError?: boolean; state?: string }>`
   margin-bottom: -10px;
   width: fit-content;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     left: 61%;
   }
 `;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../../common/constants';
 
 import BidGrid from '../../../common/components/BidGrid';
 import { BID_LIST } from '../../../home-page/Discover/constants';
@@ -14,11 +15,11 @@ const OnSaleTab = () => {
 const SaleTabWrapper = styled.div`
   max-width: 1150px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     max-width: 600px;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     max-width: 375px;
   }
 `;

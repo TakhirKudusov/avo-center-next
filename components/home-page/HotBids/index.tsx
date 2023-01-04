@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { ContentContainer, FlexContainer } from '../../common';
 import BidItem from '../../common/components/BidItem';
@@ -33,11 +34,11 @@ const HotBidsWrapper = styled.div`
   background: #fcfcfd;
   padding: 136px 0 128px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
     padding-left: 65px;
   }
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     padding: 64px 0 80px;
   }
 `;

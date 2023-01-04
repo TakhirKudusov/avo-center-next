@@ -7,6 +7,7 @@ import { Wallet } from './types';
 import { useAppDispatch } from '../../../redux/hooks';
 import { signin } from '../../../redux/slicers/authSlicer';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
+import { screenSizes } from '../../../common/constants';
 
 const ConnectWallet = () => {
   // const [loading, setLoading] = useState(false); // Loading button state
@@ -55,7 +56,8 @@ const ConnectWalletWrapper = styled.div<{ screenSize: number }>`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: ${({ screenSize }) => (screenSize >= 1024 ? '386px' : '260px')};
+  width: ${({ screenSize }) =>
+    screenSize >= screenSizes.tablet ? '386px' : '260px'};
 `;
 
 export default ConnectWallet;

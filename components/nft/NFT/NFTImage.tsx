@@ -7,6 +7,7 @@ import { TagsWrapper } from '../';
 import { NFT } from '../common/types';
 
 import UserActionsButtonsGroup from './UserActionsButtonsGroup';
+import { devices, screenSizes } from '../../../common/constants';
 
 type Props = {
   NFTData: Pick<NFT, 'image' | 'tags'>;
@@ -16,7 +17,7 @@ const NFTImage: React.FC<Props> = ({ NFTData }) => {
   const [screenSize, setScreenSize] = useState<'large' | 'small'>('large');
 
   useEffect(() => {
-    setScreenSize(window.screen.width > 1024 ? 'large' : 'small');
+    setScreenSize(window.screen.width > screenSizes.tablet ? 'large' : 'small');
   }, []);
 
   return (
@@ -52,7 +53,7 @@ const NFTMainContainer = styled.div`
 const StyledNFTMain = styled(NFTMain)`
   min-width: 500px;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     min-width: 100%;
     width: 100%;
   }

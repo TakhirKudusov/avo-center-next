@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import styled from 'styled-components';
+import { devices } from '../common/constants';
 import { useAdaptiveSlider } from '../common/hooks/useAdaptiveSlider';
 import { FlexContainer } from '../components/common';
 import Bids from '../components/home-page/bids';
@@ -81,7 +82,7 @@ const PageDesc = styled.div`
   padding-top: 128px;
   text-transform: uppercase;
 
-  @media (max-width: 415px) {
+  @media (${devices.mobile}) {
     padding-top: 64px;
   }
 `;

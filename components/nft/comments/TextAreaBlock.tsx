@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CornerDownRightSVG from '../../../assets/svg/corner-down-right.svg';
 import RightSideCornerSVG from '../../../assets/svg/right-side-corner.svg';
+import { devices } from '../../../common/constants';
 
 const TextAreaBlock: React.FC = () => {
   return (
@@ -57,7 +58,11 @@ const TextAreaContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    width: 100%;
+  }
+
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;
@@ -71,7 +76,11 @@ const TextAreaWrapper = styled.div`
   width: 1056px;
   height: 40px;
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    width: 100%;
+  }
+
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;
@@ -118,7 +127,11 @@ const TextArea = styled.textarea`
     top: 3px;
   }
 
-  @media (max-width: 1024px) {
+  @media (${devices.tablet}) {
+    width: 100%;
+  }
+
+  @media (${devices.mobile}) {
     width: 100%;
   }
 `;
