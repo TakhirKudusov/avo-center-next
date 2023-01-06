@@ -1,15 +1,17 @@
 import { Form as FormikForm, Formik } from 'formik';
-import { memo } from 'react';
+import { memo, MutableRefObject } from 'react';
 import * as Yup from 'yup';
 import { UnknownObject } from '../../../common/types';
 
 type Props = {
+  innerRef?: MutableRefObject<any>;
   formSchema?: Yup.ObjectSchema<any>;
   initialValues: UnknownObject;
-  onSubmit: (values: any, formikProps: any) => void;
   children: JSX.Element;
+  onSubmit: (values: any, formikProps: any) => void;
 };
 const Form: React.FC<Props> = ({
+  innerRef,
   formSchema,
   initialValues,
   children,
@@ -17,9 +19,12 @@ const Form: React.FC<Props> = ({
 }) => {
   return (
     <Formik
+      innerRef={innerRef}
       validationSchema={formSchema}
       initialValues={initialValues}
-      onSubmit={onSubmit}
+      onSubmit={(a, b) => {
+        onSubmit(a, b);
+      }}
     >
       {({ handleSubmit }) => (
         <FormikForm

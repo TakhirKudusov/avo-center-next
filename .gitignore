@@ -14,7 +14,7 @@
 
 # production
 /build
-/swagger/autogen
+/swagger
 
 # misc
 .DS_Store

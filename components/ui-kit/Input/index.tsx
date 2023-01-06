@@ -35,19 +35,22 @@ const Input: React.FC<Props & TFormFieldProps> = ({
   form,
   onChange,
 }) => {
-  const [curValue, setCurValue] = useState<string | number>(field?.value || '');
+  const [curValue, setCurValue] = useState<string | number>(
+    field?.value || value,
+  );
 
-  const inputValue = value ?? curValue;
+  // const inputValue = value ?? curValue;
 
   useConnectForm(curValue, form, field, hasSchema, onChange);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setCurValue(event.target.value);
+    form?.setFieldValue(field?.name!, event.target.value);
   };
 
   return (
     <InputItem
-      value={inputValue}
+      value={form?.values[field?.name!]}
       type={type}
       width={width}
       placeholder={placeholder}
