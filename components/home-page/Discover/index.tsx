@@ -20,7 +20,7 @@ const Discover = () => {
   };
 
   return (
-    <DiscoverWrapper>
+    <DiscoverWrapper id="discover">
       <FlexContainer>
         <ContentContainer>
           <SectionTitle>Discover</SectionTitle>

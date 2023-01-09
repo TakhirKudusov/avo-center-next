@@ -1,14 +1,25 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { HttpStatus, Role } from '../../common/enums';
-import { getErrorMassage, handleError, handlePending } from '../../common/helpers';
+import {
+  getErrorMassage,
+  handleError,
+  handlePending,
+} from '../../common/helpers';
 import { IUser } from '../../common/interfaces';
 import { axiosInstance } from '../../components/common/axios.instance';
 import { TAuthState } from '../types';
 
 import Web3 from 'web3';
-import { getUserInfo, setAccessToken } from '../../common/helpers/jwt-token.helper';
-import { handleAuthenticate, handleSignMessage, handleSignup } from '../../common/helpers/auth.helper';
-
+import {
+  getUserInfo,
+  setAccessToken,
+} from '../../common/helpers/jwt-token.helper';
+import {
+  handleAuthenticate,
+  handleSignMessage,
+  handleSignup,
+} from '../../common/helpers/auth.helper';
+import { OpenAPI } from '../../swagger';
 
 export const signin = createAsyncThunk<
   IUser,
@@ -59,14 +70,17 @@ export const signin = createAsyncThunk<
       }
 
       const handleSignMessageResponse = await handleSignMessage(authData);
-
       const handleAuthenticateResponse = await handleAuthenticate({
         ...handleSignMessageResponse,
       });
-      console.log('LOGGED IN', handleAuthenticateResponse.data);
+
       setAccessToken(handleAuthenticateResponse.data.accessToken.accessToken);
+      OpenAPI.TOKEN = handleAuthenticateResponse.data.accessToken.accessToken;
+
       const user = getUserInfo();
-      return user
+
+      console.log('LOGGED IN', handleAuthenticateResponse.data);
+      return user;
     } catch (error) {
       window.alert(error);
       // setLoading(false);
@@ -75,7 +89,6 @@ export const signin = createAsyncThunk<
     return rejectWithValue(getErrorMassage(error.response.status));
   }
 });
-
 
 const initialState: TAuthState = {
   user: null,
@@ -90,6 +103,7 @@ const authSlicer = createSlice({
       state.user = null;
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
+      OpenAPI.TOKEN = '';
     },
     setUser(state: TAuthState, action: PayloadAction<IUser | null>) {
       state.user = action.payload;
@@ -106,7 +120,7 @@ const authSlicer = createSlice({
         // openSuccessNotification('Вы успешно авторизованы!');
         console.log('fulfilled');
       })
-      .addCase(signin.rejected, handleError)
+      .addCase(signin.rejected, handleError);
   },
 });
 

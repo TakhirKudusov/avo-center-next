@@ -22,20 +22,13 @@ const ConnectWallet = () => {
         dispatch(signin());
       },
     },
-    {
-      name: 'WalletConnect',
-      icon: <WalletConnectSVG />,
-      onClick: () => {
-        console.log('WalletConnect');
-      },
-    },
-    {
-      name: 'AvoNFT',
-      icon: <AvoNFTSVG />,
-      onClick: () => {
-        console.log('AVO NFT');
-      },
-    },
+    // {
+    //   name: 'WalletConnect',
+    //   icon: <WalletConnectSVG />,
+    //   onClick: () => {
+    //     console.log('WalletConnect');
+    //   },
+    // },
   ];
 
   return (

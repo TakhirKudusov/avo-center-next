@@ -10,6 +10,7 @@ type Props = {
   children: JSX.Element;
   onSubmit: (values: any, formikProps: any) => void;
 };
+
 const Form: React.FC<Props> = ({
   innerRef,
   formSchema,

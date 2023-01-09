@@ -12,9 +12,11 @@ type Props = {
   loading?: boolean;
   disabled?: boolean;
   failed?: boolean;
+  type?: 'button' | 'submit' | 'reset';
   fullSize?: boolean;
   onClick?: () => void;
 };
+
 const Button: React.FC<Props> = forwardRef(
   (
     {
@@ -27,6 +29,7 @@ const Button: React.FC<Props> = forwardRef(
       style,
       children,
       fullSize = false,
+      type = 'button',
       onClick,
     },
     ref: ForwardedRef<HTMLButtonElement>,
@@ -49,6 +52,7 @@ const Button: React.FC<Props> = forwardRef(
         round={round}
         fullSize={fullSize}
         failed={failed}
+        type={type}
         onClick={loading || disabled ? () => null : onClick}
       >
         <ButtonContent>

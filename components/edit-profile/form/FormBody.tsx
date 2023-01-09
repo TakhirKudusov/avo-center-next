@@ -11,107 +11,123 @@ import { FORM_SCHEMA, ProfileFormItemName } from '../common/constants';
 import { FormName, FormPlaceHolder, PrimaryHeaderText } from '../common/enums';
 import GroupHeader from './GroupHeader';
 import Textarea from '../../ui-kit/Textarea';
-import TwitterButton from './TwitterButton';
-import AddAdditionalSocialAccountButton from './AddSocAccBtn';
-import { ReactEventHandler, useState } from 'react';
-import CircleCloseSVG from '../../../assets/svg/circle-close.svg';
+// import TwitterButton from './TwitterButton';
+// import AddAdditionalSocialAccountButton from './AddSocAccBtn';
+import { ReactEventHandler, useRef, useState } from 'react';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { devices, screenSizes } from '../../../common/constants';
+import UserCard from '../user-card';
+import { ResetButton } from './ResetButton';
+import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { TAttachmentsState } from '../../../redux/slicers/attachmentsSlicer/types';
+import { addAttachment } from '../../../redux/slicers/attachmentsSlicer/attachmentsSlicer';
 
 const FormBody = () => {
-  const [fieldOpen, setIsFieldOpen] = useState<boolean | null>(null);
-
-  const handleSubmitClick = () => (e: ReactEventHandler<HTMLFormElement>) => {
-    console.log(e);
-  };
+  // const [fieldOpen, setIsFieldOpen] = useState<boolean | null>(null);
+  const formRef = useRef(null);
+  const { fileUrl, loading } = useAppSelector<TAttachmentsState>(
+    (state) => state.attachments,
+  );
+  const dispatch = useAppDispatch();
 
   const { screenSize } = useAdaptiveSlider();
+
+  const handleSubmit = () => (values: any, formikProps: any) => {
+    dispatch(addAttachment(values.avatar[0]));
+    console.log(values, formikProps);
+  };
 
   return (
     <FormBody.Container>
       <Form
+        innerRef={formRef}
         formSchema={FORM_SCHEMA}
         initialValues={{}}
-        onSubmit={handleSubmitClick()}
+        onSubmit={handleSubmit()}
       >
-        <>
-          <GroupHeader header={PrimaryHeaderText.ACCOUNT_INFO} />
-          <FormItem
-            title={FormName.NAME}
-            name={ProfileFormItemName.NAME}
-            placeholder={FormPlaceHolder.ENTER_YOUR_DISPLAY_NAME}
-            component={Input}
-          />
-          <FormItem
-            title={FormName.BIO}
-            name={ProfileFormItemName.BIO}
-            placeholder={FormPlaceHolder.ABOUT_YOURSELF_IN_A_FEW_WORDS}
-            component={Textarea}
-            height={96}
-          />
-          <GroupHeader header={PrimaryHeaderText.SOCIAL} />
-          <FormItem
-            title={FormName.PORTFOLIO_OR_WEBSITE}
-            name={ProfileFormItemName.PORTFOLIO_OR_WEBSITE}
-            placeholder={FormPlaceHolder.ENTER_URL}
-            component={Input}
-          />
-
-          <FormItem
-            title={FormName.TWITTER}
-            name={ProfileFormItemName.TWITTER}
-            placeholder={FormPlaceHolder.TWITTER_USERNAME}
-            component={Input}
-            width={352}
-          />
-          <TwitterButton />
-          <AddAdditionalSocialAccountButton setIsOpen={setIsFieldOpen} />
-          <FormItem
-            title={FormName.ADDITIONAL_SOCIAL_ACCOUNT}
-            name={ProfileFormItemName.ADDITIONAL_SOCIAL_ACCOUNT}
-            placeholder={FormPlaceHolder.ADDITIONAL_ACCOUNT}
-            component={Input}
-            width={352}
-            isFieldOpen={fieldOpen}
-            canBeHidden={true}
-          />
-          <FormItem
+        <FormWrapper>
+          <UserCard />
+          <div>
+            <GroupHeader header={PrimaryHeaderText.ACCOUNT_INFO} />
+            <FormItem
+              title={FormName.NAME}
+              name={ProfileFormItemName.NAME}
+              placeholder={FormPlaceHolder.ENTER_YOUR_DISPLAY_NAME}
+              component={Input}
+            />
+            <FormItem
+              title={FormName.BIO}
+              name={ProfileFormItemName.BIO}
+              placeholder={FormPlaceHolder.ABOUT_YOURSELF_IN_A_FEW_WORDS}
+              component={Textarea}
+              height={96}
+            />
+            <GroupHeader header={PrimaryHeaderText.SOCIAL} />
+            <FormItem
+              title={FormName.PORTFOLIO_OR_WEBSITE}
+              name={ProfileFormItemName.PORTFOLIO_OR_WEBSITE}
+              placeholder={FormPlaceHolder.ENTER_URL}
+              component={Input}
+            />
+            <FormItem
+              title={FormName.TWITTER}
+              name={ProfileFormItemName.TWITTER}
+              placeholder={FormPlaceHolder.TWITTER_USERNAME}
+              component={Input}
+              width={352}
+            />
+            {/* <TwitterButton /> */}
+            {/* <AddAdditionalSocialAccountButton setIsOpen={setIsFieldOpen} /> */}
+            <FormItem
+              title={FormName.ADDITIONAL_SOCIAL_ACCOUNT}
+              name={ProfileFormItemName.ADDITIONAL_SOCIAL_ACCOUNT}
+              placeholder={FormPlaceHolder.ADDITIONAL_ACCOUNT}
+              component={Input}
+              width={352}
+              // isFieldOpen={fieldOpen}
+              // canBeHidden={true}
+            />
+            {/* <FormItem
             title={FormName.PHOTO_OF_DOCUMENTS}
             name={ProfileFormItemName.PHOTO_OF_DOCUMENTS}
             component={Input}
             type="file"
             width={125}
-          />
-          <Text>
-            To update your settings you should sign message through your wallet.
-            Click &apos;Update profile&apos; then sign the message
-          </Text>
-          <Divider />
-          <FormFooter>
-            <Button
-              fullSize={screenSize <= screenSizes.mobileL}
-              btnType={ButtonType.Secondary}
-            >
-              Update Profile
-            </Button>
-            <Button
-              fullSize={screenSize <= screenSizes.mobileL}
-              btnType={ButtonType.Outlined}
-            >
-              <CircleCloseIcon color="#777E91" />
-              Clear all
-            </Button>
-          </FormFooter>
-        </>
+          /> */}
+            <Text>
+              To update your settings you should sign message through your
+              wallet. Click &apos;Update profile&apos; then sign the message
+            </Text>
+            <Divider />
+            <FormFooter>
+              <Button
+                fullSize={screenSize <= screenSizes.mobileL}
+                btnType={ButtonType.Secondary}
+                type="submit"
+                loading={loading}
+              >
+                Update Profile
+              </Button>
+              <ResetButton formRef={formRef} screenSize={screenSize} />
+            </FormFooter>
+          </div>
+        </FormWrapper>
       </Form>
     </FormBody.Container>
   );
 };
 
-const CircleCloseIcon = styled(CircleCloseSVG)`
-  margin-right: 8px;
-  width: 24px;
-  height: 24px;
+const FormWrapper = styled.div`
+  display: flex;
+
+  @media (${devices.tablet}) {
+    flex-direction: column;
+  }
+
+  @media (${devices.mobile}) {
+    flex-direction: column;
+  }
 `;
 
 const FormFooter = styled.div`

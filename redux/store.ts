@@ -6,10 +6,12 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import attachmentsReducer from './slicers/attachmentsSlicer';
 import authReducer from './slicers/authSlicer';
 
 const combinedReducer = combineReducers({
   auth: authReducer,
+  attachments: attachmentsReducer,
 });
 
 const reducer = (

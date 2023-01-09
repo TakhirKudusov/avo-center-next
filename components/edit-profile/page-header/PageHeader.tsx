@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Divider } from '../../ui-kit';
 import ChevronIconSVG from '../../../assets/svg/up-side-corner.svg';
 import { useRouter } from 'next/router';
+import { devices } from '../../../common/constants';
 
 const PageHeader = () => {
   const router = useRouter();
@@ -74,10 +75,20 @@ const BreadCrumbWrapper = styled.div`
   margin: 80px auto auto auto;
   display: flex;
   align-items: center;
-  padding: 24px 15px;
+  padding: 24px 0;
   gap: 10px;
   height: 72px;
-  width: 100%;
+  width: 1140px;
+
+  @media (${devices.tablet}) {
+    width: 1024px;
+    padding-left: 64px;
+  }
+
+  @media (${devices.mobile}) {
+    width: 100%;
+    padding-left: 32px;
+  }
 `;
 
 const HeaderDivider = styled(Divider)`
