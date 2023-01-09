@@ -39,23 +39,16 @@ const Home = () => {
 
       <FlexContainer>
         <StyledPageContainer>
-          <CreateExploreWrapper>
-            <PageDesc>Create, explore, & collect digital art NFTs.</PageDesc>
-            <PageTitle>The new creative economy.</PageTitle>
-            <Button btnType={ButtonType.Primary} size={ButtonSize.Large}>
-              Start your search
-            </Button>
-          </CreateExploreWrapper>
           <ReactSlick screenSize={screenSize} slidesPerRow={1}>
             {creativeEconomeMock.map((elem) => elem.item)}
           </ReactSlick>
-          <Bids />
+          {/* <Bids /> */}
         </StyledPageContainer>
       </FlexContainer>
       <Popular />
       <HotBids />
       <HotCollections />
-      {/* <Discover /> */}
+      <Discover />
     </div>
   );
 };
@@ -63,41 +56,6 @@ const Home = () => {
 const StyledPageContainer = styled.main`
   padding-top: 81px;
   width: 100%;
-`;
-
-const CreateExploreWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const PageDesc = styled.div`
-  width: 100%;
-  text-align: center;
-  font-size: 12px;
-  line-height: 12px;
-  font-weight: bold;
-  font-family: 'Poppins', sans-serif;
-  color: rgba(119, 126, 144, 1);
-  padding-top: 128px;
-  text-transform: uppercase;
-
-  @media (${devices.mobile}) {
-    padding-top: 64px;
-  }
-`;
-
-const PageTitle = styled.h1`
-  width: 100%;
-  text-align: center;
-  font-size: 40px;
-  line-height: 48px;
-  font-weight: bold;
-  font-family: 'DM Sans', sans-serif;
-  color: rgba(35, 38, 47, 1);
-  margin: 0;
-  padding-top: 8px;
-  margin-bottom: 24px;
 `;
 
 Home.PageLayout = StoreLayout;

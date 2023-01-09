@@ -48,7 +48,7 @@ const Textarea: React.FC<Props & TFormFieldProps> & {
       placeholder={placeholder}
       width={width}
       height={height}
-      onChange={onChange}
+      onChange={handleChange}
       value={form?.values[field?.name!]}
       hasError={hasError}
     />

@@ -1,24 +1,60 @@
+import { useFormikContext } from 'formik';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { devices } from '../../../common/constants';
+import { FormItem } from '../../ui-kit';
+import { ProfileFormItemName } from '../common/constants';
+import { FormName } from '../common/enums';
+import AvatarUploader from './FileUploader';
 
 const Avatar = () => {
+  const [imageUrl, setImageUrl] = useState<
+    string | ArrayBuffer | null | undefined
+  >(`url('/images/profile-photo.png')`);
+  // const handleAvatarUpload = () => {
+  //   console.log('uplaod!');
+  // };
+
+  const { values } = useFormikContext<any>();
+
+  useEffect(() => {
+    if (!!values.avatar?.length) {
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) =>
+        setImageUrl(`url(${e.target?.result})`);
+      reader.readAsDataURL(new Blob([(values.avatar ?? [])[0]]));
+    }
+  }, [values.avatar]);
+
   return (
     <Avatar.Container>
-      <Avatar.UserAvatar />
-      <Avatar.CameraButton
-        type="file"
-        name="AddImage"
-        accept=".jpg, .jpeg, .png, .gif"
-      />
+      <Avatar.UserAvatar avatarUrl={imageUrl} />
+      <UploaderWrapper>
+        <FormItem
+          name={ProfileFormItemName.AVATAR}
+          component={AvatarUploader}
+        />
+      </UploaderWrapper>
     </Avatar.Container>
   );
 };
 
-const UserAvatar = styled.div`
+const Container = styled.div`
+  width: 128px;
+  height: 128px;
+  position: relative;
+
+  @media (${devices.mobile}) {
+    width: 72px;
+    height: 72px;
+  }
+`;
+
+const UserAvatar = styled.div<{ avatarUrl?: any }>`
   width: 128px;
   height: 128px;
   border-radius: 128px;
-  background: url('/images/profile-photo.png');
+  background: ${({ avatarUrl }) => avatarUrl};
   background-size: cover;
   margin-left: 15px;
 
@@ -28,45 +64,18 @@ const UserAvatar = styled.div`
   }
 `;
 
-const CameraButton = styled.input`
+const UploaderWrapper = styled.div`
   position: relative;
-  bottom: 32%;
-  left: 80%;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 40px;
-  background: url('/images/camera.png') no-repeat #333333 center;
-  background-size: 20px 20px;
-
-  &::-webkit-file-upload-button {
-    visibility: hidden;
-    width: 40px;
-    height: 40px;
-  }
-
-  &:hover {
-    background-color: #515261;
-  }
+  bottom: 71px;
+  left: 68px;
 
   @media (${devices.mobile}) {
-    bottom: 32%;
-    left: 39%;
-  }
-`;
-
-const Container = styled.div`
-  width: 128px;
-  height: 128px;
-
-  @media (${devices.mobile}) {
-    width: 72px;
-    height: 72px;
+    left: 23px;
+    bottom: 64px;
   }
 `;
 
 Avatar.Container = Container;
-Avatar.CameraButton = CameraButton;
 Avatar.UserAvatar = UserAvatar;
 
 export default Avatar;

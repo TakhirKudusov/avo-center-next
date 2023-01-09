@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { ForwardedRef, forwardRef } from 'react';
 import styled from 'styled-components';
-import LogoSVG from '../../../assets/svg/logo.svg';
+import { devices } from '../../../common/constants';
 
 const Logo = forwardRef((props: {}, ref: ForwardedRef<HTMLDivElement>) => {
   const router = useRouter();
@@ -12,8 +12,10 @@ const Logo = forwardRef((props: {}, ref: ForwardedRef<HTMLDivElement>) => {
 
   return (
     <LogoWrapper ref={ref} onClick={handleClick}>
-      <LogoSVG />
-      <LogoTitle>AvoNFT</LogoTitle>
+      <LogoBackground />
+      <LogoDescription>
+        Create, explore & collect digital art NFTs.
+      </LogoDescription>
     </LogoWrapper>
   );
 });
@@ -26,14 +28,30 @@ const LogoWrapper = styled.div`
   cursor: pointer;
 `;
 
-const LogoTitle = styled.span`
+const LogoBackground = styled.div`
+  width: 125px;
+  height: 60px;
+  background-image: url('/images/logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+`;
+
+const LogoDescription = styled.p`
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: bold;
   font-family: 'Poppins', sans-serif;
-  font-size: 24px;
-  line-height: 32px;
-  color: rgba(35, 38, 47, 1);
-  margin-left: 8px;
-  font-weight: 600;
-  letter-spacing: -1px;
+  color: rgba(119, 126, 144, 1);
+  text-transform: uppercase;
+  padding-left: 100px;
+  width: 320px;
+
+  @media (${devices.mobile}) {
+    width: 247px;
+  }
 `;
 
 export default Logo;
