@@ -19,7 +19,6 @@ type Props = {
   type?: HTMLInputTypeAttribute;
   field?: FieldInputProps<any>;
   form?: FormikProps<any>;
-  meta?: FieldMetaProps<any>;
   onChange?: (value: string | number) => void;
   isError?: boolean;
 };
@@ -35,19 +34,34 @@ const Input: React.FC<Props & TFormFieldProps> = ({
   form,
   onChange,
 }) => {
-  const [curValue, setCurValue] = useState<string | number>(field?.value || '');
+  const [curValue, setCurValue] = useState<string | number>(
+    field?.value || value,
+  );
 
-  const inputValue = value ?? curValue;
+  // const inputValue = value ?? curValue;
 
   useConnectForm(curValue, form, field, hasSchema, onChange);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setCurValue(event.target.value);
+    form?.setFieldValue(field?.name!, event.target.value);
   };
+
+  // useEffect(() => {
+  //   if (form?.dirty && field?.name) {
+  //     const elem = document.getElementById(field?.name);
+  //     console.log('innerText', elem?.setAttribute('value', ''));
+
+  //     if (elem) elem?.setAttribute('value', '');
+  //   }
+  // });
+
+  console.log('value', form?.values[field?.name!]);
 
   return (
     <InputItem
-      value={inputValue}
+      id={field?.name}
+      value={form?.values[field?.name!]}
       type={type}
       width={width}
       placeholder={placeholder}

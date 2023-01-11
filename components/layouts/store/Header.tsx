@@ -1,13 +1,10 @@
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import WalletSVG from '../../../assets/svg/wallet.svg';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
-import { useAppSelector } from '../../../redux/hooks';
-import { TAuthState } from '../../../redux/types';
 import { FlexContainer } from '../../common';
 import Logo from '../../common/components/Logo';
-import ConnectWallet from '../../modals/ConnectWallet';
 import UploadItem from '../../modals/UploadItem';
 import { Modal, Tooltip } from '../../ui-kit';
 import Button from '../../ui-kit/Button/Button';
@@ -21,33 +18,38 @@ import CircleCloseSVG from '../../../assets/svg/circle-close.svg';
 import { handleWalletConnectClick } from './helpers';
 import NotificationCard from './NotificationCard';
 import Notifications from './Notifications';
-import SearchBar from './SearchBar';
 import UserInfoCard from './UserInfoCard';
 import { SmallScreenMenu } from './SmallScreenMenu';
 import { screenSizes } from '../../../common/constants';
 import { Paths } from '../../../common/enums/paths';
 import { languages } from './constants';
+import { IUser } from '../../../common/interfaces';
+import SearchBar, { SearchBarType } from '../../ui-kit/SearchBar';
 
-const Header = () => {
-  const [isConnectWalletVisible, setIsConnectWalletVisible] = useState(false);
-  const [isUploadItemVisible, setIsUploadItemVisible] = useState(false);
-  const [isSmallScreenMenuVisible, setIsSmallScreenMenuVisible] =
-    useState(false);
-  const { user } = useAppSelector<TAuthState>((state) => state.auth);
+type Props = {
+  user: IUser | null;
+  isSmallScreenMenuVisible: boolean;
+  isUploadItemVisible: boolean;
+  setIsConnectWalletVisible: Dispatch<SetStateAction<boolean>>;
+  setIsSmallScreenMenuVisible: Dispatch<SetStateAction<boolean>>;
+  handleConnectWalletClose: () => void;
+  handleMenuWalletConnect: () => void;
+  handleUploadItemClose: () => void;
+  handleUploadClick: () => () => void;
+};
 
+const Header = ({
+  user,
+  isSmallScreenMenuVisible,
+  isUploadItemVisible,
+  setIsConnectWalletVisible,
+  setIsSmallScreenMenuVisible,
+  handleConnectWalletClose,
+  handleMenuWalletConnect,
+  handleUploadItemClose,
+  handleUploadClick,
+}: Props) => {
   const { screenSize } = useAdaptiveSlider();
-
-  const handleConnectWalletClose = () => {
-    setIsConnectWalletVisible(false);
-  };
-
-  const handleUploadItemClose = () => {
-    setIsUploadItemVisible(false);
-  };
-
-  const handleUploadClick = () => () => {
-    setIsUploadItemVisible(true);
-  };
 
   const handleSmallScreenClick = () => {
     setIsSmallScreenMenuVisible((prev) => !prev);
@@ -62,16 +64,11 @@ const Header = () => {
     handleMenuClose();
   };
 
-  const handleMenuWalletConnect = () => {
-    handleWalletConnectClick(setIsConnectWalletVisible)();
-    handleMenuClose();
-  };
-
   useEffect(() => {
     if (user) {
       handleConnectWalletClose();
     }
-  }, [user]);
+  }, [handleConnectWalletClose, user]);
 
   return (
     <HeaderWrapper>
@@ -87,7 +84,7 @@ const Header = () => {
                   Modals
                 </Button>
               </Link>
-              <SearchBar />
+              <SearchBar type={SearchBarType.WITH_ICON} />
               <Tooltip
                 content={<NotificationCard screenSize={screenSize} />}
                 position={TooltipPosition.Center}
@@ -179,14 +176,6 @@ const Header = () => {
         )}
       </FlexContainer>
       <Modal
-        title="Connect wallet"
-        hasFooter={false}
-        open={isConnectWalletVisible && !user}
-        onClose={handleConnectWalletClose}
-      >
-        <ConnectWallet />
-      </Modal>
-      <Modal
         title="Upload item"
         hasFooter={false}
         open={isUploadItemVisible}
@@ -197,7 +186,11 @@ const Header = () => {
       {isSmallScreenMenuVisible && (
         <SmallScreenMenu>
           <>
-            <SearchBar fullSize onKeyEnterDown={handleMenuClose} />
+            <SearchBar
+              type={SearchBarType.WITH_ICON}
+              fullSize
+              onKeyEnterDown={handleMenuClose}
+            />
             <Link href={Paths.MODALS}>
               <Button
                 size={ButtonSize.Medium}

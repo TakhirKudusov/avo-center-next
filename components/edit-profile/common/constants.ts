@@ -32,7 +32,7 @@ import * as Yup from 'yup';
 // });
 
 export enum ProfileFormItemName {
-  AVATAR = 'Avatar',
+  AVATAR = 'avatar',
   NAME = 'name',
   BIO = 'bio',
   PORTFOLIO_OR_WEBSITE = 'portfolio_or_website',
@@ -42,9 +42,7 @@ export enum ProfileFormItemName {
 }
 
 const FORM_SCHEMA = Yup.object().shape({
-  [ProfileFormItemName.AVATAR]: Yup.array()
-    .length(1)
-    .required('Field avatar is required'),
+  [ProfileFormItemName.AVATAR]: Yup.array().length(1),
   [ProfileFormItemName.NAME]: Yup.string().required(
     'Field network is required',
   ),
@@ -64,9 +62,9 @@ const FORM_SCHEMA = Yup.object().shape({
       'Enter correct url!',
     )
     .required('Field Additional social accout is required'),
-  [ProfileFormItemName.PHOTO_OF_DOCUMENTS]: Yup.string().required(
-    'Field photo of documents is required',
-  ),
+  // [ProfileFormItemName.PHOTO_OF_DOCUMENTS]: Yup.string().required(
+  //   'Field photo of documents is required',
+  // ),
 });
 
 export { FORM_SCHEMA };

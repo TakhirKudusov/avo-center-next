@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:gen": "openapi --input ./swagger/openapi.json --output ./swagger/autogen/ --client axios",
+    "build:gen": "openapi --input http://178.250.159.184/api/api-json --output ./swagger/ --client axios",
+    "build:gen-local": "openapi --input http://localhost:8000/api-json --output ./swagger/ --client axios",
     "start": "next start",
     "lint": "next lint"
   },

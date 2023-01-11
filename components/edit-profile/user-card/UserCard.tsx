@@ -1,6 +1,6 @@
 import styled from 'styled-components';
+import { devices } from '../../../common/constants';
 import Avatar from './Avatar';
-import CameraSVG from '../../../assets/svg/camera.svg';
 import Description from './Description';
 
 const UserCard = () => {
@@ -18,6 +18,10 @@ const Container = styled.div`
   gap: 32px;
   width: 344px;
   height: 128px;
+
+  @media (${devices.tablet}) {
+    margin-bottom: 32px;
+  }
 `;
 
 UserCard.Container = Container;

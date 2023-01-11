@@ -8,10 +8,12 @@ import { useAppDispatch } from '../redux/hooks';
 import { setUser } from '../redux/slicers/authSlicer';
 import { useEffect } from 'react';
 import '../components/ui-kit/DatePicker/DatePicker.css';
+import { OpenAPI } from '../swagger';
 
 function App({ Component, pageProps }: AppWithPageLayout) {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  OpenAPI.BASE = '/api';
 
   useEffect(() => {
     const user = getUserInfo();

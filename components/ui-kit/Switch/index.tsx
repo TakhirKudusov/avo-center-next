@@ -1,15 +1,32 @@
+import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
 import { memo, useState } from 'react';
 import styled from 'styled-components';
+import { TFormFieldProps } from '../../../common/types';
+import useConnectForm from '../useConnectForm';
 import { handleClick } from './helpers';
 import { SwitchThemes, THandler } from './types';
 
 type Props = {
   theme?: SwitchThemes;
   value?: boolean;
+  hasSchema?: boolean;
+  hasError?: boolean;
+  field?: FieldInputProps<any>;
+  form?: FormikProps<any>;
+  meta?: FieldMetaProps<any>;
   onChange?: THandler;
 };
-const Switch: React.FC<Props> = ({ theme = 'green', value, onChange }) => {
-  const [active, setActive] = useState(!!value);
+const Switch: React.FC<Props & TFormFieldProps> = ({
+  hasError = false,
+  hasSchema = false,
+  theme = 'green',
+  value,
+  field,
+  form,
+  onChange,
+}) => {
+  const [active, setActive] = useState(!!field?.value);
+  useConnectForm(active, form, field, hasSchema, onChange);
 
   return (
     <SwitchWrapper

@@ -1,4 +1,4 @@
-import { axiosInstance } from "../../components/common/axios.instance";
+import { axiosInstance } from '../../components/common/axios.instance';
 
 const handleAuthenticate = ({
   publicAddress,
@@ -40,4 +40,4 @@ const handleSignup = (publicAddress: string) => {
   return axiosInstance.post(`/users`, { publicAddress, username: 'test' });
 };
 
-export { handleAuthenticate, handleSignMessage, handleSignup }
+export { handleAuthenticate, handleSignMessage, handleSignup };

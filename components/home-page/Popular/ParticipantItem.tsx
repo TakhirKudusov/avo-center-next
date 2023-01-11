@@ -22,14 +22,14 @@ const ParticipantItem: React.FC<Props> = ({
       <ParticipantContent>
         <ParticipantHeader>
           <ParticipantRank rank={rank} />
-          <ActionBtns>
+          {/* <ActionBtns>
             <ActionBtn>
               <SquarePlusSVG />
             </ActionBtn>
             <ActionBtn>
               <ArrowExpandSVG />
             </ActionBtn>
-          </ActionBtns>
+          </ActionBtns> */}
         </ParticipantHeader>
         <ParticipantBody>
           <ParticipantAvatar
@@ -89,20 +89,20 @@ const ParticipantHeader = styled.div`
   border-bottom: 1px solid #e6e8ec;
 `;
 
-const ActionBtns = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 7px;
-`;
+// const ActionBtns = styled.div`
+//   display: flex;
+//   align-items: center;
+//   gap: 7px;
+// `;
 
-const ActionBtn = styled.button`
-  display: flex;
-  align-items: center;
-  background: none;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-`;
+// const ActionBtn = styled.button`
+//   display: flex;
+//   align-items: center;
+//   background: none;
+//   padding: 0;
+//   border: none;
+//   cursor: pointer;
+// `;
 
 const ParticipantBody = styled.div`
   display: flex;

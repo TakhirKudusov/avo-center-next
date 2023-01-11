@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { devices } from '../../../common/constants';
 import { Paths } from '../../../common/enums/paths';
@@ -6,8 +7,15 @@ import { Paths } from '../../../common/enums/paths';
 import { FlexContainer } from '../../common';
 import Logo from '../../common/components/Logo';
 import { Divider } from '../../ui-kit';
+import { handleWalletConnectClick } from './helpers';
 
-const Footer = () => {
+type Props = {
+  setIsConnectWalletVisible: Dispatch<SetStateAction<boolean>>;
+  handleUploadItemClose: () => void;
+  handleUploadClick: () => () => void;
+};
+
+const Footer = ({ setIsConnectWalletVisible, handleUploadClick }: Props) => {
   return (
     <footer>
       <FooterWrapper>
@@ -16,8 +24,8 @@ const Footer = () => {
             <CompanyInfo>
               <Logo />
               <Tagline>
-                The New Creative
-                <br /> Economy.
+                CREATE, EXPLORE & COLLECT
+                <br /> DIGITAL ART NFTs
               </Tagline>
             </CompanyInfo>
             <StyledDivider style={{ margin: '32px 0' }} />
@@ -26,13 +34,21 @@ const Footer = () => {
                 <LinkSectionTitle>Actions</LinkSectionTitle>
                 <LinkSectionBody>
                   <LinkItem>
-                    <Link href={Paths.EMPTY}>Discover</Link>
+                    <Link href="#discover">Discover</Link>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={Paths.EMPTY}>Connect wallet</Link>
+                    <FooterLink
+                      onClick={handleWalletConnectClick(
+                        setIsConnectWalletVisible,
+                      )}
+                    >
+                      Connect wallet
+                    </FooterLink>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={Paths.EMPTY}>Create item</Link>
+                    <FooterLink onClick={handleUploadClick()}>
+                      Create item
+                    </FooterLink>
                   </LinkItem>
                   <LinkItem>
                     <Link href={Paths.FAQ}>FAQ</Link>
@@ -44,10 +60,17 @@ const Footer = () => {
                 <LinkSectionTitle>Info</LinkSectionTitle>
                 <LinkSectionBody>
                   <LinkItem>
-                    <Link href={Paths.EMPTY}>Download</Link>
+                    <a target="__blank" href="https://docs.avo.center">
+                      Docs
+                    </a>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={Paths.EMPTY}>Demos</Link>
+                    <a
+                      target="__blank"
+                      href="https://github.com/AvocadoBlockchainGroup"
+                    >
+                      Github
+                    </a>
                   </LinkItem>
                   <LinkItem>
                     <Link href={Paths.EMPTY}>Support</Link>
@@ -89,6 +112,10 @@ const FooterContent = styled.div`
     flex-direction: column;
     align-items: flex-start;
   }
+`;
+
+const FooterLink = styled.span`
+  cursor: pointer;
 `;
 
 const StyledDivider = styled(Divider)`

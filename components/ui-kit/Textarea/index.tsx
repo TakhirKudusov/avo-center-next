@@ -1,30 +1,55 @@
-import React, { ChangeEventHandler, HTMLInputTypeAttribute, memo } from 'react';
-import styled from 'styled-components';
+import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
+import React, { ChangeEventHandler, memo, useState } from 'react';
+import styled, { StyledComponent } from 'styled-components';
+import { TFormFieldProps } from '../../../common/types';
+import useConnectForm from '../useConnectForm';
 
 type Props = {
   placeholder?: string;
   width?: number;
   height?: number;
-  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
-  value?: string;
+  value: string | number;
+  hasSchema?: boolean;
   hasError?: boolean;
+  field?: FieldInputProps<any>;
+  form?: FormikProps<any>;
+  meta?: FieldMetaProps<any>;
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
 };
 
-const Textarea = ({
+const Textarea: React.FC<Props & TFormFieldProps> & {
+  StyledTextarea: StyledComponent<any, any, any, any>;
+} = ({
   placeholder,
   width,
   height,
-  onChange,
   value,
   hasError,
-}: Props) => {
+  field,
+  form,
+  hasSchema,
+  onChange,
+}) => {
+  const [curValue, setCurValue] = useState<string | number>(
+    field?.value || value,
+  );
+
+  // const inputValue = value ?? curValue;
+
+  useConnectForm(curValue, form, field, hasSchema, onChange);
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setCurValue(event.target.value);
+    form?.setFieldValue(field?.name!, event.target.value);
+  };
+
   return (
     <Textarea.StyledTextarea
       placeholder={placeholder}
       width={width}
       height={height}
-      onChange={onChange}
-      value={value}
+      onChange={handleChange}
+      value={form?.values[field?.name!]}
       hasError={hasError}
     />
   );

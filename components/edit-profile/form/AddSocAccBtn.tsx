@@ -13,12 +13,20 @@ const AddSocAccBtn = ({ setIsOpen }: Props) => {
   };
 
   return (
-    <Button onClick={handleSetOpenClick()}>
-      <AddSocAccBtn.UnionIcon />
-      <AddSocAccBtn.ButtonText>Add more social account</AddSocAccBtn.ButtonText>
-    </Button>
+    <ButtonWrapper>
+      <Button onClick={handleSetOpenClick()}>
+        <AddSocAccBtn.UnionIcon />
+        <AddSocAccBtn.ButtonText>
+          Add more social account
+        </AddSocAccBtn.ButtonText>
+      </Button>
+    </ButtonWrapper>
   );
 };
+
+const ButtonWrapper = styled.div`
+  margin-top: 24px;
+`;
 
 const UnionIcon = styled(UnionSVG)`
   margin-right: 10px;

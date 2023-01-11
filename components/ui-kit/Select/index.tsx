@@ -1,5 +1,5 @@
 import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ChevronDownSVG from '../../../assets/svg/chevron-down.svg';
 import { TFormFieldProps } from '../../../common/types';
@@ -55,6 +55,10 @@ const Select: React.FC<Props & TFormFieldProps> = ({
   const handleDropdownClose = () => {
     setExpanded(false);
   };
+
+  useEffect(() => {
+    setSelected(selectedItem);
+  }, [selectedItem]);
 
   useConnectForm(selected?.value, form, field, hasSchema, onChange);
   useOnClickOutside(wrapperRef, handleDropdownClose, dropdownItemsRef);

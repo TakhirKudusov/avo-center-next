@@ -6,7 +6,6 @@ import { devices } from '../../../common/constants';
 const Body = () => {
   return (
     <Body.Container>
-      <UserCard />
       <FormBody />
     </Body.Container>
   );
