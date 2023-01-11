@@ -11,6 +11,7 @@ type Props = {
   width?: number;
   marginTop?: number;
   style?: Object;
+  className?: string;
 };
 const FormItem: React.FC<Props & any> = ({
   title,
@@ -19,6 +20,7 @@ const FormItem: React.FC<Props & any> = ({
   canBeHidden,
   marginTop = 32,
   style,
+  className,
   ...rest
 }) => {
   const { errors, validationSchema, submitCount } =
@@ -30,7 +32,11 @@ const FormItem: React.FC<Props & any> = ({
       canBeHidden={canBeHidden}
       isFieldOpen={isFieldOpen}
     >
-      <FormItemWrapper marginTop={marginTop} width={width}>
+      <FormItemWrapper
+        marginTop={marginTop}
+        width={width}
+        className={className}
+      >
         <FormItemTitle>{title}</FormItemTitle>
         <Field
           {...rest}

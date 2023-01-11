@@ -1,8 +1,17 @@
 import { ComponentWithLayout } from '../../../common/types';
 import AdminLayout from '../../../components/admin/layout';
+import dynamic from 'next/dynamic';
+import LoadingSpinner from '../../../components/admin/UI/loading_spinner/LoadingSpinner';
+
+const LoginPage = dynamic(
+  () => import('../../../components/admin/login_page/Login'),
+  {
+    loading: () => <LoadingSpinner />,
+  },
+);
 
 const Login: ComponentWithLayout = () => {
-  return <div></div>;
+  return <LoginPage />;
 };
 
 Login.PageLayout = AdminLayout;
