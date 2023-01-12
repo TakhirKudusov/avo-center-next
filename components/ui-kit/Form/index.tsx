@@ -9,6 +9,7 @@ type Props = {
   initialValues: UnknownObject;
   children: JSX.Element;
   onSubmit: (values: any, formikProps: any) => void;
+  className?: string;
 };
 
 const Form: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const Form: React.FC<Props> = ({
   initialValues,
   children,
   onSubmit,
+  className,
 }) => {
   return (
     <Formik
@@ -29,6 +31,7 @@ const Form: React.FC<Props> = ({
     >
       {({ handleSubmit }) => (
         <FormikForm
+          className={className}
           onSubmit={async (e) => {
             e.preventDefault();
             handleSubmit();

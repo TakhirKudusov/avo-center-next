@@ -21,6 +21,7 @@ type Props = {
   form?: FormikProps<any>;
   onChange?: (value: string | number) => void;
   isError?: boolean;
+  className?: string;
 };
 
 const Input: React.FC<Props & TFormFieldProps> = ({
@@ -33,6 +34,7 @@ const Input: React.FC<Props & TFormFieldProps> = ({
   field,
   form,
   onChange,
+  className,
 }) => {
   const [curValue, setCurValue] = useState<string | number>(
     field?.value || value,
@@ -67,6 +69,7 @@ const Input: React.FC<Props & TFormFieldProps> = ({
       placeholder={placeholder}
       hasError={hasError}
       onChange={handleChange}
+      className={className}
     />
   );
 };
