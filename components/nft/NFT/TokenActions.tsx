@@ -5,8 +5,17 @@ import ArrowRightSquareSVG from '../../../assets/svg/arrow-right-square.svg';
 import CircleCloseSVG from '../../../assets/svg/circle-close.svg';
 import FilledCircleCloseSVG from '../../../assets/svg/filled-circle-close.svg';
 import InfoCircleSVG from '../../../assets/svg/info-circle.svg';
+import { useContext } from 'react';
+import { NFTContext } from './context';
 
 const TokenActions = () => {
+  const {
+    setIsTransferTokenModalOpen,
+    setIsRemoveFromSaleModalOpen,
+    setIsBurnTokenModalOpen,
+    setIsReportModalOpen,
+  } = useContext(NFTContext);
+
   const actions = [
     {
       id: 'change-price',
@@ -18,25 +27,25 @@ const TokenActions = () => {
       id: 'transfer-token',
       label: 'Transfer token',
       icon: <ArrowRightSquareSVG color="#777E91" />,
-      onClick: () => false,
+      onClick: () => setIsTransferTokenModalOpen(true),
     },
     {
       id: 'remove-from-sale',
       label: 'Remove from sale',
       icon: <CircleCloseSVG color="#777E91" />,
-      onClick: () => false,
+      onClick: () => setIsRemoveFromSaleModalOpen(true),
     },
     {
       id: 'burn-token',
       label: <StyledLabel>Burn token</StyledLabel>,
       icon: <FilledCircleCloseSVG />,
-      onClick: () => false,
+      onClick: () => setIsBurnTokenModalOpen(true),
     },
     {
       id: 'report',
       label: 'Report',
       icon: <InfoCircleSVG color="#777E91" />,
-      onClick: () => false,
+      onClick: () => setIsReportModalOpen(true),
     },
   ];
 

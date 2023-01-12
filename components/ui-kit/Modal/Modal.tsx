@@ -16,6 +16,7 @@ type Props = {
   hasFooter?: boolean;
   confirmBtnName?: string;
   cancelBtnName?: string;
+  confirmHasDangerStyle?: boolean;
   onConfirm?: () => void;
 };
 
@@ -26,6 +27,7 @@ const Modal = ({
   hasFooter = true,
   confirmBtnName,
   cancelBtnName,
+  confirmHasDangerStyle,
   onConfirm,
   onClose,
 }: Props) => {
@@ -44,6 +46,12 @@ const Modal = ({
               <>
                 {confirmBtnName && (
                   <Button
+                    style={
+                      confirmHasDangerStyle && {
+                        backgroundColor: '#EF466F',
+                        borderColor: '#EF466F',
+                      }
+                    }
                     fullSize
                     btnType={ButtonType.Secondary}
                     size={ButtonSize.Large}
