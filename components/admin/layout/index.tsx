@@ -1,61 +1,88 @@
 import styled from 'styled-components';
 import Logo from '../../common/components/Logo';
 import BurgerSVG from '../../../assets/svg/burger-icon.svg';
-import { FC, SyntheticEvent } from 'react';
-import { useRouter } from 'next/router';
+import { FC, SyntheticEvent, useContext, useEffect, useState } from 'react';
 import { ChildrenProp } from '../../../common/types/ChildrenProp';
 import { Divider } from '../../ui-kit';
+import SideMenu from '../UI/side_menu/SideMenu';
+import { useRouter } from 'next/router';
+import { AdminRoute } from '../utils/routes';
+import { AppContext } from '../../../common/context/AppContext';
 
 const AdminLayout: FC<ChildrenProp> = ({ children }) => {
+  const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+
+  const { setIsMenuDisabled } = useContext(AppContext);
+
+  const router = useRouter();
+
   const handleLogoClick = (e: SyntheticEvent) => {
     e.stopPropagation();
   };
 
-  return (
-    <Wrapper>
-      <HeaderContainer>
-        <HeaderBody>
-          <LogoWrapper onClickCapture={handleLogoClick}>
-            <StyledLogo isAdmin={true} />
-          </LogoWrapper>
-          <BurgerIconContainer>
-            <BurgerSVG />
-          </BurgerIconContainer>
-        </HeaderBody>
-      </HeaderContainer>
-      <ChildrenWrapper>
-        <ChildrenContainer>{children}</ChildrenContainer>
-      </ChildrenWrapper>
-      <FooterContainer>
-        <FooterBody>
-          <FooterRowContainer>
-            <LogoContainer>
-              <LogoWrapper onClickCapture={handleLogoClick}>
-                <StyledLogo isAdmin={true} />
-              </LogoWrapper>
-              <Tagline>CREATE, EXPLORE & COLLECT DIGITAL ART NFTs</Tagline>
-            </LogoContainer>
+  const handleMenuBtnClick = () => {
+    setIsMenuOpened(true);
+  };
 
-            <MenuWrapper>
-              <BottomMenuHeader>Navigation</BottomMenuHeader>
-              <FooterMenuContainer>
-                <BottomMenuItem>NFT</BottomMenuItem>
-                <BottomMenuItem>Users</BottomMenuItem>
-                <BottomMenuItem>Authors</BottomMenuItem>
-                <BottomMenuItem>Wallets</BottomMenuItem>
-                <BottomMenuItem>Categories</BottomMenuItem>
-                <BottomMenuItem>Billing</BottomMenuItem>
-                <BottomMenuItem>Token</BottomMenuItem>
-              </FooterMenuContainer>
-            </MenuWrapper>
-          </FooterRowContainer>
-          <Divider />
-          <CopyrightText>
-            Copyright © 2022 AVONFT. All rights reserved
-          </CopyrightText>
-        </FooterBody>
-      </FooterContainer>
-    </Wrapper>
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+      setIsMenuDisabled!(false);
+      if (router.route === AdminRoute.LOGIN) {
+        setIsMenuOpened(false);
+        router.push(AdminRoute.MAIN);
+      }
+    }
+  }, []);
+
+  return (
+    <>
+      <Wrapper>
+        <HeaderContainer>
+          <HeaderBody>
+            <LogoWrapper onClickCapture={handleLogoClick}>
+              <StyledLogo isAdmin={true} />
+            </LogoWrapper>
+            <BurgerIconContainer onClick={handleMenuBtnClick}>
+              <BurgerSVG />
+            </BurgerIconContainer>
+          </HeaderBody>
+        </HeaderContainer>
+        <ChildrenWrapper>
+          <ChildrenContainer>{children}</ChildrenContainer>
+        </ChildrenWrapper>
+        <FooterContainer>
+          <FooterBody>
+            <FooterRowContainer>
+              <LogoContainer>
+                <LogoWrapper onClickCapture={handleLogoClick}>
+                  <StyledLogo isAdmin={true} />
+                </LogoWrapper>
+                <Tagline>CREATE, EXPLORE & COLLECT DIGITAL ART NFTs</Tagline>
+              </LogoContainer>
+
+              <MenuWrapper>
+                <BottomMenuHeader>Navigation</BottomMenuHeader>
+                <FooterMenuContainer>
+                  <BottomMenuItem>NFT</BottomMenuItem>
+                  <BottomMenuItem>Users</BottomMenuItem>
+                  <BottomMenuItem>Authors</BottomMenuItem>
+                  <BottomMenuItem>Wallets</BottomMenuItem>
+                  <BottomMenuItem>Categories</BottomMenuItem>
+                  <BottomMenuItem>Billing</BottomMenuItem>
+                  <BottomMenuItem>Token</BottomMenuItem>
+                </FooterMenuContainer>
+              </MenuWrapper>
+            </FooterRowContainer>
+            <Divider />
+            <CopyrightText>
+              Copyright © 2022 AVONFT. All rights reserved
+            </CopyrightText>
+          </FooterBody>
+        </FooterContainer>
+      </Wrapper>
+      <SideMenu isOpen={isMenuOpened} setIsOpen={setIsMenuOpened} />
+    </>
   );
 };
 
@@ -195,7 +222,7 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 81px;
+  min-height: 81px;
   border-bottom: 1px solid rgba(101, 101, 101, 0.25);
 `;
 

@@ -5,7 +5,9 @@ import BidPrice from '../../common/components/BidPrice';
 const MainBid = () => {
   return (
     <MainBidWrapper>
-      <BidPhoto style={{ backgroundImage: 'url(/images/main-bid.jpg)' }} />
+      <BidPhoto
+        style={{ backgroundImage: 'url(/images/main_admin-bid.jpg)' }}
+      />
       <BidBody>
         <BidDetails>
           <BidCreator

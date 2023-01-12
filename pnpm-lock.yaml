@@ -6,7 +6,14 @@ overrides:
 specifiers:
   '@babel/core': '>=7.0.0 <8.0.0'
   '@reduxjs/toolkit': ^1.8.6
+  '@styled-icons/bootstrap': ^10.47.0
+  '@styled-icons/boxicons-regular': ^10.47.0
+  '@styled-icons/evaicons-outline': ^10.46.0
+  '@styled-icons/fa-regular': ^10.47.0
+  '@styled-icons/fa-solid': ^10.47.0
   '@styled-icons/icomoon': ^10.46.0
+  '@styled-icons/ionicons-outline': ^10.46.0
+  '@styled-icons/styled-icon': ^10.7.0
   '@types/jalaali-js': ^1.1.0
   '@types/jsonwebtoken': ^8.5.9
   '@types/node': ^18.11.7
@@ -46,7 +53,14 @@ specifiers:
 dependencies:
   '@babel/core': 7.19.3
   '@reduxjs/toolkit': 1.8.6_xiw2xh7zkwauncevrxklika6mu
+  '@styled-icons/bootstrap': 10.47.0_7xiyoc3o4bwjwzuivcmqhu5bna
+  '@styled-icons/boxicons-regular': 10.47.0_7xiyoc3o4bwjwzuivcmqhu5bna
+  '@styled-icons/evaicons-outline': 10.46.0_7xiyoc3o4bwjwzuivcmqhu5bna
+  '@styled-icons/fa-regular': 10.47.0_7xiyoc3o4bwjwzuivcmqhu5bna
+  '@styled-icons/fa-solid': 10.47.0_7xiyoc3o4bwjwzuivcmqhu5bna
   '@styled-icons/icomoon': 10.46.0_7xiyoc3o4bwjwzuivcmqhu5bna
+  '@styled-icons/ionicons-outline': 10.46.0_7xiyoc3o4bwjwzuivcmqhu5bna
+  '@styled-icons/styled-icon': 10.7.0_7xiyoc3o4bwjwzuivcmqhu5bna
   axios: 1.1.2
   babel-plugin-inline-react-svg: 2.0.1_@babel+core@7.19.3
   babel-plugin-styled-components: 2.0.7_styled-components@5.3.6
@@ -300,7 +314,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       core-js-pure: 3.25.5
-      regenerator-runtime: 0.13.9
+      regenerator-runtime: 0.13.11
     dev: true
 
   /@babel/runtime/7.19.0:
@@ -308,6 +322,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.9
+    dev: false
+
+  /@babel/runtime/7.20.7:
+    resolution: {integrity: sha512-UF0tvkUtxwAgZ5W/KrkHf0Rn0fdnLDU9ScxBrEVNUprE/MzirjK4MJUX1/BVDv00Sv8cljtukVK1aky++X1SjQ==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.13.11
 
   /@babel/template/7.18.10:
     resolution: {integrity: sha512-TI+rCtooWHr3QJ27kJxfjutghu44DLnasDMwpDqCXVTal9RLp3RSYNh4NdBrRP2cQAoG9A8juOQl6P6oZG4JxA==}
@@ -835,8 +856,80 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
+  /@styled-icons/bootstrap/10.47.0_7xiyoc3o4bwjwzuivcmqhu5bna:
+    resolution: {integrity: sha512-xpnPdrLhAhpTRE4iljQIEK73twVj7VPglwHSL+8nQdH7EsW5RJIOWsmlkZMyqhQHN0H7fGmT10F3/6OQhSpfGg==}
+    peerDependencies:
+      react: '*'
+      styled-components: '*'
+    dependencies:
+      '@babel/runtime': 7.20.7
+      '@styled-icons/styled-icon': 10.7.0_7xiyoc3o4bwjwzuivcmqhu5bna
+      react: 17.0.2
+      styled-components: 5.3.6_d5kzqcx725xkmyluugjzy5jwom
+    dev: false
+
+  /@styled-icons/boxicons-regular/10.47.0_7xiyoc3o4bwjwzuivcmqhu5bna:
+    resolution: {integrity: sha512-z8KczDp4VArXvOn8i2j66Xs4oX9oiiJEhMoHydY3uC9kdtImcxhZ/xHPrgTJLkbK6f5ikwB4CKVnSqQGzzAJNw==}
+    peerDependencies:
+      react: '*'
+      styled-components: '*'
+    dependencies:
+      '@babel/runtime': 7.20.7
+      '@styled-icons/styled-icon': 10.7.0_7xiyoc3o4bwjwzuivcmqhu5bna
+      react: 17.0.2
+      styled-components: 5.3.6_d5kzqcx725xkmyluugjzy5jwom
+    dev: false
+
+  /@styled-icons/evaicons-outline/10.46.0_7xiyoc3o4bwjwzuivcmqhu5bna:
+    resolution: {integrity: sha512-+tHb/Ir6G1e+rSJ2YKgm2vzjF80JoXWEmoC48exFrQEKQkJPSWtsqKdROkfANKrY9AFnRKhJQ+9fHhnjS+V/OA==}
+    peerDependencies:
+      react: '*'
+      styled-components: '*'
+    dependencies:
+      '@babel/runtime': 7.19.0
+      '@styled-icons/styled-icon': 10.7.0_7xiyoc3o4bwjwzuivcmqhu5bna
+      react: 17.0.2
+      styled-components: 5.3.6_d5kzqcx725xkmyluugjzy5jwom
+    dev: false
+
+  /@styled-icons/fa-regular/10.47.0_7xiyoc3o4bwjwzuivcmqhu5bna:
+    resolution: {integrity: sha512-UL/MwhwlJ5SbcioI+UBR8KocYt6i+20akKn1ZNj0Pjgm2kv2odEJSWWkHCxh8J7T7s0q/Wvs3CMsBTMrKdKDpQ==}
+    peerDependencies:
+      react: '*'
+      styled-components: '*'
+    dependencies:
+      '@babel/runtime': 7.20.7
+      '@styled-icons/styled-icon': 10.7.0_7xiyoc3o4bwjwzuivcmqhu5bna
+      react: 17.0.2
+      styled-components: 5.3.6_d5kzqcx725xkmyluugjzy5jwom
+    dev: false
+
+  /@styled-icons/fa-solid/10.47.0_7xiyoc3o4bwjwzuivcmqhu5bna:
+    resolution: {integrity: sha512-8AJjbOAkvPlB/ypFzWo++CZxRDlFQfvWQSjWzVU/v/4kjGRWIiVB+rJrTB7joDUd5Oas/se4cSiDkSA+XR/Fqg==}
+    peerDependencies:
+      react: '*'
+      styled-components: '*'
+    dependencies:
+      '@babel/runtime': 7.20.7
+      '@styled-icons/styled-icon': 10.7.0_7xiyoc3o4bwjwzuivcmqhu5bna
+      react: 17.0.2
+      styled-components: 5.3.6_d5kzqcx725xkmyluugjzy5jwom
+    dev: false
+
   /@styled-icons/icomoon/10.46.0_7xiyoc3o4bwjwzuivcmqhu5bna:
     resolution: {integrity: sha512-3KcTTuswDrC03byyr9G9v5aWDTrhO6PbbN5O7CtU4/NXY4AaOkTQ8GUfvRjZ8yG/aEYRH4VYkWFpYu1CdsZxNg==}
+    peerDependencies:
+      react: '*'
+      styled-components: '*'
+    dependencies:
+      '@babel/runtime': 7.19.0
+      '@styled-icons/styled-icon': 10.7.0_7xiyoc3o4bwjwzuivcmqhu5bna
+      react: 17.0.2
+      styled-components: 5.3.6_d5kzqcx725xkmyluugjzy5jwom
+    dev: false
+
+  /@styled-icons/ionicons-outline/10.46.0_7xiyoc3o4bwjwzuivcmqhu5bna:
+    resolution: {integrity: sha512-BEFEBGQDhPssEshbHyrsAXbEb7hNsrsHa0Zh0zLlfCIB3Vxc2GrQU9Qibto443ZRVw5qgF7iBdSwQHiwY8dQJw==}
     peerDependencies:
       react: '*'
       styled-components: '*'
@@ -853,7 +946,7 @@ packages:
       react: '*'
       styled-components: '>=4.1.0 <6'
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.7
       react: 17.0.2
       styled-components: 5.3.6_d5kzqcx725xkmyluugjzy5jwom
     dev: false
@@ -1126,7 +1219,7 @@ packages:
     resolution: {integrity: sha512-o/HelwhuKpTj/frsOsbNLNgnNGVIFsVP/SW2BSF14gVl7kAfMOJ6/8wUAUvG1R1NHKrfG+2sHZTu0yauT1qBrA==}
     engines: {node: '>=6.0'}
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.7
       '@babel/runtime-corejs3': 7.19.1
     dev: true
 
@@ -2231,7 +2324,7 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.7
       aria-query: 4.2.2
       array-includes: 3.1.5
       ast-types-flow: 0.0.7
@@ -4265,11 +4358,15 @@ packages:
   /redux/4.2.0:
     resolution: {integrity: sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==}
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.7
     dev: false
+
+  /regenerator-runtime/0.13.11:
+    resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
 
   /regenerator-runtime/0.13.9:
     resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
+    dev: false
 
   /regexp.prototype.flags/1.4.3:
     resolution: {integrity: sha512-fjggEOO3slI6Wvgjwflkc4NFRCTZAu5CnNfBd5qOMYhWdn67nJBBu34/TkD++eeFmd8C9r9jfXJ27+nSiRkSUA==}

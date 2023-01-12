@@ -58,7 +58,7 @@ const Input: React.FC<Props & TFormFieldProps> = ({
   //   }
   // });
 
-  console.log('value', form?.values[field?.name!]);
+  // console.log('value', form?.values[field?.name!]);
 
   return (
     <InputItem

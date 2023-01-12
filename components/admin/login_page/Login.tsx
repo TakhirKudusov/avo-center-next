@@ -1,12 +1,26 @@
 import styled from 'styled-components';
 import Form from '../../ui-kit/Form';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { Button, ButtonType, FormItem, Input } from '../../ui-kit';
 import { LoginPlaceholder, LoginTitle } from './enums';
 import { FORM_SCHEMA } from './constants';
+import { useRouter } from 'next/router';
+import { AdminRoute } from '../utils/routes';
+import { AppContext } from '../../../common/context/AppContext';
 
 const Login = () => {
   const formRef = useRef<HTMLFormElement>(null);
+
+  const { setIsMenuDisabled } = useContext(AppContext);
+
+  const router = useRouter();
+
+  const handleSubmit = (values: any, formikProps: any) => {
+    console.log(values, formikProps);
+    localStorage.setItem('isLoggedIn', 'true');
+    router.push(AdminRoute.MAIN);
+    setIsMenuDisabled!(false);
+  };
 
   return (
     <LoginWrapper>
@@ -15,6 +29,7 @@ const Login = () => {
           formSchema={FORM_SCHEMA}
           innerRef={formRef}
           initialValues={{}}
+          onSubmit={handleSubmit}
         >
           <>
             <LoginHeader>AVO Admin</LoginHeader>
@@ -30,6 +45,7 @@ const Login = () => {
                 name={LoginTitle.PASSWORD}
                 placeholder={LoginPlaceholder.PASSWORD}
                 component={Input}
+                type="password"
               />
             </FormItemContainer>
 
