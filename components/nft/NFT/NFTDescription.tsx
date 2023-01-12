@@ -7,6 +7,7 @@ import TabButtonsGroup from './TabButtonsGroup';
 import { NFTDescriptionData } from './types';
 import { Timer, useTimer } from '../../ui-kit';
 import { devices } from '../../../common/constants';
+import { NFT_OWNER } from '../../../common/enums/nftOwner.enum';
 
 type Props = {
   data: NFTDescriptionData;
@@ -15,6 +16,9 @@ type Props = {
 
 const NFTDescription: React.FC<Props> = ({ data, screenSize }) => {
   const { timeBeforeEnd } = useTimer(data);
+  // TODO: replace Mock with server data
+  const nftOwner = NFT_OWNER.USER;
+  const isNFTOnSale = false;
 
   return (
     <div>
@@ -27,11 +31,18 @@ const NFTDescription: React.FC<Props> = ({ data, screenSize }) => {
         </LicenseWrapper>
       )}
       <NFTMenuContainer>
-        {data?.bid?.isOnBid && timeBeforeEnd && (
-          <Timer timeBeforeEnd={timeBeforeEnd} />
-        )}
+        {data?.bid?.isOnBid &&
+          timeBeforeEnd &&
+          (nftOwner as NFT_OWNER) === NFT_OWNER.AUTHOR && (
+            <Timer timeBeforeEnd={timeBeforeEnd} />
+          )}
         <TabButtonsGroup screenSize={screenSize} />
-        <NFTActions price={data.price} convertedPrice={data.convertedPrice} />
+        <NFTActions
+          isNFTOnSale={isNFTOnSale}
+          nftOwner={nftOwner}
+          price={data.price}
+          convertedPrice={data.convertedPrice}
+        />
       </NFTMenuContainer>
       {screenSize === 'large' && (
         <NFTListingsBlock listingsData={data.listingsData} />

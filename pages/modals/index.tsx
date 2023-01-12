@@ -1,16 +1,18 @@
 import styled from 'styled-components';
 import { ContentContainer, FlexContainer } from '../../components/common';
-import SearchWithBadRequest from '../../components/common/components/SearchWithBadRequest/SearchWithBadRequest';
+// import SearchWithBadRequest from '../../components/cosmmon/components/SearchWithBadRequest/SearchWithBadRequest';
 import StoreLayout from '../../components/layouts/store';
+import Filters from '../../components/modals/Filters';
+import ModalsTest from '../../components/ModalsTest';
 
 function Modals() {
   return (
     <StyledFlexContainer>
-      {/* <PageContainer>
+      <PageContainer>
         <ModalsTest />
         <Filters />
-      </PageContainer> */}
-      <SearchWithBadRequest />
+      </PageContainer>
+      {/* <SearchWithBadRequest /> */}
     </StyledFlexContainer>
   );
 }

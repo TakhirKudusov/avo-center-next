@@ -12,7 +12,7 @@ const ButtonsGroup: React.FC<Props> = ({ buttonsParameters }) => {
     <ButtonsWrapper>
       {buttonsParameters?.map((el, i) => {
         return (
-          <Button key={i} btnType={el.type}>
+          <Button key={i} btnType={el.type} onClick={el.onClick}>
             <p>{el.name}</p>
           </Button>
         );
@@ -47,6 +47,7 @@ const Button = styled.button<any>`
   height: 48px;
   border-radius: 10px;
   cursor: pointer;
+  width: 100%;
 
   @media (${devices.tablet}) {
     width: 100%;
@@ -56,7 +57,7 @@ const Button = styled.button<any>`
   }
 
   background: ${(props) => {
-    switch (props.type) {
+    switch (props.btnType) {
       case 'primary':
         return '#333333';
       default:
@@ -64,7 +65,7 @@ const Button = styled.button<any>`
     }
   }};
   border: ${(props) => {
-    switch (props.type) {
+    switch (props.btnType) {
       case 'primary':
         return 'none';
       default:
@@ -78,7 +79,7 @@ const Button = styled.button<any>`
     line-height: 16px;
     text-align: center;
     color: ${(props) => {
-      switch (props.type) {
+      switch (props.btnType) {
         case 'primary':
           return '#FCFCFD';
         default:
@@ -88,7 +89,7 @@ const Button = styled.button<any>`
   };
   &:hover {
     background-color: ${(props) => {
-      switch (props.type) {
+      switch (props.btnType) {
         case 'primary':
           return '#515261';
         default:

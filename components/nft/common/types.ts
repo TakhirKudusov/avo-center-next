@@ -52,6 +52,7 @@ export type CommentsData = {
 export type Buttons = {
   name: string;
   type?: string;
+  onClick?: () => void;
 };
 
 export type TableHeadTitles = string[];
