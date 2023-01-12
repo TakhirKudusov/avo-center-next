@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-const Divider = ({ ...props }) => <DividerWrapper {...props} />;
+const Divider = ({ ...props }) => (
+  <DividerWrapper className={props.className} {...props} />
+);
 
 export default Divider;
 

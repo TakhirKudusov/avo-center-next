@@ -124,6 +124,7 @@ const MenuBody = styled.div<{ isSlide: boolean }>`
   right: ${({ isSlide }) => (isSlide ? '0' : '-372px')};
   transition: 0.25s linear;
   padding: 30px 32px;
+  overflow-y: auto;
 `;
 
 const Wrapper = styled.div<{ isOpen: boolean }>`

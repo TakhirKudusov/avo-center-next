@@ -24,6 +24,10 @@ const AdminLayout: FC<ChildrenProp> = ({ children }) => {
     setIsMenuOpened(true);
   };
 
+  const handleMenuClick = (endpoint: AdminRoute) => () => {
+    router.push(endpoint);
+  };
+
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     if (isLoggedIn === 'true') {
@@ -32,6 +36,8 @@ const AdminLayout: FC<ChildrenProp> = ({ children }) => {
         setIsMenuOpened(false);
         router.push(AdminRoute.MAIN);
       }
+    } else {
+      router.push(AdminRoute.LOGIN);
     }
   }, []);
 
@@ -64,13 +70,29 @@ const AdminLayout: FC<ChildrenProp> = ({ children }) => {
               <MenuWrapper>
                 <BottomMenuHeader>Navigation</BottomMenuHeader>
                 <FooterMenuContainer>
-                  <BottomMenuItem>NFT</BottomMenuItem>
-                  <BottomMenuItem>Users</BottomMenuItem>
-                  <BottomMenuItem>Authors</BottomMenuItem>
-                  <BottomMenuItem>Wallets</BottomMenuItem>
-                  <BottomMenuItem>Categories</BottomMenuItem>
-                  <BottomMenuItem>Billing</BottomMenuItem>
-                  <BottomMenuItem>Token</BottomMenuItem>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.NFT)}>
+                    NFT
+                  </BottomMenuItem>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.USERS)}>
+                    Users
+                  </BottomMenuItem>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.AUTHORS)}>
+                    Authors
+                  </BottomMenuItem>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.WALLETS)}>
+                    Wallets
+                  </BottomMenuItem>
+                  <BottomMenuItem
+                    onClick={handleMenuClick(AdminRoute.CATEGORIES)}
+                  >
+                    Categories
+                  </BottomMenuItem>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.BILLING)}>
+                    Billing
+                  </BottomMenuItem>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.TOKEN)}>
+                    Token
+                  </BottomMenuItem>
                 </FooterMenuContainer>
               </MenuWrapper>
             </FooterRowContainer>
@@ -176,7 +198,7 @@ const ChildrenContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 1440px;
-  padding: 20px;
+  padding: 40px 80px;
 `;
 
 const StyledLogo = styled(Logo)`
