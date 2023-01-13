@@ -2,6 +2,8 @@ export enum AdminRoute {
   MAIN = '/admin/',
   LOGIN = '/admin/login',
   NFT = '/admin/NFT',
+  COLLECTIONS = '/admin/collections',
+  BIDS = '/admin/bids',
   USERS = '/admin/users',
   AUTHORS = '/admin/authors',
   WALLETS = '/admin/wallets',

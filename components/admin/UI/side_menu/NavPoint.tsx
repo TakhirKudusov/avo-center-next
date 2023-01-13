@@ -131,6 +131,14 @@ const MainNavText = styled.div<{ isDisabled: boolean; isSub?: boolean }>`
       : isSub
       ? 'rgba(35, 38, 47, 0.75)'
       : 'rgba(35,38,47,0.85)'};
+  &:hover {
+    color: ${({ isDisabled, isSub }) =>
+      isDisabled
+        ? 'rgba(35,38,47,0.25)'
+        : isSub
+        ? 'rgb(35,38,47)'
+        : 'rgba(35,38,47,0.85)'};
+  }
 `;
 
 const PointContainer = styled.div<{ isDisabled: boolean }>`

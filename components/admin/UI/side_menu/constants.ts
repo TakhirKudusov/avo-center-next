@@ -8,8 +8,13 @@ const NFT = [
   },
   {
     id: 2,
-    name: 'NFT Likes',
-    link: AdminRoute.NFT,
+    name: 'Collections',
+    link: AdminRoute.COLLECTIONS,
+  },
+  {
+    id: 3,
+    name: 'Bids',
+    link: AdminRoute.BIDS,
   },
 ];
 
@@ -41,11 +46,6 @@ const categories = [
   {
     id: 1,
     name: 'Categories',
-    link: AdminRoute.CATEGORIES,
-  },
-  {
-    id: 2,
-    name: 'Author categories',
     link: AdminRoute.CATEGORIES,
   },
 ];

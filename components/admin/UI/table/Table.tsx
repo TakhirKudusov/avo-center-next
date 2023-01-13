@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { TableHead } from './types';
 import { FC } from 'react';
-import { Nft } from '../../../../redux/APIs/types';
+import { Bid, Collection, Nft, User } from '../../../../redux/APIs/types';
 
 type TableProps = {
   head: TableHead[];
-  content: Nft[] | undefined;
+  content: Nft[] | User[] | Collection[] | Bid[] | undefined;
 };
 
 const Table: FC<TableProps> = ({ head, content }) => {
@@ -41,7 +41,17 @@ const Table: FC<TableProps> = ({ head, content }) => {
               {Object.values(el)?.map((el, index) => {
                 return (
                   <Cell style={{ width: head[index].width }} key={index}>
-                    {handleFormatCellContent(el)}
+                    {typeof el !== 'object' ? (
+                      handleFormatCellContent(el)
+                    ) : (
+                      <StyledUl>
+                        {el?.map((el, index) => {
+                          return (
+                            <li key={index}>{handleFormatCellContent(el)}</li>
+                          );
+                        })}
+                      </StyledUl>
+                    )}
                   </Cell>
                 );
               })}
@@ -52,6 +62,12 @@ const Table: FC<TableProps> = ({ head, content }) => {
     </Container>
   );
 };
+
+const StyledUl = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
 
 const Divider = styled.div`
   display: flex;

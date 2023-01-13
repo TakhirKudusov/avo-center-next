@@ -1,18 +1,18 @@
-import styled from 'styled-components';
 import { Divider } from '../../ui-kit';
 import Table from '../UI/table/Table';
 import { tableHead } from './constants';
-import { useGetNftsQuery } from '../../../redux/APIs/nftApi';
+import { useGetNftsQuery } from '../../../redux/APIs/adminApi';
 import LoadingSpinner from '../UI/loading_spinner/LoadingSpinner';
+import PageHeader from '../UI/page_header/PageHeader';
+import TableContainer from '../UI/table_container/TableContainer';
+import ContentContainer from '../UI/content_container/ContentContainer';
 
 const Nft = () => {
   const { data, isLoading, isError } = useGetNftsQuery('');
 
   return (
-    <Container>
-      <HeaderContainer>
-        <HeaderText>Manage NFTs</HeaderText>
-      </HeaderContainer>
+    <ContentContainer>
+      <PageHeader text="Manage NFTs" />
       <Divider />
       <TableContainer>
         {isLoading && !isError ? (
@@ -21,35 +21,8 @@ const Nft = () => {
           <Table content={data} head={tableHead} />
         )}
       </TableContainer>
-    </Container>
+    </ContentContainer>
   );
 };
-
-const TableContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-`;
-
-const HeaderText = styled.div`
-  font-family: 'DM Sans';
-  font-weight: 500;
-  font-size: 28px;
-  line-height: 32px;
-  color: rgba(35, 38, 47, 0.8);
-  width: fit-content;
-`;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
-const Container = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  height: 100%;
-`;
 
 export default Nft;

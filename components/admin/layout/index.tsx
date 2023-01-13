@@ -257,6 +257,23 @@ const Wrapper = styled.div`
   overflow-x: hidden;
   background: #fcfcfd;
   height: 100vh;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 30px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 30px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(85, 85, 85, 0.85);
+  }
 `;
 
 export default AdminLayout;

@@ -125,6 +125,23 @@ const MenuBody = styled.div<{ isSlide: boolean }>`
   transition: 0.25s linear;
   padding: 30px 32px;
   overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 30px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 30px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(85, 85, 85, 0.85);
+  }
 `;
 
 const Wrapper = styled.div<{ isOpen: boolean }>`
