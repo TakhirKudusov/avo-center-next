@@ -24,8 +24,6 @@ const NavPoint: FC<Props> = ({ header, subPoint, Icon }) => {
 
   const { isMenuDisabled } = useContext(AppContext);
 
-  const navPointRef = useRef<HTMLDivElement>(null);
-
   const router = useRouter();
 
   const handleOpenClick = () => {
@@ -42,14 +40,9 @@ const NavPoint: FC<Props> = ({ header, subPoint, Icon }) => {
     router.push(endpoint);
   };
 
-  useEffect(() => {
-    console.log(navPointRef.current?.getBoundingClientRect());
-  }, []);
-
   return (
     <PointContainer
       style={{ height: isOpen ? `${subPoint.length * 30 + 44}px` : '44px' }}
-      ref={navPointRef}
       isDisabled={isMenuDisabled!}
       onClick={handleOpenClick}
     >

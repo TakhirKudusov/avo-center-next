@@ -8,8 +8,10 @@ import {
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import attachmentsReducer from './slicers/attachmentsSlicer';
 import authReducer from './slicers/authSlicer';
+import { nftApi } from './APIs/nftApi';
 
 const combinedReducer = combineReducers({
+  [nftApi.reducerPath]: nftApi.reducer,
   auth: authReducer,
   attachments: attachmentsReducer,
 });
@@ -35,7 +37,7 @@ export const makeStore = () =>
     middleware: (getDefaultMiddleware: any) =>
       getDefaultMiddleware({
         serializableCheck: false,
-      }),
+      }).concat(nftApi.middleware),
   } as any);
 
 type Store = ReturnType<typeof makeStore>;

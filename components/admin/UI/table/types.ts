@@ -5,10 +5,4 @@ type TableHead = {
   width?: string;
 };
 
-type TableContent = {
-  id: number;
-  item: string;
-  width?: string;
-};
-
-export type { TableHead, TableContent };
+export type { TableHead };

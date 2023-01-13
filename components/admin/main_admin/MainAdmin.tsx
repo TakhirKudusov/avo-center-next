@@ -108,6 +108,7 @@ const MenuContainer = styled.div`
   flex-basis: 93%;
   width: fit-content;
   gap: 18px;
+  justify-content: center;
 `;
 
 const MenuCard = styled.div<{ image: string }>`
@@ -123,7 +124,7 @@ const MenuCard = styled.div<{ image: string }>`
   background-repeat: no-repeat;
   background-position: -10px;
   background-size: auto 160px;
-
+  min-width: 306px;
   &:hover {
     background-color: #fcfcfd;
     background-position: 0;

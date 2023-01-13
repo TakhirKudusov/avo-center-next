@@ -1,13 +1,21 @@
 import styled from 'styled-components';
-import { TableContent, TableHead } from './types';
+import { TableHead } from './types';
 import { FC } from 'react';
+import { Nft } from '../../../../redux/APIs/types';
 
 type TableProps = {
   head: TableHead[];
-  content: TableContent[];
+  content: Nft[] | undefined;
 };
 
 const Table: FC<TableProps> = ({ head, content }) => {
+  const handleFormatCellContent = (el: string) => {
+    if (el.length > 15) {
+      return el.substring(0, 15) + '...';
+    }
+    return el;
+  };
+
   return (
     <Container>
       <Header>
@@ -27,17 +35,19 @@ const Table: FC<TableProps> = ({ head, content }) => {
         </Row>
       </Header>
       <Body>
-        <Row>
-          <Cell>qwe</Cell>
-          <Cell>asd</Cell>
-          <Cell>asd</Cell>
-          <Cell>asd</Cell>
-          <Cell>qwe</Cell>
-          <Cell>asd</Cell>
-          <Cell>asd</Cell>
-          <Cell>asd</Cell>
-          <Cell>asd</Cell>
-        </Row>
+        {content?.map((el, index) => {
+          return (
+            <Row key={index}>
+              {Object.values(el)?.map((el, index) => {
+                return (
+                  <Cell style={{ width: head[index].width }} key={index}>
+                    {handleFormatCellContent(el)}
+                  </Cell>
+                );
+              })}
+            </Row>
+          );
+        })}
       </Body>
     </Container>
   );
@@ -46,7 +56,7 @@ const Table: FC<TableProps> = ({ head, content }) => {
 const Divider = styled.div`
   display: flex;
   height: 100%;
-  width: 1px;
+  min-width: 1px;
   background-color: rgba(0, 0, 0, 0.1);
   margin-right: 15px;
 `;
@@ -61,6 +71,7 @@ const Cell = styled.td`
   line-height: 18px;
   color: rgba(0, 0, 0, 0.75);
   padding: 12px 0 12px 16px;
+  word-break: break-all;
 `;
 
 const Body = styled.tbody`
@@ -82,7 +93,7 @@ const Head = styled.th`
   padding: 12px 0;
   &.table__header__first_child {
     & :first-child {
-      width: 0;
+      visibility: hidden;
     }
   }
 `;
@@ -108,13 +119,13 @@ const Header = styled.thead`
 
 const Container = styled.table`
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
   width: 100%;
   border-spacing: 0;
   max-height: 1000px;
   overflow: auto;
-
+  table-layout: fixed;
+  word-break: break-all;
   ::-webkit-scrollbar {
     width: 8px;
   }

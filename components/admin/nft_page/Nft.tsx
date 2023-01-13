@@ -2,8 +2,12 @@ import styled from 'styled-components';
 import { Divider } from '../../ui-kit';
 import Table from '../UI/table/Table';
 import { tableHead } from './constants';
+import { useGetNftsQuery } from '../../../redux/APIs/nftApi';
+import LoadingSpinner from '../UI/loading_spinner/LoadingSpinner';
 
 const Nft = () => {
+  const { data, isLoading, isError } = useGetNftsQuery('');
+
   return (
     <Container>
       <HeaderContainer>
@@ -11,7 +15,11 @@ const Nft = () => {
       </HeaderContainer>
       <Divider />
       <TableContainer>
-        <Table head={tableHead} />
+        {isLoading && !isError ? (
+          <LoadingSpinner />
+        ) : (
+          <Table content={data} head={tableHead} />
+        )}
       </TableContainer>
     </Container>
   );
@@ -20,6 +28,7 @@ const Nft = () => {
 const TableContainer = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
 `;
 
 const HeaderText = styled.div`
@@ -40,6 +49,7 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
+  height: 100%;
 `;
 
 export default Nft;

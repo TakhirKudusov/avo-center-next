@@ -19,7 +19,7 @@ const tableHead: TableHead[] = [
   {
     id: 4,
     name: 'Creator ID',
-    width: '15%',
+    width: '10%',
   },
   {
     id: 5,
@@ -44,7 +44,7 @@ const tableHead: TableHead[] = [
   {
     id: 9,
     name: 'Likes',
-    width: '5%',
+    width: '10%',
   },
 ];
 
