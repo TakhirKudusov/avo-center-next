@@ -182,7 +182,7 @@ const FooterContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
-  height: 373px;
+  min-height: 373px;
   border-top: 1px solid rgba(101, 101, 101, 0.25);
 `;
 
