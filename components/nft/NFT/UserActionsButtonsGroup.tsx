@@ -7,12 +7,19 @@ import { Tooltip } from '../../ui-kit';
 import { TooltipPosition } from '../../ui-kit/Tooltip/types';
 
 import TokenActions from './TokenActions';
+import { defaultLikesNumber } from './Mock';
 
 type Props = {
   screenSize: 'large' | 'small';
+  likesNumber: number;
+  onLikeIncrease: () => void;
 };
 
-const UserActionsButtonsGroup: React.FC<Props> = ({ screenSize }) => {
+const UserActionsButtonsGroup: React.FC<Props> = ({
+  screenSize,
+  likesNumber,
+  onLikeIncrease,
+}) => {
   return (
     <Container screenSize={screenSize}>
       {screenSize === 'large' ? (
@@ -26,10 +33,18 @@ const UserActionsButtonsGroup: React.FC<Props> = ({ screenSize }) => {
             <ShareSVG />
           </RadioButton>
           <LikeButtonContainer>
-            <RadioButton>
+            <RadioButton
+              onClick={onLikeIncrease}
+              disabled={likesNumber === defaultLikesNumber + 1}
+              style={
+                likesNumber === defaultLikesNumber + 1
+                  ? { backgroundColor: '#ef46707d' }
+                  : {}
+              }
+            >
               <LoveSVG />
             </RadioButton>
-            <p>3</p>
+            <p>{likesNumber}</p>
           </LikeButtonContainer>
         </>
       ) : (
@@ -38,9 +53,17 @@ const UserActionsButtonsGroup: React.FC<Props> = ({ screenSize }) => {
             <ShareSVG />
           </RadioButton>
           <LikeButtonContainer>
-            <StyledRadioButton>
+            <StyledRadioButton
+              onClick={onLikeIncrease}
+              disabled={likesNumber === defaultLikesNumber + 1}
+              style={
+                likesNumber === defaultLikesNumber + 1
+                  ? { backgroundColor: '#ef46707d' }
+                  : {}
+              }
+            >
               <LoveSVG />
-              <p>3</p>
+              <p>{likesNumber}</p>
             </StyledRadioButton>
           </LikeButtonContainer>
           <Tooltip content={<TokenActions />} position={TooltipPosition.Right}>

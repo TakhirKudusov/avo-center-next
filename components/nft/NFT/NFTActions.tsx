@@ -1,19 +1,36 @@
-import ButtonsGroup from './ButtonsGroup';
-import { getAuthorNFTButtons, getUserNFTButtons } from '../common/helpers';
+import { memo, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { memo, useState } from 'react';
+
+import {
+  Button,
+  ButtonSize,
+  ButtonType,
+  Counter,
+  Divider,
+  Input,
+  Modal,
+  Switch,
+} from '../../ui-kit';
 import { devices, screenSizes } from '../../../common/constants';
 import { StepModal } from '../../common/components';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
+import { NFT_OWNER } from '../../../common/enums/nftOwner.enum';
+import CoinSVG from '../../../assets/svg/coin.svg';
+import { useAppSelector } from '../../../redux/hooks';
+import { TAuthState } from '../../../redux/types';
+import WalletSVG from '../../../assets/svg/wallet.svg';
+import CheckCircle from '../../../assets/svg/check-circle.svg';
+import { getAuthorNFTButtons, getUserNFTButtons } from '../common/helpers';
+
+import { ConnectWalletContext } from './context';
 import {
   ACCEPT_BID_STEPS,
   PLACE_BID_STEPS,
   PURCHASE_STEPS,
   PUT_ON_SALE_STEPS,
+  successShareLinks,
 } from './constants';
-import { Counter, Divider, Input, Switch } from '../../ui-kit';
-import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
-import { NFT_OWNER } from '../../../common/enums/nftOwner.enum';
-import CoinSVG from '../../../assets/svg/coin.svg';
+import ButtonsGroup from './ButtonsGroup';
 
 type Props = {
   price: string;
@@ -28,9 +45,13 @@ const NFTActions: React.FC<Props> = ({
   convertedPrice,
   isNFTOnSale,
 }) => {
+  const { user } = useAppSelector<TAuthState>((state) => state.auth);
   const [openPurchase, setOpenPurchase] = useState(false);
 
   const { screenSize } = useAdaptiveSlider();
+
+  const { openConnectWallet, setOpenConnectWallet, handleSignIn } =
+    useContext(ConnectWalletContext);
 
   const purchaseData = {
     totalEmission: 8,
@@ -40,16 +61,30 @@ const NFTActions: React.FC<Props> = ({
   };
 
   const handlePurchaseOpen = () => {
-    setOpenPurchase(true);
+    if (!!user) {
+      setOpenPurchase(true);
+    } else {
+      setOpenConnectWallet(true);
+    }
   };
   const handlePurchaseClose = () => {
     setOpenPurchase(false);
   };
+
+  useEffect(() => {
+    if (user && openConnectWallet) {
+      setOpenConnectWallet(false);
+    }
+  }, [openConnectWallet, setOpenConnectWallet, user]);
   ///////////////////////////////////////////////////
   const [openPlaceBid, setopenPlaceBid] = useState(false);
 
   const handlePlaceBidOpen = () => {
-    setopenPlaceBid(true);
+    if (!!user) {
+      setopenPlaceBid(true);
+    } else {
+      setOpenConnectWallet(true);
+    }
   };
   const handlePlaceBidClose = () => {
     setopenPlaceBid(false);
@@ -130,6 +165,27 @@ const NFTActions: React.FC<Props> = ({
         confirmBtnName="I understand, continue"
         cancelBtnName="Cancel"
         onClose={handlePurchaseClose}
+        successWindow={
+          <SuccessWindowWrapper>
+            <CheckCircle />
+            <SuccessTitle>Yay!</SuccessTitle>
+            <SuccessInfo>You successfully purchased</SuccessInfo>
+            <SuccessShowInGallery>Show in Gallery</SuccessShowInGallery>
+            <Divider />
+            <SucessShare>Share</SucessShare>
+            <SucessMediaWrapper>
+              {successShareLinks.map((item) => (
+                <SucessMediaCircle
+                  key={item.id}
+                  href={item.href}
+                  target="_blank"
+                >
+                  {item.icon}
+                </SucessMediaCircle>
+              ))}
+            </SucessMediaWrapper>
+          </SuccessWindowWrapper>
+        }
       >
         <>
           <PurchaseInfo>You are about to purchase AvoNFT</PurchaseInfo>
@@ -258,6 +314,30 @@ const NFTActions: React.FC<Props> = ({
           </AcceptBidAmoutWrapper>
         </>
       </StepModal>
+      <Modal
+        title=""
+        hasFooter={false}
+        open={openConnectWallet}
+        onClose={() => setOpenConnectWallet(false)}
+      >
+        <ConnectWalletContainer>
+          <WalletIconCircle>
+            <StyledWalletSVG />
+          </WalletIconCircle>
+          <ConnectWalletInfo>
+            You need to connect your wallet first to sign messages and send
+            transaction to Avocado network
+          </ConnectWalletInfo>
+          <Button
+            style={{ backgroundColor: '#3772FF', borderColor: '#3772FF' }}
+            onClick={handleSignIn}
+            btnType={ButtonType.Secondary}
+            size={ButtonSize.Large}
+          >
+            Connect wallet
+          </Button>
+        </ConnectWalletContainer>
+      </Modal>
     </Container>
   );
 };
@@ -391,6 +471,59 @@ const PurchaseAmountValue = styled.span`
   font-weight: 500;
 `;
 
+const SuccessWindowWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 384px;
+  color: #23262f;
+`;
+
+const SuccessTitle = styled.h1`
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+  margin: 0 0 16px;
+`;
+
+const SuccessInfo = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 0;
+`;
+
+const SuccessShowInGallery = styled.a`
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  color: #27ae60;
+  margin-bottom: 28px;
+  cursor: pointer;
+`;
+
+const SucessShare = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 0;
+`;
+
+const SucessMediaWrapper = styled.div`
+  display: flex;
+  gap: 16px;
+`;
+
+const SucessMediaCircle = styled.a`
+  border: 2px solid #e6e8ec;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
 ////////////////////////////////////////////////////////////////////////////////////
 
 const PlaceBidInfo = styled.div`
@@ -520,5 +653,36 @@ const AvoCircleText = styled.span`
   color: #23262f;
 `;
 ////////////////////////////////////////////////////////////////////////////////////
+
+const ConnectWalletContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 384px;
+`;
+
+const WalletIconCircle = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #45b36b;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ConnectWalletInfo = styled.p`
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #23262f;
+  margin-bottom: 28px;
+`;
+
+const StyledWalletSVG = styled(WalletSVG)`
+  transform: scale(1.4);
+`;
 
 export default memo(NFTActions);

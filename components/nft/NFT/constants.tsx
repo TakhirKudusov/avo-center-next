@@ -1,6 +1,10 @@
 import InsertSVG from '../../../assets/svg/insert.svg';
 import PencilSVG from '../../../assets/svg/pencil.svg';
 import CheckSVG from '../../../assets/svg/check.svg';
+import FacebookSVG from '../../../assets/svg/facebook.svg';
+import TwitterSVG from '../../../assets/svg/twitter.svg';
+import InstagramSVG from '../../../assets/svg/instagram.svg';
+import MailSVG from '../../../assets/svg/mail.svg';
 
 export const PURCHASE_STEPS = [
   {
@@ -61,3 +65,31 @@ export const ACCEPT_BID_STEPS = [
     ),
   },
 ];
+
+export const successShareLinks = [
+  {
+    id: 1,
+    icon: <FacebookSVG />,
+    href: 'https://facebook.com',
+  },
+  {
+    id: 2,
+    icon: <TwitterSVG />,
+    href: 'https://twitter.com',
+  },
+  {
+    id: 3,
+    icon: <InstagramSVG />,
+    href: 'https://instagram.com',
+  },
+  {
+    id: 4,
+    icon: <MailSVG />,
+    href: 'https://mail.ru',
+  },
+];
+
+export enum OwnerRoles {
+  OWNER = 'owner',
+  CREATOR = 'creator',
+}

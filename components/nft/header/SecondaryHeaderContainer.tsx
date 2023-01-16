@@ -31,7 +31,7 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-bottom: 40px;
+  padding-bottom: 32px;
 `;
 
 const Header = styled.h1`

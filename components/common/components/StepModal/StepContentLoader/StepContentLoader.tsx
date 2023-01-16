@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import React, { memo, ReactNode } from 'react';
 
 import EllipseLoading from '../../../../../assets/svg/ellipse-loading.svg';
@@ -30,29 +30,22 @@ const StepContentLoader: React.FC<Props> = ({
 
 const Wrapper = styled.div<{}>``;
 
+const spinAnimation = keyframes`
+  form {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 const StyledEllipseLoading = styled(EllipseLoading)`
-  -webkit-animation: spin 1.5s linear infinite;
-  -moz-animation: spin 1.5s linear infinite;
-  animation: spin 1.5s linear infinite;
+  -webkit-animation: ${spinAnimation} 1.5s linear infinite;
+  -moz-animation: ${spinAnimation} 1.5s linear infinite;
+  animation: ${spinAnimation} 1.5s linear infinite;
   margin-right: 4px;
   margin-left: 4px;
-
-  @-moz-keyframes spin {
-    100% {
-      -moz-transform: rotate(360deg);
-    }
-  }
-  @-webkit-keyframes spin {
-    100% {
-      -webkit-transform: rotate(360deg);
-    }
-  }
-  @keyframes spin {
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
-  }
 `;
 
 export default memo(StepContentLoader);
