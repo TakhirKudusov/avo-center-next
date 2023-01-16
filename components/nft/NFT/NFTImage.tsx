@@ -11,9 +11,15 @@ import { devices, screenSizes } from '../../../common/constants';
 
 type Props = {
   NFTData: Pick<NFT, 'image' | 'tags'>;
+  likesNumber: number;
+  onLikeIncrease: () => void;
 };
 
-const NFTImage: React.FC<Props> = ({ NFTData }) => {
+const NFTImage: React.FC<Props> = ({
+  NFTData,
+  likesNumber,
+  onLikeIncrease,
+}) => {
   const [screenSize, setScreenSize] = useState<'large' | 'small'>('large');
 
   useEffect(() => {
@@ -33,7 +39,11 @@ const NFTImage: React.FC<Props> = ({ NFTData }) => {
           })}
         </TagsWrapper>
         {screenSize === 'small' && (
-          <UserActionsButtonsGroup screenSize={screenSize} />
+          <UserActionsButtonsGroup
+            likesNumber={likesNumber}
+            screenSize={screenSize}
+            onLikeIncrease={onLikeIncrease}
+          />
         )}
       </NFTMainContainer>
     </StyledNFTMain>

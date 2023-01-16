@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import CornerDownRightSVG from '../../../assets/svg/corner-down-right.svg';
 import RightSideCornerSVG from '../../../assets/svg/right-side-corner.svg';
 import { devices } from '../../../common/constants';
+import { useAppSelector } from '../../../redux/hooks';
+import { TAuthState } from '../../../redux/types';
+import { ConnectWalletContext } from '../NFT/context';
 
 const TextAreaBlock: React.FC = () => {
+  const { user } = useAppSelector<TAuthState>((state) => state.auth);
+
+  const { setOpenConnectWallet } = useContext(ConnectWalletContext);
+
+  const handleMesageSend = () => {
+    if (!user) {
+      setOpenConnectWallet(true);
+    }
+  };
+
   return (
     <TextAreaWrapper>
       <SendMessageButtonWrapper>
@@ -13,7 +26,7 @@ const TextAreaBlock: React.FC = () => {
       </SendMessageButtonWrapper>
       <TextAreaContainer>
         <TextArea placeholder={'Comment...'} />
-        <SendButton>
+        <SendButton onClick={handleMesageSend}>
           <p>Send</p>
         </SendButton>
       </TextAreaContainer>

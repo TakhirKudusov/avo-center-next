@@ -1,13 +1,25 @@
+import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
+
 import { handleSetActiveClick } from '../../common/helpers';
-import React from 'react';
 import { devices } from '../../../common/constants';
 
 type Props = {
   screenSize: 'large' | 'small';
+  setIsOwnersModalOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const TabButtonsGroup: React.FC<Props> = ({ screenSize }) => {
+const TabButtonsGroup: React.FC<Props> = ({
+  screenSize,
+  setIsOwnersModalOpen,
+}) => {
+  const handleOwnersModalOpen: React.MouseEventHandler<HTMLButtonElement> = (
+    e,
+  ) => {
+    handleSetActiveClick(e, 'tab-btn', 'active');
+    setIsOwnersModalOpen(true);
+  };
+
   return (
     <TabButtonsContainer>
       <TabButton
@@ -16,10 +28,7 @@ const TabButtonsGroup: React.FC<Props> = ({ screenSize }) => {
       >
         <p>Info</p>
       </TabButton>
-      <TabButton
-        className="tab-btn"
-        onClick={(e) => handleSetActiveClick(e, 'tab-btn', 'active')}
-      >
+      <TabButton className="tab-btn" onClick={handleOwnersModalOpen}>
         <p>Owners</p>
       </TabButton>
       <TabButton

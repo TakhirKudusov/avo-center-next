@@ -9,9 +9,10 @@ import NFTListingsBlock from './NFTListingsBlock';
 import { devices, screenSizes } from '../../../common/constants';
 import { NFTContext } from './context';
 import { Input, Modal } from '../../ui-kit';
+import Textarea from '../../ui-kit/Textarea';
+import { defaultLikesNumber } from './Mock';
 import { useAppSelector } from '../../../redux/hooks';
 import { TAuthState } from '../../../redux/types';
-import Textarea from '../../ui-kit/Textarea';
 
 type Props = {
   NFTData: NFT;
@@ -24,6 +25,7 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
   const [screenSize, setScreenSize] = useState<'large' | 'small'>('large');
   const [receiverAddress, setRecieverAddress] = useState('');
   const [report, setReport] = useState('');
+  const [likesNumber, setLikesNumber] = useState(defaultLikesNumber);
 
   const [isTransferTokenModalOpen, setIsTransferTokenModalOpen] =
     useState(false);
@@ -62,6 +64,22 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
     setIsReportModalOpen(false);
   };
 
+  const handleLikeIncrease = () => {
+    setLikesNumber((prev) => ++prev);
+  };
+
+  const handleDownloadFile = (fileName: string) => {
+    let link: HTMLAnchorElement | null = document.createElement('a');
+
+    link.download = fileName;
+    link.href = image;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    link = null;
+  };
+
   useEffect(() => {
     setScreenSize(
       window?.screen.width > screenSizes.tablet ? 'large' : 'small',
@@ -76,13 +94,18 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
           setIsRemoveFromSaleModalOpen,
           setIsBurnTokenModalOpen,
           setIsReportModalOpen,
+          handleDownloadFile,
         }}
       >
         <Container>
           <NFTDescriptionContainer>
             <div>
               <StyledNFTDescriptionWrapper>
-                <NFTImage NFTData={{ image, tags }} />
+                <NFTImage
+                  NFTData={{ image, tags }}
+                  likesNumber={likesNumber}
+                  onLikeIncrease={handleLikeIncrease}
+                />
                 <NFTDescription
                   screenSize={screenSize}
                   data={NFTDescriptionData}
@@ -96,7 +119,11 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
             </div>
           </NFTDescriptionContainer>
           {screenSize === 'large' && (
-            <UserActionsButtonsGroup screenSize={screenSize} />
+            <UserActionsButtonsGroup
+              screenSize={screenSize}
+              likesNumber={likesNumber}
+              onLikeIncrease={handleLikeIncrease}
+            />
           )}
         </Container>
         <Modal

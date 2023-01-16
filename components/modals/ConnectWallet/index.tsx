@@ -22,13 +22,13 @@ const ConnectWallet = () => {
         dispatch(signin());
       },
     },
-    // {
-    //   name: 'WalletConnect',
-    //   icon: <WalletConnectSVG />,
-    //   onClick: () => {
-    //     console.log('WalletConnect');
-    //   },
-    // },
+    {
+      name: 'WalletConnect',
+      icon: <WalletConnectSVG />,
+      onClick: () => {
+        console.log('WalletConnect');
+      },
+    },
   ];
 
   return (
