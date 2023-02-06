@@ -1,7 +1,7 @@
 export enum FormName {
-  NAME = 'name',
+  USER_NAME = 'username',
   BIO = 'bio',
-  PORTFOLIO_OR_WEBSITE = 'portfolio or website',
+  WEBSITE = 'portfolio or website',
   TWITTER = 'twitter',
   ADDITIONAL_SOCIAL_ACCOUNT = 'additional social account',
   PHOTO_OF_DOCUMENTS = 'photo of documents',

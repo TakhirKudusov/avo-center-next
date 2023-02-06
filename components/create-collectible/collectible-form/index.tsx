@@ -104,9 +104,9 @@ const CollectibleForm = () => {
             >
               Create item <ArrowRightSVG style={{ marginLeft: '15px' }} />
             </Button>
-            <AutoSaving>
+            {/* <AutoSaving>
               Auto saving <LoadingSVG color="#23262F" />
-            </AutoSaving>
+            </AutoSaving> */}
           </FormFooter>
         </>
       </Form>
@@ -136,16 +136,16 @@ const SectionTitle = styled.div`
   color: #23262f;
 `;
 
-const AutoSaving = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  font-family: 'DM Sans';
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 16px;
-  color: #23262f;
-`;
+// const AutoSaving = styled.div`
+//   display: flex;
+//   align-items: center;
+//   gap: 13px;
+//   font-family: 'DM Sans';
+//   font-weight: 700;
+//   font-size: 16px;
+//   line-height: 16px;
+//   color: #23262f;
+// `;
 
 const NetworkWrapper = styled.div`
   width: 300px;

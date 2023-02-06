@@ -31,6 +31,7 @@ import {
   successShareLinks,
 } from './constants';
 import ButtonsGroup from './ButtonsGroup';
+import { usePlaceBid } from '../../../common/hooks/usePlaceBid';
 
 type Props = {
   price: string;
@@ -77,18 +78,8 @@ const NFTActions: React.FC<Props> = ({
     }
   }, [openConnectWallet, setOpenConnectWallet, user]);
   ///////////////////////////////////////////////////
-  const [openPlaceBid, setopenPlaceBid] = useState(false);
-
-  const handlePlaceBidOpen = () => {
-    if (!!user) {
-      setopenPlaceBid(true);
-    } else {
-      setOpenConnectWallet(true);
-    }
-  };
-  const handlePlaceBidClose = () => {
-    setopenPlaceBid(false);
-  };
+  const { openPlaceBid, handlePlaceBidOpen, handlePlaceBidClose } =
+    usePlaceBid(setOpenConnectWallet);
 
   /////////////////////////////////////////////////////////////////////////
   const [openPutOnSale, setOpenPutOnSale] = useState(false);

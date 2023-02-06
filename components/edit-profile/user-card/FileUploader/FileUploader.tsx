@@ -17,21 +17,19 @@ const AvatarUploader: React.FC<Props & TFormFieldProps> = ({
   field,
   hasSchema,
   form,
-  onChange,
 }) => {
-  const { getInputProps, getRootProps, acceptedFiles } = useDropzone({});
+  const { getInputProps, acceptedFiles } = useDropzone({});
 
-  useConnectForm(acceptedFiles, form, field, hasSchema, onChange);
+  useConnectForm(acceptedFiles, form, field, hasSchema);
 
   return (
-    <Container {...getRootProps()}>
+    <Container>
       <CameraButton
         {...getInputProps()}
         style={{ display: 'block' }}
         id="camera"
         type="file"
         accept=".jpg, .jpeg, .png, .gif"
-        onChange={onChange}
       />
       <CameraSVGWrapper htmlFor="camera">
         <StyledCameraSVG />

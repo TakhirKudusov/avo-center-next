@@ -12,9 +12,9 @@ const GroupHeader = ({ header }: Props) => {
     <>
       <GroupHeader.Header type={header}>
         <GroupHeader.HeaderText>{header}</GroupHeader.HeaderText>
-        {header === PrimaryHeaderText.ACCOUNT_INFO && (
+        {/* {header === PrimaryHeaderText.ACCOUNT_INFO && (
           <GroupHeader.ExclamationIcon />
-        )}
+        )} */}
       </GroupHeader.Header>
     </>
   );

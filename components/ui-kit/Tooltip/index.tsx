@@ -10,11 +10,13 @@ type Props = {
   children: JSX.Element;
   content: JSX.Element;
   position?: TooltipPosition;
+  onClickOutside?: () => void;
 };
 const Tooltip: React.FC<Props> = ({
   children,
   content,
   position = TooltipPosition.Left,
+  onClickOutside,
 }) => {
   const [active, setActive] = useState(false);
   const [wrapperWidth, setWrapperWidth] = useState<number | undefined>();
@@ -25,6 +27,10 @@ const Tooltip: React.FC<Props> = ({
   const wrapperRef = useDetectClickOutside({
     onTriggered: () => {
       setActive(false);
+
+      if (onClickOutside) {
+        onClickOutside();
+      }
     },
   });
 

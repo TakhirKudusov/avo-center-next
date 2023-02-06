@@ -2,30 +2,91 @@ import styled from 'styled-components';
 import BidPrice from './BidPrice';
 import CandlesticksSVG from '../../../assets/svg/candlesticks.svg';
 import { Bid } from '../../home-page/HotBids/types';
+import { Button, ButtonSize, ButtonType, Counter } from '../../ui-kit';
+import LikeButton from '../../ui-kit/LikeButton';
+import { usePlaceBid } from '../../../common/hooks/usePlaceBid';
+import { ConnectWalletContext } from '../../nft/NFT/context';
+import { useContext } from 'react';
+import StepModal from './StepModal';
+import { PLACE_BID_STEPS } from '../../ModalsTest/constants';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
+import { screenSizes } from '../../../common/constants';
+import {
+  likeNft,
+  unlikeNft,
+} from '../../../redux/slicers/nftsSlicer/nftSlicer';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { IBid } from '../../../swagger';
+import { TAuthState } from '../../../redux/types';
 
 type Props = {
-  bid: Bid;
+  bid: IBid;
 };
+
 const BidItem: React.FC<Props> = ({ bid }) => {
-  const { image, name, avoAmonut, total, available, highestBid } = bid;
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector<TAuthState>((state) => state.auth);
+
+  const { nft } = bid;
+  const userLike = nft?.likes.find((userId) => userId === user?.id);
+
+  const { setOpenConnectWallet } = useContext(ConnectWalletContext);
+
+  const { screenSize } = useAdaptiveSlider();
+
+  const { openPlaceBid, handlePlaceBidOpen, handlePlaceBidClose } =
+    usePlaceBid(setOpenConnectWallet);
+
+  const handleLikeNft = async (handleLike: () => void) => {
+    const result = await dispatch(likeNft(nft._id));
+
+    if (result) handleLike();
+  };
+
+  const handleUnlikeNft = async (handleUnlike: () => void) => {
+    const result = await dispatch(unlikeNft(nft._id));
+
+    if (result) handleUnlike();
+  };
+
+  console.log(nft);
 
   return (
     <BidWrapper>
-      <BidImage style={{ backgroundImage: `url(/images/${image})` }}></BidImage>
+      {/* <BidImage style={{ backgroundImage: `url(/images/${nft.fileUrl})` }}> */}
+      <BidImage style={{ backgroundImage: `url(/images/)` }}>
+        <LikeButtonWrapper>
+          <LikeButton
+            isNftLiked={!!userLike}
+            onLikeNft={handleLikeNft}
+            onUnlikeNft={handleUnlikeNft}
+          />
+        </LikeButtonWrapper>
+        <StyledButton
+          style={{ color: '#fff', borderRadius: 10 }}
+          size={ButtonSize.Large}
+          btnType={ButtonType.Secondary}
+          onClick={handlePlaceBidOpen}
+        >
+          Place a bid
+          {/* <ArrowRightSVG style={{ marginLeft: '15px' }} /> */}
+        </StyledButton>
+      </BidImage>
       <BidBody>
         <BidInfo>
           <BidInfoRow>
-            <BidName>{name}</BidName>
-            <BidPrice value={avoAmonut} />
+            <BidName>{nft?.name}</BidName>
+            {/* <BidPrice value={avoAmonut} /> */}
+            <BidPrice value={200} />
           </BidInfoRow>
           <BidInfoRow>
             <BidFeature>
               <BidFeatureCaption>Total:</BidFeatureCaption>
-              <BidFeatureValue>{total}</BidFeatureValue>
+              <BidFeatureValue>{nft?.total}</BidFeatureValue>
             </BidFeature>
             <BidFeature>
               <BidFeatureCaption>Available:</BidFeatureCaption>
-              <BidFeatureValue>{available}</BidFeatureValue>
+              <BidFeatureValue>{nft?.available}</BidFeatureValue>
             </BidFeature>
           </BidInfoRow>
         </BidInfo>
@@ -33,17 +94,37 @@ const BidItem: React.FC<Props> = ({ bid }) => {
           <HighestBid>
             <CandlesticksSVG />
             <HighestBidTitle>Highest bid</HighestBidTitle>
-            <HighestBidValue>{highestBid} AVO</HighestBidValue>
+            <HighestBidValue>{1000} AVO</HighestBidValue>
           </HighestBid>
           <HotBid>Hot bit 🔥</HotBid>
         </BidFooter>
       </BidBody>
+      <StepModal
+        steps={PLACE_BID_STEPS}
+        isOpen={openPlaceBid}
+        childrenStageTitle="Place a bid"
+        startStepBtnName="Approve now"
+        confirmBtnName="Place a bid"
+        onClose={handlePlaceBidClose}
+      >
+        <>
+          <PlaceBidInfo>You are about to purchase AvoNFT</PlaceBidInfo>
+          <Counter
+            label="BID PRICE"
+            style={{
+              width: screenSize >= screenSizes.tablet ? '384px' : '260px',
+              marginTop: '10px',
+            }}
+          />
+        </>
+      </StepModal>
     </BidWrapper>
   );
 };
 
 const BidWrapper = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   background: #fff;
   border-radius: 20px;
@@ -58,6 +139,14 @@ const BidWrapper = styled.div`
   &:last-of-type {
     margin-right: 0;
   }
+
+  &:hover > div > div {
+    opacity: 1;
+  }
+
+  &:hover > div > button {
+    opacity: 1;
+  }
 `;
 
 const BidImage = styled.div`
@@ -65,6 +154,23 @@ const BidImage = styled.div`
   background: #ccc;
   background-size: cover;
   background-position: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 16px;
+`;
+
+const LikeButtonWrapper = styled.div`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  opacity: 0;
+  transition: all 0.3s;
+`;
+
+const StyledButton = styled(Button)`
+  opacity: 0;
+  transition: all 0.3s;
 `;
 
 const BidBody = styled.div`
@@ -143,6 +249,14 @@ const HotBid = styled.div`
   font-size: 12px;
   line-height: 20px;
   color: #777e91;
+`;
+
+const PlaceBidInfo = styled.div`
+  color: #23262f;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 32px;
+  font-family: 'Poppins';
 `;
 
 export default BidItem;

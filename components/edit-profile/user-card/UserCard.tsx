@@ -3,10 +3,14 @@ import { devices } from '../../../common/constants';
 import Avatar from './Avatar';
 import Description from './Description';
 
-const UserCard = () => {
+type Props = {
+  avatarUrl: string;
+};
+
+const UserCard = ({ avatarUrl }: Props) => {
   return (
     <UserCard.Container>
-      <Avatar />
+      <Avatar avatarUrl={avatarUrl} />
       <Description />
     </UserCard.Container>
   );

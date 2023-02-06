@@ -33,21 +33,21 @@ import * as Yup from 'yup';
 
 export enum ProfileFormItemName {
   AVATAR = 'avatar',
-  NAME = 'name',
+  USER_NAME = 'username',
   BIO = 'bio',
-  PORTFOLIO_OR_WEBSITE = 'portfolio_or_website',
+  WEBSITE = 'webSite',
   TWITTER = 'twitter',
-  ADDITIONAL_SOCIAL_ACCOUNT = 'additional_social_accout',
+  SOCIAL_ACCOUNT = 'socialAccount',
   PHOTO_OF_DOCUMENTS = 'photo_of_documents',
 }
 
 const FORM_SCHEMA = Yup.object().shape({
   [ProfileFormItemName.AVATAR]: Yup.array().length(1),
-  [ProfileFormItemName.NAME]: Yup.string().required(
+  [ProfileFormItemName.USER_NAME]: Yup.string().required(
     'Field network is required',
   ),
   [ProfileFormItemName.BIO]: Yup.string().required('Field bio is required'),
-  [ProfileFormItemName.PORTFOLIO_OR_WEBSITE]: Yup.string()
+  [ProfileFormItemName.WEBSITE]: Yup.string()
     .matches(
       /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
       'Enter correct url!',
@@ -56,7 +56,7 @@ const FORM_SCHEMA = Yup.object().shape({
   [ProfileFormItemName.TWITTER]: Yup.string().required(
     'Field twitter is required',
   ),
-  [ProfileFormItemName.ADDITIONAL_SOCIAL_ACCOUNT]: Yup.string()
+  [ProfileFormItemName.SOCIAL_ACCOUNT]: Yup.string()
     .matches(
       /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
       'Enter correct url!',
