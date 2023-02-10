@@ -1,3 +1,4 @@
+import { SelectItem } from '../../ui-kit/Select/types';
 import { Participant } from './types';
 
 const sellers: Participant[] = [
@@ -33,4 +34,15 @@ const sellers: Participant[] = [
   },
 ];
 
-export { sellers };
+const dates: SelectItem[] = [
+  {
+    label: 'Today',
+    value: '1',
+  },
+  {
+    label: 'Tomorrow',
+    value: '2',
+  },
+];
+
+export { sellers, dates };

@@ -1,24 +1,28 @@
+import moment from 'moment';
 import { memo } from 'react';
 import styled from 'styled-components';
-import { TNotification } from './types';
+import { INotification } from '../../../../swagger';
 
-type Props = TNotification;
+type Props = INotification;
+
 const NotificationItem: React.FC<Props> = ({
-  label,
+  title,
   message,
-  date,
+  createdAt,
   image,
-  viewed,
+  isRead,
 }) => {
   return (
     <NotificationItemWrapper>
       <NotificationImage image={image} />
       <NotificationInfo>
-        <NotificationLabel>{label}</NotificationLabel>
+        <NotificationLabel>{title}</NotificationLabel>
         <NotificationMessage>{message}</NotificationMessage>
-        <NotificationDate>{date}</NotificationDate>
+        <NotificationDate>
+          {moment(createdAt).format('YYYY-MM-DD hh:mm')}
+        </NotificationDate>
       </NotificationInfo>
-      {!viewed && <NotificationViewed />}
+      {!isRead && <NotificationUnread />}
     </NotificationItemWrapper>
   );
 };
@@ -76,7 +80,7 @@ const NotificationDate = styled.div`
   color: #777e91;
 `;
 
-const NotificationViewed = styled.div`
+const NotificationUnread = styled.div`
   position: absolute;
   right: 16px;
   width: 12px;

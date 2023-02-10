@@ -25,6 +25,13 @@ import { Paths } from '../../../common/enums/paths';
 import { languages } from './constants';
 import { IUser } from '../../../common/interfaces';
 import SearchBar, { SearchBarType } from '../../ui-kit/SearchBar';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { TNotificationsState } from '../../../redux/slicers/notificationsSlicer/types';
+import {
+  getNotifications,
+  readNotification,
+  setIsRead,
+} from '../../../redux/slicers/notificationsSlicer/notificationsSlicer';
 
 type Props = {
   user: IUser | null;
@@ -49,7 +56,15 @@ const Header = ({
   handleUploadItemClose,
   handleUploadClick,
 }: Props) => {
+  const dispatch = useAppDispatch();
+
   const { screenSize } = useAdaptiveSlider();
+  const { notifications, loading } = useAppSelector<TNotificationsState>(
+    (state) => state.notifications,
+  );
+
+  const hasUnreadNotifications =
+    !!notifications.length && !!notifications.find((notif) => !notif.isRead);
 
   const handleSmallScreenClick = () => {
     setIsSmallScreenMenuVisible((prev) => !prev);
@@ -63,6 +78,25 @@ const Header = ({
     handleUploadClick()();
     handleMenuClose();
   };
+
+  const handleNotificationClick = () => {
+    const unreadNotifications = notifications.filter((notif) => !notif.isRead);
+
+    console.log('click!');
+    unreadNotifications.forEach((notif) => {
+      dispatch(readNotification(notif._id));
+    });
+  };
+
+  const handleReadNotifications = () => {
+    dispatch(setIsRead());
+  };
+
+  useEffect(() => {
+    if (user) {
+      dispatch(getNotifications());
+    }
+  }, [dispatch, user]);
 
   useEffect(() => {
     if (user) {
@@ -85,12 +119,24 @@ const Header = ({
                 </Button>
               </Link>
               <SearchBar type={SearchBarType.WITH_ICON} />
-              <Tooltip
-                content={<NotificationCard screenSize={screenSize} />}
-                position={TooltipPosition.Center}
-              >
-                <Notifications />
-              </Tooltip>
+              {user && (
+                <Tooltip
+                  content={
+                    <NotificationCard
+                      screenSize={screenSize}
+                      notifications={notifications}
+                      loading={loading}
+                    />
+                  }
+                  position={TooltipPosition.Center}
+                  onClickOutside={handleReadNotifications}
+                >
+                  <Notifications
+                    hasUnreadNotifications={hasUnreadNotifications}
+                    onClick={handleNotificationClick}
+                  />
+                </Tooltip>
+              )}
               {!user && (
                 <AnonymousActionButtons>
                   <Button
@@ -159,12 +205,24 @@ const Header = ({
             <Link href={Paths.EMPTY}>
               <Logo />
             </Link>
-            <Tooltip
-              content={<NotificationCard screenSize={screenSize} />}
-              position={TooltipPosition.Center}
-            >
-              <Notifications />
-            </Tooltip>
+            {user && (
+              <Tooltip
+                content={
+                  <NotificationCard
+                    screenSize={screenSize}
+                    notifications={notifications}
+                    loading={loading}
+                  />
+                }
+                position={TooltipPosition.Center}
+                onClickOutside={handleReadNotifications}
+              >
+                <Notifications
+                  onClick={handleNotificationClick}
+                  hasUnreadNotifications={hasUnreadNotifications}
+                />
+              </Tooltip>
+            )}
             <RoundButton onClick={handleSmallScreenClick} type="button">
               {isSmallScreenMenuVisible ? (
                 <CircleCloseSVG color="#777E91" />

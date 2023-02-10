@@ -8,10 +8,22 @@ import {
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import attachmentsReducer from './slicers/attachmentsSlicer';
 import authReducer from './slicers/authSlicer';
+import bidsReducer from './slicers/bidsSlicer';
+import collectionsReducer from './slicers/collectionsSlicer';
+import nftsReducer from './slicers/nftsSlicer';
+import notificationsReducer from './slicers/notificationsSlicer';
+import profileReducer from './slicers/profileSlicer';
+import userInteractionsReducer from './slicers/userInteractionsSlicer';
 
 const combinedReducer = combineReducers({
   auth: authReducer,
   attachments: attachmentsReducer,
+  notifications: notificationsReducer,
+  profile: profileReducer,
+  userInteractions: userInteractionsReducer,
+  bids: bidsReducer,
+  collections: collectionsReducer,
+  nfts: nftsReducer,
 });
 
 const reducer = (

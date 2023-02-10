@@ -2,12 +2,17 @@ import { useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { devices } from '../../../common/constants';
+import { OpenAPI } from '../../../swagger';
 import { FormItem } from '../../ui-kit';
 import { ProfileFormItemName } from '../common/constants';
 import { FormName } from '../common/enums';
 import AvatarUploader from './FileUploader';
 
-const Avatar = () => {
+type Props = {
+  avatarUrl: string;
+};
+
+const Avatar = ({ avatarUrl }: Props) => {
   const [imageUrl, setImageUrl] = useState<
     string | ArrayBuffer | null | undefined
   >(`url('/images/profile-photo.png')`);
@@ -20,11 +25,19 @@ const Avatar = () => {
   useEffect(() => {
     if (!!values.avatar?.length) {
       const reader = new FileReader();
+
       reader.onload = (e: ProgressEvent<FileReader>) =>
         setImageUrl(`url(${e.target?.result})`);
       reader.readAsDataURL(new Blob([(values.avatar ?? [])[0]]));
     }
-  }, [values.avatar]);
+  }, [values?.avatar]);
+
+  useEffect(() => {
+    setImageUrl(`url(${OpenAPI.BASE}/${avatarUrl})`);
+  }, [avatarUrl]);
+
+  console.log('imageUrl =', imageUrl);
+  console.log('avatarUrl =', avatarUrl);
 
   return (
     <Avatar.Container>

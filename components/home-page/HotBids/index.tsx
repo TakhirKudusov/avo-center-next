@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { devices } from '../../../common/constants';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { getHotBids } from '../../../redux/slicers/bidsSlicer/bidsSlicer';
+import { TBidsState } from '../../../redux/slicers/bidsSlicer/types';
 import { ContentContainer, FlexContainer } from '../../common';
 import BidItem from '../../common/components/BidItem';
 import { ReactSlick } from '../../ui-kit';
@@ -10,6 +14,17 @@ import { hotBids } from './constants';
 const HotBids = () => {
   const { screenSize, slidesPerRow } = useAdaptiveSlider(4);
 
+  const dispatch = useAppDispatch();
+  const { bids } = useAppSelector<TBidsState>(
+    (state) => state.bids,
+  );
+
+  // console.log('hotBids =', bids);
+
+  useEffect(() => {
+    dispatch(getHotBids());
+  }, [dispatch]);
+
   return (
     <HotBidsWrapper>
       <FlexContainer>
@@ -18,7 +33,7 @@ const HotBids = () => {
             <HotBidsTitle>Hot bid</HotBidsTitle>
           </HotBidsHeader>
           <ReactSlick screenSize={screenSize} slidesPerRow={slidesPerRow}>
-            {hotBids.map((bid, index) => (
+            {bids.map((bid, index) => (
               <BidItem key={`bid-item-${index}`} bid={bid} />
             ))}
           </ReactSlick>

@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import { devices } from '../../../common/constants';
-import { Collection } from './types';
+import { ICollection } from '../../../swagger';
+// import { Collection } from './types';
 
 type Props = {
-  collection: Collection;
+  collection: ICollection;
 };
+
 const CollectionItem: React.FC<Props> = ({ collection }) => {
-  const [first, ...others] = collection.items;
+  const [first, ...others] = collection.nftList;
 
   return (
     <CollectionItemWrapper>
@@ -24,17 +26,17 @@ const CollectionItem: React.FC<Props> = ({ collection }) => {
         <CollectionAuthor>
           <CollectionAuthorAvatar
             style={{
-              backgroundImage: `url(/images/${collection.author.avatar})`,
+              backgroundImage: `url(/images/${collection.owner.avatar})`,
             }}
           />
           <CollectionAuthorCaption>
             By
-            <CollectionAuthorName>
-              {collection.author.name}
-            </CollectionAuthorName>
+            <CollectionAuthorName>{collection.owner.name}</CollectionAuthorName>
           </CollectionAuthorCaption>
         </CollectionAuthor>
-        <CollectionItemsNumber>{collection.length} items</CollectionItemsNumber>
+        <CollectionItemsNumber>
+          {collection.nftList.length} items
+        </CollectionItemsNumber>
       </CollectionInfo>
     </CollectionItemWrapper>
   );

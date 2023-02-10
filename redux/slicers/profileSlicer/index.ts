@@ -1,1 +1,1 @@
-export { initialState } from './profileSlicer';
+export { default } from './profileSlicer';

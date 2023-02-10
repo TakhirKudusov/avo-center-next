@@ -4,12 +4,20 @@ import { AttachmentsService } from '../../../swagger';
 import { TAttachmentsState } from './types';
 
 export const addAttachment = createAsyncThunk<
-  string,
+  any,
   File,
   { rejectValue: string }
 >('attachments/addAttachment', async function (payload): Promise<any> {
   return await AttachmentsService.uploadAttachments(payload);
 });
+
+// export const seeUploadedFile = createAsyncThunk<
+//   Blob,
+//   string,
+//   { rejectValue: string }
+// >('attachments/seeUploadedFile', async function (payload): Promise<any> {
+//   return await AttachmentsService.seeUploadedFile(payload);
+// });
 
 const initialState: TAttachmentsState = {
   file: null,
@@ -31,7 +39,7 @@ const attachmentsSlicer = createSlice({
       .addCase(addAttachment.pending, handlePending)
       .addCase(addAttachment.fulfilled, (state, action) => {
         console.log(action.payload);
-        state.fileUrl = action.payload;
+        state.fileUrl = action.payload[0].fileName;
         state.loading = false;
         // openSuccessNotification('Вы успешно авторизованы!');
         console.log('fulfilled');
