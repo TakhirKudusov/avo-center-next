@@ -1,14 +1,18 @@
 import styled from 'styled-components';
-import { TableHead } from './types';
-import { FC } from 'react';
-import { Bid, Collection, Nft, User } from '../../../../redux/APIs/types';
+import { TableContent, TableHead } from './types';
+import { FC, ReactNode, useState } from 'react';
+import ModalInfo from '../modal_info/ModalInfo';
 
 type TableProps = {
   head: TableHead[];
-  content: Nft[] | User[] | Collection[] | Bid[] | undefined;
+  content: TableContent[] | undefined;
+  form: ReactNode;
 };
 
-const Table: FC<TableProps> = ({ head, content }) => {
+const Table: FC<TableProps> = ({ head, content, form }) => {
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<TableContent | null>(null);
+
   const handleFormatCellContent = (el: string) => {
     if (el.length > 15) {
       return el.substring(0, 15) + '...';
@@ -16,50 +20,68 @@ const Table: FC<TableProps> = ({ head, content }) => {
     return el;
   };
 
+  const handleRowClick = (content: TableContent) => () => {
+    setModalData(content);
+    setIsModalOpened(true);
+  };
+
   return (
-    <Container>
-      <Header>
-        <Row>
-          {head?.map((el) => {
+    <>
+      <Container>
+        <Header>
+          <Row>
+            {head?.map((el) => {
+              return (
+                <Head
+                  style={{ width: el.width }}
+                  className={el.id === 1 ? 'table__header__first_child' : ''}
+                  title={el.name}
+                  key={el.id}
+                >
+                  <Divider /> {el.name}
+                </Head>
+              );
+            })}
+          </Row>
+        </Header>
+        <Body>
+          {content?.map((el, index) => {
             return (
-              <Head
-                style={{ width: el.width }}
-                className={el.id === 1 ? 'table__header__first_child' : ''}
-                title={el.name}
-                key={el.id}
+              <Row
+                key={index}
+                className="table__body__row"
+                onClick={handleRowClick(el)}
               >
-                <Divider /> {el.name}
-              </Head>
+                {Object.values(el)?.map((el, index) => {
+                  return (
+                    <Cell style={{ width: head[index].width }} key={index}>
+                      {typeof el !== 'object' ? (
+                        handleFormatCellContent(el)
+                      ) : (
+                        <StyledUl>
+                          {el?.map((el, index) => {
+                            return (
+                              <li key={index}>{handleFormatCellContent(el)}</li>
+                            );
+                          })}
+                        </StyledUl>
+                      )}
+                    </Cell>
+                  );
+                })}
+              </Row>
             );
           })}
-        </Row>
-      </Header>
-      <Body>
-        {content?.map((el, index) => {
-          return (
-            <Row key={index}>
-              {Object.values(el)?.map((el, index) => {
-                return (
-                  <Cell style={{ width: head[index].width }} key={index}>
-                    {typeof el !== 'object' ? (
-                      handleFormatCellContent(el)
-                    ) : (
-                      <StyledUl>
-                        {el?.map((el, index) => {
-                          return (
-                            <li key={index}>{handleFormatCellContent(el)}</li>
-                          );
-                        })}
-                      </StyledUl>
-                    )}
-                  </Cell>
-                );
-              })}
-            </Row>
-          );
-        })}
-      </Body>
-    </Container>
+        </Body>
+      </Container>
+      <ModalInfo
+        data={modalData}
+        isOpened={isModalOpened}
+        setIsOpened={setIsModalOpened}
+      >
+        {form}
+      </ModalInfo>
+    </>
   );
 };
 
@@ -117,8 +139,11 @@ const Head = styled.th`
 const Row = styled.tr`
   display: flex;
   width: 100%;
+  &.table__body__row {
+    cursor: pointer;
+  }
   &:hover {
-    & * {
+    &.table__body__row * {
       background-color: #fcfcfd;
     }
   }

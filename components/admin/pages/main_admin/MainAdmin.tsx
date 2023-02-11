@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import { AdminRoute } from '../utils/routes';
+import { AdminRoute } from '../../utils/routes';
 
 const MainAdmin = () => {
   const router = useRouter();

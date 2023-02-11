@@ -1,4 +1,4 @@
-import { TableHead } from '../UI/table/types';
+import { TableHead } from '../../UI/table/types';
 
 const tableHead: TableHead[] = [
   {

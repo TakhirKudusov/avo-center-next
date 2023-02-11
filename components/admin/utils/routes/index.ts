@@ -10,4 +10,7 @@ export enum AdminRoute {
   CATEGORIES = '/admin/categories',
   BILLING = '/admin/billing',
   TOKEN = '/admin/token',
+  FAQS = '/admin/faqs',
+  REPORTS = '/admin/reports',
+  NOTIFICATIONS = '/admin/notifications',
 }

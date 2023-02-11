@@ -3,17 +3,17 @@ import AdminLayout from '../../../components/admin/layout';
 import dynamic from 'next/dynamic';
 import LoadingSpinner from '../../../components/admin/UI/loading_spinner/LoadingSpinner';
 
-const LoginPage = dynamic(
-  () => import('../../../components/admin/pages/login_page/Login'),
+const Faqs = dynamic(
+  () => import('../../../components/admin/pages/faqs_page/Faqs'),
   {
     loading: () => <LoadingSpinner />,
   },
 );
 
-const Login: ComponentWithLayout = () => {
-  return <LoginPage />;
+const FaqsPage: ComponentWithLayout = () => {
+  return <Faqs />;
 };
 
-Login.PageLayout = AdminLayout;
+FaqsPage.PageLayout = AdminLayout;
 
-export default Login;
+export default FaqsPage;

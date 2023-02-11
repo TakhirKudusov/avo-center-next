@@ -35,6 +35,12 @@ export const adminApi = createApi({
         return handleTransformBidsData(baseQueryReturnValue.data);
       },
     }),
+    getFaqs: builder.query({
+      query: () => `bids`,
+      transformResponse: (baseQueryReturnValue: { data: BidsData[] }) => {
+        return handleTransformBidsData(baseQueryReturnValue.data);
+      },
+    }),
   }),
 });
 

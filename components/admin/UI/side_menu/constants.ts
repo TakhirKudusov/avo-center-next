@@ -66,4 +66,39 @@ const token = [
   },
 ];
 
-export { NFT, users, authors, wallets, categories, billing, token };
+const faqs = [
+  {
+    id: 1,
+    name: 'FAQs',
+    link: AdminRoute.FAQS,
+  },
+];
+
+const reports = [
+  {
+    id: 1,
+    name: 'Reports',
+    link: AdminRoute.REPORTS,
+  },
+];
+
+const notifications = [
+  {
+    id: 1,
+    name: 'Notifications',
+    link: AdminRoute.NOTIFICATIONS,
+  },
+];
+
+export {
+  NFT,
+  users,
+  authors,
+  wallets,
+  categories,
+  billing,
+  token,
+  faqs,
+  reports,
+  notifications,
+};

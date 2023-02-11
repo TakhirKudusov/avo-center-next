@@ -3,7 +3,6 @@ import {
   FC,
   SetStateAction,
   SyntheticEvent,
-  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -22,11 +21,17 @@ import {
   authors,
   billing,
   categories,
+  faqs,
   NFT,
+  notifications,
+  reports,
   token,
   users,
   wallets,
 } from './constants';
+import { Report } from '@styled-icons/octicons/Report';
+import { NotificationsNone } from '@styled-icons/material-outlined';
+import { Question } from '@styled-icons/octicons/Question';
 
 type Props = {
   isOpen: boolean;
@@ -75,6 +80,13 @@ const SideMenu: FC<Props> = ({ isOpen, setIsOpen }) => {
           />
           <NavPoint header="Billing" Icon={Coin} subPoint={billing} />
           <NavPoint header="Token" Icon={CurrencyBitcoin} subPoint={token} />
+          <NavPoint header="Faqs" Icon={Question} subPoint={faqs} />
+          <NavPoint header="Reports" Icon={Report} subPoint={reports} />
+          <NavPoint
+            header="Notifications"
+            Icon={NotificationsNone}
+            subPoint={notifications}
+          />
         </NavContainer>
       </MenuBody>
     </Wrapper>

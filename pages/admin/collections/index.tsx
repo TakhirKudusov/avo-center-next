@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import LoadingSpinner from '../../../components/admin/UI/loading_spinner/LoadingSpinner';
 
 const Collections = dynamic(
-  () => import('../../../components/admin/collections_page/Collections'),
+  () => import('../../../components/admin/pages/collections_page/Collections'),
   {
     loading: () => <LoadingSpinner />,
   },

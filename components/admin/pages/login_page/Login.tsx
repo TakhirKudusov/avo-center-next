@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import Form from '../../ui-kit/Form';
+import Form from '../../../ui-kit/Form';
 import { useContext, useRef } from 'react';
-import { Button, ButtonType, FormItem, Input } from '../../ui-kit';
+import { Button, ButtonType, FormItem, Input } from '../../../ui-kit';
 import { LoginPlaceholder, LoginTitle } from './enums';
 import { FORM_SCHEMA } from './constants';
 import { useRouter } from 'next/router';
-import { AdminRoute } from '../utils/routes';
-import { AppContext } from '../../../common/context/AppContext';
+import { AdminRoute } from '../../utils/routes';
+import { AppContext } from '../../../../common/context/AppContext';
 
 const Login = () => {
   const formRef = useRef<HTMLFormElement>(null);
