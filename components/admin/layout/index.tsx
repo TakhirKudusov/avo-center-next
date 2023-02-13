@@ -11,6 +11,7 @@ import { AppContext } from '../../../common/context/AppContext';
 
 const AdminLayout: FC<ChildrenProp> = ({ children }) => {
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+  const [isLogged, setIsLogged] = useState<boolean>(false);
 
   const { setIsMenuDisabled } = useContext(AppContext);
 
@@ -29,17 +30,24 @@ const AdminLayout: FC<ChildrenProp> = ({ children }) => {
   };
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn === 'true') {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
       setIsMenuDisabled!(false);
+      setIsLogged(true);
       if (router.route === AdminRoute.LOGIN) {
-        setIsMenuOpened(false);
         router.push(AdminRoute.MAIN);
       }
     } else {
+      setIsLogged(false);
+      setIsMenuDisabled!(true);
       router.push(AdminRoute.LOGIN);
     }
-  }, []);
+  }, [router.asPath]);
+
+  const handleExitClick = () => {
+    localStorage.removeItem('accessToken');
+    router.push(AdminRoute.LOGIN);
+  };
 
   return (
     <>
@@ -49,6 +57,9 @@ const AdminLayout: FC<ChildrenProp> = ({ children }) => {
             <LogoWrapper onClickCapture={handleLogoClick}>
               <StyledLogo isAdmin={true} />
             </LogoWrapper>
+            {isLogged && (
+              <ExitButton onClick={handleExitClick}>Exit</ExitButton>
+            )}
             <BurgerIconContainer onClick={handleMenuBtnClick}>
               <BurgerSVG />
             </BurgerIconContainer>
@@ -70,28 +81,30 @@ const AdminLayout: FC<ChildrenProp> = ({ children }) => {
               <MenuWrapper>
                 <BottomMenuHeader>Navigation</BottomMenuHeader>
                 <FooterMenuContainer>
-                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.NFT)}>
-                    NFT
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.NFTs)}>
+                    NFTs
                   </BottomMenuItem>
                   <BottomMenuItem onClick={handleMenuClick(AdminRoute.USERS)}>
                     Users
                   </BottomMenuItem>
-                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.AUTHORS)}>
-                    Authors
-                  </BottomMenuItem>
-                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.WALLETS)}>
-                    Wallets
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.BIDS)}>
+                    Bids
                   </BottomMenuItem>
                   <BottomMenuItem
                     onClick={handleMenuClick(AdminRoute.CATEGORIES)}
                   >
                     Categories
                   </BottomMenuItem>
-                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.BILLING)}>
-                    Billing
+                  <BottomMenuItem
+                    onClick={handleMenuClick(AdminRoute.COLLECTIONS)}
+                  >
+                    Collections
                   </BottomMenuItem>
-                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.TOKEN)}>
-                    Token
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.FAQS)}>
+                    FAQs
+                  </BottomMenuItem>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.REPORTS)}>
+                    Reports
                   </BottomMenuItem>
                 </FooterMenuContainer>
               </MenuWrapper>
@@ -107,6 +120,22 @@ const AdminLayout: FC<ChildrenProp> = ({ children }) => {
     </>
   );
 };
+
+const ExitButton = styled.p`
+  font-weight: 600;
+  font-size: 16px;
+  color: #777e91;
+  width: 100%;
+  text-align: end;
+  margin-right: 15px;
+  cursor: pointer;
+  &:hover {
+    color: rgba(0, 0, 0, 0.75);
+  }
+  &:active {
+    color: rgb(0, 0, 0);
+  }
+`;
 
 const CopyrightText = styled.div`
   display: flex;

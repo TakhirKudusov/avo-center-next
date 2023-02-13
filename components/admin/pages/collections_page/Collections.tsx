@@ -6,6 +6,7 @@ import { useGetCollectionsQuery } from '../../../../redux/APIs/adminApi';
 import LoadingSpinner from '../../UI/loading_spinner/LoadingSpinner';
 import Table from '../../UI/table/Table';
 import { tableHead } from './constants';
+import Form from './Form';
 
 const Collections = () => {
   const { data, isLoading, isError } = useGetCollectionsQuery('');
@@ -18,7 +19,7 @@ const Collections = () => {
         {isLoading && !isError ? (
           <LoadingSpinner />
         ) : (
-          <Table content={data} head={tableHead} />
+          <Table content={data} head={tableHead} form={<Form />} />
         )}
       </TableContainer>
     </ContentContainer>

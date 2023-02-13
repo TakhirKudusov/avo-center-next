@@ -7,19 +7,28 @@ import { FORM_SCHEMA } from './constants';
 import { useRouter } from 'next/router';
 import { AdminRoute } from '../../utils/routes';
 import { AppContext } from '../../../../common/context/AppContext';
+import { useLazyAdminLoginQuery } from '../../../../redux/APIs/adminApi';
+import { FormikProps } from 'formik';
 
 const Login = () => {
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { setIsMenuDisabled } = useContext(AppContext);
-
   const router = useRouter();
 
-  const handleSubmit = (values: any, formikProps: any) => {
-    console.log(values, formikProps);
-    localStorage.setItem('isLoggedIn', 'true');
+  const [getLoggedIn, { data, isLoading, error }] = useLazyAdminLoginQuery();
+
+  const handleSubmit = async (values: any, formikProps: FormikProps<any>) => {
+    const data = await getLoggedIn(values);
+    if (data.isError) {
+      formikProps.setErrors({
+        login: 'Wrong login or password',
+        password: 'Wrong login or password',
+      });
+      return;
+    }
+    const accessToken = data.data.accessToken.accessToken;
+    localStorage.setItem('accessToken', 'accessToken');
     router.push(AdminRoute.MAIN);
-    setIsMenuDisabled!(false);
   };
 
   return (
@@ -35,8 +44,8 @@ const Login = () => {
             <LoginHeader>AVO Admin</LoginHeader>
             <FormItemContainer>
               <StyledFormItem
-                title={LoginTitle.USERNAME}
-                name={LoginTitle.USERNAME}
+                title={LoginTitle.LOGIN}
+                name={LoginTitle.LOGIN}
                 placeholder={LoginPlaceholder.USERNAME}
                 component={Input}
               />

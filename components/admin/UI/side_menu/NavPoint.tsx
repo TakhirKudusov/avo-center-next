@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import {
+  Dispatch,
   FC,
   ReactNode,
+  SetStateAction,
   SyntheticEvent,
   useContext,
   useEffect,
@@ -17,9 +19,17 @@ type Props = {
   header: string;
   subPoint: { id: number; name: string; link: AdminRoute }[];
   Icon: ReactNode | any;
+  setMenuOpen: Dispatch<SetStateAction<boolean>>;
+  setMenuSlide: Dispatch<SetStateAction<boolean>>;
 };
 
-const NavPoint: FC<Props> = ({ header, subPoint, Icon }) => {
+const NavPoint: FC<Props> = ({
+  header,
+  subPoint,
+  Icon,
+  setMenuOpen,
+  setMenuSlide,
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { isMenuDisabled } = useContext(AppContext);
@@ -38,6 +48,8 @@ const NavPoint: FC<Props> = ({ header, subPoint, Icon }) => {
 
   const handlePointClick = (endpoint: AdminRoute) => () => {
     router.push(endpoint);
+    setMenuSlide(false);
+    setTimeout(() => setMenuOpen(false), 250);
   };
 
   return (

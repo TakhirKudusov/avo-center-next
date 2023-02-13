@@ -6,6 +6,7 @@ import { useGetUsersQuery } from '../../../../redux/APIs/adminApi';
 import LoadingSpinner from '../../UI/loading_spinner/LoadingSpinner';
 import { tableHead } from './constants';
 import Table from '../../UI/table/Table';
+import Form from './Form';
 
 const Users = () => {
   const { data, isLoading, isError } = useGetUsersQuery('');
@@ -18,7 +19,7 @@ const Users = () => {
         {isLoading && !isError ? (
           <LoadingSpinner />
         ) : (
-          <Table content={data} head={tableHead} />
+          <Table content={data} head={tableHead} form={<Form />} />
         )}
       </TableContainer>
     </ContentContainer>

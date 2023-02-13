@@ -3,17 +3,18 @@ import AdminLayout from '../../../components/admin/layout';
 import dynamic from 'next/dynamic';
 import LoadingSpinner from '../../../components/admin/UI/loading_spinner/LoadingSpinner';
 
-const Collections = dynamic(
-  () => import('../../../components/admin/pages/collections_page/Collections'),
+const Verifications = dynamic(
+  () =>
+    import('../../../components/admin/pages/verifications_page/Verifications'),
   {
     loading: () => <LoadingSpinner />,
   },
 );
 
-const CollectionsPage: ComponentWithLayout = () => {
-  return <Collections />;
+const VerificationsPage: ComponentWithLayout = () => {
+  return <Verifications />;
 };
 
-CollectionsPage.PageLayout = AdminLayout;
+VerificationsPage.PageLayout = AdminLayout;
 
-export default CollectionsPage;
+export default VerificationsPage;

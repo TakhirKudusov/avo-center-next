@@ -14,7 +14,7 @@ const MainAdmin = () => {
       <PageHeader>Welcome to the AVO Admin</PageHeader>
       <MenuContainer>
         <MenuCard
-          onClick={handleCardClick(AdminRoute.NFT)}
+          onClick={handleCardClick(AdminRoute.NFTs)}
           image="/images/admin_images/menu_1.webp"
         >
           <CardInfoContainer>
@@ -30,43 +30,43 @@ const MainAdmin = () => {
           </CardInfoContainer>
         </MenuCard>
         <MenuCard
-          onClick={handleCardClick(AdminRoute.AUTHORS)}
+          onClick={handleCardClick(AdminRoute.BIDS)}
           image="/images/admin_images/menu_3.webp"
         >
           <CardInfoContainer>
-            <CardHeader>Manage authors</CardHeader>
-          </CardInfoContainer>
-        </MenuCard>
-        <MenuCard
-          onClick={handleCardClick(AdminRoute.WALLETS)}
-          image="/images/admin_images/menu_4.webp"
-        >
-          <CardInfoContainer>
-            <CardHeader>Manage wallets</CardHeader>
+            <CardHeader>Manage bids</CardHeader>
           </CardInfoContainer>
         </MenuCard>
         <MenuCard
           onClick={handleCardClick(AdminRoute.CATEGORIES)}
-          image="/images/admin_images/menu_5.webp"
+          image="/images/admin_images/menu_4.webp"
         >
           <CardInfoContainer>
             <CardHeader>Manage categories</CardHeader>
           </CardInfoContainer>
         </MenuCard>
         <MenuCard
-          onClick={handleCardClick(AdminRoute.BILLING)}
-          image="/images/admin_images/menu_6.webp"
+          onClick={handleCardClick(AdminRoute.COLLECTIONS)}
+          image="/images/admin_images/menu_5.webp"
         >
           <CardInfoContainer>
-            <CardHeader>Manage billings</CardHeader>
+            <CardHeader>Manage collections</CardHeader>
           </CardInfoContainer>
         </MenuCard>
         <MenuCard
-          onClick={handleCardClick(AdminRoute.TOKEN)}
+          onClick={handleCardClick(AdminRoute.FAQS)}
+          image="/images/admin_images/menu_6.webp"
+        >
+          <CardInfoContainer>
+            <CardHeader>Manage FAQs</CardHeader>
+          </CardInfoContainer>
+        </MenuCard>
+        <MenuCard
+          onClick={handleCardClick(AdminRoute.REPORTS)}
           image="/images/admin_images/menu_7.webp"
         >
           <CardInfoContainer>
-            <CardHeader>Manage Token</CardHeader>
+            <CardHeader>Manage reports</CardHeader>
           </CardInfoContainer>
         </MenuCard>
       </MenuContainer>

@@ -9,29 +9,8 @@ import {
 import styled from 'styled-components';
 import CloseIcon from '../../../../assets/svg/close-icon.svg';
 import { Divider } from '../../../ui-kit';
+import { sideMenuArr } from './constants';
 import NavPoint from './NavPoint';
-import { ImageOutline } from '@styled-icons/evaicons-outline/ImageOutline';
-import { UserAstronaut } from '@styled-icons/fa-solid/UserAstronaut';
-import { User } from '@styled-icons/fa-regular/User';
-import { Wallet } from '@styled-icons/ionicons-outline/Wallet';
-import { CategoryAlt } from '@styled-icons/boxicons-regular/CategoryAlt';
-import { Coin } from '@styled-icons/bootstrap/Coin';
-import { CurrencyBitcoin } from '@styled-icons/bootstrap/CurrencyBitcoin';
-import {
-  authors,
-  billing,
-  categories,
-  faqs,
-  NFT,
-  notifications,
-  reports,
-  token,
-  users,
-  wallets,
-} from './constants';
-import { Report } from '@styled-icons/octicons/Report';
-import { NotificationsNone } from '@styled-icons/material-outlined';
-import { Question } from '@styled-icons/octicons/Question';
 
 type Props = {
   isOpen: boolean;
@@ -69,24 +48,20 @@ const SideMenu: FC<Props> = ({ isOpen, setIsOpen }) => {
         </HeaderContainer>
         <Divider />
         <NavContainer>
-          <NavPoint header="NFT" Icon={ImageOutline} subPoint={NFT} />
-          <NavPoint header="Users" Icon={User} subPoint={users} />
-          <NavPoint header="Authors" Icon={UserAstronaut} subPoint={authors} />
-          <NavPoint header="Wallets" Icon={Wallet} subPoint={wallets} />
-          <NavPoint
-            header="Categories"
-            Icon={CategoryAlt}
-            subPoint={categories}
-          />
-          <NavPoint header="Billing" Icon={Coin} subPoint={billing} />
-          <NavPoint header="Token" Icon={CurrencyBitcoin} subPoint={token} />
-          <NavPoint header="Faqs" Icon={Question} subPoint={faqs} />
-          <NavPoint header="Reports" Icon={Report} subPoint={reports} />
-          <NavPoint
-            header="Notifications"
-            Icon={NotificationsNone}
-            subPoint={notifications}
-          />
+          {sideMenuArr.map(({ header, subPoints, Icon }) => {
+            return (
+              <>
+                <NavPoint
+                  key={header}
+                  header={header}
+                  subPoint={subPoints}
+                  Icon={Icon}
+                  setMenuOpen={setIsOpen}
+                  setMenuSlide={setMenuSlide}
+                />
+              </>
+            );
+          })}
         </NavContainer>
       </MenuBody>
     </Wrapper>

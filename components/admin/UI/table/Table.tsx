@@ -52,14 +52,14 @@ const Table: FC<TableProps> = ({ head, content, form }) => {
                 className="table__body__row"
                 onClick={handleRowClick(el)}
               >
-                {Object.values(el)?.map((el, index) => {
+                {Object.values(el)?.map((el: string | string[], index) => {
                   return (
                     <Cell style={{ width: head[index].width }} key={index}>
-                      {typeof el !== 'object' ? (
+                      {typeof el === 'string' ? (
                         handleFormatCellContent(el)
                       ) : (
                         <StyledUl>
-                          {el?.map((el, index) => {
+                          {el?.map((el, index: number) => {
                             return (
                               <li key={index}>{handleFormatCellContent(el)}</li>
                             );
