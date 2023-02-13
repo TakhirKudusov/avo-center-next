@@ -10,9 +10,11 @@ import attachmentsReducer from './slicers/attachmentsSlicer';
 import authReducer from './slicers/authSlicer';
 import bidsReducer from './slicers/bidsSlicer';
 import collectionsReducer from './slicers/collectionsSlicer';
+import discoverReducer from './slicers/discoverSlicer';
 import nftsReducer from './slicers/nftsSlicer';
 import notificationsReducer from './slicers/notificationsSlicer';
 import profileReducer from './slicers/profileSlicer';
+import searchReducer from './slicers/searchSlicer';
 import userInteractionsReducer from './slicers/userInteractionsSlicer';
 
 const combinedReducer = combineReducers({
@@ -24,6 +26,8 @@ const combinedReducer = combineReducers({
   bids: bidsReducer,
   collections: collectionsReducer,
   nfts: nftsReducer,
+  discover: discoverReducer,
+  search: searchReducer,
 });
 
 const reducer = (

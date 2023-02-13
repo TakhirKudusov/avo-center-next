@@ -5,7 +5,8 @@ import useConnectForm from '../useConnectForm';
 import { MultiRangeSliderValue } from './types';
 
 type Props = {
-  label: string;
+  label?: string;
+  value?: MultiRangeSliderValue;
   min: number;
   max: number;
   form?: FormikProps<any>;
@@ -17,6 +18,7 @@ type Props = {
 
 const MultiRangeSlider = ({
   label,
+  value,
   form,
   field,
   hasSchema,
@@ -25,8 +27,8 @@ const MultiRangeSlider = ({
   step = 0.1,
   onChange,
 }: Props) => {
-  const [minVal, setMinVal] = useState(min);
-  const [maxVal, setMaxVal] = useState(max);
+  const [minVal, setMinVal] = useState(value ? value.min : min);
+  const [maxVal, setMaxVal] = useState(value ? value.max : max);
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
   const range = useRef<HTMLDivElement | null>(null);
@@ -133,6 +135,7 @@ const Container = styled.div`
   justify-content: center;
   margin-bottom: 60px;
   width: 256px;
+  padding-right: 7px;
 `;
 
 const Slider = styled.div`

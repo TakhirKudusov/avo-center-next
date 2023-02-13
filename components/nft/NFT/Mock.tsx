@@ -19,6 +19,6 @@ export const infoTabMock = {
   cotractAdress: '0xf8C2gasd31EfgasdasTR13292d3',
   tokeId: 15,
   tokenStandard: 'ERC-1155',
-  blockchain: 'Polygon',
+  blockchain: 'BNB Smart Chain',
   creatorFees: 5,
 };

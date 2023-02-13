@@ -78,7 +78,7 @@ const Select: React.FC<Props & TFormFieldProps> = ({
     };
 
   return (
-    <SelectBody>
+    <SelectBody ref={wrapperRef}>
       <SelectHeader
         style={style}
         background={background}

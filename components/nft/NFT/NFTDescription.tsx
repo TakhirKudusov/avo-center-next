@@ -64,13 +64,13 @@ const NFTDescription: FC<Props> = ({ bid, data, screenSize }) => {
         <NFTActions
           isNFTOnSale={bid.nft.isOnSale}
           nftOwner={nftOwner}
-          price={bid.nft.salePrice}
+          price={(bid.nft as any).salePrice}
           convertedPrice={data.convertedPrice}
         />
       </NFTMenuContainer>
-      {screenSize === 'large' && (
+      {/* {screenSize === 'large' && (
         <NFTListingsBlock listingsData={data.listingsData} />
-      )}
+      )} */}
       {isOwnersModalOpen && (
         <Modal
           title="Owners"

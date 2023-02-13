@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import BidPrice from './BidPrice';
 import CandlesticksSVG from '../../../assets/svg/candlesticks.svg';
-import { Bid } from '../../home-page/HotBids/types';
 import { Button, ButtonSize, ButtonType, Counter } from '../../ui-kit';
 import LikeButton from '../../ui-kit/LikeButton';
 import { usePlaceBid } from '../../../common/hooks/usePlaceBid';
@@ -16,43 +15,48 @@ import {
   unlikeNft,
 } from '../../../redux/slicers/nftsSlicer/nftSlicer';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { IBid } from '../../../swagger';
+import { IBid, INFT } from '../../../swagger';
 import { TAuthState } from '../../../redux/types';
+import { useRouter } from 'next/router';
 
 type Props = {
-  bid: IBid;
+  item: IBid | INFT;
 };
 
-const BidItem: React.FC<Props> = ({ bid }) => {
+const BidItem: React.FC<Props> = ({ item }) => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
-
-  const { nft } = bid;
-  const userLike = nft?.likes.find((userId) => userId === user?.id);
-
+  const bid = (item as IBid).nft ? (item as IBid) : undefined;
+  const nftItem = bid?.nft ?? (item as INFT);
+  const userLike = nftItem?.likes?.find((userId) => userId === user?.id);
   const { setOpenConnectWallet } = useContext(ConnectWalletContext);
-
   const { screenSize } = useAdaptiveSlider();
-
   const { openPlaceBid, handlePlaceBidOpen, handlePlaceBidClose } =
     usePlaceBid(setOpenConnectWallet);
 
   const handleLikeNft = async (handleLike: () => void) => {
-    const result = await dispatch(likeNft(nft._id));
+    const result = await dispatch(likeNft(nftItem._id));
 
     if (result) handleLike();
   };
 
   const handleUnlikeNft = async (handleUnlike: () => void) => {
-    const result = await dispatch(unlikeNft(nft._id));
+    const result = await dispatch(unlikeNft(nftItem._id));
 
     if (result) handleUnlike();
   };
 
-  console.log(nft);
+  const handleBidClick = () => {
+    if (bid) {
+      router.push(`/bids/${bid._id}`);
+    } else {
+      router.push(`/nfts/${nftItem._id}`);
+    }
+  };
 
   return (
-    <BidWrapper>
+    <BidWrapper onClick={handleBidClick}>
       {/* <BidImage style={{ backgroundImage: `url(/images/${nft.fileUrl})` }}> */}
       <BidImage style={{ backgroundImage: `url(/images/)` }}>
         <LikeButtonWrapper>
@@ -66,7 +70,7 @@ const BidItem: React.FC<Props> = ({ bid }) => {
           style={{ color: '#fff', borderRadius: 10 }}
           size={ButtonSize.Large}
           btnType={ButtonType.Secondary}
-          onClick={handlePlaceBidOpen}
+          onClick={handlePlaceBidOpen as any}
         >
           Place a bid
           {/* <ArrowRightSVG style={{ marginLeft: '15px' }} /> */}
@@ -75,18 +79,18 @@ const BidItem: React.FC<Props> = ({ bid }) => {
       <BidBody>
         <BidInfo>
           <BidInfoRow>
-            <BidName>{nft?.name}</BidName>
+            <BidName>{nftItem?.name}</BidName>
             {/* <BidPrice value={avoAmonut} /> */}
             <BidPrice value={200} />
           </BidInfoRow>
           <BidInfoRow>
             <BidFeature>
               <BidFeatureCaption>Total:</BidFeatureCaption>
-              <BidFeatureValue>{nft?.total}</BidFeatureValue>
+              <BidFeatureValue>{nftItem?.total}</BidFeatureValue>
             </BidFeature>
             <BidFeature>
               <BidFeatureCaption>Available:</BidFeatureCaption>
-              <BidFeatureValue>{nft?.available}</BidFeatureValue>
+              <BidFeatureValue>{nftItem?.available}</BidFeatureValue>
             </BidFeature>
           </BidInfoRow>
         </BidInfo>
@@ -132,6 +136,7 @@ const BidWrapper = styled.div`
   overflow: hidden;
   width: 256px;
   display: inline-block;
+  cursor: pointer;
 
   &:nth-of-type(n) {
     margin-right: 32px;

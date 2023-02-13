@@ -60,7 +60,7 @@ const Discover = () => {
               />
             </SortItem>
           </SortRow>
-          <BidGrid items={BID_LIST} />
+          <BidGrid items={BID_LIST as any} />
           <ButtonWrapper>
             <Button size={ButtonSize.Medium} round={true} loading={true}>
               Load more

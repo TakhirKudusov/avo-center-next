@@ -129,7 +129,7 @@ const NFTActions: React.FC<Props> = ({
 
   const getButtonParameters = () =>
     nftOwner === NFT_OWNER.AUTHOR
-      ? getAuthorNFTButtons(handlePurchaseOpen, handlePlaceBidOpen)
+      ? getAuthorNFTButtons(handlePurchaseOpen, handlePlaceBidOpen as any)
       : getUserNFTButtons(
           isNFTOnSale,
           handlePutOnSaleOpen,

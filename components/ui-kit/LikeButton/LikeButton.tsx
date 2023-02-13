@@ -18,13 +18,14 @@ const LikeButton: React.FC<Props> = ({
 
   const likeNft = () => setIsLiked(!isLiked);
 
-  const handleLikeClick = () => {
+  const handleLikeClick = () => (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     if (isLiked) onUnlikeNft(likeNft);
     else onLikeNft(likeNft);
   };
 
   return (
-    <Wrapper isLiked={isLiked} onClick={handleLikeClick}>
+    <Wrapper isLiked={isLiked} onClick={handleLikeClick()}>
       <StyledSVG isLiked={isLiked} className={'heart-btn'} />
     </Wrapper>
   );
