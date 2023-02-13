@@ -27,7 +27,7 @@ const Login = () => {
       return;
     }
     const accessToken = data.data.accessToken.accessToken;
-    localStorage.setItem('accessToken', 'accessToken');
+    localStorage.setItem('accessToken', accessToken);
     router.push(AdminRoute.MAIN);
   };
 
