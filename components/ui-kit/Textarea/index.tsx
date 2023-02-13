@@ -14,6 +14,7 @@ type Props = {
   field?: FieldInputProps<any>;
   form?: FormikProps<any>;
   meta?: FieldMetaProps<any>;
+  hasResize?: boolean;
   onChange?: ChangeEventHandler<HTMLTextAreaElement>;
 };
 
@@ -28,6 +29,7 @@ const Textarea: React.FC<Props & TFormFieldProps> & {
   field,
   form,
   hasSchema,
+  hasResize,
   onChange,
 }) => {
   const [curValue, setCurValue] = useState<string | number>(
@@ -51,6 +53,7 @@ const Textarea: React.FC<Props & TFormFieldProps> & {
       onChange={handleChange}
       value={form?.values[field?.name!]}
       hasError={hasError}
+      hasResize={hasResize}
     />
   );
 };
@@ -59,6 +62,7 @@ const StyledTextarea = styled.textarea<{
   width?: number;
   height?: number;
   hasError?: boolean;
+  hasResize?: boolean;
 }>`
   font-family: 'Poppins', sans-serif;
   background-color: #fcfcfd;
@@ -72,7 +76,7 @@ const StyledTextarea = styled.textarea<{
   outline: none;
   width: ${({ width }) => (width ? `${width}px` : '100%')};
   height: ${({ height }) => (height ? `${height}px` : '100%')};
-  resize: none;
+  resize: ${({ hasResize }) => (hasResize ? 'vertical' : 'none')};
   &:focus {
     border-color: ${({ hasError }) =>
       hasError ? 'rgb(192,0,67)' : 'rgba(51, 51, 51, 0.5)'};

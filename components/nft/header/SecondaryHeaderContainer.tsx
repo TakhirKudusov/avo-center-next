@@ -4,22 +4,26 @@ import { memo } from 'react';
 import { NFT } from '../common/types';
 import { BidPriceWrapper } from '../../common/components/BidPrice';
 import { devices } from '../../../common/constants';
+import { IBid } from '../../../swagger';
 
 type Props = {
   data: Omit<NFT, 'image' | 'tags'>;
+  bid: IBid | null;
 };
 
-const SecondaryHeaderContainer: React.FC<Props> = ({ data }) => {
+const SecondaryHeaderContainer: React.FC<Props> = ({ bid, data }) => {
   return (
     <HeaderContainer>
-      <Header>{data?.title}</Header>
+      <Header>{bid?.nft.name}</Header>
       <ParametersContainer>
-        <NFTPrice>{data?.price} AVO</NFTPrice>
+        <NFTPrice>
+          {bid?.nft.salePrice ? `${bid?.nft.salePrice} AVO` : 'Not on sale'}
+        </NFTPrice>
         <ParameterParagraph>
-          Total: <span>{data?.total}</span>
+          Total: <span>{bid?.nft.total}</span>
         </ParameterParagraph>
         <ParameterParagraph>
-          Available: <span>{data?.available}</span>
+          Available: <span>{bid?.nft.available}</span>
         </ParameterParagraph>
       </ParametersContainer>
     </HeaderContainer>
@@ -31,11 +35,10 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-bottom: 40px;
+  padding-bottom: 32px;
 `;
 
 const Header = styled.h1`
-  height: 96px;
   font-family: 'DM Sans';
   font-weight: 700;
   font-size: 40px;

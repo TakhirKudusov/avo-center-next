@@ -1,11 +1,18 @@
+import { FC } from 'react';
 import styled from 'styled-components';
+
 import BellSVG from '../../../assets/svg/bell.svg';
 
-const Notifications = () => {
+type Props = {
+  hasUnreadNotifications: boolean;
+  onClick: () => void;
+};
+
+const Notifications: FC<Props> = ({ hasUnreadNotifications, onClick }) => {
   return (
-    <NotificationsWrapper>
+    <NotificationsWrapper onClick={onClick}>
       <BellSVG />
-      <NotificationRound />
+      {hasUnreadNotifications && <NotificationRound />}
     </NotificationsWrapper>
   );
 };

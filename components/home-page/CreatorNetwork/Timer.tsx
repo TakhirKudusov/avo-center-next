@@ -12,14 +12,12 @@ const Timer = ({ timeBeforeEnd }: Props) => {
 
   return (
     <TimerBody>
-      {timeValues
-        ?.splice(1, timeValues?.length)
-        .map(({ digit, value }, index) => (
-          <TimerItem key={index}>
-            <TimerValue>{value}</TimerValue>
-            <TimerLabel>{digit}</TimerLabel>
-          </TimerItem>
-        ))}
+      {timeValues?.map(({ digit, value }, index) => (
+        <TimerItem key={index}>
+          <TimerValue>{value}</TimerValue>
+          <TimerLabel>{digit}</TimerLabel>
+        </TimerItem>
+      ))}
     </TimerBody>
   );
 };
@@ -28,7 +26,7 @@ const TimerBody = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 200px;
+  width: 280px;
   margin: auto;
   margin-top: 8px;
 `;

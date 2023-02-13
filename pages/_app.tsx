@@ -16,6 +16,8 @@ function App({ Component, pageProps }: AppWithPageLayout) {
   OpenAPI.BASE = '/api';
 
   useEffect(() => {
+    OpenAPI.TOKEN = String(localStorage.getItem('accessToken'));
+
     const user = getUserInfo();
     dispatch(setUser(user));
   }, [dispatch]);

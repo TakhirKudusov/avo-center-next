@@ -19,6 +19,7 @@ type Props = {
   startStepBtnName?: string;
   confirmBtnName?: string;
   cancelBtnName?: string;
+  successWindow?: JSX.Element;
   childrenStageOnConfirm?: () => void;
   onClose: () => void;
 };
@@ -31,6 +32,7 @@ const StepModal: FC<Props> = ({
   startStepBtnName,
   confirmBtnName,
   cancelBtnName,
+  successWindow,
   childrenStageOnConfirm,
   onClose,
 }) => {
@@ -69,7 +71,7 @@ const StepModal: FC<Props> = ({
             return prev;
           }
 
-          if (currentStep === steps.length) {
+          if (currentStep === steps.length && !successWindow) {
             setTimeout(() => handleStepModalClose(), 1000);
 
             return prev + 1;
@@ -110,6 +112,10 @@ const StepModal: FC<Props> = ({
       return childrenStageTitle;
     }
 
+    if (stage === 'successWindow') {
+      return '';
+    }
+
     return 'Follow steps';
   };
 
@@ -118,6 +124,12 @@ const StepModal: FC<Props> = ({
       setStage('followSteps');
     }
   }, [children, isOpen]);
+
+  useEffect(() => {
+    if (!!successWindow && currentStep === steps.length + 1) {
+      setStage('successWindow');
+    }
+  }, [currentStep, isOpen, steps.length, successWindow]);
 
   return (
     <Modal
@@ -132,6 +144,8 @@ const StepModal: FC<Props> = ({
       <ModalContent isAnimate={isAnimate}>
         {stage === 'children' ? (
           <>{children}</>
+        ) : stage === 'successWindow' ? (
+          <>{successWindow}</>
         ) : (
           <>
             {steps.map((step) => (

@@ -10,9 +10,17 @@ import TokenActions from './TokenActions';
 
 type Props = {
   screenSize: 'large' | 'small';
+  likesNumber: number;
+  defaultLikesNumber: number;
+  onLikeClick: () => void;
 };
 
-const UserActionsButtonsGroup: React.FC<Props> = ({ screenSize }) => {
+const UserActionsButtonsGroup: React.FC<Props> = ({
+  screenSize,
+  likesNumber,
+  defaultLikesNumber,
+  onLikeClick,
+}) => {
   return (
     <Container screenSize={screenSize}>
       {screenSize === 'large' ? (
@@ -26,10 +34,17 @@ const UserActionsButtonsGroup: React.FC<Props> = ({ screenSize }) => {
             <ShareSVG />
           </RadioButton>
           <LikeButtonContainer>
-            <RadioButton>
+            <RadioButton
+              onClick={onLikeClick}
+              style={
+                likesNumber === defaultLikesNumber + 1
+                  ? { backgroundColor: '#ef46707d' }
+                  : {}
+              }
+            >
               <LoveSVG />
             </RadioButton>
-            <p>3</p>
+            <p>{likesNumber}</p>
           </LikeButtonContainer>
         </>
       ) : (
@@ -38,9 +53,17 @@ const UserActionsButtonsGroup: React.FC<Props> = ({ screenSize }) => {
             <ShareSVG />
           </RadioButton>
           <LikeButtonContainer>
-            <StyledRadioButton>
+            <StyledRadioButton
+              onClick={onLikeClick}
+              disabled={likesNumber === defaultLikesNumber + 1}
+              style={
+                likesNumber === defaultLikesNumber + 1
+                  ? { backgroundColor: '#ef46707d' }
+                  : {}
+              }
+            >
               <LoveSVG />
-              <p>3</p>
+              <p>{likesNumber}</p>
             </StyledRadioButton>
           </LikeButtonContainer>
           <Tooltip content={<TokenActions />} position={TooltipPosition.Right}>

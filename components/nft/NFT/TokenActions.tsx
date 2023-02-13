@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 
 import CoinSVG from '../../../assets/svg/coin.svg';
@@ -5,9 +6,23 @@ import ArrowRightSquareSVG from '../../../assets/svg/arrow-right-square.svg';
 import CircleCloseSVG from '../../../assets/svg/circle-close.svg';
 import FilledCircleCloseSVG from '../../../assets/svg/filled-circle-close.svg';
 import InfoCircleSVG from '../../../assets/svg/info-circle.svg';
+import { useAppSelector } from '../../../redux/hooks';
+import { TAuthState } from '../../../redux/types';
+
+import { NFTContext } from './context';
 
 const TokenActions = () => {
-  const actions = [
+  const { user } = useAppSelector<TAuthState>((state) => state.auth);
+
+  const {
+    setIsTransferTokenModalOpen,
+    setIsRemoveFromSaleModalOpen,
+    setIsBurnTokenModalOpen,
+    setIsReportModalOpen,
+    handleDownloadFile,
+  } = useContext(NFTContext);
+
+  const authActions = [
     {
       id: 'change-price',
       label: 'Change price',
@@ -18,31 +33,46 @@ const TokenActions = () => {
       id: 'transfer-token',
       label: 'Transfer token',
       icon: <ArrowRightSquareSVG color="#777E91" />,
-      onClick: () => false,
+      onClick: () => setIsTransferTokenModalOpen(true),
     },
     {
       id: 'remove-from-sale',
       label: 'Remove from sale',
       icon: <CircleCloseSVG color="#777E91" />,
-      onClick: () => false,
+      onClick: () => setIsRemoveFromSaleModalOpen(true),
     },
     {
       id: 'burn-token',
       label: <StyledLabel>Burn token</StyledLabel>,
       icon: <FilledCircleCloseSVG />,
-      onClick: () => false,
+      onClick: () => setIsBurnTokenModalOpen(true),
     },
     {
       id: 'report',
       label: 'Report',
       icon: <InfoCircleSVG color="#777E91" />,
-      onClick: () => false,
+      onClick: () => setIsReportModalOpen(true),
+    },
+  ];
+
+  const unAuthActions = [
+    {
+      id: 'download',
+      label: 'Download',
+      icon: <ArrowRightSquareSVG color="#777E91" />,
+      onClick: () => handleDownloadFile('nft-image.png'),
+    },
+    {
+      id: 'report',
+      label: 'Report',
+      icon: <InfoCircleSVG color="#777E91" />,
+      onClick: () => setIsReportModalOpen(true),
     },
   ];
 
   return (
     <Wrapper>
-      {actions.map((item) => (
+      {(!!user ? authActions : unAuthActions).map((item) => (
         <ActionWrapper onClick={item.onClick} key={item.id}>
           {item.icon}
           <ActionLabel>{item.label}</ActionLabel>

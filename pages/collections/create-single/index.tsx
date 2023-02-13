@@ -31,7 +31,6 @@ const CreateSingleCollectible = () => {
               <ContentTitle>Create single collectible</ContentTitle>
               <CollectibleForm />
             </ContentHeading>
-            <CollectibleItem bid={BID} />
           </ContentWrapper>
         </PageContainer>
       </FlexContainer>

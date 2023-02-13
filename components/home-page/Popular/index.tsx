@@ -1,33 +1,36 @@
 import styled from 'styled-components';
-import { FlexContainer } from '../../common';
+import { useEffect } from 'react';
 import DownArrowSVG from '../../../assets/svg/down-arrow.svg';
-import ArrowLeftSVG from '../../../assets/svg/arrow-left.svg';
-import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
-import { sellers } from './constants';
-import ParticipantItem from './ParticipantItem';
+
 import {
   SelectItemBackground,
   SelectItemSize,
 } from '../../ui-kit/Select/enums';
-import { SelectItem } from '../../ui-kit/Select/types';
 import Select from '../../ui-kit/Select';
 import { ReactSlick } from '../../ui-kit';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { devices } from '../../../common/constants';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { TUserInteractionsState } from '../../../redux/slicers/userInteractionsSlicer/types';
+import { getSellers } from '../../../redux/slicers/userInteractionsSlicer/userInteractionsSlicer';
+import { TAuthState } from '../../../redux/types';
+
+import ParticipantItem from './ParticipantItem';
+import { dates, sellers as mockSellers } from './constants';
 
 const Popular = () => {
-  const dates: SelectItem[] = [
-    {
-      label: 'Today',
-      value: '1',
-    },
-    {
-      label: 'Tomorrow',
-      value: '2',
-    },
-  ];
+  const dispatch = useAppDispatch();
+  const { sellers } = useAppSelector<TUserInteractionsState>(
+    (state) => state.userInteractions,
+  );
 
   const { screenSize, slidesPerRow } = useAdaptiveSlider(5);
+
+  useEffect(() => {
+    dispatch(getSellers());
+  }, [dispatch]);
+
+  // console.log('sellers =', sellers);
 
   return (
     <PopularWrapper>
@@ -51,12 +54,12 @@ const Popular = () => {
           </TimeframeWrapper>
         </SectionHeader>
         <ReactSlick screenSize={screenSize} slidesPerRow={slidesPerRow}>
-          {sellers.map(({ name, avoAmount, avatar }, index) => (
+          {sellers?.map(({ sum, owner }, index) => (
             <ParticipantItem
               key={`participant-item-${index}`}
-              name={name}
-              avoAmount={avoAmount}
-              avatar={avatar}
+              name={owner.username}
+              avoAmount={sum}
+              avatar={owner.avatar}
               rank={index + 1}
             />
           ))}

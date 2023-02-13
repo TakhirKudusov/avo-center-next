@@ -35,6 +35,7 @@ const ParticipantItem: React.FC<Props> = ({
           <ParticipantAvatar
             style={{ backgroundImage: `url(/images/${avatar})` }}
           >
+            {/* TODO: Add verification field */}
             <ParticipantVerifiedIcon>
               <VerifiedSVG />
             </ParticipantVerifiedIcon>

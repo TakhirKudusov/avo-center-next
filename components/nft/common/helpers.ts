@@ -1,4 +1,4 @@
-import { TimeBeforeEnd } from './types';
+import { TimeBeforeEnd, Buttons } from './types';
 import { DateTypes } from './enums';
 
 const dateItemFormat = (item: string): string => {
@@ -49,4 +49,52 @@ const fromNameFormatter = (name: string): string => {
   return name;
 };
 
-export { calculateTime, fromNameFormatter, getPastTime };
+const getAuthorNFTButtons = (
+  handlePurchaseOpen: () => void,
+  handlePlaceBidOpen: () => void,
+): Buttons[] => [
+  {
+    name: 'Purchase now',
+    type: 'primary',
+    onClick: handlePurchaseOpen,
+  },
+  {
+    name: 'Place a bid',
+    onClick: handlePlaceBidOpen,
+  },
+];
+
+const getUserNFTButtons = (
+  isNFTOnSale: boolean,
+  handlePutOnSaleOpen: () => void,
+  handleAcceptBidOpen: () => void,
+): Buttons[] => {
+  if (!isNFTOnSale) {
+    return [
+      {
+        name: 'Put on sale',
+        type: 'primary',
+        onClick: handlePutOnSaleOpen,
+      },
+    ];
+  }
+
+  return [
+    {
+      name: 'Accept',
+      type: 'primary',
+      onClick: handleAcceptBidOpen,
+    },
+    {
+      name: 'View all',
+    },
+  ];
+};
+
+export {
+  getUserNFTButtons,
+  getAuthorNFTButtons,
+  calculateTime,
+  fromNameFormatter,
+  getPastTime,
+};

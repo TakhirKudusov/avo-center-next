@@ -2,30 +2,29 @@ import styled from 'styled-components';
 import React, { memo } from 'react';
 
 type Props = {
-  likes: string;
+  likes: string[];
   time: string | undefined;
   withReply: boolean;
+  onPressReply: () => void;
 };
 
-const CommentSubInfo: React.FC<Props> = ({ likes, time, withReply }) => {
+const CommentSubInfo: React.FC<Props> = ({
+  likes,
+  time,
+  withReply,
+  onPressReply,
+}) => {
   return (
     <OwnerCommentInfoBlock>
-      <OwnerComment weight={'400'}>{time}</OwnerComment>
-      {likes !== '0' && (
-        <OwnerComment weight={'400'}>Like: {likes}</OwnerComment>
-      )}
-      {withReply && (
-        <OwnerComment weight={'700'} cursor={'pointer'}>
-          Reply
-        </OwnerComment>
-      )}
+      <OwnerComment weight={'400'}>{time || '0s'}</OwnerComment>
+      <OwnerComment weight={'400'}>Like: {likes?.length}</OwnerComment>
+      {withReply && <ReplyButton onClick={onPressReply}>Reply</ReplyButton>}
     </OwnerCommentInfoBlock>
   );
 };
 
 const OwnerCommentInfoBlock = styled.div`
   display: flex;
-  align-items: flex-start;
   padding: 0;
   gap: 20px;
   height: 24px;
@@ -38,7 +37,18 @@ const OwnerComment = styled.div<any>`
   font-size: 14px;
   line-height: 24px;
   color: #777e90;
-  cursor: ${(props) => (props.cursor === 'pointer' ? 'pointer' : 'default')};
+`;
+
+const ReplyButton = styled.button`
+  font-weight: 700;
+  background: none;
+  cursor: pointer;
+  border: none;
+  color: #777e90;
+
+  &:focus {
+    color: #b1b2b7;
+  }
 `;
 
 export default memo(CommentSubInfo);

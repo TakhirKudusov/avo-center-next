@@ -28,6 +28,7 @@ const FormItem: React.FC<Props & any> = ({
 
   return (
     <AnimationWrapper
+      id="animation-wrapper"
       style={style}
       canBeHidden={canBeHidden}
       isFieldOpen={isFieldOpen}

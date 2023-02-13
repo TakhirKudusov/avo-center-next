@@ -77,6 +77,10 @@ export const signin = createAsyncThunk<
       setAccessToken(handleAuthenticateResponse.data.accessToken.accessToken);
       OpenAPI.TOKEN = handleAuthenticateResponse.data.accessToken.accessToken;
 
+      if (OpenAPI.TOKEN) {
+        localStorage.setItem('accessToken', String(OpenAPI.TOKEN));
+      }
+
       const user = getUserInfo();
 
       console.log('LOGGED IN', handleAuthenticateResponse.data);

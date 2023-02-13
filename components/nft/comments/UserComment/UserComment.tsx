@@ -1,35 +1,58 @@
+import { memo, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import OwnerCommentInfo from './OwnerCommentInfo';
+
+import { getPastTime } from '../../common/helpers';
+import { devices } from '../../../../common/constants';
+
 import TextAreaBlock from './TextAreaBlock';
-import { getPastTime } from '../common/helpers';
-import { CommentsData, OwnerMessage } from '../common/types';
-import { memo } from 'react';
-import { devices } from '../../../common/constants';
+import OwnerCommentInfo from './OwnerCommentInfo';
+import { IComment } from '../../../../swagger';
 
 type Props = {
-  commentsData: OwnerMessage;
+  commentsData: IComment;
   withTextArea: boolean;
   withReply: boolean;
+  onCommentLike: (commentId: string) => void;
+  onCommentUnlike: (commentId: string) => void;
+  userId?: string;
+  parentCommentId?: string;
 };
 
 const UserComment: React.FC<Props> = ({
+  userId,
+  parentCommentId,
   commentsData,
   withTextArea,
   withReply,
+  onCommentLike,
+  onCommentUnlike,
 }) => {
-  const timeFromPost = getPastTime(commentsData?.time);
+  const timeFromPost = getPastTime(commentsData?.createdAt);
+  const [isReplyPressed, setisReplyPressed] = useState(false);
+
+  const handlePressReply = () => setisReplyPressed((prev) => !prev);
 
   return (
     <CurrentOwnerBlock>
       <OwnerCommentsDataWrapper>
-        <CreatorsName>{commentsData?.name}</CreatorsName>
+        <CreatorsName>{commentsData?.author?.username}</CreatorsName>
         <CreatorCommentText>{commentsData?.message}</CreatorCommentText>
         <OwnerCommentInfo
+          commentId={commentsData._id}
+          userId={userId}
           withReply={withReply}
           time={timeFromPost}
           likes={commentsData?.likes}
+          onPressReply={handlePressReply}
+          onCommentLike={onCommentLike}
+          onCommentUnlike={onCommentUnlike}
         />
-        {withTextArea && <TextAreaBlock />}
+        {withTextArea && (
+          <TextAreaBlock
+            parentCommentId={parentCommentId}
+            isReplyPressed={isReplyPressed}
+          />
+        )}
       </OwnerCommentsDataWrapper>
     </CurrentOwnerBlock>
   );
@@ -41,7 +64,7 @@ const CurrentOwnerBlock = styled.div`
   align-items: flex-start;
   padding: 0;
   gap: 12px;
-  height: 136px;
+  height: 'auto';
 
   @media (${devices.tablet}) {
     width: 100%;
@@ -54,14 +77,13 @@ const CurrentOwnerBlock = styled.div`
 `;
 
 const OwnerCommentsDataWrapper = styled.div`
-  height: 84px;
-
   @media (${devices.tablet}) {
     width: 100%;
   }
 
   @media (${devices.mobile}) {
     height: auto;
+    width: 100%;
   }
 `;
 
@@ -92,7 +114,6 @@ const CreatorsName = styled.div`
 
 const CreatorCommentText = styled.div`
   width: 998px;
-  height: 24px;
   font-family: 'Poppins';
   font-weight: 400;
   font-size: 14px;

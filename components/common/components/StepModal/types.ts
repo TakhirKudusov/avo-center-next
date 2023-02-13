@@ -5,4 +5,4 @@ export type Step = {
   renderIcon: (hasError: boolean) => JSX.Element;
 };
 
-export type Stage = 'children' | 'followSteps';
+export type Stage = 'children' | 'followSteps' | 'successWindow';

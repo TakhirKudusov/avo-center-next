@@ -1,13 +1,28 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { devices, screenSizes } from '../../../common/constants';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { getHotCollections } from '../../../redux/slicers/collectionsSlicer/collectionsSlicer';
+import { TCollectionsState } from '../../../redux/slicers/collectionsSlicer/types';
 import { ContentContainer, FlexContainer } from '../../common';
 import CollectionItem from '../../common/components/CollectionItem';
 import { ReactSlick } from '../../ui-kit';
-import { hotCollections } from './constants';
+// import { hotCollections } from './constants';
 
 const HotCollections = () => {
   const { screenSize, slidesPerRow } = useAdaptiveSlider(3);
+
+  const dispatch = useAppDispatch();
+  const { hotCollections } = useAppSelector<TCollectionsState>(
+    (state) => state.collections,
+  );
+
+  console.log('hotCollections =', hotCollections);
+
+  useEffect(() => {
+    dispatch(getHotCollections());
+  }, [dispatch]);
 
   return (
     <HotCollectionsWrapper>
