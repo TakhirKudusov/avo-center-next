@@ -2,6 +2,7 @@ import { IBid, IUser } from '../../../swagger';
 
 export type TBidsState = {
   bids: IBid[];
+  bid: IBid | null;
   loading: boolean;
 };
 

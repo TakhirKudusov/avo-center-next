@@ -139,8 +139,10 @@ const NFTActions: React.FC<Props> = ({
   return (
     <Container>
       <PriceWrapper>
-        <PriceInCrypto>{price} AVO</PriceInCrypto>
-        <ConvertedPrice>${convertedPrice}</ConvertedPrice>
+        <PriceInCrypto hasPrice={!!price}>
+          {!!price ? `AVO ${price}` : 'Not on sale'}
+        </PriceInCrypto>
+        {!!price && <ConvertedPrice>${convertedPrice}</ConvertedPrice>}
       </PriceWrapper>
       <ButtonsGroup buttonsParameters={getButtonParameters()} />
       <ServiceFeeWrapper>
@@ -374,18 +376,18 @@ const PriceWrapper = styled.div`
   }
 `;
 
-const PriceInCrypto = styled.p`
-  width: 105px;
+const PriceInCrypto = styled.p<{ hasPrice: boolean }>`
   height: 32px;
   font-family: 'Poppins';
   font-weight: 600;
   font-size: 24px;
   line-height: 32px;
   color: #23262f;
+  width: ${({ hasPrice }) => (hasPrice ? 'auto' : '100%')};
+  text-align: ${({ hasPrice }) => (hasPrice ? 'left' : 'center')};
 `;
 
 const ConvertedPrice = styled.p`
-  width: 66px;
   height: 24px;
   font-family: 'Poppins';
   font-weight: 400;

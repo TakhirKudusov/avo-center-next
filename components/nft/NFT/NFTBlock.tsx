@@ -1,7 +1,7 @@
 import NFTImage from './NFTImage';
 import NFTDescription from './NFTDescription';
 import { NFT } from '../common/types';
-import { ChangeEventHandler, memo, useEffect, useMemo, useState } from 'react';
+import { ChangeEventHandler, memo, useEffect, useState } from 'react';
 import { NFTDescriptionContainer, NFTDescriptionWrapper } from '../index';
 import UserActionsButtonsGroup from './UserActionsButtonsGroup';
 import styled from 'styled-components';
@@ -10,22 +10,32 @@ import { devices, screenSizes } from '../../../common/constants';
 import { NFTContext } from './context';
 import { Input, Modal } from '../../ui-kit';
 import Textarea from '../../ui-kit/Textarea';
-import { defaultLikesNumber } from './Mock';
-import { useAppSelector } from '../../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { TAuthState } from '../../../redux/types';
+import { TBidsState } from '../../../redux/slicers/bidsSlicer/types';
+import {
+  likeNft,
+  unlikeNft,
+} from '../../../redux/slicers/nftsSlicer/nftSlicer';
 
 type Props = {
   NFTData: NFT;
 };
 
 const NFTBlock: React.FC<Props> = ({ NFTData }) => {
+  const dispatch = useAppDispatch();
+
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
+  const { bid } = useAppSelector<TBidsState>((state) => state.bids);
 
   const { image, tags, ...NFTDescriptionData } = NFTData;
   const [screenSize, setScreenSize] = useState<'large' | 'small'>('large');
   const [receiverAddress, setRecieverAddress] = useState('');
   const [report, setReport] = useState('');
-  const [likesNumber, setLikesNumber] = useState(defaultLikesNumber);
+  const [likesNumber, setLikesNumber] = useState(0);
+  const defaultLikesNumber = bid?.nft.likes.filter(
+    (item) => item !== user?.id,
+  ).length;
 
   const [isTransferTokenModalOpen, setIsTransferTokenModalOpen] =
     useState(false);
@@ -64,8 +74,28 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
     setIsReportModalOpen(false);
   };
 
-  const handleLikeIncrease = () => {
-    setLikesNumber((prev) => ++prev);
+  const handleLikeNft = async () => {
+    if (bid?.nft._id) {
+      const result = await dispatch(likeNft(bid?.nft._id));
+
+      if (result) setLikesNumber((prev) => ++prev);
+    }
+  };
+
+  const handleUnlikeNft = async () => {
+    if (bid?.nft._id) {
+      const result = await dispatch(unlikeNft(bid?.nft._id));
+
+      if (result) setLikesNumber((prev) => --prev);
+    }
+  };
+
+  const handleLikeClick = () => {
+    if (likesNumber === defaultLikesNumber) {
+      handleLikeNft();
+    } else {
+      handleUnlikeNft();
+    }
   };
 
   const handleDownloadFile = (fileName: string) => {
@@ -86,6 +116,10 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
     );
   }, []);
 
+  useEffect(() => {
+    if (bid) setLikesNumber(bid?.nft.likes.length);
+  }, [bid]);
+
   return (
     <>
       <NFTContext.Provider
@@ -102,11 +136,13 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
             <div>
               <StyledNFTDescriptionWrapper>
                 <NFTImage
+                  defaultLikesNumber={defaultLikesNumber || 0}
                   NFTData={{ image, tags }}
                   likesNumber={likesNumber}
-                  onLikeIncrease={handleLikeIncrease}
+                  onLikeClick={handleLikeClick}
                 />
                 <NFTDescription
+                  bid={bid}
                   screenSize={screenSize}
                   data={NFTDescriptionData}
                 />
@@ -118,11 +154,12 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
               )}
             </div>
           </NFTDescriptionContainer>
-          {screenSize === 'large' && (
+          {screenSize === 'large' && !!likesNumber && (
             <UserActionsButtonsGroup
               screenSize={screenSize}
               likesNumber={likesNumber}
-              onLikeIncrease={handleLikeIncrease}
+              defaultLikesNumber={defaultLikesNumber || 0}
+              onLikeClick={handleLikeClick}
             />
           )}
         </Container>

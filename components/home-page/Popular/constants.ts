@@ -40,8 +40,12 @@ const dates: SelectItem[] = [
     value: '1',
   },
   {
-    label: 'Tomorrow',
+    label: 'Last week',
     value: '2',
+  },
+  {
+    label: 'Last month',
+    value: '3',
   },
 ];
 

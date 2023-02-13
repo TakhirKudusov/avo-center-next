@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { devices } from '../../../common/constants';
-import BidPrice from '../../common/components/BidPrice';
-import { Bid } from '../../home-page/HotBids/types';
+import { INFT } from '../../../swagger';
 
 type Props = {
-  bid: Bid;
+  bid: INFT;
 };
 const CollectibleItem: React.FC<Props> = ({ bid }) => {
-  const { image, name, avoAmonut, total, available, network } = bid;
+  const { name, total, available } = bid;
+  const image = '';
 
   return (
     <BidWrapper>
@@ -16,26 +16,27 @@ const CollectibleItem: React.FC<Props> = ({ bid }) => {
         <BidInfo>
           <BidInfoRow>
             <BidName>{name}</BidName>
-            <BidNetwork>
+            {/* <BidNetwork>
               <BidNetworkImage
                 style={{ backgroundImage: `url(/images/${network?.image})` }}
               />
               <BidNetworkName>{network?.name}</BidNetworkName>
-            </BidNetwork>
+            </BidNetwork> */}
           </BidInfoRow>
-          <BidInfoRow style={{ gap: '24px', justifyContent: 'normal' }}>
+          <BidInfoRow style={{ gap: '24px', justifyContent: 'space-between' }}>
             <BidFeature>
               <BidFeatureCaption>Total:</BidFeatureCaption>
               <BidFeatureValue>{total}</BidFeatureValue>
             </BidFeature>
             <BidFeature>
-              <BidFeatureCaption>Available:</BidFeatureCaption>
+              <BidFeatureCaption>Royalties:</BidFeatureCaption>
               <BidFeatureValue>{available}</BidFeatureValue>
             </BidFeature>
           </BidInfoRow>
         </BidInfo>
         <BidFooter>
-          <BidPrice value={avoAmonut} />
+          {/* <BidPrice value={avoAmonut} /> */}
+          Not on sale
         </BidFooter>
       </BidBody>
     </BidWrapper>
@@ -51,7 +52,7 @@ const BidWrapper = styled.div`
   border-radius: 20px;
   box-shadow: 0 14px 39px -2px rgb(31 47 70 / 12%);
   overflow: hidden;
-  height: 469px;
+  height: 452px;
 
   @media (${devices.mobile}) {
     display: none;
@@ -69,7 +70,7 @@ const BidImage = styled.div`
 const BidBody = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 21px 24px 32px;
+  padding: 21px 24px 16px;
 `;
 
 const BidInfo = styled.div`
@@ -114,7 +115,7 @@ const BidFeatureValue = styled.div`
 const BidFooter = styled.div`
   margin-top: 12px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `;
 

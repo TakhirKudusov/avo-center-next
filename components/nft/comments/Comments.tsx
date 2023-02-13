@@ -1,36 +1,140 @@
-import { memo } from 'react';
-import { CommentsData } from '../common/types';
+import { memo, useContext, useRef, useState } from 'react';
 import styled from 'styled-components';
-import OwnerAvatar from './OwnerAvatar';
+import { FormikProps } from 'formik';
+
+import { devices } from '../../../common/constants';
+import { ConnectWalletContext } from '../NFT/context';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { TAuthState } from '../../../redux/types';
+
+import {
+  commentNft,
+  likeCommentNft,
+  unlikeCommentNft,
+} from '../../../redux/slicers/nftsSlicer/nftSlicer';
+import { TBidsState } from '../../../redux/slicers/bidsSlicer/types';
+import { FORM_SCHEMA } from './schema';
+import { likeBid, setBid } from '../../../redux/slicers/bidsSlicer/bidsSlicer';
+import { IComment, INFT } from '../../../swagger';
+
 import HideAnswers from './HideAnswers';
 import UserComment from './UserComment';
 import UsersReply from './UsersReply';
-import { devices } from '../../../common/constants';
+import OwnerAvatar from './OwnerAvatar';
+import CommentField from './components';
+import { CommentKeys } from './constants';
 
-type Props = {
-  commentsData: CommentsData;
-};
+const Comments: React.FC = () => {
+  const { bid } = useAppSelector<TBidsState>((state) => state.bids);
+  const { user } = useAppSelector<TAuthState>((state) => state.auth);
+  const [isAnswersHidden, setIsAnswersHidden] = useState<{
+    [key: string]: boolean;
+  }>({});
 
-const Comments: React.FC<Props> = ({ commentsData }) => {
+  const { setOpenConnectWallet } = useContext(ConnectWalletContext);
+
+  const dispatch = useAppDispatch();
+  const formRef = useRef<FormikProps<any>>(null);
+
+  const comments = bid?.nft.comments;
+
+  const handleCommentLike = async (commentId: string) => {
+    const result = await dispatch(likeCommentNft(commentId));
+
+    if (result.payload) {
+      dispatch(likeBid(result.payload as IComment));
+    }
+  };
+
+  const handleCommentUnlike = async (commentId: string) => {
+    const result = await dispatch(unlikeCommentNft(commentId));
+
+    if (result.payload) {
+      dispatch(likeBid(result.payload as IComment));
+    }
+  };
+
+  const handleAnwserToggle = (commentId: string) => () =>
+    setIsAnswersHidden((prev) => {
+      if (!!prev[commentId]) {
+        prev[commentId] = false;
+      } else {
+        prev[commentId] = true;
+      }
+
+      return { ...prev };
+    });
+
+  const handleMesageSend = async (values: any) => {
+    if (!user) {
+      setOpenConnectWallet(true);
+    }
+
+    if (bid?.nft._id) {
+      const result = await dispatch(
+        commentNft({
+          nftId: bid?.nft._id,
+          body: { message: values.comment, parent: '' },
+        }),
+      );
+
+      if (result.payload) {
+        dispatch(setBid(result.payload as INFT));
+
+        formRef.current?.setFieldValue(CommentKeys.COMMENT, '');
+        setTimeout(() =>
+          formRef.current?.setFieldError(CommentKeys.COMMENT, undefined),
+        );
+      }
+    }
+  };
+
   return (
     <BlockWrapper>
       <Header>Comments</Header>
       <CommentsWrapper>
-        <OwnerAvatar image={commentsData.currentOwner?.image} />
-        <CommentsBlock>
-          {commentsData.currentOwner && (
-            <UserComment
-              commentsData={commentsData?.currentOwner}
-              withTextArea={true}
-              withReply={true}
-            />
-          )}
-          <HideAnswers commentsQuantity={commentsData.commentsQuantity} />
-          {commentsData.oldOwners && (
-            <UsersReply commentsData={commentsData.oldOwners} />
-          )}
-        </CommentsBlock>
+        {comments?.map((comment) => (
+          <CommentWrapper key={comment._id}>
+            <OwnerAvatar image={comment?.author?.avatar} />
+            <CommentsBlock>
+              {comment && (
+                <UserComment
+                  userId={user?.id}
+                  parentCommentId={comment._id}
+                  commentsData={comment}
+                  withTextArea={true}
+                  withReply={true}
+                  onCommentLike={handleCommentLike}
+                  onCommentUnlike={handleCommentUnlike}
+                />
+              )}
+              {!!comment.comments?.length && (
+                <HideAnswers
+                  isAnswersHidden={!isAnswersHidden[comment._id]}
+                  onAnwserToggle={handleAnwserToggle(comment._id)}
+                  commentsQuantity={String(comment.comments.length)}
+                />
+              )}
+              {!isAnswersHidden[comment._id] && (
+                <UsersReply
+                  userId={user?.id}
+                  parentCommentId={comment._id}
+                  commentsData={comment.comments}
+                  onCommentLike={handleCommentLike}
+                  onCommentUnlike={handleCommentUnlike}
+                />
+              )}
+            </CommentsBlock>
+          </CommentWrapper>
+        ))}
       </CommentsWrapper>
+      <CommentField
+        name="comment"
+        placeholder="Comment..."
+        formSchema={FORM_SCHEMA}
+        formRef={formRef}
+        handleMesageSend={handleMesageSend}
+      />
     </BlockWrapper>
   );
 };
@@ -67,6 +171,13 @@ const Header = styled.div`
 
 const CommentsWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 64px;
+  margin-bottom: 64px;
+`;
+
+const CommentWrapper = styled.div`
+  display: flex;
   align-items: flex-start;
   padding: 0;
   gap: 16px;
@@ -78,7 +189,6 @@ const CommentsBlock = styled.div`
   align-items: flex-start;
   padding: 0;
   gap: 24px;
-  height: 508px;
 
   @media (${devices.tablet}) {
     width: 100%;

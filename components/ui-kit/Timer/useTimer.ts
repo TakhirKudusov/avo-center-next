@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
+import { IBid } from '../../../swagger';
 
 import { TimeBeforeEnd } from '../../nft/common/types';
-import { NFTDescriptionData } from '../../nft/NFT/types';
 
 import { calculateTimeLeft } from './utils';
 
-export const useTimer = (data: NFTDescriptionData) => {
+export const useTimer = (bid: IBid) => {
   const [timeBeforeEnd, setTimeBeforeEnd] = useState<TimeBeforeEnd>();
 
   useEffect(() => {
-    if (data?.bid?.isOnBid) {
+    if (bid?.nft?.isOnSale) {
       const intervalId = setInterval(() => {
-        setTimeBeforeEnd(calculateTimeLeft(data.bid?.endTime!));
+        setTimeBeforeEnd(calculateTimeLeft(bid?.date!));
       }, 1000);
       return () => clearInterval(intervalId);
     }
-  }, [data.bid?.endTime, data.bid?.isOnBid]);
+  }, [bid?.date, bid?.nft?.isOnSale]);
 
   return { timeBeforeEnd };
 };

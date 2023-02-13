@@ -13,7 +13,7 @@ export type NFT = {
   listingsData: ListingData[];
   tags: NFTTag[];
   bid?: {
-    isOnBid: true;
+    isOnSale: true;
     endTime: string;
   };
 };
@@ -43,11 +43,7 @@ export type OwnerMessage = {
   time: string;
 };
 
-export type CommentsData = {
-  currentOwner: OwnerMessage;
-  oldOwners?: OwnerMessage[];
-  commentsQuantity: string;
-};
+export type CommentsData = any;
 
 export type Buttons = {
   name: string;

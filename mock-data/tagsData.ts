@@ -43,8 +43,8 @@ const NFTData: NFT = {
     },
   ],
   bid: {
-    isOnBid: true,
-    endTime: '2023-01-28T12:00:00+03:00',
+    isOnSale: true,
+    endTime: '2023-02-28T12:00:00+03:00',
   },
 };
 
