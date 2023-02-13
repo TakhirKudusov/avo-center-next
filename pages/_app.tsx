@@ -1,4 +1,3 @@
-import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { Global } from '../components/common';
 import { AppWithPageLayout } from '../common/types';
@@ -9,6 +8,7 @@ import { setUser } from '../redux/slicers/authSlicer';
 import { useEffect } from 'react';
 import '../components/ui-kit/DatePicker/DatePicker.css';
 import { OpenAPI } from '../swagger';
+import { ContextProvider } from '../common/context/AppContext';
 
 function App({ Component, pageProps }: AppWithPageLayout) {
   const dispatch = useAppDispatch();
@@ -25,13 +25,15 @@ function App({ Component, pageProps }: AppWithPageLayout) {
   return (
     <>
       <Global />
-      {Component.PageLayout ? (
-        <Component.PageLayout>
-          <Component {...pageProps} key={router.asPath} />
-        </Component.PageLayout>
-      ) : (
-        <Component {...pageProps} />
-      )}
+      <ContextProvider>
+        {Component.PageLayout ? (
+          <Component.PageLayout>
+            <Component {...pageProps} key={router.asPath} />
+          </Component.PageLayout>
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </ContextProvider>
     </>
   );
 }

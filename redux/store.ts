@@ -8,6 +8,7 @@ import {
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import attachmentsReducer from './slicers/attachmentsSlicer';
 import authReducer from './slicers/authSlicer';
+import { adminApi } from './APIs/adminApi';
 import bidsReducer from './slicers/bidsSlicer';
 import collectionsReducer from './slicers/collectionsSlicer';
 import discoverReducer from './slicers/discoverSlicer';
@@ -18,6 +19,7 @@ import searchReducer from './slicers/searchSlicer';
 import userInteractionsReducer from './slicers/userInteractionsSlicer';
 
 const combinedReducer = combineReducers({
+  [adminApi.reducerPath]: adminApi.reducer,
   auth: authReducer,
   attachments: attachmentsReducer,
   notifications: notificationsReducer,
@@ -51,7 +53,7 @@ export const makeStore = () =>
     middleware: (getDefaultMiddleware: any) =>
       getDefaultMiddleware({
         serializableCheck: false,
-      }),
+      }).concat(adminApi.middleware),
   } as any);
 
 type Store = ReturnType<typeof makeStore>;

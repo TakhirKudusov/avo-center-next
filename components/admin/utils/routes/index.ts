@@ -1,0 +1,15 @@
+export enum AdminRoute {
+  MAIN = '/admin/',
+  LOGIN = '/admin/login',
+  NFTs = '/admin/NFT/nfts',
+  BIDS = '/admin/NFT/bids',
+  CATEGORIES = '/admin/NFT/categories',
+  COLLECTIONS = '/admin/NFT/collections',
+  NOTIFICATIONS = '/admin/other/notifications',
+  REPORTS = '/admin/other/reports',
+  SELLERS = '/admin/user_interactions/sellers',
+  CREATORS = '/admin/user_interactions/creators',
+  VERIFICATIONS = '/admin/verifications',
+  USERS = '/admin/users',
+  FAQS = '/admin/faqs',
+}

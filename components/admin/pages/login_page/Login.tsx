@@ -1,12 +1,35 @@
 import styled from 'styled-components';
-import Form from '../../ui-kit/Form';
-import { useRef } from 'react';
-import { Button, ButtonType, FormItem, Input } from '../../ui-kit';
+import Form from '../../../ui-kit/Form';
+import { useContext, useRef } from 'react';
+import { Button, ButtonType, FormItem, Input } from '../../../ui-kit';
 import { LoginPlaceholder, LoginTitle } from './enums';
 import { FORM_SCHEMA } from './constants';
+import { useRouter } from 'next/router';
+import { AdminRoute } from '../../utils/routes';
+import { AppContext } from '../../../../common/context/AppContext';
+import { useLazyAdminLoginQuery } from '../../../../redux/APIs/adminApi';
+import { FormikProps } from 'formik';
 
 const Login = () => {
   const formRef = useRef<HTMLFormElement>(null);
+
+  const router = useRouter();
+
+  const [getLoggedIn, { data, isLoading, error }] = useLazyAdminLoginQuery();
+
+  const handleSubmit = async (values: any, formikProps: FormikProps<any>) => {
+    const data = await getLoggedIn(values);
+    if (data.isError) {
+      formikProps.setErrors({
+        login: 'Wrong login or password',
+        password: 'Wrong login or password',
+      });
+      return;
+    }
+    const accessToken = data.data.accessToken.accessToken;
+    localStorage.setItem('accessToken', accessToken);
+    router.push(AdminRoute.MAIN);
+  };
 
   return (
     <LoginWrapper>
@@ -15,13 +38,14 @@ const Login = () => {
           formSchema={FORM_SCHEMA}
           innerRef={formRef}
           initialValues={{}}
+          onSubmit={handleSubmit}
         >
           <>
             <LoginHeader>AVO Admin</LoginHeader>
             <FormItemContainer>
               <StyledFormItem
-                title={LoginTitle.USERNAME}
-                name={LoginTitle.USERNAME}
+                title={LoginTitle.LOGIN}
+                name={LoginTitle.LOGIN}
                 placeholder={LoginPlaceholder.USERNAME}
                 component={Input}
               />
@@ -30,6 +54,7 @@ const Login = () => {
                 name={LoginTitle.PASSWORD}
                 placeholder={LoginPlaceholder.PASSWORD}
                 component={Input}
+                type="password"
               />
             </FormItemContainer>
 

@@ -1,5 +1,5 @@
 export enum LoginTitle {
-  USERNAME = 'username',
+  LOGIN = 'login',
   PASSWORD = 'password',
 }
 

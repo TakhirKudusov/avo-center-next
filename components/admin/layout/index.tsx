@@ -1,63 +1,141 @@
 import styled from 'styled-components';
 import Logo from '../../common/components/Logo';
 import BurgerSVG from '../../../assets/svg/burger-icon.svg';
-import { FC, SyntheticEvent } from 'react';
-import { useRouter } from 'next/router';
+import { FC, SyntheticEvent, useContext, useEffect, useState } from 'react';
 import { ChildrenProp } from '../../../common/types/ChildrenProp';
 import { Divider } from '../../ui-kit';
+import SideMenu from '../UI/side_menu/SideMenu';
+import { useRouter } from 'next/router';
+import { AdminRoute } from '../utils/routes';
+import { AppContext } from '../../../common/context/AppContext';
 
 const AdminLayout: FC<ChildrenProp> = ({ children }) => {
+  const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+  const [isLogged, setIsLogged] = useState<boolean>(false);
+
+  const { setIsMenuDisabled } = useContext(AppContext);
+
+  const router = useRouter();
+
   const handleLogoClick = (e: SyntheticEvent) => {
     e.stopPropagation();
   };
 
-  return (
-    <Wrapper>
-      <HeaderContainer>
-        <HeaderBody>
-          <LogoWrapper onClickCapture={handleLogoClick}>
-            <StyledLogo isAdmin={true} />
-          </LogoWrapper>
-          <BurgerIconContainer>
-            <BurgerSVG />
-          </BurgerIconContainer>
-        </HeaderBody>
-      </HeaderContainer>
-      <ChildrenWrapper>
-        <ChildrenContainer>{children}</ChildrenContainer>
-      </ChildrenWrapper>
-      <FooterContainer>
-        <FooterBody>
-          <FooterRowContainer>
-            <LogoContainer>
-              <LogoWrapper onClickCapture={handleLogoClick}>
-                <StyledLogo isAdmin={true} />
-              </LogoWrapper>
-              <Tagline>CREATE, EXPLORE & COLLECT DIGITAL ART NFTs</Tagline>
-            </LogoContainer>
+  const handleMenuBtnClick = () => {
+    setIsMenuOpened(true);
+  };
 
-            <MenuWrapper>
-              <BottomMenuHeader>Navigation</BottomMenuHeader>
-              <FooterMenuContainer>
-                <BottomMenuItem>NFT</BottomMenuItem>
-                <BottomMenuItem>Users</BottomMenuItem>
-                <BottomMenuItem>Authors</BottomMenuItem>
-                <BottomMenuItem>Wallets</BottomMenuItem>
-                <BottomMenuItem>Categories</BottomMenuItem>
-                <BottomMenuItem>Billing</BottomMenuItem>
-                <BottomMenuItem>Token</BottomMenuItem>
-              </FooterMenuContainer>
-            </MenuWrapper>
-          </FooterRowContainer>
-          <Divider />
-          <CopyrightText>
-            Copyright © 2022 AVONFT. All rights reserved
-          </CopyrightText>
-        </FooterBody>
-      </FooterContainer>
-    </Wrapper>
+  const handleMenuClick = (endpoint: AdminRoute) => () => {
+    router.push(endpoint);
+  };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      setIsMenuDisabled!(false);
+      setIsLogged(true);
+      if (router.route === AdminRoute.LOGIN) {
+        router.push(AdminRoute.MAIN);
+      }
+    } else {
+      setIsLogged(false);
+      setIsMenuDisabled!(true);
+      router.push(AdminRoute.LOGIN);
+    }
+  }, [router.asPath]);
+
+  const handleExitClick = () => {
+    localStorage.removeItem('accessToken');
+    router.push(AdminRoute.LOGIN);
+  };
+
+  return (
+    <>
+      <Wrapper>
+        <HeaderContainer>
+          <HeaderBody>
+            <LogoWrapper onClickCapture={handleLogoClick}>
+              <StyledLogo isAdmin={true} />
+            </LogoWrapper>
+            {isLogged && (
+              <ExitButton onClick={handleExitClick}>Exit</ExitButton>
+            )}
+            <BurgerIconContainer onClick={handleMenuBtnClick}>
+              <BurgerSVG />
+            </BurgerIconContainer>
+          </HeaderBody>
+        </HeaderContainer>
+        <ChildrenWrapper>
+          <ChildrenContainer>{children}</ChildrenContainer>
+        </ChildrenWrapper>
+        <FooterContainer>
+          <FooterBody>
+            <FooterRowContainer>
+              <LogoContainer>
+                <LogoWrapper onClickCapture={handleLogoClick}>
+                  <StyledLogo isAdmin={true} />
+                </LogoWrapper>
+                <Tagline>CREATE, EXPLORE & COLLECT DIGITAL ART NFTs</Tagline>
+              </LogoContainer>
+
+              <MenuWrapper>
+                <BottomMenuHeader>Navigation</BottomMenuHeader>
+                <FooterMenuContainer>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.NFTs)}>
+                    NFTs
+                  </BottomMenuItem>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.USERS)}>
+                    Users
+                  </BottomMenuItem>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.BIDS)}>
+                    Bids
+                  </BottomMenuItem>
+                  <BottomMenuItem
+                    onClick={handleMenuClick(AdminRoute.CATEGORIES)}
+                  >
+                    Categories
+                  </BottomMenuItem>
+                  <BottomMenuItem
+                    onClick={handleMenuClick(AdminRoute.COLLECTIONS)}
+                  >
+                    Collections
+                  </BottomMenuItem>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.FAQS)}>
+                    FAQs
+                  </BottomMenuItem>
+                  <BottomMenuItem onClick={handleMenuClick(AdminRoute.REPORTS)}>
+                    Reports
+                  </BottomMenuItem>
+                </FooterMenuContainer>
+              </MenuWrapper>
+            </FooterRowContainer>
+            <Divider />
+            <CopyrightText>
+              Copyright © 2022 AVONFT. All rights reserved
+            </CopyrightText>
+          </FooterBody>
+        </FooterContainer>
+      </Wrapper>
+      <SideMenu isOpen={isMenuOpened} setIsOpen={setIsMenuOpened} />
+    </>
   );
 };
+
+const ExitButton = styled.p`
+  font-weight: 600;
+  font-size: 16px;
+  color: #777e91;
+  width: 100%;
+  text-align: end;
+  margin-right: 15px;
+  cursor: pointer;
+  &:hover {
+    color: rgba(0, 0, 0, 0.75);
+  }
+  &:active {
+    color: rgb(0, 0, 0);
+  }
+`;
 
 const CopyrightText = styled.div`
   display: flex;
@@ -133,7 +211,7 @@ const FooterContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
-  height: 373px;
+  min-height: 373px;
   border-top: 1px solid rgba(101, 101, 101, 0.25);
 `;
 
@@ -149,7 +227,7 @@ const ChildrenContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 1440px;
-  padding: 20px;
+  padding: 40px 80px;
 `;
 
 const StyledLogo = styled(Logo)`
@@ -195,7 +273,7 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 81px;
+  min-height: 81px;
   border-bottom: 1px solid rgba(101, 101, 101, 0.25);
 `;
 
@@ -208,6 +286,23 @@ const Wrapper = styled.div`
   overflow-x: hidden;
   background: #fcfcfd;
   height: 100vh;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 30px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 30px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(85, 85, 85, 0.85);
+  }
 `;
 
 export default AdminLayout;

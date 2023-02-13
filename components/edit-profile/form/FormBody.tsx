@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
   Button,
@@ -12,9 +11,7 @@ import { FORM_SCHEMA, ProfileFormItemName } from '../common/constants';
 import { FormName, FormPlaceHolder, PrimaryHeaderText } from '../common/enums';
 import GroupHeader from './GroupHeader';
 import Textarea from '../../ui-kit/Textarea';
-// import TwitterButton from './TwitterButton';
-// import AddAdditionalSocialAccountButton from './AddSocAccBtn';
-import { ReactEventHandler, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { devices, screenSizes } from '../../../common/constants';
 import UserCard from '../user-card';

@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import LoadingSpinner from '../../../components/admin/UI/loading_spinner/LoadingSpinner';
 
 const LoginPage = dynamic(
-  () => import('../../../components/admin/login_page/Login'),
+  () => import('../../../components/admin/pages/login_page/Login'),
   {
     loading: () => <LoadingSpinner />,
   },
