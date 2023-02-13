@@ -147,11 +147,11 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
                   data={NFTDescriptionData}
                 />
               </StyledNFTDescriptionWrapper>
-              {screenSize === 'small' && (
+              {/* {screenSize === 'small' && (
                 <NFTListingsBlock
                   listingsData={NFTDescriptionData.listingsData}
                 />
-              )}
+              )} */}
             </div>
           </NFTDescriptionContainer>
           {screenSize === 'large' && !!likesNumber && (

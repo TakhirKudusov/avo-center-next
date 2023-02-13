@@ -1,7 +1,7 @@
 export enum Paths {
   EMPTY = '/',
   NEW_NFT = '/nft/newNFT',
-  EDIT_NFT = '/nft',
+  EDIT_NFT = '/bids',
   FAQ = '/faq',
   // TODO: remove
   MODALS = '/modals',

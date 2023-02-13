@@ -150,11 +150,13 @@ const CollectibleForm = () => {
         </Form>
       </CollectibleFormWrapper>
       <CollectibleItem
-        bid={{
-          name: formRef.current?.values.name,
-          total: formRef.current?.values.total,
-          available: formRef.current?.values.royalties,
-        }}
+        bid={
+          {
+            name: formRef.current?.values.name,
+            total: formRef.current?.values.total,
+            available: formRef.current?.values.royalties,
+          } as any
+        }
       />
     </ContentWrapper>
   );

@@ -15,9 +15,7 @@ const HotBids = () => {
   const { screenSize, slidesPerRow } = useAdaptiveSlider(4);
 
   const dispatch = useAppDispatch();
-  const { bids } = useAppSelector<TBidsState>(
-    (state) => state.bids,
-  );
+  const { bids } = useAppSelector<TBidsState>((state) => state.bids);
 
   // console.log('hotBids =', bids);
 
@@ -34,7 +32,7 @@ const HotBids = () => {
           </HotBidsHeader>
           <ReactSlick screenSize={screenSize} slidesPerRow={slidesPerRow}>
             {bids?.map((bid, index) => (
-              <BidItem key={`bid-item-${index}`} bid={bid} />
+              <BidItem key={`bid-item-${index}`} item={bid} />
             ))}
           </ReactSlick>
         </ContentContainer>

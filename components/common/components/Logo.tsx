@@ -17,9 +17,7 @@ const Logo = forwardRef(
     return (
       <LogoWrapper className={props.className} ref={ref} onClick={handleClick}>
         <LogoBackground isAdmin={!!props.isAdmin} />
-        <LogoDescription isAdmin={!!props.isAdmin}>
-          Create, explore & collect digital art NFTs.
-        </LogoDescription>
+        <LogoDescription isAdmin={!!props.isAdmin}>Discover</LogoDescription>
       </LogoWrapper>
     );
   },
@@ -51,7 +49,7 @@ const LogoDescription = styled.p<{ isAdmin: boolean }>`
   color: rgba(119, 126, 144, 1);
   text-transform: uppercase;
   padding-left: ${({ isAdmin }) => !isAdmin && '100px'};
-  width: ${({ isAdmin }) => (isAdmin ? '175px' : '320px')};
+  width: ${({ isAdmin }) => (isAdmin ? '175px' : '175px')};
   @media (${devices.mobile}) {
     width: 247px;
   }

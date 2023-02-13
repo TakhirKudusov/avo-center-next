@@ -7,7 +7,7 @@ import { BID_LIST } from '../../../home-page/Discover/constants';
 const OnSaleTab = () => {
   return (
     <SaleTabWrapper>
-      <BidGrid elemPerRow={3} items={BID_LIST} />
+      <BidGrid elemPerRow={3} items={BID_LIST as any} />
     </SaleTabWrapper>
   );
 };

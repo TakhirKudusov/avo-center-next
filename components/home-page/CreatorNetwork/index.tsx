@@ -66,7 +66,7 @@ const CreatorNetwork = ({ bid }: Props) => {
           btnType={ButtonType.Secondary}
           size={ButtonSize.Large}
           fullSize={true}
-          onClick={handlePlaceBidOpen}
+          onClick={handlePlaceBidOpen as any}
         >
           Place a bid
         </Button>
