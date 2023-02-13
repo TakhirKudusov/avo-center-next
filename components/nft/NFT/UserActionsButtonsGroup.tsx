@@ -7,18 +7,19 @@ import { Tooltip } from '../../ui-kit';
 import { TooltipPosition } from '../../ui-kit/Tooltip/types';
 
 import TokenActions from './TokenActions';
-import { defaultLikesNumber } from './Mock';
 
 type Props = {
   screenSize: 'large' | 'small';
   likesNumber: number;
-  onLikeIncrease: () => void;
+  defaultLikesNumber: number;
+  onLikeClick: () => void;
 };
 
 const UserActionsButtonsGroup: React.FC<Props> = ({
   screenSize,
   likesNumber,
-  onLikeIncrease,
+  defaultLikesNumber,
+  onLikeClick,
 }) => {
   return (
     <Container screenSize={screenSize}>
@@ -34,8 +35,7 @@ const UserActionsButtonsGroup: React.FC<Props> = ({
           </RadioButton>
           <LikeButtonContainer>
             <RadioButton
-              onClick={onLikeIncrease}
-              disabled={likesNumber === defaultLikesNumber + 1}
+              onClick={onLikeClick}
               style={
                 likesNumber === defaultLikesNumber + 1
                   ? { backgroundColor: '#ef46707d' }
@@ -54,7 +54,7 @@ const UserActionsButtonsGroup: React.FC<Props> = ({
           </RadioButton>
           <LikeButtonContainer>
             <StyledRadioButton
-              onClick={onLikeIncrease}
+              onClick={onLikeClick}
               disabled={likesNumber === defaultLikesNumber + 1}
               style={
                 likesNumber === defaultLikesNumber + 1

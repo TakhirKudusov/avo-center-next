@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { handleError, handlePending } from '../../../common/helpers';
-import { IUser, UsersService } from '../../../swagger';
+import { IUpdateUserDto, IUser, UsersService } from '../../../swagger';
 
 import { TProfileState } from './types';
 
@@ -15,7 +15,7 @@ export const getUserProfile = createAsyncThunk<
 
 export const editUserProfile = createAsyncThunk<
   IUser,
-  IUser,
+  IUpdateUserDto,
   { rejectValue: string }
 >('users/edit-profile', async function (payload): Promise<any> {
   return await UsersService.editProfile(payload);
@@ -36,7 +36,6 @@ const profileSlicer = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      //signin
       .addCase(getUserProfile.pending, handlePending)
       .addCase(getUserProfile.fulfilled, (state, action) => {
         state.user = action.payload;
@@ -45,7 +44,6 @@ const profileSlicer = createSlice({
       })
       .addCase(getUserProfile.rejected, handleError);
     builder
-      //signin
       .addCase(editUserProfile.pending, handlePending)
       .addCase(editUserProfile.fulfilled, (state, action) => {
         state.user = action.payload;

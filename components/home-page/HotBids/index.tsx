@@ -33,7 +33,7 @@ const HotBids = () => {
             <HotBidsTitle>Hot bid</HotBidsTitle>
           </HotBidsHeader>
           <ReactSlick screenSize={screenSize} slidesPerRow={slidesPerRow}>
-            {bids.map((bid, index) => (
+            {bids?.map((bid, index) => (
               <BidItem key={`bid-item-${index}`} bid={bid} />
             ))}
           </ReactSlick>

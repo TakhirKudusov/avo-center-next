@@ -15,4 +15,10 @@ export const ownersMock = [
   },
 ];
 
-export const defaultLikesNumber = 2;
+export const infoTabMock = {
+  cotractAdress: '0xf8C2gasd31EfgasdasTR13292d3',
+  tokeId: 15,
+  tokenStandard: 'ERC-1155',
+  blockchain: 'Polygon',
+  creatorFees: 5,
+};

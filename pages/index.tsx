@@ -13,21 +13,19 @@ import StoreLayout from '../components/layouts/store';
 import { ReactSlick } from '../components/ui-kit';
 import Button from '../components/ui-kit/Button/Button';
 import { ButtonSize, ButtonType } from '../components/ui-kit/Button/enums';
+import { useAppSelector } from '../redux/hooks';
+import { TBidsState } from '../redux/slicers/bidsSlicer/types';
+import { IBid } from '../swagger';
 
 const Home = () => {
   //TODO: remove Mocks
-  const creativeEconomeMock = [
-    {
-      id: 'creator-network-first',
-      item: <CreatorNetwork index={1} />,
-    },
-    {
-      id: 'creator-network-second',
-      item: <CreatorNetwork index={2} />,
-    },
-  ];
+
+  const { bids } = useAppSelector<TBidsState>((state) => state.bids);
 
   const { screenSize } = useAdaptiveSlider(1);
+
+  const getHotBit = (bids: IBid[]) =>
+    bids?.map((bid) => <CreatorNetwork key={bid._id} bid={bid} />);
 
   return (
     <div>
@@ -40,7 +38,7 @@ const Home = () => {
       <FlexContainer>
         <StyledPageContainer>
           <ReactSlick screenSize={screenSize} slidesPerRow={1}>
-            {creativeEconomeMock.map((elem) => elem.item)}
+            {getHotBit(bids)}
           </ReactSlick>
           {/* <Bids /> */}
         </StyledPageContainer>

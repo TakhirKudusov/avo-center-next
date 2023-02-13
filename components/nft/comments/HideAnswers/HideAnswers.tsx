@@ -1,19 +1,28 @@
 import styled from 'styled-components';
-import UpSideCornerSVG from '../../../assets/svg/up-side-corner.svg';
+import UpSideCornerSVG from '../../../../assets/svg/up-side-corner.svg';
 import { memo } from 'react';
-import { devices } from '../../../common/constants';
+import { devices } from '../../../../common/constants';
 
 type Props = {
+  isAnswersHidden: boolean;
   commentsQuantity: string;
+  onAnwserToggle: () => void;
 };
 
-const HideAnswers: React.FC<Props> = ({ commentsQuantity }) => {
+const HideAnswers: React.FC<Props> = ({
+  isAnswersHidden,
+  commentsQuantity,
+  onAnwserToggle,
+}) => {
   return (
     <Container>
-      <HideButton>
+      <HideButton onClick={onAnwserToggle}>
         <p>Hide answers</p>
         <div className="svg-btn-wrapper">
-          <UpSideCornerSVG className="svg-btn" />
+          <StyledUpSideCornerSVG
+            className="svg-btn"
+            rotated={isAnswersHidden}
+          />
         </div>
       </HideButton>
       <TextContainer>
@@ -85,6 +94,11 @@ const Container = styled.div`
   @media (${devices.mobile}) {
     width: 100%;
   }
+`;
+
+const StyledUpSideCornerSVG = styled(UpSideCornerSVG)<{ rotated: boolean }>`
+  transform: ${({ rotated }) => (rotated ? 'rotate(180deg)' : 'rotate(0)')};
+  transition: all 0.3s;
 `;
 
 export default memo(HideAnswers);

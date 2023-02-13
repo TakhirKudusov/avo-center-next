@@ -1,19 +1,36 @@
-import React, { useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import HeartOutlinedSVG from '../../../assets/svg/heart-outlined.svg';
+import HeartOutlinedSVG from '../../../../../assets/svg/heart-outlined.svg';
 
-const LikeButton = () => {
+type Props = {
+  isLiked: boolean;
+  onCommentLike: () => void;
+  onCommentUnlike: () => void;
+};
+
+const LikeButton: FC<Props> = ({ isLiked, onCommentLike, onCommentUnlike }) => {
   const [heartFilled, setHeartFilled] = useState<boolean>(false);
+
+  const handleLikeClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!heartFilled) {
+      onCommentLike();
+    } else {
+      onCommentUnlike();
+    }
+    setHeartFilled(!heartFilled);
+  };
+
+  useEffect(() => {
+    setHeartFilled(isLiked);
+  }, [isLiked]);
 
   return (
     <LikeButtonWrapper heartFilled={heartFilled}>
       <HeartOutlinedSVG
+        className="heart-btn"
         heartFilled={heartFilled}
-        className={'heart-btn'}
-        onClick={(e: React.MouseEvent<HTMLDivElement>) =>
-          setHeartFilled(!heartFilled)
-        }
+        onClick={handleLikeClick}
       />
     </LikeButtonWrapper>
   );

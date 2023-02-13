@@ -1,8 +1,9 @@
 enum CollectibleFormItemName {
   File = 'File',
-  Network = 'network',
+  Type = 'type',
+  Category = 'category',
   Name = 'name',
-  Price = 'price',
+  Total = 'total',
   Description = 'description',
   Royalties = 'royalties',
   License = 'license',

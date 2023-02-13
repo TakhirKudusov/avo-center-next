@@ -93,3 +93,9 @@ export enum OwnerRoles {
   OWNER = 'owner',
   CREATOR = 'creator',
 }
+
+export enum NftInfoTabs {
+  INFO = 'info',
+  OWNERS = 'owners',
+  BIDS = 'bids',
+}

@@ -31,7 +31,7 @@ const CollectionItem: React.FC<Props> = ({ collection }) => {
           />
           <CollectionAuthorCaption>
             By
-            <CollectionAuthorName>{collection.owner.name}</CollectionAuthorName>
+            <CollectionAuthorName>{collection.owner.username}</CollectionAuthorName>
           </CollectionAuthorCaption>
         </CollectionAuthor>
         <CollectionItemsNumber>

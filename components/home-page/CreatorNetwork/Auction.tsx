@@ -2,17 +2,20 @@ import styled from 'styled-components';
 import { Timer } from './Timer';
 
 import { TimeBeforeEnd } from '../../nft/common/types';
+import { IBid } from '../../../swagger';
+import { formatNumber } from '../../../common/helpers/formatNumber';
 
 type Props = {
+  bid: IBid;
   timeBeforeEnd?: TimeBeforeEnd;
 };
 
-const Auction = ({ timeBeforeEnd }: Props) => {
+const Auction = ({ bid, timeBeforeEnd }: Props) => {
   return (
     <AuctionWrapper>
       <BidTitle>Current Bid</BidTitle>
-      <BidValue>1.00 AVO</BidValue>
-      <BidPrice>$3,618.36</BidPrice>
+      <BidValue>{bid.nft.available} AVO</BidValue>
+      <BidPrice>${formatNumber(bid.nft.salePrice || '0') as any}</BidPrice>
       <AuctionTitle>Auction ending in</AuctionTitle>
       <Timer timeBeforeEnd={timeBeforeEnd} />
     </AuctionWrapper>

@@ -6,34 +6,49 @@ import Button from '../../ui-kit/Button/Button';
 import Auction from './Auction';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 import Link from 'next/link';
-import { useTimer } from '../../ui-kit';
+import { Counter, useTimer } from '../../ui-kit';
 import { NFTData } from '../../../mock-data/tagsData';
-import { devices } from '../../../common/constants';
+import { devices, screenSizes } from '../../../common/constants';
 import { Paths } from '../../../common/enums/paths';
+import { IBid } from '../../../swagger';
+import { StepModal } from '../../common/components';
+import { PLACE_BID_STEPS } from '../../ModalsTest/constants';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
+import { usePlaceBid } from '../../../common/hooks/usePlaceBid';
+import { useContext } from 'react';
+import { ConnectWalletContext } from '../../nft/NFT/context';
 
 //TODO: remove index
 type Props = {
-  index: number;
+  bid: IBid;
 };
 
-const CreatorNetwork = ({ index }: Props) => {
-  const { timeBeforeEnd } = useTimer(NFTData);
+const CreatorNetwork = ({ bid }: Props) => {
+  const { timeBeforeEnd } = useTimer(bid);
+
+  const { screenSize } = useAdaptiveSlider();
+
+  const { setOpenConnectWallet } = useContext(ConnectWalletContext);
+
+  const { openPlaceBid, handlePlaceBidOpen, handlePlaceBidClose } =
+    usePlaceBid(setOpenConnectWallet);
 
   return (
     <CreatorNetworkWrapper>
       <Player />
       <InfoBar>
-        <Title>Marco carrillo {index}®</Title>
+        <Title>{bid.nft.name}</Title>
         <InfoItems>
           <InfoItem>
             <InfoItemImage
               style={{
+                //TODO: replace with nft image
                 backgroundImage: `url(/images/creator.jpg)`,
               }}
             />
             <InfoItemBody>
               <InfoItemLabel>Creator</InfoItemLabel>
-              <InfoItemValue>Enrico Cole</InfoItemValue>
+              <InfoItemValue>{bid.creator.username as string}</InfoItemValue>
             </InfoItemBody>
           </InfoItem>
           <InfoItem>
@@ -42,30 +57,50 @@ const CreatorNetwork = ({ index }: Props) => {
             </InfoItemImage>
             <InfoItemBody>
               <InfoItemLabel>Instant price</InfoItemLabel>
-              <InfoItemValue>3.5 AVO</InfoItemValue>
+              <InfoItemValue>{bid.nft.total} AVO</InfoItemValue>
             </InfoItemBody>
           </InfoItem>
         </InfoItems>
-        <Auction timeBeforeEnd={timeBeforeEnd} />
-        <Link href={Paths.NEW_NFT}>
+        <Auction bid={bid} timeBeforeEnd={timeBeforeEnd} />
+        <Button
+          btnType={ButtonType.Secondary}
+          size={ButtonSize.Large}
+          fullSize={true}
+          onClick={handlePlaceBidOpen}
+        >
+          Place a bid
+        </Button>
+
+        <Link href={`${Paths.EDIT_NFT}/${bid._id}`}>
           <Button
-            btnType={ButtonType.Secondary}
+            btnType={ButtonType.Primary}
             size={ButtonSize.Large}
+            style={{ marginTop: '8px' }}
             fullSize={true}
           >
-            Place a bid
+            View item
           </Button>
         </Link>
-
-        <Button
-          btnType={ButtonType.Primary}
-          size={ButtonSize.Large}
-          style={{ marginTop: '8px' }}
-          fullSize={true}
-        >
-          View item
-        </Button>
       </InfoBar>
+      <StepModal
+        steps={PLACE_BID_STEPS}
+        isOpen={openPlaceBid}
+        childrenStageTitle="Place a bid"
+        startStepBtnName="Approve now"
+        confirmBtnName="Place a bid"
+        onClose={handlePlaceBidClose}
+      >
+        <>
+          <PlaceBidInfo>You are about to purchase AvoNFT</PlaceBidInfo>
+          <Counter
+            label="BID PRICE"
+            style={{
+              width: screenSize >= screenSizes.tablet ? '384px' : '260px',
+              marginTop: '10px',
+            }}
+          />
+        </>
+      </StepModal>
     </CreatorNetworkWrapper>
   );
 };
@@ -73,7 +108,7 @@ const CreatorNetwork = ({ index }: Props) => {
 const CreatorNetworkWrapper = styled.div`
   margin-top: 48px;
   display: flex;
-  gap: 128px;
+  gap: 90px;
   padding: 0 5px;
 
   @media (${devices.tablet}) {
@@ -106,6 +141,7 @@ const Player = styled.div`
 const InfoBar = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const Title = styled.h3`
@@ -160,6 +196,14 @@ const InfoItemValue = styled.div`
   font-size: 14px;
   line-height: 24px;
   color: #23262f;
+`;
+
+const PlaceBidInfo = styled.div`
+  color: #23262f;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 32px;
+  font-family: 'Poppins';
 `;
 
 const Arrows = styled.div`
