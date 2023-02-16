@@ -8,6 +8,7 @@ import {
   getQueryParams,
   pushQueryParams,
 } from '../../common/helpers/manageQueryParams.helper';
+import { sortStringifier } from '../../common/helpers/sortStringifier.helper';
 import {
   clearBids,
   clearNFTs,
@@ -109,85 +110,95 @@ const setPriceRange = (dispatch: AppDispatch) => {
   // dispatch(fetchPriceRange(payload));
 };
 
-const onLocationChange =
-  (dispatch: AppDispatch, setPriceRange: any) => async () => {
-    const queryParams = getQueryParams(window.location.search);
-    const { minPrice, maxPrice, name, page } = queryParams;
-    const { prices, likes, types, categories } =
-      convertQueryParams(queryParams);
+const onLocationChange = (dispatch: AppDispatch) => async () => {
+  const queryParams = getQueryParams(window.location.search);
+  const { minPrice, maxPrice, name, page } = queryParams;
+  const { prices, likes, types, categories } = convertQueryParams(queryParams);
 
-    const type = types ? types[0] : undefined;
-    const category: string = categories ? categories[0] : undefined;
-    const payload = {
-      // prices,
-      // likes,
-      name,
-      category,
-      // minPrice: minPrice ? Number(minPrice) : undefined,
-      // maxPrice: maxPrice ? Number(maxPrice) : undefined,
-      limit: PAGE_ITEMS_LIMIT,
-      // offset: PAGE_ITEMS_LIMIT * (Number(page ?? 1) - 1),
-    };
-
-    // dispatch(setPage(Number(page ?? 1)));
-
-    if (type === 'nft') {
-      dispatch(clearBids());
-      dispatch(fetchNFTs(payload));
-    }
-
-    if (type === 'bid') {
-      dispatch(clearNFTs());
-      dispatch(fetchBids(payload));
-    }
-
-    // dispatch(fetchProducts(payload));
-    const curLocation = localStorage.getItem('location')!;
-    localStorage.setItem('location', window.location.search);
-
-    const rawPrevQueryParams = getQueryParams(curLocation);
-    const prevQueryParams = convertQueryParams(rawPrevQueryParams);
-
-    if (prevQueryParams.maxPrice !== undefined && maxPrice === undefined) {
-      setPriceRange({
-        minPrice: undefined,
-        maxPrice: undefined,
-      });
-      setTimeout(() => {
-        setPriceRange({
-          minPrice: 0,
-          maxPrice: 1000,
-        });
-      });
-    }
-
-    // if (
-    //   JSON.stringify(prevQueryParams.categories) !== JSON.stringify(categories)
-    // ) {
-    //   const category = categories ? categories[0] : '';
-
-    //   if (category) {
-    //     await dispatch(fetchSubCategories(category));
-    //     await dispatch(fetchBrands({ parent: category }));
-    //     await dispatch(fetchColors({ parent: category }));
-    //   } else {
-    //     await dispatch(clearSubCategories());
-    //     await dispatch(clearBrands());
-    //     await dispatch(clearColors());
-    //   }
-    //   setPriceRange(dispatch);
-    // }
-
-    // if (
-    //   JSON.stringify(prevQueryParams.subCategories) !==
-    //   JSON.stringify(subCategories)
-    // ) {
-    //   if (subCategories) {
-    //     await dispatch(fetchBrands({ category: subCategories[0] }));
-    //     await dispatch(fetchColors({ category: subCategories[0] }));
-    //   }
-    // }
+  const type = types ? types[0] : undefined;
+  const category: string = categories ? categories[0] : undefined;
+  const payload = {
+    name,
+    category,
+    minPrice: minPrice ? Number(minPrice) : undefined,
+    maxPrice: maxPrice ? Number(maxPrice) : undefined,
+    sortBy: sortStringifier({ _id: 1 }),
+    limit: PAGE_ITEMS_LIMIT,
+    // offset: PAGE_ITEMS_LIMIT * (Number(page ?? 1) - 1),
   };
+  const sortBy = {} as { [key: string]: number };
+
+  if (prices) {
+    sortBy.salePrice = +prices[0];
+  }
+
+  if (likes) {
+    sortBy.likesLength = +likes[0];
+  }
+
+  if (Object.keys(sortBy).length) {
+    payload.sortBy = sortStringifier(sortBy);
+  }
+
+  // dispatch(setPage(Number(page ?? 1)));
+
+  if (type === 'nft') {
+    dispatch(clearBids());
+    dispatch(fetchNFTs(payload));
+  }
+
+  if (type === 'bid') {
+    dispatch(clearNFTs());
+    dispatch(fetchBids(payload));
+  }
+
+  // dispatch(fetchProducts(payload));
+  const curLocation = localStorage.getItem('location')!;
+  localStorage.setItem('location', window.location.search);
+
+  const rawPrevQueryParams = getQueryParams(curLocation);
+  const prevQueryParams = convertQueryParams(rawPrevQueryParams);
+
+  if (prevQueryParams.maxPrice !== undefined && maxPrice === undefined) {
+    // setPriceRange({
+    //   minPrice: undefined,
+    //   maxPrice: undefined,
+    // });
+    // setTimeout(() => {
+    //   setPriceRange({
+    //     minPrice: 0,
+    //     maxPrice: 1000,
+    //   });
+    // });
+  }
+
+  // if (
+  //   JSON.stringify(prevQueryParams.categories) !== JSON.stringify(categories)
+  // ) {
+  //   const category = categories ? categories[0] : '';
+
+  //   if (category) {
+  //     await dispatch(fetchSubCategories(category));
+  //     await dispatch(fetchBrands({ parent: category }));
+  //     await dispatch(fetchColors({ parent: category }));
+  //   } else {
+  //     await dispatch(clearSubCategories());
+  //     await dispatch(clearBrands());
+  //     await dispatch(clearColors());
+  //   }
+  //   setPriceRange(dispatch);
+  // }
+
+  // if (
+  //   JSON.stringify(prevQueryParams.subCategories) !==
+  //   JSON.stringify(subCategories)
+  // ) {
+  //   if (subCategories) {
+  //     await dispatch(fetchBrands({ category: subCategories[0] }));
+  //     await dispatch(fetchColors({ category: subCategories[0] }));
+  //   }
+  // }
+};
 
 const getFilters = ({
   typeOptions,

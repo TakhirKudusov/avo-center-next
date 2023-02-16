@@ -81,7 +81,7 @@ const BidItem: React.FC<Props> = ({ item }) => {
           <BidInfoRow>
             <BidName>{nftItem?.name}</BidName>
             {/* <BidPrice value={avoAmonut} /> */}
-            <BidPrice value={200} />
+            <BidPrice value={nftItem.salePrice} />
           </BidInfoRow>
           <BidInfoRow>
             <BidFeature>

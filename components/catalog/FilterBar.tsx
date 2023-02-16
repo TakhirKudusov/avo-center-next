@@ -5,6 +5,12 @@ import {
   clearQueryParams,
   getQueryParams,
 } from '../../common/helpers/manageQueryParams.helper';
+import { useAppDispatch } from '../../redux/hooks';
+import {
+  clearBids,
+  clearNFTs,
+  resetPriceRange,
+} from '../../redux/slicers/discoverSlicer/discoverSlicer';
 import RangeSelectionFilter from './filters/RangeSelectionFilter';
 import SingleSelectionFilter from './filters/SingleSelectionFilter';
 import { convertQueryParams, getFilters, getFiltersConfig } from './helpers';
@@ -25,6 +31,7 @@ const FilterBar: React.FC<Props> = ({
   likes,
   priceRange,
 }) => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const filters = convertQueryParams(router.query);
   const [filtersConfig, setFiltersConfig] = useState(
@@ -41,6 +48,9 @@ const FilterBar: React.FC<Props> = ({
 
   const handleResetFilters = () => {
     clearQueryParams();
+    dispatch(resetPriceRange());
+    dispatch(clearBids());
+    dispatch(clearNFTs());
   };
 
   const hanldeResetBtnClick = () => {

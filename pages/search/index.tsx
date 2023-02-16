@@ -24,14 +24,11 @@ import { TDiscoverState } from '../../redux/slicers/discoverSlicer/types';
 
 const Catalog = () => {
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const [queryParams, setQueryParams] = useState<string>();
-  const [priceRange, setPriceRange] = useState({});
-  const { categories, bids, nfts, loading } = useAppSelector<TDiscoverState>(
-    (state) => state.discover,
-  );
+  const { categories, bids, nfts, loading, priceRange } =
+    useAppSelector<TDiscoverState>((state) => state.discover);
 
-  const handleLocationChange = onLocationChange(dispatch, setPriceRange);
+  const handleLocationChange = onLocationChange(dispatch);
 
   const onCategoryChange = () => {
     const queryParams = convertQueryParams(
@@ -58,17 +55,15 @@ const Catalog = () => {
       onCategoryChange();
     });
 
-    setTimeout(() => {
-      setPriceRange({
-        minPrice: 0,
-        maxPrice: 1000,
-      });
-    });
+    // setTimeout(() => {
+    //   setPriceRange({
+    //     minPrice: 0,
+    //     maxPrice: 1000,
+    //   });
+    // });
 
     (async () => {
       await dispatch(fetchCategories());
-      // await dispatch(fetchParentCategories());
-      // await dispatch(fetchTags());
       await handleLocationChange();
       onCategoryChange();
     })();
@@ -77,6 +72,11 @@ const Catalog = () => {
       window.removeEventListener('locationChange', handleLocationChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (nfts) {
+    }
+  }, [nfts]);
 
   return (
     <div>
