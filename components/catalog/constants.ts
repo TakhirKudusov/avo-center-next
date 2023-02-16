@@ -4,24 +4,24 @@ const LIKE_ITEMS: TFilterOption[] = [
   {
     id: '1',
     name: 'More liked',
-    url: 'more-liked',
+    url: '-1',
   },
   {
     id: '2',
     name: 'Less liked',
-    url: 'less-liked',
+    url: '1',
   },
 ];
 const PRICE_ITEMS: TFilterOption[] = [
   {
     id: '1',
     name: 'Highest price',
-    url: 'highest-price',
+    url: '-1',
   },
   {
     id: '2',
     name: 'Lowest price',
-    url: 'lowest-price',
+    url: '1',
   },
 ];
 

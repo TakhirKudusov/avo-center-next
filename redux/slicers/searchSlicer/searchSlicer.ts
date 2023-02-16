@@ -11,8 +11,8 @@ export const searchItems = createAsyncThunk<
   { rejectValue: string }
 >('serach/get-items', async function (searchPhrase): Promise<any> {
   const response = await NftsService.getNfTs(
-    '0',
-    '100',
+    0,
+    100,
     '_id',
     undefined,
     searchPhrase,
