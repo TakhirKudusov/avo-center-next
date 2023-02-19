@@ -6,9 +6,16 @@ import LoadingSpinner from '../../UI/loading_spinner/LoadingSpinner';
 import PageHeader from '../../UI/page_header/PageHeader';
 import TableContainer from '../../UI/table_container/TableContainer';
 import ContentContainer from '../../UI/content_container/ContentContainer';
-import Form from './Form';
+import NFTInfo from './NFTInfo';
+import { useState } from 'react';
+import { ModalState } from '../../utils/types';
+import { TableContent } from '../../UI/table/types';
+import { Nft as NftType } from '../../../../redux/APIs/types';
 
 const Nft = () => {
+  const [modalState, setModalState] = useState<ModalState>(null);
+  const [modalData, setModalData] = useState<TableContent | null>(null);
+
   const { data, isLoading, isError } = useGetNftsQuery('');
 
   return (
@@ -19,7 +26,15 @@ const Nft = () => {
         {isLoading && !isError ? (
           <LoadingSpinner />
         ) : (
-          <Table content={data} head={tableHead} form={<Form />} />
+          <Table
+            content={data}
+            head={tableHead}
+            setModalData={setModalData}
+            modalData={modalData}
+            form={<NFTInfo data={modalData as NftType} />}
+            modalState={modalState}
+            setModalState={setModalState}
+          />
         )}
       </TableContainer>
     </ContentContainer>

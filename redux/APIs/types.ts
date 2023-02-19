@@ -1,6 +1,7 @@
 type NftData = {
-  available: number;
-  creatorId: number;
+  available: string;
+  creator: UserData;
+  owner: UserData;
   description: string;
   isOnSale: boolean;
   likes: string[];
@@ -9,9 +10,20 @@ type NftData = {
   type: string;
   __v: number;
   _id: string;
+  royalties: string;
+  salePrice: string;
+  updatedAt: string;
+  likesLength: string;
 };
 
-type Nft = Record<keyof Omit<NftData, '__v' | '_id'> | 'id', string>;
+type Nft = Record<
+  | keyof Omit<NftData, '__v' | '_id' | 'likes' | 'owner' | 'creator'>
+  | 'id'
+  | 'creatorId'
+  | 'ownerId'
+  | 'likesLength',
+  string
+>;
 
 type UserData = {
   followers: string[];
@@ -44,9 +56,17 @@ type BidData = {
   _id: string;
   date: string;
   __v: number;
+  nft: NftData;
+  creator: UserData;
 };
 
-type Bid = Record<keyof Omit<BidData, '__v' | '_id'> | 'id', string>;
+type Bid = Record<
+  | keyof Omit<BidData, '__v' | '_id' | 'nft' | 'creator'>
+  | 'id'
+  | 'nftId'
+  | 'creatorId',
+  string
+>;
 
 type FaqsData = {
   _id: string;
@@ -62,8 +82,9 @@ type Faqs = Record<keyof Omit<FaqsData, '_id' | 'description'> | 'id', string> &
 type ReportData = {
   _id: string;
   message: string;
-  creator: string;
-  NFT: string;
+  creator: UserData;
+  NFT: NftData;
+  status: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -75,7 +96,7 @@ type NotificationData = {
   title: string;
   message: string;
   image: string;
-  user: string;
+  user: UserData;
   createdAt: string;
   updatedAt: string;
 };
@@ -97,125 +118,36 @@ type Category = Record<keyof Omit<CategoryData, '_id'> | 'id', string>;
 type SellersData = {
   _id: string;
   sum: number;
-  owner: {
-    _id: string;
-    nonce: number;
-    publicAddress: string;
-    avatar: string;
-    username: string;
-    bio: string;
-    webSite: string;
-    twitter: string;
-    socialAccount: string;
-    wallet: string;
-    balace: number;
-    role: string;
-    isVerified: boolean;
-    followers: string[];
-    createdAt: string;
-    updatedAt: string;
-  };
+  owner: UserData;
 };
 
-type SellersOwner = Record<
-  | keyof Omit<SellersData['owner'], '_id' | 'nonce' | 'balace' | 'followers'>
-  | 'id',
-  string
-> &
-  Record<'nonce' | 'balace', number> &
-  Record<'followers', string[]>;
-
 type Sellers = Record<
-  keyof Omit<SellersData, '_id' | 'owner' | 'sum'> | 'id',
+  keyof Omit<SellersData, '_id' | 'owner'> | 'id' | 'ownerId',
   string
-> &
-  Record<'owner', SellersOwner> &
-  Record<'sum', number>;
+>;
 
 type CreatorsData = {
   _id: string;
   sum: number;
-  creator: {
-    _id: string;
-    nonce: number;
-    publicAddress: string;
-    avatar: string;
-    username: string;
-    bio: string;
-    webSite: string;
-    twitter: string;
-    socialAccount: string;
-    wallet: string;
-    balace: number;
-    role: string;
-    isVerified: boolean;
-    followers: string[];
-    createdAt: string;
-    updatedAt: string;
-  };
+  creator: UserData;
 };
 
-type CreatorsCreator = Record<
-  | keyof Omit<
-      CreatorsData['creator'],
-      '_id' | 'nonce' | 'balace' | 'followers'
-    >
-  | 'id',
-  string
-> &
-  Record<'nonce' | 'balace', number> &
-  Record<'followers', string[]>;
-
 type Creators = Record<
-  keyof Omit<CreatorsData, '_id' | 'creator' | 'sum'> | 'id',
+  keyof Omit<CreatorsData, '_id' | 'creator'> | 'id' | 'creatorId',
   string
-> &
-  Record<'creator', CreatorsCreator> &
-  Record<'sum', number>;
+>;
 
 type VerificationData = {
   _id: string;
   idPhoto: string;
   facePhoto: string;
-  user: {
-    _id: string;
-    nonce: number;
-    publicAddress: string;
-    avatar: string;
-    username: string;
-    bio: string;
-    webSite: string;
-    twitter: string;
-    socialAccount: string;
-    wallet: string;
-    balace: number;
-    role: string;
-    isVerified: boolean;
-    followers: string[];
-    createdAt: string;
-    updatedAt: string;
-  };
+  user: string;
   status: string;
   createdAt: string;
   updatedAt: string;
 };
 
-type VerificationUser = Record<
-  | keyof Omit<
-      VerificationData['user'],
-      '_id' | 'nonce' | 'balace' | 'followers'
-    >
-  | 'id',
-  string
-> &
-  Record<'nonce' | 'balace', number> &
-  Record<'followers', string[]>;
-
-type Verification = Record<
-  keyof Omit<VerificationData, '_id' | 'user'> | 'id',
-  string
-> &
-  Record<'user', VerificationUser>;
+type Verification = Record<keyof Omit<VerificationData, '_id'> | 'id', string>;
 
 export type {
   Nft,

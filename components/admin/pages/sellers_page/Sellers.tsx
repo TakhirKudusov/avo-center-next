@@ -6,9 +6,15 @@ import LoadingSpinner from '../../UI/loading_spinner/LoadingSpinner';
 import PageHeader from '../../UI/page_header/PageHeader';
 import TableContainer from '../../UI/table_container/TableContainer';
 import ContentContainer from '../../UI/content_container/ContentContainer';
-import Form from './Form';
+import { useState } from 'react';
+import { ModalState } from '../../utils/types';
+import { TableContent } from '../../UI/table/types';
+import SellersInfo from './SellersInfo';
 
 const Sellers = () => {
+  const [modalState, setModalState] = useState<ModalState | null>(null);
+  const [modalData, setModalData] = useState<TableContent | null>(null);
+
   const { data, isLoading, isError } = useGetSellersQuery('');
 
   return (
@@ -19,7 +25,15 @@ const Sellers = () => {
         {isLoading && !isError ? (
           <LoadingSpinner />
         ) : (
-          <Table content={data} head={tableHead} form={<Form />} />
+          <Table
+            content={data}
+            head={tableHead}
+            setModalData={setModalData}
+            modalData={modalData}
+            form={<SellersInfo modalData={modalData} />}
+            modalState={modalState}
+            setModalState={setModalState}
+          />
         )}
       </TableContainer>
     </ContentContainer>

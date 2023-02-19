@@ -29,12 +29,16 @@ const handleTransformNftData = (data: NftData[]): Nft[] => {
       id: currentValue._id,
       name: currentValue.name,
       description: currentValue.description,
-      creatorId: String(currentValue.creatorId),
+      creatorId: String(currentValue.creator._id),
       type: currentValue.type,
       total: String(currentValue.total),
       available: currentValue.available ? 'Yes' : 'No',
       isOnSale: currentValue.isOnSale ? 'Yes' : 'No',
-      likes: String(currentValue.likes.length),
+      likesLength: String(currentValue.likesLength),
+      royalties: String(currentValue.royalties),
+      salePrice: String(currentValue.salePrice),
+      ownerId: currentValue.owner._id,
+      updatedAt: currentValue.updatedAt,
     });
 
     return previousValue;
@@ -78,8 +82,9 @@ const handleTransformBidsData = (data: BidData[]): Bid[] => {
     previousValue.push({
       id: currentValue._id,
       date: currentValue.date,
+      nftId: currentValue.nft._id,
+      creatorId: currentValue.creator._id,
     });
-
     return previousValue;
   }, []);
 };
@@ -103,8 +108,9 @@ const handleTransformReportsData = (data: ReportData[]): Report[] => {
     previousValue.push({
       id: currentValue._id,
       message: currentValue.message,
-      creator: currentValue.creator,
-      NFT: currentValue.NFT,
+      creator: currentValue.creator._id,
+      NFT: currentValue.NFT._id,
+      status: currentValue.status,
       createdAt: currentValue.createdAt,
       updatedAt: currentValue.updatedAt,
     });
@@ -122,7 +128,7 @@ const handleTransformNotificationsData = (
       title: currentValue.title,
       message: currentValue.message,
       image: currentValue.image,
-      user: currentValue.user,
+      user: currentValue.user._id,
       createdAt: currentValue.createdAt,
       updatedAt: currentValue.updatedAt,
     });
@@ -148,25 +154,8 @@ const handleTransformSellersData = (data: SellersData[]): Sellers[] => {
   return data.reduce((previousValue: Sellers[], currentValue) => {
     previousValue.push({
       id: currentValue._id,
-      sum: currentValue.sum,
-      owner: {
-        id: currentValue.owner._id,
-        nonce: currentValue.owner.nonce,
-        publicAddress: currentValue.owner.publicAddress,
-        avatar: currentValue.owner.avatar,
-        username: currentValue.owner.username,
-        bio: currentValue.owner.bio,
-        webSite: currentValue.owner.webSite,
-        twitter: currentValue.owner.twitter,
-        socialAccount: currentValue.owner.socialAccount,
-        wallet: currentValue.owner.wallet,
-        balace: currentValue.owner.balace,
-        role: currentValue.owner.role,
-        isVerified: currentValue.owner.isVerified ? 'Yes' : 'No',
-        followers: currentValue.owner.followers,
-        createdAt: currentValue.owner.createdAt,
-        updatedAt: currentValue.owner.updatedAt,
-      },
+      sum: String(currentValue.sum),
+      ownerId: currentValue.owner._id,
     });
 
     return previousValue;
@@ -177,25 +166,8 @@ const handleTransformCreatorsData = (data: CreatorsData[]): Creators[] => {
   return data.reduce((previousValue: Creators[], currentValue) => {
     previousValue.push({
       id: currentValue._id,
-      sum: currentValue.sum,
-      creator: {
-        id: currentValue.creator._id,
-        nonce: currentValue.creator.nonce,
-        publicAddress: currentValue.creator.publicAddress,
-        avatar: currentValue.creator.avatar,
-        username: currentValue.creator.username,
-        bio: currentValue.creator.bio,
-        webSite: currentValue.creator.webSite,
-        twitter: currentValue.creator.twitter,
-        socialAccount: currentValue.creator.socialAccount,
-        wallet: currentValue.creator.wallet,
-        balace: currentValue.creator.balace,
-        role: currentValue.creator.role,
-        isVerified: currentValue.creator.isVerified ? 'Yes' : 'No',
-        followers: currentValue.creator.followers,
-        createdAt: currentValue.creator.createdAt,
-        updatedAt: currentValue.creator.updatedAt,
-      },
+      sum: String(currentValue.sum),
+      creatorId: currentValue.creator._id,
     });
 
     return previousValue;
@@ -210,24 +182,7 @@ const handleTransformVerificationsData = (
       id: currentValue._id,
       idPhoto: currentValue.idPhoto,
       facePhoto: currentValue.facePhoto,
-      user: {
-        id: currentValue.user._id,
-        nonce: currentValue.user.nonce,
-        publicAddress: currentValue.user.publicAddress,
-        avatar: currentValue.user.avatar,
-        username: currentValue.user.username,
-        bio: currentValue.user.bio,
-        webSite: currentValue.user.webSite,
-        twitter: currentValue.user.twitter,
-        socialAccount: currentValue.user.socialAccount,
-        wallet: currentValue.user.wallet,
-        balace: currentValue.user.balace,
-        role: currentValue.user.role,
-        isVerified: currentValue.user.isVerified ? 'Yes' : 'No',
-        followers: currentValue.user.followers,
-        createdAt: currentValue.user.createdAt,
-        updatedAt: currentValue.user.updatedAt,
-      },
+      user: currentValue.user,
       status: currentValue.status,
       createdAt: currentValue.createdAt,
       updatedAt: currentValue.updatedAt,

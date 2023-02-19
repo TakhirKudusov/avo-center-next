@@ -10,10 +10,10 @@ const Bids = dynamic(
   },
 );
 
-const BidsPage: ComponentWithLayout = () => {
+const CategoriesPage: ComponentWithLayout = () => {
   return <Bids />;
 };
 
-BidsPage.PageLayout = AdminLayout;
+CategoriesPage.PageLayout = AdminLayout;
 
-export default BidsPage;
+export default CategoriesPage;

@@ -1,28 +1,45 @@
 import styled from 'styled-components';
 import { TableContent, TableHead } from './types';
-import { FC, ReactNode, useState } from 'react';
+import {
+  Dispatch,
+  FC,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import ModalInfo from '../modal_info/ModalInfo';
+import { FormikProps } from 'formik';
+import { ModalState } from '../../utils/types';
 
 type TableProps = {
   head: TableHead[];
   content: TableContent[] | undefined;
-  form: ReactNode;
+  form?: ReactNode;
+  modalState?: ModalState;
+  setModalState?: Dispatch<SetStateAction<ModalState>>;
+  setModalData?: Dispatch<SetStateAction<TableContent | null>>;
+  modalData?: TableContent | null;
+  formikProps?: FormikProps<TableContent> | null;
+  handleDeleteInstance?: () => void;
 };
 
-const Table: FC<TableProps> = ({ head, content, form }) => {
-  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
-  const [modalData, setModalData] = useState<TableContent | null>(null);
-
-  const handleFormatCellContent = (el: string) => {
-    if (el.length > 15) {
-      return el.substring(0, 15) + '...';
-    }
-    return el;
-  };
-
+const Table: FC<TableProps> = ({
+  head,
+  content,
+  form,
+  setModalState,
+  modalState,
+  formikProps,
+  handleDeleteInstance,
+  setModalData,
+  modalData,
+}) => {
   const handleRowClick = (content: TableContent) => () => {
-    setModalData(content);
-    setIsModalOpened(true);
+    if (setModalData && setModalState) {
+      setModalData(content);
+      setModalState('put');
+    }
   };
 
   return (
@@ -55,14 +72,14 @@ const Table: FC<TableProps> = ({ head, content, form }) => {
                 {Object.values(el)?.map((el: string | string[], index) => {
                   return (
                     <Cell style={{ width: head[index].width }} key={index}>
-                      {typeof el === 'string' ? (
-                        handleFormatCellContent(el)
+                      {head?.[index]?.render ? (
+                        head[index].render?.(el)
+                      ) : typeof el === 'string' ? (
+                        el
                       ) : (
                         <StyledUl>
                           {el?.map((el, index: number) => {
-                            return (
-                              <li key={index}>{handleFormatCellContent(el)}</li>
-                            );
+                            return <li key={index}>{el}</li>;
                           })}
                         </StyledUl>
                       )}
@@ -75,9 +92,11 @@ const Table: FC<TableProps> = ({ head, content, form }) => {
         </Body>
       </Container>
       <ModalInfo
+        formikProps={formikProps}
         data={modalData}
-        isOpened={isModalOpened}
-        setIsOpened={setIsModalOpened}
+        modalState={modalState}
+        setModalState={setModalState}
+        handleDeleteInstance={handleDeleteInstance}
       >
         {form}
       </ModalInfo>

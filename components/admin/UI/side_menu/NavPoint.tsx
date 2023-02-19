@@ -17,7 +17,7 @@ import { useRouter } from 'next/router';
 
 type Props = {
   header: string;
-  subPoint: { id: number; name: string; link: AdminRoute }[];
+  subPoint: { id: string; name: string; link: AdminRoute }[];
   Icon: ReactNode | any;
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
   setMenuSlide: Dispatch<SetStateAction<boolean>>;

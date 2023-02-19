@@ -7,8 +7,11 @@ import LoadingSpinner from '../../UI/loading_spinner/LoadingSpinner';
 import Table from '../../UI/table/Table';
 import { tableHead } from './constants';
 import Form from './Form';
+import { useState } from 'react';
 
 const Collections = () => {
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+
   const { data, isLoading, isError } = useGetCollectionsQuery('');
 
   return (

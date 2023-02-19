@@ -66,7 +66,7 @@ const MainAdmin = () => {
           image="/images/admin_images/menu_7.webp"
         >
           <CardInfoContainer>
-            <CardHeader>Manage reports</CardHeader>
+            <CardHeader>Manage reports1</CardHeader>
           </CardInfoContainer>
         </MenuCard>
       </MenuContainer>
@@ -125,6 +125,7 @@ const MenuCard = styled.div<{ image: string }>`
   background-position: -10px;
   background-size: auto 160px;
   min-width: 306px;
+  transition: 0.1s linear;
   &:hover {
     background-color: #fcfcfd;
     background-position: 0;
