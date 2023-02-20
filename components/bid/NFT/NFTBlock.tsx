@@ -30,7 +30,7 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
   const { bid } = useAppSelector<TBidsState>((state) => state.bids);
 
   const tags: NFTTag[] = [
-    { tagType: 'primary', tagText: bid?.nft.category || '' },
+    { tagType: 'primary', tagText: bid?.nft.category.name || '' },
     {
       tagType: 'default',
       tagText: 'unlockable',
