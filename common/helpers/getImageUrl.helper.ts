@@ -1,3 +1,3 @@
 export const getImageUrl = (imageName: string): string => {
-  return `http://localhost:3000/api/ipfs/${imageName}`;
+  return `/api/ipfs/${imageName}`;
 };
