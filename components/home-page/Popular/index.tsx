@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import DownArrowSVG from '../../../assets/svg/down-arrow.svg';
 import {
   SelectItemBackground,
   SelectItemSize,
@@ -13,16 +12,21 @@ import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { devices } from '../../../common/constants';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { TUserInteractionsState } from '../../../redux/slicers/userInteractionsSlicer/types';
-import { getSellers } from '../../../redux/slicers/userInteractionsSlicer/userInteractionsSlicer';
+import {
+  getCreators,
+  getSellers,
+} from '../../../redux/slicers/userInteractionsSlicer/userInteractionsSlicer';
+import { SelectTypes } from '../../ui-kit/Select/constants';
 
 import ParticipantItem from './ParticipantItem';
-import { dates } from './constants';
+import { dates, PopularTypes, POPULAR_TYPES } from './constants';
 
 const Popular = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [currentPopular, setCurrentPopular] = useState<string>('');
 
-  const { sellers } = useAppSelector<TUserInteractionsState>(
+  const { sellers, creators } = useAppSelector<TUserInteractionsState>(
     (state) => state.userInteractions,
   );
 
@@ -32,8 +36,13 @@ const Popular = () => {
     router.push(`profile/${id}`);
   };
 
+  const handleCurrentPopularChange = (value: string) => {
+    setCurrentPopular(value);
+  };
+
   useEffect(() => {
     dispatch(getSellers());
+    dispatch(getCreators());
   }, [dispatch]);
 
   return (
@@ -43,8 +52,16 @@ const Popular = () => {
           <SectionTitles>
             <SectionTitle>Popular</SectionTitle>
             <SectionSelect>
-              <SectionSelectTitle>Sellers</SectionSelectTitle>
-              <DownArrowSVG />
+              <Select
+                items={POPULAR_TYPES}
+                background={SelectItemBackground.White}
+                onChange={handleCurrentPopularChange}
+                size={SelectItemSize.Medium}
+                style={{ width: '256px' }}
+                type={SelectTypes.SECONDARY}
+                defaultValue={POPULAR_TYPES[0]}
+                value={currentPopular as any}
+              />
             </SectionSelect>
           </SectionTitles>
           <TimeframeWrapper>
@@ -58,16 +75,27 @@ const Popular = () => {
           </TimeframeWrapper>
         </SectionHeader>
         <ReactSlick screenSize={screenSize} slidesPerRow={slidesPerRow}>
-          {sellers?.map(({ sum, owner, _id }, index) => (
-            <ParticipantItem
-              key={`participant-item-${index}`}
-              name={owner.username}
-              avoAmount={sum}
-              avatar={owner.avatar}
-              rank={index + 1}
-              onParticipantClick={handleParticipantClick(_id)}
-            />
-          ))}
+          {currentPopular === PopularTypes.CREATORS
+            ? creators?.map(({ sum, creator, _id }, index) => (
+                <ParticipantItem
+                  key={`participant-item-${index}`}
+                  name={creator.username}
+                  avoAmount={sum}
+                  avatar={creator.avatar}
+                  rank={index + 1}
+                  onParticipantClick={handleParticipantClick(_id)}
+                />
+              ))
+            : sellers?.map(({ sum, owner, _id }, index) => (
+                <ParticipantItem
+                  key={`participant-item-${index}`}
+                  name={owner.username}
+                  avoAmount={sum}
+                  avatar={owner.avatar}
+                  rank={index + 1}
+                  onParticipantClick={handleParticipantClick(_id)}
+                />
+              ))}
         </ReactSlick>
       </ContentContainer>
     </PopularWrapper>

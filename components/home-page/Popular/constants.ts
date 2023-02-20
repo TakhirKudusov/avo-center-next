@@ -49,4 +49,20 @@ const dates: SelectItem[] = [
   },
 ];
 
-export { sellers, dates };
+const POPULAR_TYPES = [
+  {
+    label: 'Creators',
+    value: 'creators',
+  },
+  {
+    label: 'Sellers',
+    value: 'sellers',
+  },
+];
+
+export enum PopularTypes {
+  CREATORS = 'creators',
+  SELLERS = 'sellers',
+}
+
+export { sellers, dates, POPULAR_TYPES };

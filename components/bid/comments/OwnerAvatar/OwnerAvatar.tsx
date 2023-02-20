@@ -5,12 +5,13 @@ import { DEFAULT_IMAGE_URL } from '../../../../common/constants';
 
 type Props = {
   image: string;
+  onClick: () => void;
 };
 
-const OwnerAvatar: React.FC<Props> = ({ image }) => {
+const OwnerAvatar: React.FC<Props> = ({ image, onClick }) => {
   return (
     <div>
-      <CreatorImageWrapper>
+      <CreatorImageWrapper onClick={onClick}>
         <CreatorImage image={image ? getImageUrl(image) : DEFAULT_IMAGE_URL} />
       </CreatorImageWrapper>
     </div>
@@ -21,6 +22,7 @@ const CreatorImageWrapper = styled.div<any>`
   border-radius: 48px;
   width: 48px;
   height: 48px;
+  cursor: pointer;
 `;
 
 const CreatorImage = styled.div<any>`
