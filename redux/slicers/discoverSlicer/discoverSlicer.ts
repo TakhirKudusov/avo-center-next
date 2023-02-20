@@ -46,6 +46,7 @@ export const fetchNFTs = createAsyncThunk<
       100,
       sortBy,
       undefined,
+      undefined,
       name,
       undefined,
       minPrice,

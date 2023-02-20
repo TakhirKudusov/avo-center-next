@@ -29,7 +29,7 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
   const { nft } = useAppSelector<TNftsState>((state) => state.nfts);
 
   const tags: NFTTag[] = [
-    { tagType: 'primary', tagText: nft?.category || '' },
+    { tagType: 'primary', tagText: nft?.category.name || '' },
     {
       tagType: 'default',
       tagText: 'unlockable',
