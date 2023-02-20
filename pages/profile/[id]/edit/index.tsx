@@ -1,9 +1,9 @@
-import { ComponentWithLayout } from '../../../common/types';
-import StoreLayout from '../../../components/layouts/store';
+import { ComponentWithLayout } from '../../../../common/types';
+import StoreLayout from '../../../../components/layouts/store';
 import styled from 'styled-components';
-import { ContentContainer } from '../../../components/common';
-import PageHeader from '../../../components/edit-profile/page-header';
-import { EditForm } from '../../../components/edit-profile/main';
+import { ContentContainer } from '../../../../components/common';
+import PageHeader from '../../../../components/edit-profile/page-header';
+import { EditForm } from '../../../../components/edit-profile/main';
 
 const EditProfilePage: ComponentWithLayout = () => {
   return (

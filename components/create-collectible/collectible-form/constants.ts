@@ -1,6 +1,7 @@
 import { SelectItem } from '../../ui-kit/Select/types';
 import { CollectibleFormItemName } from './types';
 import * as Yup from 'yup';
+import { NFTType } from '../../../common/enums/nftType.enum';
 
 const NETWORKS: SelectItem[] = [
   {
@@ -9,7 +10,22 @@ const NETWORKS: SelectItem[] = [
   },
 ];
 
-export const CATEGORIES: SelectItem[] = [
+const NFT_TYPES: SelectItem[] = [
+  {
+    label: 'Audio',
+    value: NFTType.Audio,
+  },
+  {
+    label: 'Video',
+    value: NFTType.Video,
+  },
+  {
+    label: 'Image',
+    value: NFTType.Image,
+  },
+];
+
+const CATEGORIES: SelectItem[] = [
   {
     label: 'Art',
     value: 'art',
@@ -56,4 +72,4 @@ const FORM_SCHEMA = Yup.object().shape({
     .required('Field royalties is required'),
 });
 
-export { NETWORKS, FORM_SCHEMA };
+export { NETWORKS, FORM_SCHEMA, NFT_TYPES, CATEGORIES };

@@ -1,4 +1,4 @@
-export type TAttachmentsState = {
+export type TIpfsState = {
   file: File | null;
   fileUrl: string;
   loading: boolean;

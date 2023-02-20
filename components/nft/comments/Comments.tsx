@@ -9,12 +9,13 @@ import { TAuthState } from '../../../redux/types';
 
 import {
   commentNft,
+  likeClickedNft,
   likeCommentNft,
+  setNft,
   unlikeCommentNft,
 } from '../../../redux/slicers/nftsSlicer/nftSlicer';
-import { TBidsState } from '../../../redux/slicers/bidsSlicer/types';
+import { TNftsState } from '../../../redux/slicers/nftsSlicer/types';
 import { FORM_SCHEMA } from './schema';
-import { likeBid, setBid } from '../../../redux/slicers/bidsSlicer/bidsSlicer';
 import { IComment, INFT } from '../../../swagger';
 
 import HideAnswers from './HideAnswers';
@@ -25,7 +26,7 @@ import CommentField from './components';
 import { CommentKeys } from './constants';
 
 const Comments: React.FC = () => {
-  const { bid } = useAppSelector<TBidsState>((state) => state.bids);
+  const { nft } = useAppSelector<TNftsState>((state) => state.nfts);
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
   const [isAnswersHidden, setIsAnswersHidden] = useState<{
     [key: string]: boolean;
@@ -36,13 +37,14 @@ const Comments: React.FC = () => {
   const dispatch = useAppDispatch();
   const formRef = useRef<FormikProps<any>>(null);
 
-  const comments = bid?.nft.comments;
+  const comments = nft?.comments;
 
   const handleCommentLike = async (commentId: string) => {
     const result = await dispatch(likeCommentNft(commentId));
 
     if (result.payload) {
-      dispatch(likeBid(result.payload as IComment));
+      //TODO: replace with nft
+      dispatch(likeClickedNft(result.payload as IComment));
     }
   };
 
@@ -50,7 +52,8 @@ const Comments: React.FC = () => {
     const result = await dispatch(unlikeCommentNft(commentId));
 
     if (result.payload) {
-      dispatch(likeBid(result.payload as IComment));
+      //TODO: replace with nft
+      dispatch(likeClickedNft(result.payload as IComment));
     }
   };
 
@@ -70,16 +73,16 @@ const Comments: React.FC = () => {
       setOpenConnectWallet(true);
     }
 
-    if (bid?.nft._id) {
+    if (nft?._id) {
       const result = await dispatch(
         commentNft({
-          nftId: bid?.nft._id,
+          nftId: nft?._id,
           body: { message: values.comment, parent: '' },
         }),
       );
 
       if (result.payload) {
-        dispatch(setBid(result.payload as INFT));
+        dispatch(setNft(result.payload as INFT));
 
         formRef.current?.setFieldValue(CommentKeys.COMMENT, '');
         setTimeout(() =>
@@ -110,12 +113,12 @@ const Comments: React.FC = () => {
               )}
               {!!comment.comments?.length && (
                 <HideAnswers
-                  isAnswersHidden={!isAnswersHidden[comment._id]}
+                  isAnswersHidden={!!isAnswersHidden[comment._id]}
                   onAnwserToggle={handleAnwserToggle(comment._id)}
                   commentsQuantity={String(comment.comments.length)}
                 />
               )}
-              {!isAnswersHidden[comment._id] && (
+              {!!isAnswersHidden[comment._id] && (
                 <UsersReply
                   userId={user?.id}
                   parentCommentId={comment._id}

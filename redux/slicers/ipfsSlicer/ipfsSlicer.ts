@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { handleError, handlePending } from '../../../common/helpers';
-import { AttachmentsService } from '../../../swagger';
-import { TAttachmentsState } from './types';
+import { AttachmentsService, IpfsService } from '../../../swagger';
+import { TIpfsState } from './types';
 
 export const addAttachment = createAsyncThunk<
   any,
-  File,
+  Blob,
   { rejectValue: string }
->('attachments/addAttachment', async function (payload): Promise<any> {
-  return await AttachmentsService.uploadAttachments(payload);
+>('ipfs/addAttachment', async function (payload): Promise<any> {
+  return await IpfsService.uploadAttachments(payload);
 });
 
 // export const seeUploadedFile = createAsyncThunk<
@@ -19,17 +19,17 @@ export const addAttachment = createAsyncThunk<
 //   return await AttachmentsService.seeUploadedFile(payload);
 // });
 
-const initialState: TAttachmentsState = {
+const initialState: TIpfsState = {
   file: null,
   fileUrl: '',
   loading: false,
 };
 
-const attachmentsSlicer = createSlice({
-  name: 'attachments',
+const ipfsSlicer = createSlice({
+  name: 'ipfs',
   initialState,
   reducers: {
-    setFile(state: TAttachmentsState, action: PayloadAction<File | null>) {
+    setFile(state: TIpfsState, action: PayloadAction<File | null>) {
       state.file = action.payload;
     },
   },
@@ -39,7 +39,7 @@ const attachmentsSlicer = createSlice({
       .addCase(addAttachment.pending, handlePending)
       .addCase(addAttachment.fulfilled, (state, action) => {
         console.log(action.payload);
-        state.fileUrl = action.payload[0].fileName;
+        state.fileUrl = action.payload.path;
         state.loading = false;
         // openSuccessNotification('Вы успешно авторизованы!');
         console.log('fulfilled');
@@ -48,6 +48,6 @@ const attachmentsSlicer = createSlice({
   },
 });
 
-export const {} = attachmentsSlicer.actions;
+export const {} = ipfsSlicer.actions;
 
-export default attachmentsSlicer.reducer;
+export default ipfsSlicer.reducer;

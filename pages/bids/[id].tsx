@@ -8,13 +8,12 @@ import { ContentContainer, FlexContainer } from '../../components/common';
 import { RadioButton } from '../../components/ui-kit/Button/RadioButton';
 import LeftSideCornerSVG from '../../assets/svg/left-side-corner.svg';
 import { NFTData } from '../../mock-data/tagsData';
-import NFTBlock from '../../components/nft/NFT/NFTBlock';
-import Comments from '../../components/nft/comments';
-import { comments } from '../../mock-data/NFTComments';
-import { Header } from '../../components/nft';
+import NFTBlock from '../../components/bid/NFT/NFTBlock';
+import Comments from '../../components/bid/comments';
+import { Header } from '../../components/bid';
 import { signin } from '../../redux/slicers/authSlicer';
 import { useAppDispatch } from '../../redux/hooks';
-import { ConnectWalletContext } from '../../components/nft/NFT/context';
+import { ConnectWalletContext } from '../../components/bid/NFT/context';
 import { getBidById } from '../../redux/slicers/bidsSlicer/bidsSlicer';
 
 const NFTPage: ComponentWithLayout = () => {

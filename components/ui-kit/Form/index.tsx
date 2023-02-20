@@ -1,5 +1,5 @@
 import { Form as FormikForm, Formik } from 'formik';
-import { memo, MutableRefObject } from 'react';
+import { FormEventHandler, memo, MutableRefObject } from 'react';
 import * as Yup from 'yup';
 import { UnknownObject } from '../../../common/types';
 
@@ -9,6 +9,7 @@ type Props = {
   initialValues: UnknownObject;
   children: JSX.Element;
   onSubmit: (values: any, formikProps: any) => void;
+  onChange?: FormEventHandler<HTMLFormElement>;
   className?: string;
 };
 
@@ -18,6 +19,7 @@ const Form: React.FC<Props> = ({
   initialValues,
   children,
   onSubmit,
+  onChange,
   className,
 }) => {
   return (
@@ -29,12 +31,18 @@ const Form: React.FC<Props> = ({
         onSubmit(a, b);
       }}
     >
-      {({ handleSubmit }) => (
+      {({ handleSubmit, handleChange }) => (
         <FormikForm
           className={className}
           onSubmit={async (e) => {
             e.preventDefault();
             handleSubmit();
+          }}
+          onChange={(e) => {
+            if (onChange) {
+              onChange(e);
+              handleChange(e);
+            }
           }}
         >
           {children}

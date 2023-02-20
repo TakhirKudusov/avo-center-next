@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { TAuthState } from '../../../../redux/types';
 import { getNavItems } from './helpers';
 import MenuNavItem from './MenuNavItem';
 
@@ -8,9 +9,12 @@ const MenuNav = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  const { user } = useAppSelector<TAuthState>((state) => state.auth);
+  const userId = user?.id || '';
+
   return (
     <MenuNavWrapper>
-      {getNavItems(router, dispatch).map((item, index) => (
+      {getNavItems(router, dispatch, userId).map((item, index) => (
         <MenuNavItem
           key={`switch-${index}`}
           icon={item.icon}

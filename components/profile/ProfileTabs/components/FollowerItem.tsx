@@ -4,46 +4,70 @@ import { Button, ButtonSize, ButtonType, Divider } from '../../../ui-kit';
 import { FollowType } from '../constants';
 import { Follower } from '../types';
 
-type Props = Omit<Follower, 'id'> & {
+type Props = Follower & {
   followType: FollowType;
+  isFollowing: boolean;
+  loading: boolean;
+  onFollow: () => void;
+};
+
+const getActionBtnName = (followType: FollowType, isFollowing: boolean) => {
+  if (followType === FollowType.FOLLOWERS && !isFollowing) {
+    return 'Follow';
+  }
+
+  if (followType === FollowType.FOLLOWING) {
+    return 'Unfollow';
+  }
+
+  return 'Followed';
 };
 
 const FollowerItem = ({
+  onFollow,
   followType,
   name,
   avatar,
   followerNumber,
   frameList,
-}: Props) => (
-  <FollowerContainer>
-    <FollowerWrapper>
-      <FollowerInfoWrapper>
-        <Avatar src={avatar} />
-        <FollowerInfo>
-          <FollowerTitle>{name}</FollowerTitle>
-          <Fallowers>{`${followerNumber}followers`}</Fallowers>
-          <Button
-            style={{ borderRadius: 90 }}
-            size={ButtonSize.Small}
-            btnType={
-              followType === FollowType.FOLLOW
-                ? ButtonType.Secondary
-                : ButtonType.Primary
-            }
-          >
-            {followType === FollowType.FOLLOW ? 'Follow' : 'Unfollow'}
-          </Button>
-        </FollowerInfo>
-      </FollowerInfoWrapper>
-      <Frames>
-        {frameList.map((frame) => (
-          <Frame src={frame.src} key={frame.id} />
-        ))}
-      </Frames>
-    </FollowerWrapper>
-    <Divider />
-  </FollowerContainer>
-);
+  isFollowing,
+  loading,
+}: Props) => {
+  return (
+    <FollowerContainer>
+      <FollowerWrapper>
+        <FollowerInfoWrapper>
+          <Avatar background={avatar} />
+          <FollowerInfo>
+            <FollowerTitle>{name}</FollowerTitle>
+            <Fallowers>{`${followerNumber} followers`}</Fallowers>
+            <Button
+              style={{ borderRadius: 90 }}
+              size={ButtonSize.Small}
+              btnType={
+                followType === FollowType.FOLLOWERS
+                  ? ButtonType.Secondary
+                  : ButtonType.Primary
+              }
+              disabled={
+                (followType === FollowType.FOLLOWERS && isFollowing) || loading
+              }
+              onClick={onFollow}
+            >
+              {getActionBtnName(followType, isFollowing)}
+            </Button>
+          </FollowerInfo>
+        </FollowerInfoWrapper>
+        <Frames>
+          {frameList.map((frame, index) => (
+            <Frame background={frame.src} key={index} />
+          ))}
+        </Frames>
+      </FollowerWrapper>
+      <Divider />
+    </FollowerContainer>
+  );
+};
 
 export default FollowerItem;
 
@@ -70,10 +94,13 @@ const FollowerInfoWrapper = styled.div`
   }
 `;
 
-const Avatar = styled.img`
+const Avatar = styled.div<{ background: string }>`
   width: 88px;
   height: 88px;
   border-radius: 50%;
+  background-size: cover;
+  background-image: ${({ background }) => `url(${background})`};
+  background-position: center;
 `;
 
 const FollowerInfo = styled.div`
@@ -111,8 +138,11 @@ const Frames = styled.div`
   }
 `;
 
-const Frame = styled.img`
+const Frame = styled.div<{ background: string }>`
   width: 112px;
   height: 88px;
   border-radius: 12px;
+  background-size: cover;
+  background-image: ${({ background }) => `url(${background})`};
+  background-position: center;
 `;

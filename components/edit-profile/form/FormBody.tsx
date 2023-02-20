@@ -17,8 +17,8 @@ import { devices, screenSizes } from '../../../common/constants';
 import UserCard from '../user-card';
 import { ResetButton } from './ResetButton';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { TAttachmentsState } from '../../../redux/slicers/attachmentsSlicer/types';
-import { addAttachment } from '../../../redux/slicers/attachmentsSlicer/attachmentsSlicer';
+import { TIpfsState } from '../../../redux/slicers/ipfsSlicer/types';
+import { addAttachment } from '../../../redux/slicers/ipfsSlicer/ipfsSlicer';
 import {
   editUserProfile,
   getUserProfile,
@@ -29,8 +29,8 @@ import { TProfileState } from '../../../redux/slicers/profileSlicer/types';
 const FormBody = () => {
   // const [fieldOpen, setIsFieldOpen] = useState<boolean | null>(null);
   const formRef = useRef<any>(null);
-  const { fileUrl, loading } = useAppSelector<TAttachmentsState>(
-    (state) => state.attachments,
+  const { fileUrl, loading } = useAppSelector<TIpfsState>(
+    (state) => state.ipfs,
   );
   const { user: profileUser } = useAppSelector<TProfileState>(
     (state) => state.profile,

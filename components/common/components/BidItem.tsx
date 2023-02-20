@@ -18,17 +18,17 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { IBid, INFT } from '../../../swagger';
 import { TAuthState } from '../../../redux/types';
 import { useRouter } from 'next/router';
+import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
 
 type Props = {
-  item: IBid | INFT;
+  item: IBid;
 };
 
 const BidItem: React.FC<Props> = ({ item }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
-  const bid = (item as IBid).nft ? (item as IBid) : undefined;
-  const nftItem = bid?.nft ?? (item as INFT);
+  const nftItem = item.nft;
   const userLike = nftItem?.likes?.find((userId) => userId === user?.id);
   const { setOpenConnectWallet } = useContext(ConnectWalletContext);
   const { screenSize } = useAdaptiveSlider();
@@ -48,17 +48,17 @@ const BidItem: React.FC<Props> = ({ item }) => {
   };
 
   const handleBidClick = () => {
-    if (bid) {
-      router.push(`/bids/${bid._id}`);
+    if (item) {
+      router.push(`/bids/${item._id}`);
     } else {
       router.push(`/nfts/${nftItem._id}`);
     }
   };
 
+  console.log('item =', item);
   return (
     <BidWrapper onClick={handleBidClick}>
-      {/* <BidImage style={{ backgroundImage: `url(/images/${nft.fileUrl})` }}> */}
-      <BidImage style={{ backgroundImage: `url(/images/)` }}>
+      <BidImage background={getImageUrl(item.nft.file)}>
         <LikeButtonWrapper>
           <LikeButton
             isNftLiked={!!userLike}
@@ -81,7 +81,7 @@ const BidItem: React.FC<Props> = ({ item }) => {
           <BidInfoRow>
             <BidName>{nftItem?.name}</BidName>
             {/* <BidPrice value={avoAmonut} /> */}
-            <BidPrice value={200} />
+            <BidPrice value={nftItem.salePrice} />
           </BidInfoRow>
           <BidInfoRow>
             <BidFeature>
@@ -154,15 +154,17 @@ const BidWrapper = styled.div`
   }
 `;
 
-const BidImage = styled.div`
+const BidImage = styled.div<{ background: string }>`
   height: 236px;
   background: #ccc;
-  background-size: cover;
-  background-position: center;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   padding-bottom: 16px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: ${({ background }) => `url(${background})`};
+  background-position: center;
 `;
 
 const LikeButtonWrapper = styled.div`

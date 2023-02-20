@@ -1,32 +1,35 @@
 import { FormikProps } from 'formik';
-import { useRef } from 'react';
+import { FormEventHandler, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
-import LoadingSVG from '../../../assets/svg/loading.svg';
 import { devices } from '../../../common/constants';
-import { useAppDispatch } from '../../../redux/hooks';
-import { createNft } from '../../../redux/slicers/nftsSlicer/nftSlicer';
-import { FormRow } from '../../common';
-import {
-  Counter,
-  DatePicker,
-  FileUpload,
-  Form,
-  FormItem,
-  Input,
-} from '../../ui-kit';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { fetchCategories } from '../../../redux/slicers/discoverSlicer/discoverSlicer';
+import { TDiscoverState } from '../../../redux/slicers/discoverSlicer/types';
+import { Counter, FileUpload, Form, FormItem, Input } from '../../ui-kit';
 import Button from '../../ui-kit/Button/Button';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 import Select from '../../ui-kit/Select';
 import { SelectItemSize } from '../../ui-kit/Select/enums';
+import { SelectItem } from '../../ui-kit/Select/types';
 import CollectibleItem from '../collectible-item';
-import { BID } from '../constants';
-import { CATEGORIES, FORM_SCHEMA, NETWORKS } from './constants';
+import { FORM_SCHEMA, NETWORKS, NFT_TYPES } from './constants';
 import { CollectibleFormItemName } from './types';
 
 const CollectibleForm = () => {
   const dispatch = useAppDispatch();
   const formRef = useRef<FormikProps<any>>(null);
+
+  const [formValues, setFormValues] = useState<any>(undefined);
+
+  const { categories } = useAppSelector<TDiscoverState>(
+    (state) => state.discover,
+  );
+
+  const categoryOptions: SelectItem[] = categories.map((category) => ({
+    label: category.name,
+    value: category._id,
+  }));
 
   const initialValues = {};
 
@@ -39,6 +42,10 @@ const CollectibleForm = () => {
     // dispatch(createNft(values));
   };
 
+  const handleChange: FormEventHandler<HTMLFormElement> = (e) => {
+    setFormValues(formRef.current?.values);
+  };
+
   // name: string;
   // description: string;
   // category: string;
@@ -46,6 +53,14 @@ const CollectibleForm = () => {
   // total: number;
   // royalties: number;
   // available: number;
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  // useEffect(() => {}, [formRef.current?.values]);
+
+  console.log('formValues =', formValues);
 
   return (
     <ContentWrapper>
@@ -55,6 +70,7 @@ const CollectibleForm = () => {
           initialValues={initialValues}
           formSchema={FORM_SCHEMA}
           onSubmit={onSubmit()}
+          onChange={handleChange}
         >
           <>
             <FormItem
@@ -68,9 +84,18 @@ const CollectibleForm = () => {
             <NetworkWrapper>
               <FormItem
                 title="Network"
-                name={CollectibleFormItemName.Type}
+                name={CollectibleFormItemName.Network}
                 component={Select}
                 items={NETWORKS}
+                style={{ width: 'calc(50% - 10px)' }}
+                size={SelectItemSize.Medium}
+              />
+              <FormItem
+                title="Type"
+                name={CollectibleFormItemName.Type}
+                component={Select}
+                style={{ width: 'calc(50% - 10px)' }}
+                items={NFT_TYPES}
                 size={SelectItemSize.Medium}
               />
             </NetworkWrapper>
@@ -90,7 +115,7 @@ const CollectibleForm = () => {
               title="Category"
               name={CollectibleFormItemName.Category}
               component={Select}
-              items={CATEGORIES}
+              items={categoryOptions}
               size={SelectItemSize.Medium}
             />
             <StyledFormRow>
@@ -152,9 +177,9 @@ const CollectibleForm = () => {
       <CollectibleItem
         bid={
           {
-            name: formRef.current?.values.name,
-            total: formRef.current?.values.total,
-            available: formRef.current?.values.royalties,
+            name: formValues?.name,
+            total: formValues?.total,
+            available: formValues?.royalties,
           } as any
         }
       />
@@ -209,7 +234,8 @@ const SectionTitle = styled.div`
 // `;
 
 const NetworkWrapper = styled.div`
-  width: 300px;
+  display: flex;
+  justify-content: space-between;
 
   @media (${devices.mobile}) {
     width: 100%;

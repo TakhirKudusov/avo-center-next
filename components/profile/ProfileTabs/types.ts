@@ -1,12 +1,15 @@
+import { IUser } from '../../../swagger';
+
 export type Frame = {
-  id: number;
+  id: string;
   src: string;
 };
 
 export type Follower = {
-  id: number;
+  _id: string;
   name: string;
   avatar: string;
   followerNumber: number;
   frameList: Frame[];
+  followers: IUser[];
 };

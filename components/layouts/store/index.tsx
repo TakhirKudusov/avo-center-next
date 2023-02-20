@@ -3,6 +3,7 @@ import { useAppSelector } from '../../../redux/hooks';
 import { TAuthState } from '../../../redux/types';
 import ConnectWallet from '../../modals/ConnectWallet';
 import { Modal } from '../../ui-kit';
+import { UploadItemContext } from './contexts';
 import Footer from './Footer';
 import Header from './Header';
 import { handleWalletConnectClick } from './helpers';
@@ -38,7 +39,13 @@ const StoreLayout = ({ children }: { children: React.ReactNode }) => {
 
   console.log('isConnectWalletVisible', isConnectWalletVisible);
   return (
-    <>
+    <UploadItemContext.Provider
+      value={{
+        isUploadItemVisible,
+        handleUploadClick,
+        handleUploadItemClose,
+      }}
+    >
       <Header
         user={user}
         isSmallScreenMenuVisible={isSmallScreenMenuVisible}
@@ -64,7 +71,7 @@ const StoreLayout = ({ children }: { children: React.ReactNode }) => {
       >
         <ConnectWallet />
       </Modal>
-    </>
+    </UploadItemContext.Provider>
   );
 };
 

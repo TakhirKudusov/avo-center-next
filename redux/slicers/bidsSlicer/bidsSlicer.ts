@@ -18,7 +18,7 @@ export const getBidById = createAsyncThunk<
   IBid,
   string,
   { rejectValue: string }
->('bids/edit-bid', async function (payload): Promise<any> {
+>('bids/bid', async function (payload): Promise<any> {
   return await BidsService.getBidById(payload);
 });
 

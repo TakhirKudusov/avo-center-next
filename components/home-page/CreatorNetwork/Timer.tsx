@@ -12,12 +12,16 @@ const Timer = ({ timeBeforeEnd }: Props) => {
 
   return (
     <TimerBody>
-      {timeValues?.map(({ digit, value }, index) => (
-        <TimerItem key={index}>
-          <TimerValue>{value}</TimerValue>
-          <TimerLabel>{digit}</TimerLabel>
-        </TimerItem>
-      ))}
+      {!!timeValues ? (
+        timeValues?.map(({ digit, value }, index) => (
+          <TimerItem key={index}>
+            <TimerValue>{value}</TimerValue>
+            <TimerLabel>{digit}</TimerLabel>
+          </TimerItem>
+        ))
+      ) : (
+        <TimeCalculating>Time is calculating</TimeCalculating>
+      )}
     </TimerBody>
   );
 };
@@ -54,6 +58,14 @@ const TimerLabel = styled.div`
   line-height: 24px;
   text-align: center;
   color: #777e91;
+`;
+
+const TimeCalculating = styled.div`
+  margin-top: 8px;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
 `;
 
 export { Timer };

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
+import moment from 'moment';
 
 import {
   Button,
@@ -7,89 +7,124 @@ import {
   ButtonType,
   CoppyToClipboard,
   Divider,
-  // Modal,
-  RoundButton,
 } from '../../ui-kit';
-import { links } from './constants';
 import CopySVG from '../../../assets/svg/copy.svg';
-import ShareIconSvg from '../../../assets/svg/share-icon.svg';
-import { useState } from 'react';
+import { useContext } from 'react';
 import { devices } from '../../../common/constants';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { TProfileState } from '../../../redux/slicers/profileSlicer/types';
+import TwitterSVG from '../../../assets/svg/twitter.svg';
+import FilledCircleCloseSVG from '../../../assets/svg/filled-circle-close.svg';
+import FilledCheckSVG from '../../../assets/svg/filled-check.svg';
+import { TAuthState } from '../../../redux/types';
+import { UploadItemContext } from '../../layouts/store/contexts';
+import {
+  followUser,
+  unFollowUser,
+} from '../../../redux/slicers/profileSlicer/profileSlicer';
+import { getSlicedPublicAddress } from '../../../common/helpers';
+import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
 
-type Props = { isUserProfile: boolean };
+type Props = {};
 
-const ProfileCard = ({ isUserProfile }: Props) => {
-  const router = useRouter();
-  const [open, setOpen] = useState(false);
+const ProfileCard = ({}: Props) => {
+  const dispatch = useAppDispatch();
 
-  const cardUrl = '/images/profile.png';
-  const userName = 'Enrico Cole';
-  const walletId = '0xc4c16a645...b21a';
-  const description =
-    'A wholesome farm owner in Montana. Upcoming gallery solo show in Germany';
+  const { user: profileUser } = useAppSelector<TProfileState>(
+    (state) => state.profile,
+  );
+  const { user } = useAppSelector<TAuthState>((state) => state.auth);
+
+  const isMineProfile = user?.id === profileUser?._id;
+
+  const { handleUploadClick } = useContext(UploadItemContext);
 
   const handleFollow = () => {
-    setOpen(true);
-  };
+    if (isMineProfile) {
+      handleUploadClick()();
+    } else {
+      const followingUser = profileUser?.followers.find(
+        (item) => item._id === user?.id,
+      );
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleConfirm = () => {
-    handleClose();
+      if (!!followingUser && profileUser) {
+        dispatch(unFollowUser(profileUser._id));
+      }
+      if (!followingUser && profileUser) {
+        dispatch(followUser(profileUser._id));
+      }
+    }
   };
 
   return (
-    <CardContainer>
-      <Avatar avatarUrl={cardUrl} />
-      <Title>{userName}</Title>
-      <WalletId>
-        {walletId}
-        <CoppyToClipboard text={walletId}>
-          <CopySVG style={{ cursor: 'pointer' }} />
-        </CoppyToClipboard>
-      </WalletId>
-      <Description>{description}</Description>
-      <ButtonsWrapper>
-        <Button
-          onClick={handleFollow}
-          fullSize
-          size={ButtonSize.Medium}
-          btnType={ButtonType.Secondary}
-        >
-          {isUserProfile ? 'Create NFT' : 'Follow'}
-        </Button>
-        <CoppyToClipboard text={router.pathname}>
-          <RoundButton icon={<ShareIconSvg />} />
-        </CoppyToClipboard>
-      </ButtonsWrapper>
-      <Links>
-        {links.map((link) => (
-          <a key={link.id} href="">
-            {link.icon}
-          </a>
-        ))}
-      </Links>
-      <Divider />
-      <MembershipInfo>Member since Mar 15, 2021</MembershipInfo>
-      {/* TODO: remove */}
-      {/* <Modal
-        title="Checkout"
-        open={open}
-        confirmBtnName="I understand, continue"
-        cancelBtnName="Cancel"
-        onClose={handleClose}
-        onConfirm={handleConfirm}
-      >
-        <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic iusto
-          incidunt, earum reprehenderit magni nihil inventore consectetur
-          repudiandae! Rem voluptas odio iure numquam porro, facere ex culpa
-          alias neque voluptates.F
-        </div>
-      </Modal> */}
-    </CardContainer>
+    <>
+      {!!profileUser ? (
+        <CardContainer>
+          <Avatar avatarUrl={getImageUrl(profileUser.avatar)} />
+          <Title>{profileUser?.username}</Title>
+          {isMineProfile && (
+            <WalletId>
+              <PublicAddress>
+                {getSlicedPublicAddress(profileUser.publicAddress)}
+              </PublicAddress>
+              <CoppyToClipboard text={profileUser.publicAddress}>
+                <CopySVG style={{ cursor: 'pointer' }} />
+              </CoppyToClipboard>
+            </WalletId>
+          )}
+          <Description>{profileUser.bio}</Description>
+          <ButtonsWrapper>
+            <Button
+              onClick={handleFollow}
+              fullSize
+              size={ButtonSize.Medium}
+              btnType={ButtonType.Secondary}
+            >
+              {isMineProfile ? 'Create NFT' : 'Follow'}
+            </Button>
+            {/* <CoppyToClipboard text={router.pathname}>
+              <RoundButton icon={<ShareIconSvg />} />
+            </CoppyToClipboard> */}
+          </ButtonsWrapper>
+          <Links>
+            <a href={profileUser.twitter}>
+              <TwitterSVG />
+            </a>
+          </Links>
+          <Divider />
+          <MembershipInfo>
+            Member since {moment(profileUser.createdAt).format('MM DD, YYYY ')}
+          </MembershipInfo>
+          <VerificationInfo>
+            {profileUser.isVerified ? (
+              <Verification isVerified={profileUser.isVerified}>
+                <FilledCheckSVG color="#fff" />
+                Verified
+              </Verification>
+            ) : (
+              <>
+                <Verification isVerified={profileUser.isVerified}>
+                  <FilledCircleCloseSVG color="#fff" />
+                  <span>Not Verified</span>
+                </Verification>
+                {isMineProfile && (
+                  <Button
+                    style={{ padding: '0px 24px', height: 'auto' }}
+                    onClick={() => false}
+                    btnType={ButtonType.Outlined}
+                    size={ButtonSize.Large}
+                  >
+                    Verify now
+                  </Button>
+                )}
+              </>
+            )}
+          </VerificationInfo>
+        </CardContainer>
+      ) : (
+        '...Loading'
+      )}
+    </>
   );
 };
 
@@ -117,13 +152,13 @@ const CardContainer = styled.div`
 `;
 
 const Avatar = styled.div<{ avatarUrl: string }>`
-  background-image: ${({ avatarUrl }) => `url(${avatarUrl})`};
   width: 152px;
   height: 152px;
   border-radius: 50%;
   background-repeat: no-repeat;
-  background-size: contain;
-  margin-bottom: 25px;
+  background-size: cover;
+  background-image: ${({ avatarUrl }) => `url(${avatarUrl})`};
+  background-position: center;
 `;
 
 const Title = styled.div`
@@ -150,7 +185,7 @@ const Description = styled.div`
   color: #777e91;
   margin-top: 20px;
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 25px;
 `;
 
 const Links = styled.div`
@@ -171,4 +206,35 @@ const ButtonsWrapper = styled.div`
   display: flex;
   gap: 8px;
   width: 100%;
+`;
+
+const PublicAddress = styled.div`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 186px;
+`;
+
+const VerificationInfo = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 16px;
+  gap: 8px;
+`;
+
+const Verification = styled.div<{ isVerified: boolean }>`
+  background: ${({ isVerified }) => (isVerified ? '#2D9CDB' : '#ff2c5e')};
+  width: ${({ isVerified }) => (isVerified ? '99px' : '129px')};
+  height: 30px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 12px;
+  font-family: 'Nasalization';
+  color: #ffffff;
+  text-transform: uppercase;
 `;

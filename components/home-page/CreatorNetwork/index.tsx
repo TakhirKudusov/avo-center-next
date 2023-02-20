@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 import RoundSquareSVG from '../../../assets/svg/round-square.svg';
-import ArrowLeftSVG from '../../../assets/svg/arrow-left.svg';
-import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
 import Button from '../../ui-kit/Button/Button';
 import Auction from './Auction';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 import Link from 'next/link';
 import { Counter, useTimer } from '../../ui-kit';
-import { NFTData } from '../../../mock-data/tagsData';
 import { devices, screenSizes } from '../../../common/constants';
 import { Paths } from '../../../common/enums/paths';
 import { IBid } from '../../../swagger';
@@ -17,6 +14,7 @@ import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { usePlaceBid } from '../../../common/hooks/usePlaceBid';
 import { useContext } from 'react';
 import { ConnectWalletContext } from '../../nft/NFT/context';
+import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
 
 //TODO: remove index
 type Props = {
@@ -35,24 +33,19 @@ const CreatorNetwork = ({ bid }: Props) => {
 
   return (
     <CreatorNetworkWrapper>
-      <Player />
+      <Player background={getImageUrl(bid.nft.file)} />
       <InfoBar>
         <Title>{bid.nft.name}</Title>
         <InfoItems>
           <InfoItem>
-            <InfoItemImage
-              style={{
-                //TODO: replace with nft image
-                backgroundImage: `url(/images/creator.jpg)`,
-              }}
-            />
+            <InfoItemImage background={getImageUrl(bid.creator.avatar)} />
             <InfoItemBody>
               <InfoItemLabel>Creator</InfoItemLabel>
               <InfoItemValue>{bid.creator.username as string}</InfoItemValue>
             </InfoItemBody>
           </InfoItem>
           <InfoItem>
-            <InfoItemImage>
+            <InfoItemImage background="">
               <RoundSquareSVG />
             </InfoItemImage>
             <InfoItemBody>
@@ -120,10 +113,12 @@ const CreatorNetworkWrapper = styled.div`
   }
 `;
 
-const Player = styled.div`
+const Player = styled.div<{ background: string }>`
   background: #9757d7;
   border-radius: 16px;
-  background-image: url(/images/player.jpg);
+  background-image: ${({ background }) => `url(${background})`};
+  background-position: center;
+  background-size: cover;
   min-width: 640px;
   height: 800px;
 
@@ -165,7 +160,7 @@ const InfoItem = styled.div`
   gap: 8px;
 `;
 
-const InfoItemImage = styled.div`
+const InfoItemImage = styled.div<{ background: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,6 +170,7 @@ const InfoItemImage = styled.div`
   background: #45b36b;
   background-position: center;
   background-size: cover;
+  background-image: ${({ background }) => `url(${background})`};
 `;
 
 const InfoItemBody = styled.div`

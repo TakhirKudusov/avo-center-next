@@ -4,7 +4,7 @@ export const findComment = (comments: IComment[], payload: IComment) => {
   let foundedComment = null;
 
   const newParentComments = [
-    ...comments.map((comment) => {
+    ...(comments ?? [])?.map((comment) => {
       if (comment._id === payload._id) {
         foundedComment = payload;
       }
@@ -17,11 +17,11 @@ export const findComment = (comments: IComment[], payload: IComment) => {
     return newParentComments;
   }
 
-  comments.forEach((item) => {
+  comments?.forEach((item) => {
     item.comments = item.comments.map((comment) =>
       comment._id !== payload._id ? comment : payload,
     );
   });
 
-  return [...comments];
+  return [...(comments || [])];
 };
