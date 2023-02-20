@@ -4,7 +4,9 @@ type Props = {
   value: number;
 };
 const BidPrice: React.FC<Props> = ({ value }) => {
-  return <BidPriceWrapper>{value} AVO</BidPriceWrapper>;
+  return (
+    <BidPriceWrapper>{value ? `${value} AVO` : 'Not on sale'}</BidPriceWrapper>
+  );
 };
 
 export const BidPriceWrapper = styled.div`

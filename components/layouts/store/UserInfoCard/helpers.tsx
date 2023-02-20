@@ -11,13 +11,13 @@ import { signout } from '../../../../redux/slicers/authSlicer';
 const getNavItems = (
   router: NextRouter,
   dispatch: AppDispatch,
+  userId: string,
 ): TMenuItem[] => [
   {
     icon: <UserSVG />,
     label: 'My profile',
     clickHandler: () => {
-      router.push('/profile');
-      console.log('profile');
+      router.push(`/profile/${userId}`);
     },
   },
   {

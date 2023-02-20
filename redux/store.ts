@@ -6,7 +6,7 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
-import attachmentsReducer from './slicers/attachmentsSlicer';
+import ipfsReducer from './slicers/ipfsSlicer';
 import authReducer from './slicers/authSlicer';
 import { adminApi } from './APIs/adminApi';
 import bidsReducer from './slicers/bidsSlicer';
@@ -21,7 +21,7 @@ import userInteractionsReducer from './slicers/userInteractionsSlicer';
 const combinedReducer = combineReducers({
   [adminApi.reducerPath]: adminApi.reducer,
   auth: authReducer,
-  attachments: attachmentsReducer,
+  ipfs: ipfsReducer,
   notifications: notificationsReducer,
   profile: profileReducer,
   userInteractions: userInteractionsReducer,

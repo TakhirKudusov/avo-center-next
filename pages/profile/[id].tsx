@@ -14,14 +14,33 @@ import {
   FollowersTab,
   OnSaleTab,
 } from '../../components/profile/ProfileTabs';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { ListItem } from '../../components/ui-kit/FlatList/types';
 import { Button, ButtonSize, ButtonType } from '../../components/ui-kit';
 import { devices } from '../../common/constants';
 import { Paths } from '../../common/enums/paths';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getUserNfts } from '../../redux/slicers/nftsSlicer/nftSlicer';
+import { TAuthState } from '../../redux/types';
+import {
+  getUserProfile,
+  getUsers,
+  setInitialUserData,
+} from '../../redux/slicers/profileSlicer/profileSlicer';
+import { TProfileState } from '../../redux/slicers/profileSlicer/types';
+import { useRouter } from 'next/router';
+import { ComingSoonTab } from '../../components/profile/ProfileTabs/Tabs';
 
 function Profile() {
-  const [isUserProfile, setIsUserProfile] = useState(false);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const { id } = router.query;
+
+  const { user } = useAppSelector<TAuthState>((state) => state.auth);
+  const { user: profileUser, loading } = useAppSelector<TProfileState>(
+    (state) => state.profile,
+  );
 
   const TABS: ListItem[] = [
     {
@@ -32,6 +51,7 @@ function Profile() {
     {
       id: 2,
       label: 'Collectibles',
+      children: <ComingSoonTab />,
     },
     {
       id: 3,
@@ -41,22 +61,36 @@ function Profile() {
     {
       id: 4,
       label: 'Likes',
+      children: <ComingSoonTab />,
     },
     {
       id: 5,
       label: 'Following',
-      children: <FollowersTab followType={FollowType.UNFOLLOW} />,
+      children: <FollowersTab followType={FollowType.FOLLOWING} />,
     },
     {
       id: 6,
       label: 'Followers',
-      children: <FollowersTab followType={FollowType.FOLLOW} />,
+      children: <FollowersTab followType={FollowType.FOLLOWERS} />,
     },
   ];
 
-  const handleTabChange = (item: ListItem) => {
-    console.log(213);
-  };
+  const handleTabChange = (item: ListItem) => {};
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getUserProfile(id as string));
+      dispatch(getUsers());
+    }
+
+    return () => {
+      dispatch(setInitialUserData());
+    };
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (profileUser?._id) dispatch(getUserNfts(profileUser?._id));
+  }, [dispatch, profileUser?._id]);
 
   return (
     <StyledFlexContainer>
@@ -70,7 +104,7 @@ function Profile() {
             Edit cover photo
             <StyledImageSVG />
           </Button>
-          <Link href={Paths.PROFILE_EDIT}>
+          <Link href={`/profile/${id}/edit`}>
             <Button
               style={{ color: '#fff', border: '2px solid #777E91' }}
               size={ButtonSize.Medium}
@@ -81,8 +115,18 @@ function Profile() {
             </Button>
           </Link>
         </Cover>
+        {/* {loading ? (
+          <ProfileWrapper>...Loading</ProfileWrapper>
+        ) : (
+          <ProfileWrapper>
+            <ProfileCard />
+            <CardsWrapper>
+              <FlatList items={TABS} onChange={handleTabChange} />
+            </CardsWrapper>
+          </ProfileWrapper>
+        )} */}
         <ProfileWrapper>
-          <ProfileCard isUserProfile={isUserProfile} />
+          <ProfileCard />
           <CardsWrapper>
             <FlatList items={TABS} onChange={handleTabChange} />
           </CardsWrapper>
@@ -110,7 +154,7 @@ const Cover = styled.div`
   height: 326px;
   margin: 82px auto;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   padding: 32px 160px;
   display: flex;
   justify-content: flex-end;
@@ -148,6 +192,7 @@ const StyledEditSVG = styled(EditSVG)`
 
 const ProfileWrapper = styled.div`
   padding-left: 160px;
+  min-height: 420px;
 
   @media (${devices.tablet}) {
     padding-left: 80px;

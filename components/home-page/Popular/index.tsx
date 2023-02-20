@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import DownArrowSVG from '../../../assets/svg/down-arrow.svg';
+import { useRouter } from 'next/router';
 
+import DownArrowSVG from '../../../assets/svg/down-arrow.svg';
 import {
   SelectItemBackground,
   SelectItemSize,
@@ -13,24 +14,27 @@ import { devices } from '../../../common/constants';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { TUserInteractionsState } from '../../../redux/slicers/userInteractionsSlicer/types';
 import { getSellers } from '../../../redux/slicers/userInteractionsSlicer/userInteractionsSlicer';
-import { TAuthState } from '../../../redux/types';
 
 import ParticipantItem from './ParticipantItem';
-import { dates, sellers as mockSellers } from './constants';
+import { dates } from './constants';
 
 const Popular = () => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
+
   const { sellers } = useAppSelector<TUserInteractionsState>(
     (state) => state.userInteractions,
   );
 
   const { screenSize, slidesPerRow } = useAdaptiveSlider(5);
 
+  const handleParticipantClick = (id: string) => () => {
+    router.push(`profile/${id}`);
+  };
+
   useEffect(() => {
     dispatch(getSellers());
   }, [dispatch]);
-
-  // console.log('sellers =', sellers);
 
   return (
     <PopularWrapper>
@@ -54,13 +58,14 @@ const Popular = () => {
           </TimeframeWrapper>
         </SectionHeader>
         <ReactSlick screenSize={screenSize} slidesPerRow={slidesPerRow}>
-          {sellers?.map(({ sum, owner }, index) => (
+          {sellers?.map(({ sum, owner, _id }, index) => (
             <ParticipantItem
               key={`participant-item-${index}`}
               name={owner.username}
               avoAmount={sum}
               avatar={owner.avatar}
               rank={index + 1}
+              onParticipantClick={handleParticipantClick(_id)}
             />
           ))}
         </ReactSlick>

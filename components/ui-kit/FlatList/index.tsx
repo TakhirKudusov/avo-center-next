@@ -80,10 +80,7 @@ const FlatListChildren = styled.div`
   margin-top: 42px;
   width: fit-content;
   margin-bottom: 48px;
-
-  @media (${devices.mobile}) {
-    width: 100%;
-  }
+  width: 100%;
 `;
 
 export default FlatList;

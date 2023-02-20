@@ -1,6 +1,6 @@
 type Props = {
-  children: JSX.Element;
   text: string;
+  children: JSX.Element;
 };
 
 const CoppyToClipboard = ({ children, text }: Props) => {
