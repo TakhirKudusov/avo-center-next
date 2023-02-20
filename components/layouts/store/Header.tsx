@@ -113,11 +113,11 @@ const Header = ({
               <Logo />
             </Link>
             <ActionsBar>
-              <Link href={Paths.MODALS}>
+              {/* <Link href={Paths.MODALS}>
                 <Button size={ButtonSize.Medium} btnType={ButtonType.Primary}>
                   Modals
                 </Button>
-              </Link>
+              </Link> */}
               <SearchBar type={SearchBarType.WITH_ICON} />
               {user && (
                 <Tooltip

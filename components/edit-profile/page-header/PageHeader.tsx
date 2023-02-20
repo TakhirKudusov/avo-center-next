@@ -6,9 +6,10 @@ import { devices } from '../../../common/constants';
 
 const PageHeader = () => {
   const router = useRouter();
+  const { id } = router.query;
 
   const handleRedirectToProfileClick = () => {
-    router.push('/profile').catch((error) => console.error(error));
+    router.push(`/profile/${id}`).catch((error) => console.error(error));
   };
 
   return (

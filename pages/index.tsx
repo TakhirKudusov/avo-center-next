@@ -1,9 +1,7 @@
 import Head from 'next/head';
 import styled from 'styled-components';
-import { devices } from '../common/constants';
 import { useAdaptiveSlider } from '../common/hooks/useAdaptiveSlider';
 import { FlexContainer } from '../components/common';
-import Bids from '../components/home-page/bids';
 import CreatorNetwork from '../components/home-page/CreatorNetwork';
 import Discover from '../components/home-page/Discover';
 import HotBids from '../components/home-page/HotBids';
@@ -11,8 +9,6 @@ import HotCollections from '../components/home-page/HotCollections';
 import Popular from '../components/home-page/Popular';
 import StoreLayout from '../components/layouts/store';
 import { ReactSlick } from '../components/ui-kit';
-import Button from '../components/ui-kit/Button/Button';
-import { ButtonSize, ButtonType } from '../components/ui-kit/Button/enums';
 import { useAppSelector } from '../redux/hooks';
 import { TBidsState } from '../redux/slicers/bidsSlicer/types';
 import { IBid } from '../swagger';

@@ -5,18 +5,18 @@ import { ChangeEventHandler, memo, useEffect, useState } from 'react';
 import { NFTDescriptionContainer, NFTDescriptionWrapper } from '../index';
 import UserActionsButtonsGroup from './UserActionsButtonsGroup';
 import styled from 'styled-components';
-import NFTListingsBlock from './NFTListingsBlock';
 import { devices, screenSizes } from '../../../common/constants';
 import { NFTContext } from './context';
 import { Input, Modal } from '../../ui-kit';
 import Textarea from '../../ui-kit/Textarea';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { TAuthState } from '../../../redux/types';
-import { TBidsState } from '../../../redux/slicers/bidsSlicer/types';
+import { TNftsState } from '../../../redux/slicers/nftsSlicer/types';
 import {
   likeNft,
   unlikeNft,
 } from '../../../redux/slicers/nftsSlicer/nftSlicer';
+import { NFTTag } from '../../ui-kit/Tag/types';
 
 type Props = {
   NFTData: NFT;
@@ -26,14 +26,22 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
-  const { bid } = useAppSelector<TBidsState>((state) => state.bids);
+  const { nft } = useAppSelector<TNftsState>((state) => state.nfts);
 
-  const { image, tags, ...NFTDescriptionData } = NFTData;
+  const tags: NFTTag[] = [
+    { tagType: 'primary', tagText: nft?.category || '' },
+    {
+      tagType: 'default',
+      tagText: 'unlockable',
+    },
+  ];
+
+  // const { image, tags, ...NFTDescriptionData } = NFTData;
   const [screenSize, setScreenSize] = useState<'large' | 'small'>('large');
   const [receiverAddress, setRecieverAddress] = useState('');
   const [report, setReport] = useState('');
   const [likesNumber, setLikesNumber] = useState(0);
-  const defaultLikesNumber = bid?.nft.likes.filter(
+  const defaultLikesNumber = nft?.likes?.filter(
     (item) => item !== user?.id,
   ).length;
 
@@ -75,16 +83,16 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
   };
 
   const handleLikeNft = async () => {
-    if (bid?.nft._id) {
-      const result = await dispatch(likeNft(bid?.nft._id));
+    if (nft?._id) {
+      const result = await dispatch(likeNft(nft?._id));
 
       if (result) setLikesNumber((prev) => ++prev);
     }
   };
 
   const handleUnlikeNft = async () => {
-    if (bid?.nft._id) {
-      const result = await dispatch(unlikeNft(bid?.nft._id));
+    if (nft?._id) {
+      const result = await dispatch(unlikeNft(nft?._id));
 
       if (result) setLikesNumber((prev) => --prev);
     }
@@ -102,7 +110,7 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
     let link: HTMLAnchorElement | null = document.createElement('a');
 
     link.download = fileName;
-    link.href = image;
+    link.href = nft?.file || '';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -117,8 +125,8 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
   }, []);
 
   useEffect(() => {
-    if (bid) setLikesNumber(bid?.nft.likes.length);
-  }, [bid]);
+    if (nft) setLikesNumber(nft?.likes?.length);
+  }, [nft]);
 
   return (
     <>
@@ -137,24 +145,24 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
               <StyledNFTDescriptionWrapper>
                 <NFTImage
                   defaultLikesNumber={defaultLikesNumber || 0}
-                  NFTData={{ image, tags }}
+                  NFTData={{ image: nft?.file || '', tags }}
                   likesNumber={likesNumber}
                   onLikeClick={handleLikeClick}
                 />
                 <NFTDescription
-                  bid={bid}
+                  nft={nft}
                   screenSize={screenSize}
-                  data={NFTDescriptionData}
+                  data={nft as any}
                 />
               </StyledNFTDescriptionWrapper>
-              {screenSize === 'small' && (
+              {/* {screenSize === 'small' && (
                 <NFTListingsBlock
                   listingsData={NFTDescriptionData.listingsData}
                 />
-              )}
+              )} */}
             </div>
           </NFTDescriptionContainer>
-          {screenSize === 'large' && !!likesNumber && (
+          {screenSize === 'large' && (
             <UserActionsButtonsGroup
               screenSize={screenSize}
               likesNumber={likesNumber}

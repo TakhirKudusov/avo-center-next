@@ -2,6 +2,7 @@ import { useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { devices } from '../../../common/constants';
+import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
 import { OpenAPI } from '../../../swagger';
 import { FormItem } from '../../ui-kit';
 import { ProfileFormItemName } from '../common/constants';
@@ -15,29 +16,24 @@ type Props = {
 const Avatar = ({ avatarUrl }: Props) => {
   const [imageUrl, setImageUrl] = useState<
     string | ArrayBuffer | null | undefined
-  >(`url('/images/profile-photo.png')`);
-  // const handleAvatarUpload = () => {
-  //   console.log('uplaod!');
-  // };
+  >('');
 
   const { values } = useFormikContext<any>();
 
   useEffect(() => {
-    if (!!values.avatar?.length) {
+    if (Array.isArray(values.avatar) && !!values.avatar?.length) {
+      console.log('invoke!');
       const reader = new FileReader();
 
       reader.onload = (e: ProgressEvent<FileReader>) =>
-        setImageUrl(`url(${e.target?.result})`);
+        setImageUrl(e.target?.result);
       reader.readAsDataURL(new Blob([(values.avatar ?? [])[0]]));
     }
   }, [values?.avatar]);
 
   useEffect(() => {
-    setImageUrl(`url(${OpenAPI.BASE}/${avatarUrl})`);
+    setImageUrl(getImageUrl(avatarUrl));
   }, [avatarUrl]);
-
-  console.log('imageUrl =', imageUrl);
-  console.log('avatarUrl =', avatarUrl);
 
   return (
     <Avatar.Container>
@@ -67,8 +63,9 @@ const UserAvatar = styled.div<{ avatarUrl?: any }>`
   width: 128px;
   height: 128px;
   border-radius: 128px;
-  background: ${({ avatarUrl }) => avatarUrl};
+  background: ${({ avatarUrl }) => `url(${avatarUrl})`};
   background-size: cover;
+  background-position: center;
   margin-left: 15px;
 
   @media (${devices.mobile}) {

@@ -3,12 +3,14 @@ import ParticipantRank from './ParticipantRank';
 import SquarePlusSVG from '../../../assets/svg/square-plus.svg';
 import ArrowExpandSVG from '../../../assets/svg/arrow-expand.svg';
 import VerifiedSVG from '../../../assets/svg/verified.svg';
+import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
 
 type Props = {
   name: string;
   avoAmount: number;
   avatar: string;
   rank: number;
+  onParticipantClick: () => void;
 };
 
 const ParticipantItem: React.FC<Props> = ({
@@ -16,9 +18,12 @@ const ParticipantItem: React.FC<Props> = ({
   avoAmount,
   avatar,
   rank,
+  onParticipantClick,
 }) => {
+  console.log('avatar =', avatar);
+
   return (
-    <ParticipantWrapper>
+    <ParticipantWrapper onClick={onParticipantClick}>
       <ParticipantContent>
         <ParticipantHeader>
           <ParticipantRank rank={rank} />
@@ -33,7 +38,7 @@ const ParticipantItem: React.FC<Props> = ({
         </ParticipantHeader>
         <ParticipantBody>
           <ParticipantAvatar
-            style={{ backgroundImage: `url(/images/${avatar})` }}
+            background={avatar ? getImageUrl(avatar) : '/images/defaultUserImage.png'}
           >
             {/* TODO: Add verification field */}
             <ParticipantVerifiedIcon>
@@ -54,6 +59,7 @@ const ParticipantItem: React.FC<Props> = ({
 const ParticipantWrapper = styled.div`
   height: 263px;
   display: inline-flex;
+  cursor: pointer;
 
   &:nth-of-type(n) {
     margin-right: 32px;
@@ -112,12 +118,14 @@ const ParticipantBody = styled.div`
   padding: 24px 0;
 `;
 
-const ParticipantAvatar = styled.div`
+const ParticipantAvatar = styled.div<{ background: string }>`
   position: relative;
   width: 64px;
   height: 64px;
   border-radius: 50%;
+  background-repeat: no-repeat;
   background-size: cover;
+  background-image: ${({ background }) => `url(${background})`};
   background-position: center;
 `;
 

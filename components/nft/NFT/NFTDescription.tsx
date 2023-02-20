@@ -1,7 +1,7 @@
 import React, { FC, memo, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { Modal, Timer, useTimer } from '../../ui-kit';
+import { Modal } from '../../ui-kit';
 
 import SecondaryHeaderContainer from '../header/SecondaryHeaderContainer';
 import OwnerBox from '../../../assets/svg/owner-box.svg';
@@ -9,25 +9,23 @@ import { devices } from '../../../common/constants';
 import { NFT_OWNER } from '../../../common/enums/nftOwner.enum';
 
 import NFTActions from './NFTActions';
-import NFTListingsBlock from './NFTListingsBlock';
 import TabButtonsGroup from './TabButtonsGroup';
 import { ownersMock } from './Mock';
 import { NFTDescriptionData } from './types';
 import { OwnerRoles } from './constants';
 import { useAppSelector } from '../../../redux/hooks';
 import { TAuthState } from '../../../redux/types';
-import { IBid } from '../../../swagger';
+import { INFT } from '../../../swagger';
 
 type Props = {
-  bid: IBid | null;
+  nft: INFT | null;
   data: NFTDescriptionData;
   screenSize: 'large' | 'small';
 };
 
-const NFTDescription: FC<Props> = ({ bid, data, screenSize }) => {
+const NFTDescription: FC<Props> = ({ nft, data }) => {
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
 
-  const { timeBeforeEnd } = useTimer(bid as IBid);
   // TODO: replace Mock with server data
   const [isOwnersModalOpen, setIsOwnersModalOpen] = useState(false);
   const [nftOwner, setNftOwner] = useState<NFT_OWNER>(NFT_OWNER.USER);
@@ -42,35 +40,28 @@ const NFTDescription: FC<Props> = ({ bid, data, screenSize }) => {
     }
   }, [nftOwner, user]);
 
-  console.log('bid= ', bid);
-
-  return !!bid ? (
+  return !!nft ? (
     <div>
-      <SecondaryHeaderContainer data={data} bid={bid} />
-      <Description>{bid.nft.description}</Description>
+      <SecondaryHeaderContainer data={data} nft={nft} />
+      <Description>{nft.description}</Description>
       <LicenseWrapper>
         <License>License:</License>&nbsp;
         <span>{data.exclusiveFullLicense}</span>
       </LicenseWrapper>
       <NFTMenuContainer>
-        {bid.nft.isOnSale &&
-          timeBeforeEnd &&
-          (nftOwner as NFT_OWNER) === NFT_OWNER.AUTHOR && (
-            <Timer timeBeforeEnd={timeBeforeEnd} />
-          )}
         <TabButtonsGroup
-          nftOwners={{ creator: bid.nft.creator, owner: bid.nft.owner }}
+          nftOwners={{ creator: nft.creator, owner: nft.owner }}
         />
         <NFTActions
-          isNFTOnSale={bid.nft.isOnSale}
+          isNFTOnSale={nft.isOnSale}
           nftOwner={nftOwner}
-          price={bid.nft.salePrice}
+          price={(nft as any).salePrice}
           convertedPrice={data.convertedPrice}
         />
       </NFTMenuContainer>
-      {screenSize === 'large' && (
+      {/* {screenSize === 'large' && (
         <NFTListingsBlock listingsData={data.listingsData} />
-      )}
+      )} */}
       {isOwnersModalOpen && (
         <Modal
           title="Owners"

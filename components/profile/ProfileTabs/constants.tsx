@@ -1,4 +1,4 @@
 export enum FollowType {
-  UNFOLLOW = 'unfollow',
-  FOLLOW = 'follow',
+  FOLLOWERS = 'followers',
+  FOLLOWING = 'following',
 }

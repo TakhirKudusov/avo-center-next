@@ -6,26 +6,30 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
-import attachmentsReducer from './slicers/attachmentsSlicer';
+import ipfsReducer from './slicers/ipfsSlicer';
 import authReducer from './slicers/authSlicer';
 import { adminApi } from './APIs/adminApi';
 import bidsReducer from './slicers/bidsSlicer';
 import collectionsReducer from './slicers/collectionsSlicer';
+import discoverReducer from './slicers/discoverSlicer';
 import nftsReducer from './slicers/nftsSlicer';
 import notificationsReducer from './slicers/notificationsSlicer';
 import profileReducer from './slicers/profileSlicer';
+import searchReducer from './slicers/searchSlicer';
 import userInteractionsReducer from './slicers/userInteractionsSlicer';
 
 const combinedReducer = combineReducers({
   [adminApi.reducerPath]: adminApi.reducer,
   auth: authReducer,
-  attachments: attachmentsReducer,
+  ipfs: ipfsReducer,
   notifications: notificationsReducer,
   profile: profileReducer,
   userInteractions: userInteractionsReducer,
   bids: bidsReducer,
   collections: collectionsReducer,
   nfts: nftsReducer,
+  discover: discoverReducer,
+  search: searchReducer,
 });
 
 const reducer = (

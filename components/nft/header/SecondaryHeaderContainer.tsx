@@ -4,26 +4,26 @@ import { memo } from 'react';
 import { NFT } from '../common/types';
 import { BidPriceWrapper } from '../../common/components/BidPrice';
 import { devices } from '../../../common/constants';
-import { IBid } from '../../../swagger';
+import { INFT } from '../../../swagger';
 
 type Props = {
   data: Omit<NFT, 'image' | 'tags'>;
-  bid: IBid | null;
+  nft: INFT | null;
 };
 
-const SecondaryHeaderContainer: React.FC<Props> = ({ bid, data }) => {
+const SecondaryHeaderContainer: React.FC<Props> = ({ nft, data }) => {
   return (
     <HeaderContainer>
-      <Header>{bid?.nft.name}</Header>
+      <Header>{nft?.name}</Header>
       <ParametersContainer>
         <NFTPrice>
-          {bid?.nft.salePrice ? `${bid?.nft.salePrice} AVO` : 'Not on sale'}
+          {nft?.salePrice ? `${nft?.salePrice} AVO` : 'Not on sale'}
         </NFTPrice>
         <ParameterParagraph>
-          Total: <span>{bid?.nft.total}</span>
+          Total: <span>{nft?.total}</span>
         </ParameterParagraph>
         <ParameterParagraph>
-          Available: <span>{bid?.nft.available}</span>
+          Available: <span>{nft?.available}</span>
         </ParameterParagraph>
       </ParametersContainer>
     </HeaderContainer>

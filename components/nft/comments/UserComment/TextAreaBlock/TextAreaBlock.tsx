@@ -6,9 +6,11 @@ import CornerDownRightSVG from '../../../../../assets/svg/corner-down-right.svg'
 import RightSideCornerSVG from '../../../../../assets/svg/right-side-corner.svg';
 import { devices } from '../../../../../common/constants';
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks';
-import { setBid } from '../../../../../redux/slicers/bidsSlicer/bidsSlicer';
-import { TBidsState } from '../../../../../redux/slicers/bidsSlicer/types';
-import { commentNft } from '../../../../../redux/slicers/nftsSlicer/nftSlicer';
+import { TNftsState } from '../../../../../redux/slicers/nftsSlicer/types';
+import {
+  commentNft,
+  setNft,
+} from '../../../../../redux/slicers/nftsSlicer/nftSlicer';
 import { TAuthState } from '../../../../../redux/types';
 import { INFT } from '../../../../../swagger';
 import { ConnectWalletContext } from '../../../NFT/context';
@@ -28,7 +30,7 @@ const TextAreaBlock: React.FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const { bid } = useAppSelector<TBidsState>((state) => state.bids);
+  const { nft } = useAppSelector<TNftsState>((state) => state.nfts);
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
   const formRef = useRef<FormikProps<any>>(null);
 
@@ -39,16 +41,17 @@ const TextAreaBlock: React.FC<Props> = ({
       setOpenConnectWallet(true);
     }
 
-    if (bid?.nft._id && parentCommentId) {
+    if (nft?._id && parentCommentId) {
       const result = await dispatch(
         commentNft({
-          nftId: bid?.nft._id,
+          nftId: nft?._id,
           body: { message: values.replyComment, parent: parentCommentId },
         }),
       );
 
       if (result.payload) {
-        dispatch(setBid(result.payload as INFT));
+        //TODO: replace with nft
+        dispatch(setNft(result.payload as INFT));
 
         formRef.current?.setFieldValue(ReplyCommentKeys.REPLY_COMMENT, '');
         setTimeout(() =>

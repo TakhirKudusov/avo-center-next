@@ -3,9 +3,10 @@ import styled from 'styled-components';
 
 import { Divider } from '../../ui-kit';
 import { handleSetActiveClick } from '../../common/helpers';
-import { devices } from '../../../common/constants';
+import { DEFAULT_IMAGE_URL, devices } from '../../../common/constants';
 import { NftInfoTabs } from './constants';
 import { infoTabMock } from './Mock';
+import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
 
 type Props = { nftOwners: { creator: any; owner: any } };
 
@@ -25,8 +26,6 @@ const TabButtonsGroup: React.FC<Props> = ({ nftOwners }) => {
       handleSetActiveClick(e, 'tab-btn', 'active');
       setActiveTab(tab);
     };
-
-  console.log('activeTab =', activeTab);
 
   return (
     <>
@@ -78,7 +77,13 @@ const TabButtonsGroup: React.FC<Props> = ({ nftOwners }) => {
       {activeTab === NftInfoTabs.OWNERS && (
         <TabWrapper>
           <TabItemInfo>
-            <OwnerAvatar imageUrl={nftOwners.creator.avatar} />
+            <OwnerAvatar
+              imageUrl={
+                nftOwners.creator.avatar
+                  ? getImageUrl(nftOwners.creator.avatar)
+                  : DEFAULT_IMAGE_URL
+              }
+            />
             <div>
               <TabItemLabel>Creator</TabItemLabel>
               <TabItemValue>{nftOwners.creator.username}</TabItemValue>
@@ -86,7 +91,13 @@ const TabButtonsGroup: React.FC<Props> = ({ nftOwners }) => {
             </div>
           </TabItemInfo>
           <TabItemInfo>
-            <OwnerAvatar imageUrl={nftOwners.owner.avatar} />
+            <OwnerAvatar
+              imageUrl={
+                nftOwners.owner.avatar
+                  ? getImageUrl(nftOwners.owner.avatar)
+                  : DEFAULT_IMAGE_URL
+              }
+            />
             <div>
               <TabItemLabel>Owner</TabItemLabel>
               <TabItemValue>{nftOwners.owner.username}</TabItemValue>

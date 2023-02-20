@@ -15,3 +15,5 @@ export const devices = {
   }px)`,
   laptop: `(min-width: ${screenSizes.tablet + 1}px)`,
 };
+
+export const DEFAULT_IMAGE_URL = '/images/defaultUserImage.png';

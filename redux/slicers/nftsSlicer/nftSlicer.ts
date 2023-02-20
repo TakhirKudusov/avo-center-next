@@ -12,6 +12,22 @@ import { findComment } from '../../helpers';
 // import { AttachmentsService } from '../../../swagger';
 import { TNftsState } from './types';
 
+export const getNftById = createAsyncThunk<
+  INFT,
+  string,
+  { rejectValue: string }
+>('nfts/nft', async function (payload): Promise<any> {
+  return await NftsService.getNftById(payload);
+});
+
+export const getUserNfts = createAsyncThunk<
+  INFT[],
+  string,
+  { rejectValue: string }
+>('nfts/user-nfts', async function (payload): Promise<any> {
+  return (await NftsService.getUserNfTs(payload)).data;
+});
+
 export const createNft = createAsyncThunk<
   INFT,
   ICreateNFTDTO,
@@ -61,6 +77,7 @@ export const unlikeCommentNft = createAsyncThunk<
 
 const initialState: TNftsState = {
   nfts: [],
+  userNfts: [],
   nft: null,
   loading: false,
 };
@@ -68,15 +85,49 @@ const initialState: TNftsState = {
 const nftsSlicer = createSlice({
   name: 'nfts',
   initialState,
-  reducers: {},
+  reducers: {
+    setNft(state: TNftsState, action: PayloadAction<INFT>) {
+      state.nft =
+        state.nft && action.payload
+          ? {
+              ...state.nft,
+              comments: action.payload.comments,
+            }
+          : state.nft;
+    },
+    likeClickedNft(state: TNftsState, action: PayloadAction<IComment>) {
+      state.nft =
+        state.nft && action.payload
+          ? {
+              ...state.nft,
+              comments:
+                findComment(state.nft.comments, action.payload) ||
+                state.nft.comments,
+            }
+          : state.nft;
+    },
+  },
   extraReducers: (builder) => {
+    builder
+      .addCase(getNftById.pending, handlePending)
+      .addCase(getNftById.fulfilled, (state, action) => {
+        state.nft = action.payload;
+        state.loading = false;
+      })
+      .addCase(getNftById.rejected, handleError);
+    builder
+      .addCase(getUserNfts.pending, handlePending)
+      .addCase(getUserNfts.fulfilled, (state, action) => {
+        state.userNfts = action.payload;
+        state.loading = false;
+      })
+      .addCase(getUserNfts.rejected, handleError);
     builder
       .addCase(createNft.pending, handlePending)
       .addCase(createNft.fulfilled, (state, action) => {
         state.nfts = [...state.nfts, action.payload];
         state.loading = false;
         // openSuccessNotification('Вы успешно авторизованы!');
-        console.log('fulfilled');
       })
       .addCase(createNft.rejected, handleError);
     builder
@@ -138,6 +189,6 @@ const nftsSlicer = createSlice({
   },
 });
 
-export const {} = nftsSlicer.actions;
+export const { setNft, likeClickedNft } = nftsSlicer.actions;
 
 export default nftsSlicer.reducer;

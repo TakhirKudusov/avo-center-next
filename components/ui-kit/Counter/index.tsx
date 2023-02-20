@@ -37,6 +37,10 @@ const Counter: React.FC<Props & TFormFieldProps> = ({
 
       return value;
     });
+
+    if (field) form?.setFieldValue(field?.name, count);
+
+    if (onCountChange) onCountChange(count);
   };
 
   const handleCountUp = () => {
