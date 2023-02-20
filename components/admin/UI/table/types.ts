@@ -11,14 +11,15 @@ import {
   User,
   Verification,
 } from '../../../../redux/APIs/types';
+import { ReactNode } from 'react';
 
 type TableHead = {
   id: number;
   name: string;
-  configurable: boolean;
   filter?: boolean;
   width?: string;
   inputType?: 'input' | 'select';
+  render?: (data: any) => JSX.Element;
 };
 
 type TableContent =

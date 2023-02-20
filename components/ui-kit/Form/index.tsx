@@ -9,6 +9,7 @@ type Props = {
   initialValues: UnknownObject;
   children: JSX.Element;
   onSubmit: (values: any, formikProps: any) => void;
+  onReset?: (values: any, formikProps: any) => void;
   onChange?: FormEventHandler<HTMLFormElement>;
   className?: string;
 };
@@ -19,6 +20,7 @@ const Form: React.FC<Props> = ({
   initialValues,
   children,
   onSubmit,
+  onReset,
   onChange,
   className,
 }) => {
@@ -30,13 +32,19 @@ const Form: React.FC<Props> = ({
       onSubmit={(a, b) => {
         onSubmit(a, b);
       }}
+      onReset={(a, b) => {
+        if (onReset) onReset(a, b);
+      }}
     >
-      {({ handleSubmit, handleChange }) => (
+      {({ handleSubmit, handleChange, handleReset }) => (
         <FormikForm
           className={className}
           onSubmit={async (e) => {
             e.preventDefault();
             handleSubmit();
+          }}
+          onReset={() => {
+            handleReset();
           }}
           onChange={(e) => {
             if (onChange) {

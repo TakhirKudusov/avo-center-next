@@ -6,97 +6,105 @@ import { VerifiedUser } from '@styled-icons/material-outlined/VerifiedUser';
 import { LocalActivity } from '@styled-icons/material-outlined/LocalActivity';
 import { Anydesk } from '@styled-icons/simple-icons';
 
-const NFT = {
+interface subPoints {
+  id: string;
+  name: string;
+  link: string;
+}
+
+//create interface for menu points
+interface menuPoints {
+  header: string;
+  Icon: () => JSX.Element;
+  subPoints: subPoints[];
+}
+
+const NFT: menuPoints = {
   header: 'NFT',
   Icon: () => <Image />,
   subPoints: [
     {
-      id: 1,
+      id: 'NFT_1',
       name: 'NFTs',
       link: AdminRoute.NFTs,
     },
     {
-      id: 2,
+      id: 'NFT_2',
       name: 'Collections',
       link: AdminRoute.COLLECTIONS,
     },
     {
-      id: 3,
-      name: 'Bids',
-      link: AdminRoute.BIDS,
-    },
-    {
-      id: 4,
+      id: 'NFT_3',
       name: 'Categories',
       link: AdminRoute.CATEGORIES,
+    },
+    {
+      id: 'NFT_4',
+      name: 'Bids',
+      link: AdminRoute.BIDS,
     },
   ],
 };
 
-const faqs = {
+const faqs: menuPoints = {
   header: 'FAQs',
   Icon: () => <CircleQuestion />,
   subPoints: [
     {
-      id: 1,
+      id: 'FAQs_1',
       name: 'FAQs',
       link: AdminRoute.FAQS,
     },
   ],
 };
 
-const users = {
+const users: menuPoints = {
   header: 'Users',
   Icon: () => <UserCircle />,
   subPoints: [
     {
-      id: 1,
+      id: 'Users_1',
       name: 'Users',
       link: AdminRoute.USERS,
     },
   ],
 };
 
-const verifications = {
+const verifications: menuPoints = {
   header: 'Verifications',
   Icon: () => <VerifiedUser />,
   subPoints: [
     {
-      id: 1,
+      id: 'Verifications_1',
       name: 'Verifications',
       link: AdminRoute.VERIFICATIONS,
     },
   ],
 };
 
-const userInteractions = {
+const userInteractions: menuPoints = {
   header: 'User interactions',
   Icon: () => <LocalActivity />,
   subPoints: [
     {
-      id: 1,
+      id: 'UserInteractions_1',
       name: 'Sellers',
       link: AdminRoute.SELLERS,
     },
     {
-      id: 2,
+      id: 'UserInteractions_2',
       name: 'Creators',
       link: AdminRoute.CREATORS,
     },
   ],
 };
 
-const other = {
+const other: menuPoints = {
   header: 'Other',
   Icon: () => <Anydesk />,
   subPoints: [
     {
-      id: 1,
-      name: 'Notifications',
-      link: AdminRoute.NOTIFICATIONS,
-    },
-    {
-      id: 2,
+      id: 'Other_1',
       name: 'Reports',
       link: AdminRoute.REPORTS,
     },

@@ -54,7 +54,7 @@ const SideMenu: FC<Props> = ({ isOpen, setIsOpen }) => {
                 <NavPoint
                   key={header}
                   header={header}
-                  subPoint={subPoints}
+                  subPoint={subPoints as any}
                   Icon={Icon}
                   setMenuOpen={setIsOpen}
                   setMenuSlide={setMenuSlide}

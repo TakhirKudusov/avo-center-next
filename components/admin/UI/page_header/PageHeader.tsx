@@ -1,14 +1,22 @@
 import styled from 'styled-components';
-import { FC } from 'react';
+import { Dispatch, FC, memo, SetStateAction } from 'react';
+import { Button } from '../../../ui-kit';
+import { ModalState } from '../../utils/types';
 
 type HeaderProps = {
   text: string;
+  setModalState?: Dispatch<SetStateAction<ModalState>>;
 };
 
-const PageHeader: FC<HeaderProps> = ({ text }) => {
+const PageHeader: FC<HeaderProps> = ({ text, setModalState }) => {
+  const handleButtonClick = () => {
+    if (setModalState) setModalState('post');
+  };
+
   return (
     <HeaderContainer>
       <HeaderText>{text}</HeaderText>
+      {setModalState && <Button onClick={handleButtonClick}>Create new</Button>}
     </HeaderContainer>
   );
 };
@@ -25,6 +33,7 @@ const HeaderText = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   width: 100%;
+  justify-content: space-between;
 `;
 
-export default PageHeader;
+export default memo(PageHeader);

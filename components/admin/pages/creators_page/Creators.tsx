@@ -1,17 +1,20 @@
 import { Divider } from '../../../ui-kit';
 import Table from '../../UI/table/Table';
 import { tableHead } from './constants';
-import {
-  useGetCreatorsQuery,
-  useGetSellersQuery,
-} from '../../../../redux/APIs/adminApi';
+import { useGetCreatorsQuery } from '../../../../redux/APIs/adminApi';
 import LoadingSpinner from '../../UI/loading_spinner/LoadingSpinner';
 import PageHeader from '../../UI/page_header/PageHeader';
 import TableContainer from '../../UI/table_container/TableContainer';
 import ContentContainer from '../../UI/content_container/ContentContainer';
-import Form from './Form';
+import { useState } from 'react';
+import { ModalState } from '../../utils/types';
+import { TableContent } from '../../UI/table/types';
+import CreatorsInfo from './CreatorsInfo';
 
 const Creators = () => {
+  const [modalState, setModalState] = useState<ModalState | null>(null);
+  const [modalData, setModalData] = useState<TableContent | null>(null);
+
   const { data, isLoading, isError } = useGetCreatorsQuery('');
 
   return (
@@ -22,7 +25,15 @@ const Creators = () => {
         {isLoading && !isError ? (
           <LoadingSpinner />
         ) : (
-          <Table content={data} head={tableHead} form={<Form />} />
+          <Table
+            content={data}
+            head={tableHead}
+            setModalData={setModalData}
+            modalData={modalData}
+            form={<CreatorsInfo modalData={modalData} />}
+            modalState={modalState}
+            setModalState={setModalState}
+          />
         )}
       </TableContainer>
     </ContentContainer>

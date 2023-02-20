@@ -14,7 +14,7 @@ type Props = {
   failed?: boolean;
   type?: 'button' | 'submit' | 'reset';
   fullSize?: boolean;
-  onClick?: () => void;
+  onClick?: (e?: any) => void;
   className?: string;
 };
 
