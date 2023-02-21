@@ -1,71 +1,97 @@
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ContentContainer, FlexContainer } from '../../common';
-import Button from '../../ui-kit/Button/Button';
-import FlatList from '../../ui-kit/FlatList';
 import {
-  SelectItemBackground,
-  SelectItemSize,
-} from '../../ui-kit/Select/enums';
-import { ListItem } from '../../ui-kit/FlatList/types';
-import CloseSVG from '../../../assets/svg/close.svg';
-import { BID_LIST, GENRES, PERIODS, SORT_CONFIG_LIST } from './constants';
+  getQueryParams,
+  pushQueryParams,
+} from '../../../common/helpers/manageQueryParams.helper';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { fetchCategories } from '../../../redux/slicers/discoverSlicer/discoverSlicer';
+import { TDiscoverState } from '../../../redux/slicers/discoverSlicer/types';
+import {
+  CREATOR_ITEMS,
+  LIKE_ITEMS,
+  PRICE_ITEMS,
+  TYPE_ITEMS,
+} from '../../catalog/constants';
+import { convertQueryParams, onLocationChange } from '../../catalog/helpers';
+import { TFilterOption } from '../../catalog/types';
+import { ContentContainer, FlexContainer } from '../../common';
 import BidGrid from '../../common/components/BidGrid';
-import Select from '../../ui-kit/Select';
-import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
-import { MultiRangeSlider } from '../../ui-kit';
+import { ListItem } from '../../ui-kit/FlatList/types';
+import FilterBar from './FilterBar';
 
 const Discover = () => {
-  const handleGenreChange = (item: ListItem) => {
-    console.log(item);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const [queryParams, setQueryParams] = useState<string>();
+  const { categories, bids, nfts, loading, priceRange } =
+    useAppSelector<TDiscoverState>((state) => state.discover);
+
+  const handleLocationChange = onLocationChange(dispatch);
+
+  const onCategoryChange = () => {
+    const queryParams = convertQueryParams(
+      getQueryParams(window.location.search),
+    );
+    console.log('queryParams=', queryParams);
+    setQueryParams(JSON.stringify(queryParams));
   };
+
+  // const handlePageChange = (page: number) => {
+  //   pushQueryParams([{ name: 'page', value: page }]);
+  // };
+
+  const categoryOptions: TFilterOption[] = categories.map((category) => ({
+    id: category._id,
+    name: category.name,
+    url: category._id,
+  }));
+
+  useEffect(() => {
+    localStorage.removeItem('location');
+    window.addEventListener('locationChange', () => {
+      handleLocationChange();
+      onCategoryChange();
+    });
+
+    // setTimeout(() => {
+    //   setPriceRange({
+    //     minPrice: 0,
+    //     maxPrice: 1000,
+    //   });
+    // });
+
+    (async () => {
+      if (!router.query.types) {
+        pushQueryParams([{ name: 'types', value: ['nft'] }]);
+      }
+
+      await dispatch(fetchCategories());
+      await handleLocationChange();
+      onCategoryChange();
+    })();
+
+    return () => {
+      window.removeEventListener('locationChange', handleLocationChange);
+    };
+  }, []);
 
   return (
     <DiscoverWrapper id="discover">
       <FlexContainer>
         <ContentContainer>
           <SectionTitle>Discover</SectionTitle>
-          <FilterRow>
-            <Select
-              items={PERIODS}
-              background={SelectItemBackground.White}
-              size={SelectItemSize.Medium}
-              style={{ width: '180px' }}
-            />
-            <FlatList items={GENRES} onChange={handleGenreChange} />
-            <Button size={ButtonSize.Large} btnType={ButtonType.Secondary}>
-              <FilterBtnContent>
-                Filter
-                <CloseSVG />
-              </FilterBtnContent>
-            </Button>
-          </FilterRow>
-          <SortRow>
-            {SORT_CONFIG_LIST.map((sortConfig, index) => (
-              <SortItem key={`sort-config-${index}`}>
-                <SortItemLabel>{sortConfig.label}</SortItemLabel>
-                <Select
-                  items={sortConfig.items}
-                  background={SelectItemBackground.White}
-                  size={SelectItemSize.Medium}
-                  style={{ width: '256px' }}
-                ></Select>
-              </SortItem>
-            ))}
-            <SortItem>
-              <MultiRangeSlider
-                label="price range"
-                step={0.01}
-                min={0.01}
-                max={10}
-              />
-            </SortItem>
-          </SortRow>
-          <BidGrid items={BID_LIST as any} />
-          <ButtonWrapper>
-            <Button size={ButtonSize.Medium} round={true} loading={true}>
-              Load more
-            </Button>
-          </ButtonWrapper>
+          <FilterBar
+            types={TYPE_ITEMS}
+            categories={categoryOptions}
+            likes={LIKE_ITEMS}
+            prices={PRICE_ITEMS}
+            isVerifieds={CREATOR_ITEMS}
+            priceRange={priceRange}
+          />
+          {loading && '...loading'}
+          {!loading && <BidGrid items={[...bids, ...nfts]} elemPerRow={4} />}
         </ContentContainer>
       </FlexContainer>
     </DiscoverWrapper>
@@ -74,7 +100,7 @@ const Discover = () => {
 
 const DiscoverWrapper = styled.div`
   background: #fcfcfd;
-  padding: 128px 0;
+  padding: 90px 0;
 `;
 
 const SectionTitle = styled.div`

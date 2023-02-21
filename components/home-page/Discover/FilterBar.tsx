@@ -4,20 +4,20 @@ import styled from 'styled-components';
 import {
   clearQueryParams,
   getQueryParams,
-} from '../../common/helpers/manageQueryParams.helper';
-import { useAppDispatch } from '../../redux/hooks';
+} from '../../../common/helpers/manageQueryParams.helper';
+import { useAppDispatch } from '../../../redux/hooks';
 import {
   clearBids,
   clearNFTs,
   resetPriceRange,
-} from '../../redux/slicers/discoverSlicer/discoverSlicer';
+} from '../../../redux/slicers/discoverSlicer/discoverSlicer';
 import {
   convertQueryParams,
   filterByTypeMapper,
-  getFilters,
   getFiltersConfig,
-} from './helpers';
-import { TFilterOption, TPriceRange } from './types';
+} from '../../catalog/helpers';
+import { TFilterOption, TPriceRange } from '../../catalog/types';
+import { getFilters } from './helpers';
 
 type Props = {
   types: TFilterOption[];
@@ -45,8 +45,8 @@ const FilterBar: React.FC<Props> = ({
       categories,
       prices,
       likes,
-      isVerifieds,
       priceRange,
+      isVerifieds,
       filters,
     }),
   );
@@ -73,12 +73,12 @@ const FilterBar: React.FC<Props> = ({
         likes,
         types,
         categories,
-        priceRange,
         isVerifieds,
+        priceRange,
         filters,
       }),
     );
-  }, [types, categories, prices, likes, priceRange, isVerifieds]);
+  }, [types, categories, prices, likes, priceRange]);
 
   useEffect(() => {
     setLocalFilters(getFilters(filtersConfig));
@@ -86,10 +86,16 @@ const FilterBar: React.FC<Props> = ({
 
   return (
     <FilterBarContent>
-      <FilterBarTitle>Filters</FilterBarTitle>
       <FiltersWrapper>
-        {localFilters.map(filterByTypeMapper)}
-        <ResetButton onClick={hanldeResetBtnClick}>Reset filter</ResetButton>
+        <FiltersRow>
+          {localFilters.slice(0, 2).map(filterByTypeMapper)}
+          <ResetButtonWrapper>
+            <ResetButton onClick={hanldeResetBtnClick}>Filter</ResetButton>
+          </ResetButtonWrapper>
+        </FiltersRow>
+        <FiltersRow>
+          {localFilters.slice(2, localFilters.length).map(filterByTypeMapper)}
+        </FiltersRow>
       </FiltersWrapper>
     </FilterBarContent>
   );
@@ -101,15 +107,23 @@ const FilterBarContent = styled.div<any>`
   border-radius: 12px;
   padding: 16px 12px;
   height: max-content;
-`;
-
-const FilterBarTitle = styled.div`
-  font-size: 24px;
-  color: #000;
-  margin-bottom: 20px;
+  margin: 60px 0 30px;
 `;
 
 const FiltersWrapper = styled.div``;
+
+const FiltersRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+`;
+
+const ResetButtonWrapper = styled.div`
+  width: 100%;
+  max-width: 260px;
+  text-align: right;
+`;
 
 const ResetButton = styled.button`
   background: none;

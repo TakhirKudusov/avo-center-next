@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { devices } from '../../../common/constants';
 import { ListItem } from './types';
 
 type Props = {
   items: ListItem[];
+  value?: ListItem;
   onChange?: (item: ListItem) => void;
 };
-const FlatList: React.FC<Props> = ({ items, onChange }) => {
+const FlatList: React.FC<Props> = ({ items, value, onChange }) => {
+  const initialValue = value ? value : undefined;
   const [activeItem, setActiveItem] = useState<ListItem | undefined>(
-    items ? items[0] : undefined,
+    initialValue,
   );
 
   const handleClick = (item: ListItem) => () => {
@@ -22,6 +24,14 @@ const FlatList: React.FC<Props> = ({ items, onChange }) => {
   const isActive = (activeItem: ListItem | undefined, item: ListItem) => {
     return activeItem?.id === item.id;
   };
+
+  useEffect(() => {
+    const curItem = items.find((item) => item.id === value?.id);
+
+    if (curItem) {
+      setActiveItem(curItem);
+    }
+  }, [value, items]);
 
   return (
     <FlatListContainer>

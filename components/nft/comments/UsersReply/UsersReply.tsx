@@ -25,7 +25,7 @@ const UsersReply: React.FC<Props> = ({
     <>
       {commentsData?.map((comment, i) => (
         <ReplyContainer key={comment.author?.username + i}>
-          <OwnerAvatar image={comment.author?.avatar} />
+          <OwnerAvatar image={comment.author?.avatar} onClick={() => {}} />
           <UserComment
             userId={userId}
             parentCommentId={parentCommentId}

@@ -118,6 +118,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
 `;
 
 const Label = styled.div`
@@ -133,14 +134,14 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 60px;
-  width: 256px;
+  margin-bottom: 36px;
+  width: 100%;
   padding-right: 7px;
 `;
 
 const Slider = styled.div`
   position: relative;
-  width: 256px;
+  width: 100%;
 `;
 
 const SliderTrack = styled.div`
@@ -148,7 +149,7 @@ const SliderTrack = styled.div`
   border-radius: 3px;
   height: 8px;
   background-color: #e6e8ec;
-  width: 256px;
+  width: 100%;
   z-index: 1;
   top: -3px;
 `;
@@ -182,7 +183,7 @@ const SliderRightValue = styled.div`
 const Thumb = styled.input`
   position: absolute;
   height: 0;
-  width: 256px;
+  width: 100%;
   outline: none;
   -webkit-appearance: none;
   -webkit-tap-highlight-color: transparent;

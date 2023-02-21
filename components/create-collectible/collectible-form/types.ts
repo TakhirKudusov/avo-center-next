@@ -1,5 +1,5 @@
 enum CollectibleFormItemName {
-  File = 'File',
+  File = 'file',
   Type = 'type',
   Network = 'network',
   Category = 'category',

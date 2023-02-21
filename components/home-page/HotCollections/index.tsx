@@ -18,8 +18,6 @@ const HotCollections = () => {
     (state) => state.collections,
   );
 
-  console.log('hotCollections =', hotCollections);
-
   useEffect(() => {
     dispatch(getHotCollections());
   }, [dispatch]);

@@ -27,6 +27,7 @@ export const fetchNFTs = createAsyncThunk<
   {
     category: string;
     name: string;
+    isVerified?: boolean;
     minPrice?: number;
     maxPrice?: number;
     sortBy?: string;
@@ -37,6 +38,7 @@ export const fetchNFTs = createAsyncThunk<
   async function ({
     name,
     category,
+    isVerified,
     minPrice,
     maxPrice,
     sortBy,
@@ -47,6 +49,7 @@ export const fetchNFTs = createAsyncThunk<
       sortBy,
       undefined,
       undefined,
+      isVerified,
       name,
       undefined,
       minPrice,
@@ -59,19 +62,42 @@ export const fetchNFTs = createAsyncThunk<
 );
 
 export const fetchBids = createAsyncThunk<
-  IPaginationResponse,
-  { category: string },
+  IPaginationProductResponse,
+  {
+    category: string;
+    name: string;
+    isVerified?: boolean;
+    minPrice?: number;
+    maxPrice?: number;
+    sortBy?: string;
+  },
   { rejectValue: string }
->('discover/get-bids', async function (payload): Promise<any> {
-  return await BidsService.getBids(
-    0,
-    100,
-    '_id',
-    undefined,
-    undefined,
-    // payload.category !== 'undefined' ? payload.category : undefined,
-  );
-});
+>(
+  'discover/get-bids',
+  async function ({
+    name,
+    category,
+    isVerified,
+    minPrice,
+    maxPrice,
+    sortBy,
+  }): Promise<any> {
+    return await BidsService.getBids(
+      0,
+      100,
+      sortBy,
+      undefined,
+      undefined,
+      isVerified,
+      name,
+      undefined,
+      undefined,
+      minPrice,
+      maxPrice,
+      category !== 'undefined' ? category : undefined,
+    );
+  },
+);
 
 export const initialState: TDiscoverState = {
   categories: [],
@@ -121,6 +147,8 @@ const discoverSlicer = createSlice({
       .addCase(fetchBids.pending, handlePending)
       .addCase(fetchBids.fulfilled, (state, action) => {
         state.bids = action.payload.data as unknown[] as IBid[];
+        const [minPrice, maxPrice] = action.payload.priceRange;
+        state.priceRange = { minPrice, maxPrice };
         state.loading = false;
 
         console.log('fulfilled');

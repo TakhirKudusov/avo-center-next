@@ -1,10 +1,10 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { devices } from '../../common/constants';
 import { getQueryParams } from '../../common/helpers/manageQueryParams.helper';
 import {
+  CREATOR_ITEMS,
   LIKE_ITEMS,
   PRICE_ITEMS,
   TYPE_ITEMS,
@@ -73,11 +73,6 @@ const Catalog = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (nfts) {
-    }
-  }, [nfts]);
-
   return (
     <div>
       <Head>
@@ -96,6 +91,7 @@ const Catalog = () => {
               categories={categoryOptions}
               likes={LIKE_ITEMS}
               prices={PRICE_ITEMS}
+              isVerifieds={CREATOR_ITEMS}
               priceRange={priceRange}
             />
             {loading && '...loading'}

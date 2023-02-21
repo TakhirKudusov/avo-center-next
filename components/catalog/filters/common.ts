@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Filter = styled.div`
   margin-bottom: 17px;
+  width: 100%;
 `;
 
 const FilterTitle = styled.div`

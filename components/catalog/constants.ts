@@ -12,6 +12,7 @@ const LIKE_ITEMS: TFilterOption[] = [
     url: '1',
   },
 ];
+
 const PRICE_ITEMS: TFilterOption[] = [
   {
     id: '1',
@@ -38,4 +39,17 @@ const TYPE_ITEMS: TFilterOption[] = [
   },
 ];
 
-export { LIKE_ITEMS, PRICE_ITEMS, TYPE_ITEMS };
+const CREATOR_ITEMS: TFilterOption[] = [
+  {
+    id: '1',
+    name: 'Verified only',
+    url: 'true',
+  },
+  {
+    id: '1',
+    name: 'Not verified only',
+    url: 'false',
+  },
+];
+
+export { LIKE_ITEMS, PRICE_ITEMS, TYPE_ITEMS, CREATOR_ITEMS };

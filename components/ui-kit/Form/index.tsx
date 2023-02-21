@@ -2,6 +2,7 @@ import { Form as FormikForm, Formik } from 'formik';
 import { FormEventHandler, memo, MutableRefObject } from 'react';
 import * as Yup from 'yup';
 import { UnknownObject } from '../../../common/types';
+import FormikObserver from './observer';
 
 type Props = {
   innerRef?: MutableRefObject<any>;
@@ -47,13 +48,13 @@ const Form: React.FC<Props> = ({
             handleReset();
           }}
           onChange={(e) => {
-            if (onChange) {
-              onChange(e);
-              handleChange(e);
-            }
+            handleChange(e);
           }}
         >
           {children}
+          <FormikObserver
+            onChange={(values: any) => (onChange ? onChange(values) : null)}
+          />
         </FormikForm>
       )}
     </Formik>

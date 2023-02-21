@@ -81,13 +81,6 @@ const Select: React.FC<Props & TFormFieldProps> = ({
       setSelected: Dispatch<SetStateAction<SelectItem | undefined>>,
     ) =>
     () => {
-      if (field) {
-        console.log('form =', form);
-        form?.setFieldValue(field.name, selected?.value);
-      }
-
-      if (onChange) onChange(item.value);
-
       setSelected((prev) => {
         if (prev === item && type === SelectTypes.PRIMARY) return selectedItem;
 
