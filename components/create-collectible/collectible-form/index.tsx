@@ -1,11 +1,16 @@
 import { FormikProps } from 'formik';
+import { useRouter } from 'next/router';
 import { FormEventHandler, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
 import { devices } from '../../../common/constants';
+import { useFileUrl } from '../../../common/hooks/useFileUrl';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { fetchCategories } from '../../../redux/slicers/discoverSlicer/discoverSlicer';
 import { TDiscoverState } from '../../../redux/slicers/discoverSlicer/types';
+import { addAttachment } from '../../../redux/slicers/ipfsSlicer/ipfsSlicer';
+import { TIpfsState } from '../../../redux/slicers/ipfsSlicer/types';
+import { createNft } from '../../../redux/slicers/nftsSlicer/nftSlicer';
 import { Counter, FileUpload, Form, FormItem, Input } from '../../ui-kit';
 import Button from '../../ui-kit/Button/Button';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
@@ -17,15 +22,15 @@ import { FORM_SCHEMA, NETWORKS, NFT_TYPES } from './constants';
 import { CollectibleFormItemName } from './types';
 
 const CollectibleForm = () => {
+  const router = useRouter();
+  const { fileUrl } = useAppSelector<TIpfsState>((state) => state.ipfs);
   const dispatch = useAppDispatch();
   const formRef = useRef<FormikProps<any>>(null);
-
   const [formValues, setFormValues] = useState<any>(undefined);
-
+  const imageUrl = useFileUrl(formValues?.file);
   const { categories } = useAppSelector<TDiscoverState>(
     (state) => state.discover,
   );
-
   const categoryOptions: SelectItem[] = categories.map((category) => ({
     label: category.name,
     value: category._id,
@@ -33,34 +38,32 @@ const CollectibleForm = () => {
 
   const initialValues = {};
 
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    (async () => {
+      if (fileUrl) {
+        await dispatch(
+          createNft({
+            ...formValues,
+            file: fileUrl,
+          }),
+        );
+
+        router.push('/');
+      }
+    })();
+  }, [fileUrl]);
+
   const onSubmit = () => async (values: any, formikProps: any) => {
-    // console.log(values, formikProps);
-
-    console.log('formRef.current =', formRef.current);
-
-    // console.log('values =', values);
-    // dispatch(createNft(values));
+    dispatch(addAttachment(values.file[0]));
   };
 
   const handleChange: FormEventHandler<HTMLFormElement> = (e) => {
     setFormValues(formRef.current?.values);
   };
-
-  // name: string;
-  // description: string;
-  // category: string;
-  // type: string;
-  // total: number;
-  // royalties: number;
-  // available: number;
-
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
-
-  // useEffect(() => {}, [formRef.current?.values]);
-
-  console.log('formValues =', formValues);
 
   return (
     <ContentWrapper>
@@ -180,6 +183,7 @@ const CollectibleForm = () => {
             name: formValues?.name,
             total: formValues?.total,
             available: formValues?.royalties,
+            file: imageUrl as string,
           } as any
         }
       />

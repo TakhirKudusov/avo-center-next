@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 import { devices } from '../../../common/constants';
+import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
 import { INFT } from '../../../swagger';
 
 type Props = {
   bid: INFT;
 };
 const CollectibleItem: React.FC<Props> = ({ bid }) => {
-  const { name, total, available } = bid;
-  const image = '';
+  const { name, total, available, file } = bid;
 
   return (
     <BidWrapper>
-      <BidImage style={{ backgroundImage: `url(/images/${image})` }}></BidImage>
+      <BidImage style={{ backgroundImage: `url(${file})` }}></BidImage>
       <BidBody>
         <BidInfo>
           <BidInfoRow>

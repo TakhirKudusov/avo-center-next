@@ -50,7 +50,6 @@ const NftItem: React.FC<Props> = ({ item }) => {
     router.push(`/nfts/${item._id}`);
   };
 
-  console.log('item =', item);
   return (
     <BidWrapper onClick={handleNftClick}>
       {/* <BidImage style={{ backgroundImage: `url(/images/${nft.fileUrl})` }}> */}

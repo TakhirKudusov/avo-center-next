@@ -1,25 +1,23 @@
 import { useEffect, useState } from 'react';
 import { CSSProperties } from 'styled-components';
-import { Select } from '../../ui-kit';
-import { SelectItem } from '../../ui-kit/Select/types';
-import { Filter, FilterBody, FilterTitle } from './common';
+import FlatList from '../../ui-kit/FlatList';
+import { ListItem } from '../../ui-kit/FlatList/types';
+import { Filter, FilterBody } from './common';
 import { FilterOption } from './types';
 
 type Props = {
-  title: string;
-  options?: FilterOption[];
   filterStyles?: CSSProperties;
+  options?: FilterOption[];
   onChange: (selectedOption: FilterOption) => void;
 };
 
-const SingleSelectionFilter: React.FC<Props> = ({
-  title,
-  options,
+const FlatListFilter: React.FC<Props> = ({
   filterStyles,
+  options,
   onChange,
 }) => {
   const [stateOptions, setStateOptions] = useState(options);
-  const [value, setValue] = useState<SelectItem>();
+  const [value, setValue] = useState<ListItem>();
 
   useEffect(() => {
     setStateOptions(options);
@@ -31,6 +29,7 @@ const SingleSelectionFilter: React.FC<Props> = ({
       (!value && curOption)
     ) {
       setValue({
+        id: curOption?.id,
         value: curOption?.url,
         label: curOption?.name,
       });
@@ -39,7 +38,7 @@ const SingleSelectionFilter: React.FC<Props> = ({
     }
   }, [options]);
 
-  const handleChange = () => (url: string) => {
+  const handleChange = () => (item: ListItem) => {
     const options = [...stateOptions!];
     const activeOption = options?.find((option) => option.checked);
 
@@ -47,12 +46,13 @@ const SingleSelectionFilter: React.FC<Props> = ({
       activeOption!.checked = false;
     }
 
-    const curOption = options?.find((option) => option.url === url);
+    const curOption = options?.find((option) => option.url === item.value);
 
     if (curOption) {
       curOption.checked = true;
 
       setValue({
+        id: curOption?.id,
         value: curOption?.url,
         label: curOption?.name,
       });
@@ -64,19 +64,21 @@ const SingleSelectionFilter: React.FC<Props> = ({
 
   return (
     <Filter style={filterStyles}>
-      <FilterTitle>{title}</FilterTitle>
       <FilterBody>
-        <Select
-          items={options?.map((option) => ({
-            value: option.url,
-            label: option.name,
-          }))}
+        <FlatList
+          items={
+            options?.map((option) => ({
+              id: option.id,
+              label: option.name,
+              value: option.url,
+            })) ?? []
+          }
           onChange={handleChange()}
           value={value}
-        ></Select>
+        />
       </FilterBody>
     </Filter>
   );
 };
 
-export default SingleSelectionFilter;
+export default FlatListFilter;

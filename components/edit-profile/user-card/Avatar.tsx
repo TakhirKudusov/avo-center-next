@@ -21,6 +21,7 @@ const Avatar = ({ avatarUrl }: Props) => {
   const { values } = useFormikContext<any>();
 
   useEffect(() => {
+    // TODO move to external function to follow DRY
     if (Array.isArray(values.avatar) && !!values.avatar?.length) {
       console.log('invoke!');
       const reader = new FileReader();

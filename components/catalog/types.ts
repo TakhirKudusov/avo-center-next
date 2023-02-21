@@ -1,3 +1,4 @@
+import { CSSProperties } from 'styled-components';
 import { MultiRangeSliderValue } from '../ui-kit/MultiRangeSlider/types';
 
 type TFilterItem = {
@@ -12,6 +13,7 @@ type TPriceRange = {
 
 enum FilterType {
   MULTIPLE_SELECTION,
+  FLAT_LIST,
   SINGLE_SELECTION,
   RANGE,
   COLOR,
@@ -35,12 +37,14 @@ type TFilters = {
   likes?: string[];
   types?: string[];
   categories?: string[];
+  isVerifieds?: string[];
 };
 
 type TFilter = {
   title: string;
   type: FilterType;
   options?: TFilterOption[];
+  filterStyles?: CSSProperties;
   min?: number;
   max?: number;
   onChange: (
@@ -55,6 +59,7 @@ type TFiltersConfig = {
   likes: TFilterOption[];
   types: TFilterOption[];
   categories: TFilterOption[];
+  isVerifieds: TFilterOption[];
   priceRange: TPriceRange;
   filters: TFilters;
 };

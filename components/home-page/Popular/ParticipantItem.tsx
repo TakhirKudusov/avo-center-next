@@ -20,8 +20,6 @@ const ParticipantItem: React.FC<Props> = ({
   rank,
   onParticipantClick,
 }) => {
-  console.log('avatar =', avatar);
-
   return (
     <ParticipantWrapper onClick={onParticipantClick}>
       <ParticipantContent>
@@ -38,7 +36,9 @@ const ParticipantItem: React.FC<Props> = ({
         </ParticipantHeader>
         <ParticipantBody>
           <ParticipantAvatar
-            background={avatar ? getImageUrl(avatar) : '/images/defaultUserImage.png'}
+            background={
+              avatar ? getImageUrl(avatar) : '/images/defaultUserImage.png'
+            }
           >
             {/* TODO: Add verification field */}
             <ParticipantVerifiedIcon>

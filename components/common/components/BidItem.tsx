@@ -55,7 +55,6 @@ const BidItem: React.FC<Props> = ({ item }) => {
     }
   };
 
-  console.log('item =', item);
   return (
     <BidWrapper onClick={handleBidClick}>
       <BidImage background={getImageUrl(item.nft.file)}>

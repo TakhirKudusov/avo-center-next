@@ -67,10 +67,7 @@ const collectionsSlicer = createSlice({
     builder
       .addCase(getHotCollections.pending, handlePending)
       .addCase(getHotCollections.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.hotCollections = action.payload;
-
-        console.log('state.hotCollections =', state.hotCollections);
         state.loading = false;
         console.log('fulfilled');
       })

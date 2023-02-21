@@ -1,5 +1,5 @@
 export type ListItem = {
-  id: number;
+  id: number | string;
   label: string;
   value?: string;
   children?: JSX.Element;

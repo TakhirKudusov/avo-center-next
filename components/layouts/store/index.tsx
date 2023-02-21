@@ -37,7 +37,6 @@ const StoreLayout = ({ children }: { children: React.ReactNode }) => {
     setIsUploadItemVisible(true);
   };
 
-  console.log('isConnectWalletVisible', isConnectWalletVisible);
   return (
     <UploadItemContext.Provider
       value={{

@@ -1,8 +1,3 @@
-// import {
-//   fetchPriceRange,
-//   fetchProducts,
-//   setPage,
-// } from 'redux/slicers/store/catalogSlicer';
 import { cloneDeep } from 'lodash';
 import {
   getQueryParams,
@@ -17,6 +12,9 @@ import {
 } from '../../redux/slicers/discoverSlicer/discoverSlicer';
 import { AppDispatch } from '../../redux/store';
 import { MultiRangeSliderValue } from '../ui-kit/MultiRangeSlider/types';
+import FlatListFilter from './filters/FlatListFilter';
+import RangeSelectionFilter from './filters/RangeSelectionFilter';
+import SingleSelectionFilter from './filters/SingleSelectionFilter';
 import { FilterType, TFilter, TFilterOption, TFiltersConfig } from './types';
 
 const PAGE_ITEMS_LIMIT = 12;
@@ -24,8 +22,16 @@ const PAGE_ITEMS_LIMIT = 12;
 const convertQueryParams = (query: {
   [k: string]: string | string[] | undefined;
 }) => {
-  const { prices, likes, types, categories, minPrice, maxPrice, name } = query;
-  console.log('name', name);
+  const {
+    prices,
+    likes,
+    types,
+    categories,
+    isVerifieds,
+    minPrice,
+    maxPrice,
+    name,
+  } = query;
   const typesArray = types
     ? Array.isArray(types)
       ? types
@@ -46,6 +52,11 @@ const convertQueryParams = (query: {
       ? likes
       : [likes]
     : undefined;
+  const isVerifiedArray = isVerifieds
+    ? Array.isArray(isVerifieds)
+      ? isVerifieds
+      : [isVerifieds]
+    : undefined;
   const nameVal = name ? (Array.isArray(name) ? name[0] : name) : undefined;
 
   return {
@@ -53,6 +64,7 @@ const convertQueryParams = (query: {
     prices: pricesArray,
     likes: likesArray,
     categories: categoriesArray,
+    isVerifieds: isVerifiedArray,
     name: nameVal,
     minPrice,
     maxPrice,
@@ -64,6 +76,7 @@ const getFiltersConfig = ({
   prices,
   categories,
   likes,
+  isVerifieds,
   priceRange,
   filters,
 }: TFiltersConfig) => {
@@ -92,34 +105,35 @@ const getFiltersConfig = ({
       url,
       checked: !!filters.categories?.find((categoryUrl) => categoryUrl === url),
     })) as TFilterOption[],
+    isVerifiedOptions: isVerifieds.map(({ id, name, url }) => ({
+      id,
+      name,
+      url,
+      checked: !!filters.isVerifieds?.find(
+        (isVerifiedUrl) => isVerifiedUrl === url,
+      ),
+    })) as TFilterOption[],
     minPrice: priceRange.minPrice!,
     maxPrice: priceRange.maxPrice!,
   };
 };
 
-const setPriceRange = (dispatch: AppDispatch) => {
-  const queryParams = getQueryParams(window.location.search);
-  const { prices, likes, types, categories } = convertQueryParams(queryParams);
-  const payload = {
-    prices: prices ? prices[0] : undefined,
-    likes: likes ? likes[0] : undefined,
-    types: types ? likes[0] : undefined,
-    categories: categories ? categories[0] : undefined,
-  };
-
-  // dispatch(fetchPriceRange(payload));
-};
-
 const onLocationChange = (dispatch: AppDispatch) => async () => {
   const queryParams = getQueryParams(window.location.search);
   const { minPrice, maxPrice, name, page } = queryParams;
-  const { prices, likes, types, categories } = convertQueryParams(queryParams);
-
+  const { prices, likes, types, categories, isVerifieds } =
+    convertQueryParams(queryParams);
   const type = types ? types[0] : undefined;
-  const category: string = categories ? categories[0] : undefined;
+  const isVerified =
+    isVerifieds && isVerifieds[0] === 'true'
+      ? true
+      : isVerifieds && isVerifieds[0] === 'false'
+      ? false
+      : undefined;
   const payload = {
     name,
-    category,
+    category: categories ? categories[0] : undefined,
+    isVerified,
     minPrice: minPrice ? Number(minPrice) : undefined,
     maxPrice: maxPrice ? Number(maxPrice) : undefined,
     sortBy: sortStringifier({ _id: 1 }),
@@ -152,7 +166,6 @@ const onLocationChange = (dispatch: AppDispatch) => async () => {
     dispatch(fetchBids(payload));
   }
 
-  // dispatch(fetchProducts(payload));
   const curLocation = localStorage.getItem('location')!;
   localStorage.setItem('location', window.location.search);
 
@@ -160,44 +173,8 @@ const onLocationChange = (dispatch: AppDispatch) => async () => {
   const prevQueryParams = convertQueryParams(rawPrevQueryParams);
 
   if (prevQueryParams.maxPrice !== undefined && maxPrice === undefined) {
-    // setPriceRange({
-    //   minPrice: undefined,
-    //   maxPrice: undefined,
-    // });
-    // setTimeout(() => {
-    //   setPriceRange({
-    //     minPrice: 0,
-    //     maxPrice: 1000,
-    //   });
-    // });
+    // TODO relaoad priceRange
   }
-
-  // if (
-  //   JSON.stringify(prevQueryParams.categories) !== JSON.stringify(categories)
-  // ) {
-  //   const category = categories ? categories[0] : '';
-
-  //   if (category) {
-  //     await dispatch(fetchSubCategories(category));
-  //     await dispatch(fetchBrands({ parent: category }));
-  //     await dispatch(fetchColors({ parent: category }));
-  //   } else {
-  //     await dispatch(clearSubCategories());
-  //     await dispatch(clearBrands());
-  //     await dispatch(clearColors());
-  //   }
-  //   setPriceRange(dispatch);
-  // }
-
-  // if (
-  //   JSON.stringify(prevQueryParams.subCategories) !==
-  //   JSON.stringify(subCategories)
-  // ) {
-  //   if (subCategories) {
-  //     await dispatch(fetchBrands({ category: subCategories[0] }));
-  //     await dispatch(fetchColors({ category: subCategories[0] }));
-  //   }
-  // }
 };
 
 const getFilters = ({
@@ -205,6 +182,7 @@ const getFilters = ({
   categoryOptions,
   priceOptions,
   likeOptions,
+  isVerifiedOptions,
   minPrice,
   maxPrice,
 }: {
@@ -212,6 +190,7 @@ const getFilters = ({
   categoryOptions: TFilterOption[];
   priceOptions: TFilterOption[];
   likeOptions: TFilterOption[];
+  isVerifiedOptions: TFilterOption[];
   minPrice: number;
   maxPrice: number;
 }): TFilter[] => {
@@ -277,6 +256,21 @@ const getFilters = ({
       },
     },
     {
+      title: 'Creator',
+      options: cloneDeep(isVerifiedOptions),
+      type: FilterType.SINGLE_SELECTION,
+      onChange: (selectedOption: TFilterOption | undefined) => {
+        const isVerifieds = selectedOption?.url ? [selectedOption?.url] : [];
+
+        pushQueryParams([
+          { name: 'isVerifieds', value: isVerifieds },
+          { name: 'minPrice', value: null },
+          { name: 'maxPrice', value: null },
+          { name: 'page', value: 1 },
+        ]);
+      },
+    },
+    {
       title: 'Price range',
       type: FilterType.RANGE,
       min: minPrice,
@@ -292,10 +286,41 @@ const getFilters = ({
   ];
 };
 
+const filterByTypeMapper = (filter: TFilter, key: number) =>
+  (filter.type === FilterType.SINGLE_SELECTION && !!filter.options?.length && (
+    <SingleSelectionFilter
+      key={`filter-${key}`}
+      title={filter.title}
+      options={filter.options}
+      filterStyles={filter.filterStyles}
+      onChange={filter.onChange as (selectedOptions: TFilterOption) => void}
+    />
+  )) ||
+  (filter.type === FilterType.FLAT_LIST && !!filter.options?.length && (
+    <FlatListFilter
+      key={`filter-${key}`}
+      options={filter.options}
+      filterStyles={filter.filterStyles}
+      onChange={filter.onChange as (selectedOptions: TFilterOption) => void}
+    />
+  )) ||
+  (filter.type === FilterType.RANGE &&
+    (!!filter.min || filter.min === 0) &&
+    !!filter.max && (
+      <RangeSelectionFilter
+        key={`filter-${key}`}
+        title={filter.title}
+        max={filter.max}
+        min={filter.min}
+        filterStyles={filter.filterStyles}
+        onChange={filter.onChange}
+      />
+    ));
+
 export {
   convertQueryParams,
   getFiltersConfig,
-  setPriceRange,
   onLocationChange,
   getFilters,
+  filterByTypeMapper,
 };
