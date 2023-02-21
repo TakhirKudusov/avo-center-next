@@ -2,9 +2,11 @@ import { FieldInputProps, FieldMetaProps, FormikProps } from 'formik';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ChevronDownSVG from '../../../assets/svg/chevron-down.svg';
+import DownArrowSVG from '../../../assets/svg/down-arrow.svg';
 import { TFormFieldProps } from '../../../common/types';
 import { useOnClickOutside } from '../../common/hooks';
 import useConnectForm from '../useConnectForm';
+import { SelectTypes } from './constants';
 import { SelectItemBackground } from './enums';
 import { SelectItemSize } from './enums/selectItemSize.enum';
 import { handleDropdownExpand } from './helpers';
@@ -18,11 +20,13 @@ type Props = {
   placeholder?: string;
   size?: SelectItemSize;
   showImage?: boolean;
+  defaultValue?: SelectItem;
   value?: SelectItem;
   style?: any;
   field?: FieldInputProps<any>;
   form?: FormikProps<any>;
   meta?: FieldMetaProps<any>;
+  type?: SelectTypes;
   onChange?: (value: any) => void;
 };
 
@@ -32,9 +36,11 @@ const Select: React.FC<Props & TFormFieldProps> = ({
   placeholder = 'Select item',
   hasError = false,
   hasSchema = false,
+  type = SelectTypes.PRIMARY,
   field,
   form,
   showImage,
+  defaultValue,
   value,
   style,
   items,
@@ -60,6 +66,12 @@ const Select: React.FC<Props & TFormFieldProps> = ({
     setSelected(selectedItem);
   }, [selectedItem]);
 
+  useEffect(() => {
+    if (type === SelectTypes.SECONDARY) {
+      setSelected(defaultValue);
+    }
+  }, [defaultValue, type]);
+
   useConnectForm(selected?.value, form, field, hasSchema, onChange);
   useOnClickOutside(wrapperRef, handleDropdownClose, dropdownItemsRef);
 
@@ -70,7 +82,7 @@ const Select: React.FC<Props & TFormFieldProps> = ({
     ) =>
     () => {
       setSelected((prev) => {
-        if (prev === item) return selectedItem;
+        if (prev === item && type === SelectTypes.PRIMARY) return selectedItem;
 
         return item;
       });
@@ -79,23 +91,42 @@ const Select: React.FC<Props & TFormFieldProps> = ({
 
   return (
     <SelectBody ref={wrapperRef}>
-      <SelectHeader
-        style={style}
-        background={background}
-        size={size}
-        onClick={handleDropdownExpand(setExpanded)}
-        hasError={hasError}
-      >
-        {showImage && (
-          <SelectDropdownItemImage
-            style={{ backgroundImage: `url(${selected?.image})` }}
-          />
-        )}
-        <span>{selected ? selected?.label : placeholder}</span>
-        <ChevronWrapper background={background} size={size} rotated={expanded}>
-          <ChevronDownSVG />
-        </ChevronWrapper>
-      </SelectHeader>
+      {type === SelectTypes.PRIMARY && (
+        <SelectHeader
+          style={style}
+          background={background}
+          size={size}
+          onClick={handleDropdownExpand(setExpanded)}
+          hasError={hasError}
+        >
+          {showImage && (
+            <SelectDropdownItemImage
+              style={{ backgroundImage: `url(${selected?.image})` }}
+            />
+          )}
+          <span>{selected ? selected?.label : placeholder}</span>
+          <ChevronWrapper
+            background={background}
+            size={size}
+            rotated={expanded}
+          >
+            <ChevronDownSVG />
+          </ChevronWrapper>
+        </SelectHeader>
+      )}
+      {type === SelectTypes.SECONDARY && (
+        <SelectSecondaryHeader
+          style={style}
+          onClick={handleDropdownExpand(setExpanded)}
+        >
+          <SelectSecondaryValue>
+            {selected ? selected?.label : placeholder}
+          </SelectSecondaryValue>
+          <BigChevronWrapper rotated={expanded}>
+            <DownArrowSVG />
+          </BigChevronWrapper>
+        </SelectSecondaryHeader>
+      )}
       <SelectDropdown
         ref={dropdownItemsRef}
         expanded={expanded}
@@ -150,6 +181,35 @@ const SelectHeader = styled.div<{
     props.background === SelectItemBackground.None ? '8px' : '12px'};
   border-color: ${(props) => (props.hasError ? '#ef466f' : '#e6e8ec')};
   padding-right: 40px;
+`;
+
+const SelectSecondaryHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+
+  &:hover {
+    & > span {
+      color: #777e90;
+    }
+
+    & > div > svg > path {
+      fill: #777e90;
+    }
+  }
+`;
+
+const BigChevronWrapper = styled.div<any>`
+  right: 8px;
+  top: ${(props) => (props.size === SelectItemSize.Small ? '8px' : '6px')};
+  transform: ${(props) => (props.rotated ? 'rotate(180deg)' : 'rotate(0deg)')};
+`;
+
+const SelectSecondaryValue = styled.span`
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.01em;
 `;
 
 const ChevronWrapper = styled.div<any>`

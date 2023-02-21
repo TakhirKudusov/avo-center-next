@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Divider } from '../../ui-kit';
@@ -7,10 +7,13 @@ import { DEFAULT_IMAGE_URL, devices } from '../../../common/constants';
 import { NftInfoTabs } from './constants';
 import { infoTabMock } from './Mock';
 import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
+import { useRouter } from 'next/router';
 
 type Props = { nftOwners: { creator: any; owner: any } };
 
 const TabButtonsGroup: React.FC<Props> = ({ nftOwners }) => {
+  const router = useRouter();
+
   const [activeTab, setActiveTab] = useState<NftInfoTabs>(NftInfoTabs.INFO);
 
   // const handleOwnersModalOpen: React.MouseEventHandler<HTMLButtonElement> = (
@@ -26,6 +29,10 @@ const TabButtonsGroup: React.FC<Props> = ({ nftOwners }) => {
       handleSetActiveClick(e, 'tab-btn', 'active');
       setActiveTab(tab);
     };
+
+  const handleCreatorClick = (id: string) => () => {
+    router.push(`/profile/${id}`);
+  };
 
   return (
     <>
@@ -76,7 +83,7 @@ const TabButtonsGroup: React.FC<Props> = ({ nftOwners }) => {
       )}
       {activeTab === NftInfoTabs.OWNERS && (
         <TabWrapper>
-          <TabItemInfo>
+          <TabItemInfo onClick={handleCreatorClick(nftOwners.creator._id)}>
             <OwnerAvatar
               imageUrl={
                 nftOwners.creator.avatar
@@ -90,7 +97,7 @@ const TabButtonsGroup: React.FC<Props> = ({ nftOwners }) => {
               <Divider style={{ margin: '10px 0' }} />
             </div>
           </TabItemInfo>
-          <TabItemInfo>
+          <TabItemInfo onClick={handleCreatorClick(nftOwners.owner._id)}>
             <OwnerAvatar
               imageUrl={
                 nftOwners.owner.avatar
@@ -162,6 +169,7 @@ const TabButton = styled.button`
 
 const TabItemInfo = styled.div`
   display: flex;
+  cursor: pointer;
 `;
 
 const TabItemLabel = styled.div`

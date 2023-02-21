@@ -87,7 +87,11 @@ const ProfileCard = ({}: Props) => {
             </CoppyToClipboard> */}
           </ButtonsWrapper>
           <Links>
-            <a href={profileUser.twitter}>
+            <a
+              href={`https://twitter.com/avo_center_bg/${profileUser.twitter}`}
+              target="_blank"
+              rel="noreferrer"
+            >
               <TwitterSVG />
             </a>
           </Links>

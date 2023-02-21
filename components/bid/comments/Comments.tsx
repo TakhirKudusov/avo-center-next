@@ -1,6 +1,7 @@
 import { memo, useContext, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { FormikProps } from 'formik';
+import { useRouter } from 'next/router';
 
 import { devices } from '../../../common/constants';
 import { ConnectWalletContext } from '../NFT/context';
@@ -25,6 +26,8 @@ import CommentField from './components';
 import { CommentKeys } from './constants';
 
 const Comments: React.FC = () => {
+  const router = useRouter();
+
   const { bid } = useAppSelector<TBidsState>((state) => state.bids);
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
   const [isAnswersHidden, setIsAnswersHidden] = useState<{
@@ -89,13 +92,20 @@ const Comments: React.FC = () => {
     }
   };
 
+  const handleCreatorClick = (id: string) => () => {
+    router.push(`/profile/${id}`);
+  };
+
   return (
     <BlockWrapper>
       <Header>Comments</Header>
       <CommentsWrapper>
         {comments?.map((comment) => (
           <CommentWrapper key={comment._id}>
-            <OwnerAvatar image={comment?.author?.avatar} />
+            <OwnerAvatar
+              image={comment?.author?.avatar}
+              onClick={handleCreatorClick(comment.author._id)}
+            />
             <CommentsBlock>
               {comment && (
                 <UserComment

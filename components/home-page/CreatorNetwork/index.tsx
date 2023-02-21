@@ -15,6 +15,7 @@ import { usePlaceBid } from '../../../common/hooks/usePlaceBid';
 import { useContext } from 'react';
 import { ConnectWalletContext } from '../../nft/NFT/context';
 import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
+import { useRouter } from 'next/router';
 
 //TODO: remove index
 type Props = {
@@ -22,6 +23,8 @@ type Props = {
 };
 
 const CreatorNetwork = ({ bid }: Props) => {
+  const router = useRouter();
+
   const { timeBeforeEnd } = useTimer(bid);
 
   const { screenSize } = useAdaptiveSlider();
@@ -31,19 +34,23 @@ const CreatorNetwork = ({ bid }: Props) => {
   const { openPlaceBid, handlePlaceBidOpen, handlePlaceBidClose } =
     usePlaceBid(setOpenConnectWallet);
 
+  const handleCreatorClick = () => {
+    router.push(`profile/${bid.creator._id}`);
+  };
+
   return (
     <CreatorNetworkWrapper>
       <Player background={getImageUrl(bid.nft.file)} />
       <InfoBar>
         <Title>{bid.nft.name}</Title>
         <InfoItems>
-          <InfoItem>
+          <StyledInfoItem onClick={handleCreatorClick}>
             <InfoItemImage background={getImageUrl(bid.creator.avatar)} />
             <InfoItemBody>
               <InfoItemLabel>Creator</InfoItemLabel>
               <InfoItemValue>{bid.creator.username as string}</InfoItemValue>
             </InfoItemBody>
-          </InfoItem>
+          </StyledInfoItem>
           <InfoItem>
             <InfoItemImage background="">
               <RoundSquareSVG />
@@ -158,6 +165,10 @@ const InfoItem = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+`;
+
+const StyledInfoItem = styled(InfoItem)`
+  cursor: pointer;
 `;
 
 const InfoItemImage = styled.div<{ background: string }>`
