@@ -1,8 +1,8 @@
-import {AppProps} from "next/app";
-import {ComponentWithLayout} from "./ComponentWithLayout.type";
+import { AppProps } from 'next/app';
+import { ComponentWithLayout } from './ComponentWithLayout.type';
 
 type AppWithPageLayout = AppProps & {
-    Component: ComponentWithLayout
+  Component: ComponentWithLayout;
 };
 
-export type {AppWithPageLayout}
+export type { AppWithPageLayout };

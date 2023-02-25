@@ -28,6 +28,7 @@ export const createBid = createAsyncThunk<IBid, IBid, { rejectValue: string }>(
     return await BidsService.createBid({
       date: payload.date,
       nft: payload.nft.name,
+      startPrice: 0,
     });
   },
 );
