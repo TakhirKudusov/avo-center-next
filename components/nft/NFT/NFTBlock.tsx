@@ -1,6 +1,5 @@
 import NFTImage from './NFTImage';
 import NFTDescription from './NFTDescription';
-import { NFT } from '../common/types';
 import { ChangeEventHandler, memo, useEffect, useState } from 'react';
 import { NFTDescriptionContainer, NFTDescriptionWrapper } from '../index';
 import UserActionsButtonsGroup from './UserActionsButtonsGroup';
@@ -14,15 +13,16 @@ import { TAuthState } from '../../../redux/types';
 import { TNftsState } from '../../../redux/slicers/nftsSlicer/types';
 import {
   likeNft,
+  setInitialNft,
   unlikeNft,
 } from '../../../redux/slicers/nftsSlicer/nftSlicer';
 import { NFTTag } from '../../ui-kit/Tag/types';
 
 type Props = {
-  NFTData: NFT;
+  host?: string;
 };
 
-const NFTBlock: React.FC<Props> = ({ NFTData }) => {
+const NFTBlock: React.FC<Props> = ({ host }) => {
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
@@ -30,10 +30,6 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
 
   const tags: NFTTag[] = [
     { tagType: 'primary', tagText: nft?.category?.name || '' },
-    {
-      tagType: 'default',
-      tagText: 'unlockable',
-    },
   ];
 
   // const { image, tags, ...NFTDescriptionData } = NFTData;
@@ -126,7 +122,13 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
 
   useEffect(() => {
     if (nft) setLikesNumber(nft?.likes?.length);
-  }, [nft]);
+  }, [dispatch, nft]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setInitialNft());
+    };
+  }, [dispatch]);
 
   return (
     <>
@@ -164,6 +166,7 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
           </NFTDescriptionContainer>
           {screenSize === 'large' && (
             <UserActionsButtonsGroup
+              host={host}
               screenSize={screenSize}
               likesNumber={likesNumber}
               defaultLikesNumber={defaultLikesNumber || 0}

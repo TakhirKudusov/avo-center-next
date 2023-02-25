@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CSSProperties } from 'styled-components';
 import FlatList from '../../ui-kit/FlatList';
+import { FlatListTypes } from '../../ui-kit/FlatList/constants';
 import { ListItem } from '../../ui-kit/FlatList/types';
 import { Filter, FilterBody } from './common';
 import { FilterOption } from './types';
@@ -73,6 +74,7 @@ const FlatListFilter: React.FC<Props> = ({
               value: option.url,
             })) ?? []
           }
+          type={FlatListTypes.CATALOG_TABS}
           onChange={handleChange()}
           value={value}
         />

@@ -55,12 +55,20 @@ const Counter: React.FC<Props & TFormFieldProps> = ({
     <>
       {!!label && <CounterLabel htmlFor="counter">{label}</CounterLabel>}
       <CounterWrapper hasError={hasError} id="counter" style={style}>
-        <RoundButton onClick={handleCountDown} type="button">
-          <MinusSVG />
+        <RoundButton
+          onClick={handleCountDown}
+          type="button"
+          style={{ border: 'none' }}
+        >
+          <MinusSVG color="rgba(255, 255, 255, 0.7)" />
         </RoundButton>
         <CounterValue>{count}</CounterValue>
-        <RoundButton onClick={handleCountUp} type="button">
-          <PlusSVG />
+        <RoundButton
+          onClick={handleCountUp}
+          type="button"
+          style={{ border: 'none' }}
+        >
+          <PlusSVG color="rgba(255, 255, 255, 0.7)" />
         </RoundButton>
       </CounterWrapper>
     </>
@@ -99,11 +107,11 @@ const RoundButton = styled.button`
 `;
 
 const CounterValue = styled.div`
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
-  color: #777e91;
+  color: #ffffff;
 `;
 
 export default Counter;

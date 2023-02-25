@@ -11,7 +11,11 @@ const ModalTitle = ({ title, onClose }: Props) => {
   return (
     <TitleWrapper>
       <Title>{title}</Title>
-      <RoundButton onClick={onClose} icon={<CloseSvg />} />
+      <RoundButton
+        onClick={onClose}
+        icon={<CloseSvg color="rgba(255, 255, 255, 0.7)" />}
+        style={{ background: 'none' }}
+      />
     </TitleWrapper>
   );
 };
@@ -19,6 +23,7 @@ const ModalTitle = ({ title, onClose }: Props) => {
 export default ModalTitle;
 
 const TitleWrapper = styled.div`
+  font-family: 'Nasalization';
   display: flex;
   justify-content: space-between;
   margin-bottom: 32px;
@@ -26,7 +31,7 @@ const TitleWrapper = styled.div`
 
 const Title = styled.span`
   font-size: 32px;
-  font-weight: 700;
-  color: #23262f;
+  font-weight: 400;
+  color: #ffffff;
   line-height: 40px;
 `;

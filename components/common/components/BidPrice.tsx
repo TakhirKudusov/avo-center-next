@@ -10,8 +10,9 @@ const BidPrice: React.FC<Props> = ({ value }) => {
 };
 
 export const BidPriceWrapper = styled.div`
+  font-family: 'Montserrat';
   margin-top: 2px;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 12px;
   line-height: 12px;
   text-transform: uppercase;

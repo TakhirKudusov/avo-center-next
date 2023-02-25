@@ -21,23 +21,27 @@ const CollectionItem: React.FC<Props> = ({ collection }) => {
           />
         ))}
       </SmallItems>
-      <CollectionName>{collection.name}</CollectionName>
-      <CollectionInfo>
-        <CollectionAuthor>
-          <CollectionAuthorAvatar
-            style={{
-              backgroundImage: `url(/images/${collection.owner.avatar})`,
-            }}
-          />
-          <CollectionAuthorCaption>
-            By
-            <CollectionAuthorName>{collection.owner.username}</CollectionAuthorName>
-          </CollectionAuthorCaption>
-        </CollectionAuthor>
-        <CollectionItemsNumber>
-          {collection.nftList.length} items
-        </CollectionItemsNumber>
-      </CollectionInfo>
+      <CollectionFooter>
+        <CollectionName>{collection.name}</CollectionName>
+        <CollectionInfo>
+          <CollectionAuthor>
+            <CollectionAuthorAvatar
+              style={{
+                backgroundImage: `url(/images/${collection.owner.avatar})`,
+              }}
+            />
+            <CollectionAuthorCaption>
+              By
+              <CollectionAuthorName>
+                {collection.owner.username}
+              </CollectionAuthorName>
+            </CollectionAuthorCaption>
+          </CollectionAuthor>
+          <CollectionItemsNumber>
+            {collection.nftList.length} items
+          </CollectionItemsNumber>
+        </CollectionInfo>
+      </CollectionFooter>
     </CollectionItemWrapper>
   );
 };
@@ -46,7 +50,15 @@ const CollectionItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 80px;
-
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  border: 2px solid #e6e8ec;
+  border-radius: 12px;
   @media (${devices.mobile}) {
     margin-top: 12px;
   }
@@ -68,6 +80,10 @@ const SmallItems = styled.div`
   gap: 8px;
 `;
 
+const CollectionFooter = styled.div`
+  padding: 0 12px 16px;
+`;
+
 const SmallItem = styled.div`
   width: 112px;
   height: 75px;
@@ -79,11 +95,11 @@ const SmallItem = styled.div`
 
 const CollectionName = styled.div`
   margin-top: 16px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 24px;
-  line-height: 32px;
-  color: #23262f;
+  line-height: 29px;
+  color: #ffffff;
 `;
 
 const CollectionInfo = styled.div`
@@ -100,11 +116,11 @@ const CollectionAuthor = styled.div`
 `;
 
 const CollectionAuthorCaption = styled.div`
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 500;
   font-size: 14px;
   line-height: 24px;
-  color: #353945;
+  color: #e6e8ec;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -123,12 +139,12 @@ const CollectionAuthorAvatar = styled.div`
 `;
 
 const CollectionItemsNumber = styled.div`
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 12px;
   line-height: 12px;
   text-transform: uppercase;
-  color: #23262f;
+  color: #fcfcfd;
   border: 2px solid #e6e8ec;
   border-radius: 4px;
   padding: 5px 8px;

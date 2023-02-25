@@ -20,36 +20,37 @@ const Header: React.FC = () => {
 
 const HeaderText = styled.h1`
   width: 100%;
-  font-family: 'DM Sans';
-  font-weight: 700;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 48px;
   line-height: 56px;
   letter-spacing: -0.02em;
-  color: #23262f;
+  color: #ffffff;
   margin: 0;
 `;
 
 const ParagraphText = styled.p`
-  width: 172px;
-  font-family: 'Poppins';
-  font-weight: 700;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 12px;
   line-height: 12px;
   text-transform: uppercase;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const DescParagraph = styled.p`
   width: 640px;
   height: 48px;
-  font-family: 'Poppins';
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: #353945;
-  a {
-    color: #0066ff;
-    font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+
+  & > a {
+    color: #f7ef7c;
+    font-weight: 600;
   }
 
   @media (${devices.tablet}) {

@@ -1,15 +1,26 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
 import { devices } from '../../../common/constants';
+
+import { FlatListTypes } from './constants';
 import { ListItem } from './types';
+import { getInitialValue } from './utils';
 
 type Props = {
   items: ListItem[];
+  type?: FlatListTypes;
   value?: ListItem;
   onChange?: (item: ListItem) => void;
 };
-const FlatList: React.FC<Props> = ({ items, value, onChange }) => {
-  const initialValue = value ? value : undefined;
+
+const FlatList: React.FC<Props> = ({
+  items,
+  value,
+  type = FlatListTypes.PROFILE_TABS,
+  onChange,
+}) => {
+  const initialValue = getInitialValue(items, type, value);
   const [activeItem, setActiveItem] = useState<ListItem | undefined>(
     initialValue,
   );
@@ -70,19 +81,19 @@ const FlatListWrapper = styled.div`
 
 const FlatListItem = styled.button<any>`
   min-width: fit-content;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 14px;
   line-height: 16px;
   padding: 6px 12px;
   border-radius: 100px;
   cursor: pointer;
-  background: ${(props) => (props.active ? '#353945' : 'none')};
-  color: ${(props) => (props.active ? '#fcfcfd' : '#777E91')};
+  background: ${(props) => (props.active ? '#ffffff' : 'none')};
+  color: ${(props) => (props.active ? '#141416' : 'rgba(255, 255, 255, 0.7) ')};
   border: none;
   &:hover {
-    background: ${(props) => !props.active && `rgba(53, 57, 69, 0.5)`};
-    color: ${(props) => !props.active && 'rgba(252, 252, 253, 0.5)'};
+    background: ${(props) => !props.active && `rgba(255, 255, 255, 0.5)`};
+    color: ${(props) => !props.active && '#141416'};
   }
 `;
 

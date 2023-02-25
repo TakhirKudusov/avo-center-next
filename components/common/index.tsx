@@ -6,12 +6,24 @@ const Global = createGlobalStyle`
     font-family: "Poppins";
     src: url("/fonts/poppins/Poppins-Regular.ttf");
   }
-  
+
+  @font-face {
+    font-family: "Nasalization";
+    src: url("/fonts/nasalization/nasalization-rg.otf");
+  }
+
+
+  @font-face {
+    font-family: "Montserrat";
+    src: url("/fonts/Montserrat/Montserrat.ttf");
+  }
+
   html,
   body {
     padding: 0;
     margin: 0;
     font-family: 'DM Sans', sans-serif;
+	  scroll-behavior: smooth;
   }
 
   a {

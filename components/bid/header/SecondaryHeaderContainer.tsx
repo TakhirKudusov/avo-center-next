@@ -35,16 +35,16 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-bottom: 32px;
+  padding-bottom: 24px;
 `;
 
 const Header = styled.h1`
-  font-family: 'DM Sans';
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 48px;
+  font-family: 'Nasalization';
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 38px;
   letter-spacing: -0.01em;
-  color: #23262f;
+  color: #ffffff;
   margin: 0;
 
   @media (${devices.tablet}) {
@@ -61,6 +61,8 @@ const NFTPrice = styled(BidPriceWrapper)`
   gap: 10px;
   font-size: 16px;
   line-height: 16px;
+  color: #f7ef7c;
+  border: 2px solid #f7ef7c;
 `;
 
 const ParametersContainer = styled.div`
@@ -71,14 +73,15 @@ const ParametersContainer = styled.div`
 `;
 
 const ParameterParagraph = styled.p`
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
   text-align: right;
-  color: rgba(119, 126, 144, 0.6);
+  color: rgba(255, 255, 255, 0.7);
+
   span {
-    color: #777e90;
+    color: #ffffff;
   }
 `;
 

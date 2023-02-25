@@ -28,7 +28,8 @@ const BlockWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 80px 160px 0 160px;
-  background: #fcfcfd;
+  max-width: 1420px;
+  margin: 0 auto 121px;
 
   @media (${devices.tablet}) {
     padding: 80px 80px 0 80px;

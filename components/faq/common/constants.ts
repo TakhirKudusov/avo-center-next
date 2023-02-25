@@ -32,7 +32,7 @@ const QUESTIONS_DATA: Question[] = [
   },
   {
     name: 'How to start with Stacks',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a nisi id justo pulvinar viverra sed eget urna. Nulla venenatis sit amet dui id blandit. Donec magna elit, lobortis quis gravida non, blandit ut est. Sed id luctus lorem, a mattis nulla. Mauris mollis ligula odio, ut venenatis orci viverra non. Curabitur faucibus ullamcorper mi, a egestas lacus efficitur nec.',
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a nisi id justo pulvinar viverra sed eget urna. Nulla venenatis sit amet dui id blandit. Donec magna elit, lobortis quis gravida non, blandit ut est. Sed id luctus lorem, a mattis nulla. Mauris mollis ligula odio, ut venenatis orci viverra non. Curabitur faucibus ullamcorper mi, a egestas lacus efficitur nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a nisi id justo pulvinar viverra sed eget urna. Nulla venenatis sit amet dui id blandit. Donec magna elit, lobortis quis gravida non, blandit ut est. Sed id luctus lorem, a mattis nulla. Mauris mollis ligula odio, ut venenatis orci viverra non. Curabitur faucibus ullamcorper mi, a egestas lacus efficitur nec.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a nisi id justo pulvinar viverra sed eget urna. Nulla venenatis sit amet dui id blandit. Donec magna elit, lobortis quis gravida non, blandit ut est. Sed id luctus lorem, a mattis nulla. Mauris mollis ligula odio, ut venenatis orci viverra non. Curabitur faucibus ullamcorper mi, a egestas lacus efficitur nec.',
     link: 'https://youtu.be/dQw4w9WgXcQ',
     id: '2',
   },

@@ -17,46 +17,6 @@ const Description = () => {
   );
 };
 
-const Text = styled.p`
-  width: 170px;
-  height: 60px;
-  font-family: 'Poppins';
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 20px;
-  display: flex;
-  align-items: center;
-  color: #777e91;
-
-  @media (${devices.mobile}) {
-    width: 100%;
-  }
-`;
-
-const ConfirmIcon = styled(ConfirmGreenSVG)``;
-
-const HeaderText = styled.p`
-  width: 102px;
-  height: 24px;
-  font-family: 'Poppins';
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  color: #23262f;
-`;
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  width: 122px;
-  height: 24px;
-
-  @media (${devices.mobile}) {
-    width: 100%;
-  }
-`;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -67,6 +27,47 @@ const Container = styled.div`
   @media (${devices.mobile}) {
     width: 100%;
     height: auto;
+  }
+`;
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 142px;
+  height: 24px;
+  margin-top: 8px;
+
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
+`;
+
+const HeaderText = styled.p`
+  font-family: 'Nasalization';
+  width: 122px;
+  height: 24px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #fcfcfd;
+`;
+
+const ConfirmIcon = styled(ConfirmGreenSVG)``;
+
+const Text = styled.p`
+  width: 170px;
+  height: 60px;
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.7);
+
+  @media (${devices.mobile}) {
+    width: 100%;
   }
 `;
 

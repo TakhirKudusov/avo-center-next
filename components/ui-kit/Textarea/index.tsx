@@ -64,23 +64,28 @@ const StyledTextarea = styled.textarea<{
   hasError?: boolean;
   hasResize?: boolean;
 }>`
-  font-family: 'Poppins', sans-serif;
-  background-color: #fcfcfd;
+  font-family: 'Montserrat';
+  background: none;
   padding: 12px 16px;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
-  color: #777e91;
-  border: 2px solid ${({ hasError }) => (hasError ? '#c7aeb5' : '#e6e8ec')};
-  border-radius: 8px;
+  color: #ffffff;
+  border: 2px solid;
+  border-color: ${({ hasError }) =>
+    hasError ? '#ef466f' : 'rgba(255, 255, 255, 0.6)'};
+  border-radius: 12px;
   outline: none;
   width: ${({ width }) => (width ? `${width}px` : '100%')};
   height: ${({ height }) => (height ? `${height}px` : '100%')};
   resize: ${({ hasResize }) => (hasResize ? 'vertical' : 'none')};
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
   &:focus {
-    border-color: ${({ hasError }) =>
-      hasError ? 'rgb(192,0,67)' : 'rgba(51, 51, 51, 0.5)'};
-    box-shadow: 0 5px 20px 0 rgb(0 0 0 / 7%);
+    border-color: ${({ hasError }) => (hasError ? 'rgb(192,0,67)' : '#ffffff')};
+    box-shadow: 0 5px 20px 0 rgb(0 0 0 / 25%);
   }
 `;
 

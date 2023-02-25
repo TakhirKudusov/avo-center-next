@@ -346,9 +346,15 @@ const Container = styled.div`
   gap: 24px;
   width: 564px;
   height: 200px;
-  background: #fcfcfd;
-  border: 1px solid #e6e8ec;
-  box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
+  border: 1px solid #ffffff;
   border-radius: 16px;
 
   @media (${devices.tablet}) {
@@ -380,11 +386,11 @@ const PriceWrapper = styled.div`
 
 const PriceInCrypto = styled.p<{ hasPrice: boolean }>`
   height: 32px;
-  font-family: 'Poppins';
-  font-weight: 600;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 24px;
-  line-height: 32px;
-  color: #23262f;
+  line-height: 29px;
+  color: #ffffff;
   width: ${({ hasPrice }) => (hasPrice ? 'auto' : '100%')};
   text-align: ${({ hasPrice }) => (hasPrice ? 'left' : 'center')};
 `;
@@ -400,12 +406,13 @@ const ConvertedPrice = styled.p`
 
 const ServiceFeeWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   padding: 0;
   gap: 12px;
   width: 516px;
   height: 24px;
+  padding-right: 12px;
 
   @media (${devices.tablet}) {
     width: 100%;
@@ -417,20 +424,21 @@ const ServiceFeeWrapper = styled.div`
 `;
 
 const FeeTextWrapper = styled.p`
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
+
   & :first-child {
     width: 77px;
     height: 24px;
-    color: #777e91;
+    color: rgba(255, 255, 255, 0.7);
     margin-right: 6px;
   }
   & :last-child {
     width: 29px;
     height: 24px;
-    color: #23262f;
+    color: #ffffff;
     margin-left: 6px;
   }
 `;
@@ -522,11 +530,12 @@ const SucessMediaCircle = styled.a`
 ////////////////////////////////////////////////////////////////////////////////////
 
 const PlaceBidInfo = styled.div`
-  color: #23262f;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
   margin-bottom: 32px;
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
 `;
 ////////////////////////////////////////////////////////////////////////////////////
 

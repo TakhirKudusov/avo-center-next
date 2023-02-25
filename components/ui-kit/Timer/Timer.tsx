@@ -35,11 +35,11 @@ const TimeContainer = styled.div`
 const EndsParagraph = styled.p`
   width: 278px;
   height: 16px;
-  font-family: 'DM Sans';
-  font-weight: 700;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 16px;
   line-height: 16px;
-  color: #23262f;
+  color: #ffffff;
   margin: 0;
 `;
 
@@ -53,13 +53,13 @@ const TimeGroup = styled.div`
 
 const TimeItem = styled.p`
   display: flex;
+  font-family: 'Montserrat';
   width: 71px;
   height: 24px;
-  font-family: 'Poppins';
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
   line-height: 24px;
-  color: #23262f;
+  color: #ffffff;
   text-transform: uppercase;
 `;
 
@@ -69,7 +69,7 @@ const TimeValue = styled.span`
 
 const TimeDigit = styled.span`
   font-size: 12px;
-  color: #777e90;
+  color: rgba(255, 255, 255, 0.7);
   position: relative;
   bottom: -3px;
 `;

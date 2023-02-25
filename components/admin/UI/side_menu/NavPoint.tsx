@@ -6,8 +6,6 @@ import {
   SetStateAction,
   SyntheticEvent,
   useContext,
-  useEffect,
-  useRef,
   useState,
 } from 'react';
 import Chevron from '../../../../assets/svg/chevron-down.svg';

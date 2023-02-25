@@ -8,7 +8,6 @@ const useFileUrl = (value: Array<File>) => {
   useEffect(() => {
     // TODO move to external function to follow DRY
     if (Array.isArray(value) && !!value?.length) {
-      console.log('invoke!');
       const reader = new FileReader();
 
       reader.onload = (e: ProgressEvent<FileReader>) =>

@@ -3,15 +3,21 @@ import {
   Button,
   ButtonType,
   Divider,
+  FileUpload,
   Form,
   FormItem,
   Input,
+  Modal,
 } from '../../ui-kit';
-import { FORM_SCHEMA, ProfileFormItemName } from '../common/constants';
+import {
+  FORM_SCHEMA,
+  ProfileFormItemName,
+  VerificationsKeys,
+} from '../common/constants';
 import { FormName, FormPlaceHolder, PrimaryHeaderText } from '../common/enums';
 import GroupHeader from './GroupHeader';
 import Textarea from '../../ui-kit/Textarea';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { devices, screenSizes } from '../../../common/constants';
 import UserCard from '../user-card';
@@ -25,39 +31,103 @@ import {
 } from '../../../redux/slicers/profileSlicer/profileSlicer';
 import { TAuthState } from '../../../redux/types';
 import { TProfileState } from '../../../redux/slicers/profileSlicer/types';
+import { requestVerification } from '../../../redux/slicers/verificationsSlicer/verificationsSlicer';
 
 const FormBody = () => {
-  // const [fieldOpen, setIsFieldOpen] = useState<boolean | null>(null);
+  const dispatch = useAppDispatch();
   const formRef = useRef<any>(null);
-  const { fileUrl, loading } = useAppSelector<TIpfsState>(
-    (state) => state.ipfs,
-  );
+  const verifyFormRef = useRef<any>(null);
+  const { loading } = useAppSelector<TIpfsState>((state) => state.ipfs);
   const { user: profileUser } = useAppSelector<TProfileState>(
     (state) => state.profile,
   );
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
 
-  const dispatch = useAppDispatch();
+  const [isVerifyPermitted, setIsVerifyPermitted] = useState(false);
+  const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
+  const [attachAvatarUrl, setAttachAvatarUrl] = useState<string | null>(null);
+  const [attachIdPhotoUrl, setAttachIdPhotoUrl] = useState<string | null>(null);
+  const [attachFacePhotoUrl, setAttachFacePhotoUrl] = useState<string | null>(
+    null,
+  );
 
   const { screenSize } = useAdaptiveSlider();
 
-  const handleSubmit = () => (values: any, formikProps: any) => {
-    dispatch(addAttachment(values.avatar[0]));
+  const initialValues = {};
+
+  const handleSubmit = () => async (values: any) => {
+    const result = await dispatch(addAttachment(values.avatar[0]));
+
+    if (result) setAttachAvatarUrl(result.payload.path);
   };
 
   useEffect(() => {
-    if (fileUrl) {
+    if (attachAvatarUrl) {
       dispatch(
-        editUserProfile({ ...formRef.current?.values, avatar: fileUrl }),
+        editUserProfile({
+          ...formRef.current?.values,
+          avatar: attachAvatarUrl,
+        }),
       );
     }
-  }, [dispatch, fileUrl]);
+  }, [dispatch, attachAvatarUrl]);
 
   useEffect(() => {
     if (user?.id) {
       dispatch(getUserProfile(user.id));
     }
   }, [dispatch, user?.id]);
+
+  const handleVerifyModalClose = () => {
+    verifyFormRef.current = null;
+
+    setIsVerifyModalOpen(false);
+  };
+
+  const handlePermitVerification = () => {
+    setIsVerifyPermitted(false);
+    setTimeout(() => setIsVerifyModalOpen(true), 400);
+  };
+
+  const handleVerifyAccount = async () => {
+    const attachIdPhotoResult = await dispatch(
+      addAttachment(verifyFormRef.current.values.idPhoto),
+    );
+
+    if (attachIdPhotoResult) {
+      setAttachIdPhotoUrl(attachIdPhotoResult.payload.path);
+    }
+  };
+
+  const attachFacePhoto = useCallback(async () => {
+    const attachFacePhotoResult = await dispatch(
+      addAttachment(verifyFormRef.current.values.facePhoto),
+    );
+
+    if (attachFacePhotoResult) {
+      setAttachFacePhotoUrl(attachFacePhotoResult.payload.path);
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (attachIdPhotoUrl) attachFacePhoto();
+  }, [attachIdPhotoUrl, attachFacePhoto]);
+
+  const handleRequestVerify = useCallback(async () => {
+    if (attachIdPhotoUrl && attachFacePhotoUrl)
+      dispatch(
+        requestVerification({
+          idPhoto: attachIdPhotoUrl,
+          facePhoto: attachFacePhotoUrl,
+        }),
+      );
+  }, [dispatch, attachIdPhotoUrl, attachFacePhotoUrl]);
+
+  useEffect(() => {
+    if (attachFacePhotoUrl) {
+      handleRequestVerify();
+    }
+  }, [attachFacePhotoUrl, handleRequestVerify]);
 
   return (
     <FormBody.Container>
@@ -99,17 +169,17 @@ const FormBody = () => {
                 component={Input}
                 width={352}
               />
+              <GroupHeader header={PrimaryHeaderText.VERIFICATION} />
+              <VerificationButton
+                fullSize={screenSize <= screenSizes.mobileL}
+                btnType={ButtonType.Secondary}
+                loading={loading}
+                onClick={() => setIsVerifyPermitted(true)}
+              >
+                Start Verification
+              </VerificationButton>
               {/* <TwitterButton /> */}
               {/* <AddAdditionalSocialAccountButton setIsOpen={setIsFieldOpen} /> */}
-              <FormItem
-                title={FormName.ADDITIONAL_SOCIAL_ACCOUNT}
-                name={ProfileFormItemName.SOCIAL_ACCOUNT}
-                placeholder={FormPlaceHolder.ADDITIONAL_ACCOUNT}
-                component={Input}
-                width={352}
-                // isFieldOpen={fieldOpen}
-                // canBeHidden={true}
-              />
               {/* <FormItem
             title={FormName.PHOTO_OF_DOCUMENTS}
             name={ProfileFormItemName.PHOTO_OF_DOCUMENTS}
@@ -125,7 +195,7 @@ const FormBody = () => {
               <FormFooter>
                 <Button
                   fullSize={screenSize <= screenSizes.mobileL}
-                  btnType={ButtonType.Secondary}
+                  btnType={ButtonType.Outlined}
                   type="submit"
                   loading={loading}
                 >
@@ -139,6 +209,47 @@ const FormBody = () => {
       ) : (
         '...loading'
       )}
+      <Modal
+        title="Verification"
+        confirmBtnName="Start Verify"
+        cancelBtnName="Cancel"
+        open={isVerifyPermitted}
+        onClose={() => setIsVerifyPermitted(false)}
+        onConfirm={handlePermitVerification}
+      >
+        <span>Upload a photo of your ID to verify your profile</span>
+      </Modal>
+      <Modal
+        title="Verification"
+        confirmBtnName="Verify"
+        open={isVerifyModalOpen}
+        onClose={handleVerifyModalClose}
+        onConfirm={handleVerifyAccount}
+      >
+        <Form
+          innerRef={verifyFormRef}
+          initialValues={initialValues}
+          formSchema={FORM_SCHEMA}
+          onSubmit={() => false}
+        >
+          <>
+            <FormItem
+              label="Upload a photo of your ID"
+              name={VerificationsKeys.ID_PHOTO}
+              description="PNG, GIF, WEBP. Max 1Gb."
+              marginTop={0}
+              component={FileUpload}
+            />
+            <FormItem
+              label="Upload a photo of your face next to the photo ID"
+              name={VerificationsKeys.FACE_PHOTO}
+              description="PNG, GIF, WEBP. Max 1Gb."
+              marginTop={0}
+              component={FileUpload}
+            />
+          </>
+        </Form>
+      </Modal>
     </FormBody.Container>
   );
 };
@@ -168,20 +279,25 @@ const FormFooter = styled.div`
 `;
 
 const Text = styled.p`
-  font-family: 'Poppins';
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 500;
   font-size: 14px;
   line-height: 24px;
   display: flex;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
   margin-top: 48px;
   margin-bottom: 40px;
+  max-width: 690px;
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+`;
+
+const VerificationButton = styled(Button)`
+  margin-top: 32px;
 `;
 
 FormBody.Container = Container;

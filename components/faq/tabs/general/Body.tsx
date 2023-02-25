@@ -1,8 +1,8 @@
 import { Question, QuestionId } from '../../common/types';
-import styled, { css } from 'styled-components';
-import Link from 'next/link';
+import styled from 'styled-components';
 import { memo } from 'react';
 import clsx from 'clsx';
+import { ButtonType, Button } from '../../../ui-kit';
 
 type Props = {
   data: Omit<Question, 'name'>;
@@ -24,7 +24,7 @@ const Body: React.FC<Props> = ({ data, openedQuestions, closedQuestions }) => {
       <Container>
         <BodyText>{data.body}</BodyText>
         <a href={data.link} rel="noreferrer" target="_blank">
-          <Button>Learn more</Button>
+          <Button btnType={ButtonType.Primary}>Learn more</Button>
         </a>
       </Container>
     </Wrapper>
@@ -51,44 +51,13 @@ const Wrapper = styled.div`
     }
   }
   &.active {
-    height: 220px;
+    height: fit-content;
     animation-duration: 0.5s;
     animation-name: slideDown;
   }
   &.inactive {
     animation-duration: 0.5s;
     animation-name: slideUp;
-  }
-`;
-
-const BodyText = styled.p`
-  width: 100%;
-  height: fit-content;
-  font-family: 'Poppins';
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #777e91;
-`;
-
-const Button = styled.div`
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  width: 117px;
-  height: 40px;
-  border: 2px solid #e6e8ec;
-  border-radius: 8px;
-  font-family: 'DM Sans';
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 16px;
-  text-align: center;
-  color: #23262f;
-  &:hover {
-    background-color: #e6e8ec;
   }
 `;
 
@@ -99,6 +68,16 @@ const Container = styled.div`
   padding: 0;
   gap: 24px;
   width: 100%;
+`;
+
+const BodyText = styled.p`
+  width: 100%;
+  height: fit-content;
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 export default memo(Body);

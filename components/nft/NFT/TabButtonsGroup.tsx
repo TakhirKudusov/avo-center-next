@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 import { Divider } from '../../ui-kit';
 import { handleSetActiveClick } from '../../common/helpers';
 import { DEFAULT_IMAGE_URL, devices } from '../../../common/constants';
 import { NftInfoTabs } from './constants';
 import { infoTabMock } from './Mock';
+import { IUser } from '../../../swagger';
 import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
-import { useRouter } from 'next/router';
 
-type Props = { nftOwners: { creator: any; owner: any } };
+type Props = { nftOwners: { creator: IUser; owner: IUser } };
 
 const TabButtonsGroup: React.FC<Props> = ({ nftOwners }) => {
   const router = useRouter();
@@ -113,7 +114,11 @@ const TabButtonsGroup: React.FC<Props> = ({ nftOwners }) => {
           </TabItemInfo>
         </TabWrapper>
       )}
-      {activeTab === NftInfoTabs.BIDS && <TabWrapper>Bids</TabWrapper>}
+      {activeTab === NftInfoTabs.BIDS && (
+        <TabWrapper>
+          <BidsTabContainer>Comming soon</BidsTabContainer>
+        </TabWrapper>
+      )}
     </>
   );
 };
@@ -139,15 +144,21 @@ const TabButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: fit-content;
+  font-family: 'Nasalization';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
   padding: 6px 12px;
-  gap: 10px;
   border-radius: 100px;
-  border: 2px solid #e6e8ec;
-  background-color: #fafafb;
-  color: #777e91;
   cursor: pointer;
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+
   &:hover {
-    background-color: #e6e8ec;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #141416;
   }
   p {
     font-family: 'DM Sans';
@@ -157,38 +168,49 @@ const TabButton = styled.button`
     margin: 0;
   }
   &.active {
-    background: #353945;
-    border: 2px solid #353945;
-    color: #fafafb;
-    &:hover {
-      background-color: #515261;
-      border-color: #515261;
-    }
+    background: #ffffff;
+    color: #141416;
   }
 `;
 
 const TabItemInfo = styled.div`
   display: flex;
   cursor: pointer;
-`;
-
-const TabItemLabel = styled.div`
-  font-family: 'DM Sans';
-  font-weight: 700;
+  font-family: 'Montserrat';
   font-size: 16px;
   line-height: 16px;
 `;
 
-const TabItemValue = styled.div`
+const TabItemLabel = styled.div`
+  font-family: 'Nasalization';
   font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #777e91;
-  margin-top: 10px;
+  font-size: 12px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.7);
+`;
+
+const TabItemValue = styled.div`
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  margin-top: 4px;
 `;
 
 const TabWrapper = styled.div`
   width: 70%;
+`;
+
+const BidsTabContainer = styled.p`
+  font-family: 'Nasalization';
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: 500;
+  line-height: 32px;
+  margin-top: 8px;
 `;
 
 const OwnerAvatar = styled.div<{ imageUrl: string }>`

@@ -8,15 +8,15 @@ const PageHeader = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const handleRedirectToProfileClick = () => {
-    router.push(`/profile/${id}`).catch((error) => console.error(error));
+  const handleRedirectToProfile = () => {
+    router.push(`/profile/${id}`);
   };
 
   return (
     <>
       <PageHeader.BreadCrumbWrapper>
         <PageHeader.BreadCrumb>
-          <PageHeader.PrevPathText onClick={handleRedirectToProfileClick}>
+          <PageHeader.PrevPathText onClick={handleRedirectToProfile}>
             Profile
           </PageHeader.PrevPathText>
           <PageHeader.ChevronWrapper>
@@ -45,15 +45,16 @@ const ChevronWrapper = styled.div`
 `;
 
 const CurrPathText = styled.p`
-  color: #23262f;
+  color: #ffffff;
   cursor: default;
 `;
 
 const PrevPathText = styled.p`
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  :hover {
-    color: #23262f;
+
+  &:hover {
+    color: #ffffff;
   }
 `;
 

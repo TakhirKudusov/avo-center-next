@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styled from 'styled-components';
 import { useAppSelector } from '../../../redux/hooks';
 import { TAuthState } from '../../../redux/types';
 import ConnectWallet from '../../modals/ConnectWallet';
@@ -45,33 +46,41 @@ const StoreLayout = ({ children }: { children: React.ReactNode }) => {
         handleUploadItemClose,
       }}
     >
-      <Header
-        user={user}
-        isSmallScreenMenuVisible={isSmallScreenMenuVisible}
-        isUploadItemVisible={isUploadItemVisible}
-        setIsConnectWalletVisible={setIsConnectWalletVisible}
-        setIsSmallScreenMenuVisible={setIsSmallScreenMenuVisible}
-        handleConnectWalletClose={handleConnectWalletClose}
-        handleMenuWalletConnect={handleMenuWalletConnect}
-        handleUploadItemClose={handleUploadItemClose}
-        handleUploadClick={handleUploadClick}
-      />
-      {children}
-      <Footer
-        setIsConnectWalletVisible={setIsConnectWalletVisible}
-        handleUploadItemClose={handleUploadItemClose}
-        handleUploadClick={handleUploadClick}
-      />
-      <Modal
-        title="Connect wallet"
-        hasFooter={false}
-        open={isConnectWalletVisible && !user}
-        onClose={handleConnectWalletClose}
-      >
-        <ConnectWallet />
-      </Modal>
+      <PageWrapper>
+        <Header
+          user={user}
+          isSmallScreenMenuVisible={isSmallScreenMenuVisible}
+          isUploadItemVisible={isUploadItemVisible}
+          setIsConnectWalletVisible={setIsConnectWalletVisible}
+          setIsSmallScreenMenuVisible={setIsSmallScreenMenuVisible}
+          handleConnectWalletClose={handleConnectWalletClose}
+          handleMenuWalletConnect={handleMenuWalletConnect}
+          handleUploadItemClose={handleUploadItemClose}
+          handleUploadClick={handleUploadClick}
+        />
+        {children}
+        <Footer
+          setIsConnectWalletVisible={setIsConnectWalletVisible}
+          handleUploadItemClose={handleUploadItemClose}
+          handleUploadClick={handleUploadClick}
+        />
+        <Modal
+          title="Connect wallet"
+          hasFooter={false}
+          open={isConnectWalletVisible && !user}
+          onClose={handleConnectWalletClose}
+        >
+          <ConnectWallet />
+        </Modal>
+      </PageWrapper>
     </UploadItemContext.Provider>
   );
 };
+
+const PageWrapper = styled.div`
+  background-image: url('/images/page-layout.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
 
 export default StoreLayout;

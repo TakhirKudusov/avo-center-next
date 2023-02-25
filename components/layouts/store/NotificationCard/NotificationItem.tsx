@@ -37,7 +37,13 @@ const NotificationItemWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background: #f4f5f6;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      radial-gradient(
+        90.16% 143.01% at 15.32% 21.04%,
+        rgba(12, 51, 60, 0.2) 0%,
+        rgba(12, 55, 83, 0.0447917) 77.08%,
+        rgba(255, 255, 255, 0) 100%
+      );
   }
 `;
 
@@ -45,7 +51,7 @@ const NotificationImage = styled.div<{ image: string }>`
   width: 64px;
   height: 64px;
   border-radius: 16px;
-  background-color: #45b36b;
+  background-color: #cccccc;
   background-position: center;
   background-size: cover;
   background-image: ${(props) => `url(/images/${props.image})`};
@@ -57,27 +63,28 @@ const NotificationInfo = styled.div`
 `;
 
 const NotificationLabel = styled.div`
-  font-family: 'Poppins';
+  font-family: 'Nasalization';
   font-weight: 500;
   font-size: 16px;
-  line-height: 24px;
-  color: #141416;
+  line-height: 20px;
+  color: #ffffff;
 `;
 
 const NotificationMessage = styled.div`
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 14px;
-  line-height: 24px;
-  color: #353945;
+  line-height: 17px;
+  color: #ffffff;
 `;
 
 const NotificationDate = styled.div`
-  font-family: 'Poppins';
+  margin-top: 8px;
+  font-family: 'Montserrat';
   font-weight: 400;
   font-size: 12px;
-  line-height: 20px;
-  color: #777e91;
+  line-height: 15px;
+  color: rgba(255, 255, 255, 0.7); ;
 `;
 
 const NotificationUnread = styled.div`

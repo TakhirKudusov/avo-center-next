@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
@@ -15,8 +15,17 @@ import { signin } from '../../redux/slicers/authSlicer';
 import { useAppDispatch } from '../../redux/hooks';
 import { ConnectWalletContext } from '../../components/bid/NFT/context';
 import { getBidById } from '../../redux/slicers/bidsSlicer/bidsSlicer';
+import { GetServerSideProps, NextPage } from 'next';
 
-const NFTPage: ComponentWithLayout = () => {
+type Props = { host?: string };
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context,
+) => ({
+  props: { host: context.req.headers.host },
+});
+
+const NFTPage: NextPage<Props> = ({ host }) => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -49,7 +58,7 @@ const NFTPage: ComponentWithLayout = () => {
                 <LeftSideCornerSVG />
               </BackButton>
             </Header>
-            <NFTBlock NFTData={NFTData} />
+            <NFTBlock host={host} />
             <Comments />
           </ContentContainer>
         </FlexContainer>
@@ -60,11 +69,19 @@ const NFTPage: ComponentWithLayout = () => {
 
 const BackButton = styled(RadioButton)`
   margin: 34px 0 34px 0;
+
+  & > svg > path {
+    fill: rgba(255, 255, 255, 0.7);
+  }
+
+  &:hover {
+    & > svg > path {
+      fill: #ffffff;
+    }
+  }
 `;
 
-const PageWrapper = styled.div`
-  background: #fcfcfd;
-`;
+const PageWrapper = styled.div``;
 
 NFTPage.PageLayout = StoreLayout;
 

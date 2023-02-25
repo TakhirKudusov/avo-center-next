@@ -48,7 +48,7 @@ const NFTDescription: FC<Props> = ({ bid, data, screenSize }) => {
       <Description>{bid.nft.description}</Description>
       <LicenseWrapper>
         <License>License:</License>&nbsp;
-        <span>{data.exclusiveFullLicense}</span>
+        <LicenseText>Exclusive full license</LicenseText>
       </LicenseWrapper>
       <NFTMenuContainer>
         {bid.nft.isOnSale &&
@@ -98,11 +98,11 @@ const NFTDescription: FC<Props> = ({ bid, data, screenSize }) => {
 };
 
 const Description = styled.p`
-  font-family: 'Poppins';
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
   width: 564px;
   padding-bottom: 16px;
   margin: 0;
@@ -125,10 +125,18 @@ const NFTMenuContainer = styled.div`
 
 const LicenseWrapper = styled.div`
   margin-bottom: 32px;
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
 `;
 
 const License = styled.span`
-  color: #777e90;
+  color: rgba(255, 255, 255, 0.7);
+`;
+
+const LicenseText = styled.span`
+  color: #ffffff;
 `;
 
 const OwnerContainer = styled.div`

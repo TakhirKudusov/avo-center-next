@@ -104,13 +104,17 @@ const Select: React.FC<Props & TFormFieldProps> = ({
               style={{ backgroundImage: `url(${selected?.image})` }}
             />
           )}
-          <span>{selected ? selected?.label : placeholder}</span>
+          <SelectPlaceholder isSelected={!!selected}>
+            {selected ? selected?.label : placeholder}
+          </SelectPlaceholder>
           <ChevronWrapper
             background={background}
             size={size}
             rotated={expanded}
           >
-            <ChevronDownSVG />
+            <ChevronDownSVG
+              color={selected ? '#ffffff' : 'rgba(255, 255, 255, 0.5)'}
+            />
           </ChevronWrapper>
         </SelectHeader>
       )}
@@ -123,7 +127,7 @@ const Select: React.FC<Props & TFormFieldProps> = ({
             {selected ? selected?.label : placeholder}
           </SelectSecondaryValue>
           <BigChevronWrapper rotated={expanded}>
-            <DownArrowSVG />
+            <DownArrowSVG color="#ffffff" />
           </BigChevronWrapper>
         </SelectSecondaryHeader>
       )}
@@ -177,8 +181,7 @@ const SelectHeader = styled.div<{
   height: ${(props) => (props.size === SelectItemSize.Small ? '40px' : '48px')};
   padding: ${(props) =>
     props.size === SelectItemSize.Small ? '10px 10px' : '12px 16px'};
-  border-radius: ${(props) =>
-    props.background === SelectItemBackground.None ? '8px' : '12px'};
+  border-radius: 12px;
   border-color: ${(props) => (props.hasError ? '#ef466f' : '#e6e8ec')};
   padding-right: 40px;
 `;
@@ -191,11 +194,11 @@ const SelectSecondaryHeader = styled.div`
 
   &:hover {
     & > span {
-      color: #777e90;
+      color: rgba(255, 255, 255, 0.7);
     }
 
     & > div > svg > path {
-      fill: #777e90;
+      fill: rgba(255, 255, 255, 0.7);
     }
   }
 `;
@@ -209,7 +212,9 @@ const BigChevronWrapper = styled.div<any>`
 const SelectSecondaryValue = styled.span`
   font-size: 40px;
   line-height: 48px;
+  color: #ffffff;
   letter-spacing: -0.01em;
+  font-family: 'Nasalization';
 `;
 
 const ChevronWrapper = styled.div<any>`
@@ -238,7 +243,13 @@ const SelectDropdown = styled.div<{ size: SelectItemSize; expanded: boolean }>`
   width: 100%;
   z-index: 10;
   padding: 8px;
-  background: #fcfcfd;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
   border: 2px solid #e6e8ec;
   box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
   border-radius: 12px;
@@ -253,11 +264,20 @@ const SelectDropdownItem = styled.div<any>`
   align-items: center;
   gap: 10px;
   border-radius: 8px;
-  background: ${(props) => (props.isSelected ? '#efefef' : 'none')};
+  background: ${(props) =>
+    props.isSelected
+      ? 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(12, 51, 60, 0.2) 0%, rgba(12, 55, 83, 0.0447917) 77.08%, rgba(255, 255, 255, 0) 100%)'
+      : 'none'};
   cursor: pointer;
 
   &:hover {
-    background: #f4f5f6;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      radial-gradient(
+        90.16% 143.01% at 15.32% 21.04%,
+        rgba(12, 51, 60, 0.2) 0%,
+        rgba(12, 55, 83, 0.0447917) 77.08%,
+        rgba(255, 255, 255, 0) 100%
+      );
   }
 `;
 
@@ -268,8 +288,13 @@ const SelectDropdownItemImage = styled.div`
   background: #ccc;
 `;
 
+const SelectPlaceholder = styled.span<{ isSelected: boolean }>`
+  color: ${({ isSelected }) =>
+    isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.5)'};
+`;
+
 const SelectDropdownItemLabel = styled.div`
-  color: #23262f;
+  color: #ffffff;
   font-family: 'Poppins';
   font-weight: 400;
   font-size: 14px;

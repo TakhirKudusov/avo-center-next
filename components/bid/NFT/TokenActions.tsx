@@ -26,19 +26,19 @@ const TokenActions = () => {
     {
       id: 'change-price',
       label: 'Change price',
-      icon: <CoinSVG color="#777E91" />,
+      icon: <CoinSVG color="rgba(255, 255, 255, 0.7)" />,
       onClick: () => false,
     },
     {
       id: 'transfer-token',
       label: 'Transfer token',
-      icon: <ArrowRightSquareSVG color="#777E91" />,
+      icon: <ArrowRightSquareSVG color="rgba(255, 255, 255, 0.7)" />,
       onClick: () => setIsTransferTokenModalOpen(true),
     },
     {
       id: 'remove-from-sale',
       label: 'Remove from sale',
-      icon: <CircleCloseSVG color="#777E91" />,
+      icon: <CircleCloseSVG color="rgba(255, 255, 255, 0.7)" />,
       onClick: () => setIsRemoveFromSaleModalOpen(true),
     },
     {
@@ -50,7 +50,7 @@ const TokenActions = () => {
     {
       id: 'report',
       label: 'Report',
-      icon: <InfoCircleSVG color="#777E91" />,
+      icon: <InfoCircleSVG color="rgba(255, 255, 255, 0.7)" />,
       onClick: () => setIsReportModalOpen(true),
     },
   ];
@@ -59,13 +59,13 @@ const TokenActions = () => {
     {
       id: 'download',
       label: 'Download',
-      icon: <ArrowRightSquareSVG color="#777E91" />,
+      icon: <ArrowRightSquareSVG color="rgba(255, 255, 255, 0.7)" />,
       onClick: () => handleDownloadFile('nft-image.png'),
     },
     {
       id: 'report',
       label: 'Report',
-      icon: <InfoCircleSVG color="#777E91" />,
+      icon: <InfoCircleSVG color="rgba(255, 255, 255, 0.7)" />,
       onClick: () => setIsReportModalOpen(true),
     },
   ];
@@ -104,16 +104,22 @@ const ActionWrapper = styled.div`
   }
 
   &:hover {
-    background: #f4f5f6;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      radial-gradient(
+        90.16% 143.01% at 15.32% 21.04%,
+        rgba(12, 51, 60, 0.2) 0%,
+        rgba(12, 55, 83, 0.0447917) 77.08%,
+        rgba(255, 255, 255, 0) 100%
+      );
   }
 `;
 
 const ActionLabel = styled.span`
-  font-family: 'DM Sans';
-  font-weight: 700;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 14px;
-  line-height: 16px;
-  color: #777e91;
+  line-height: 17px;
+  color: #ffffff;
 `;
 
 const StyledLabel = styled.span`

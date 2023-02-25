@@ -55,7 +55,13 @@ const HotCollections = () => {
 const HotCollectionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background: #f4f5f6;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
   padding: 128px 0 128px;
 
   @media (${devices.mobile}) {
@@ -64,12 +70,12 @@ const HotCollectionsWrapper = styled.div`
 `;
 
 const HotCollectionsTitle = styled.div`
-  font-family: 'DM Sans';
-  font-weight: 700;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 40px;
   line-height: 48px;
   letter-spacing: -0.01em;
-  color: #23262f;
+  color: #ffffff;
 `;
 
 const HotColectionsBody = styled.div`

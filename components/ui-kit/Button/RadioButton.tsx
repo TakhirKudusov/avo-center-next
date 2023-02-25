@@ -6,12 +6,13 @@ const RadioButton = styled.button`
   align-items: center;
   height: 48px;
   width: 48px;
-  border: 2px solid #e6e8ec;
+  border: 2px solid rgba(255, 255, 255, 0.7);
   border-radius: 48px;
-  background-color: white;
+  background: none;
   cursor: pointer;
+
   &:hover {
-    background-color: #e6e8ec;
+    border: 2px solid #ffffff;
   }
 `;
 

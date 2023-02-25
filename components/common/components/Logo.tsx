@@ -42,13 +42,12 @@ const LogoBackground = styled.div<{ isAdmin: boolean }>`
 
 const LogoDescription = styled.p<{ isAdmin: boolean }>`
   text-align: center;
-  font-size: 12px;
-  line-height: 12px;
-  font-weight: bold;
+  font-family: 'Nasalization';
+  font-size: 16px;
+  line-height: 19px;
   font-family: 'Poppins', sans-serif;
-  color: rgba(119, 126, 144, 1);
-  text-transform: uppercase;
-  padding-left: ${({ isAdmin }) => !isAdmin && '100px'};
+  color: #ffffff;
+  padding-left: ${({ isAdmin }) => !isAdmin && '120px'};
   width: ${({ isAdmin }) => (isAdmin ? '175px' : '175px')};
   @media (${devices.mobile}) {
     width: 247px;

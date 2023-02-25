@@ -23,7 +23,6 @@ const Avatar = ({ avatarUrl }: Props) => {
   useEffect(() => {
     // TODO move to external function to follow DRY
     if (Array.isArray(values.avatar) && !!values.avatar?.length) {
-      console.log('invoke!');
       const reader = new FileReader();
 
       reader.onload = (e: ProgressEvent<FileReader>) =>

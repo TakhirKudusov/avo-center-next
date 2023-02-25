@@ -17,13 +17,13 @@ import {
   unlikeNft,
 } from '../../../redux/slicers/nftsSlicer/nftSlicer';
 import { NFTTag } from '../../ui-kit/Tag/types';
-import { NFTDescriptionData } from './types';
+import { setInitialBid } from '../../../redux/slicers/bidsSlicer/bidsSlicer';
 
 type Props = {
-  NFTData: NFT;
+  host?: string;
 };
 
-const NFTBlock: React.FC<Props> = ({ NFTData }) => {
+const NFTBlock: React.FC<Props> = ({ host }) => {
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
@@ -31,10 +31,6 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
 
   const tags: NFTTag[] = [
     { tagType: 'primary', tagText: bid?.nft.category?.name || '' },
-    {
-      tagType: 'default',
-      tagText: 'unlockable',
-    },
   ];
 
   // const { image, tags, ...NFTDescriptionData } = NFTData;
@@ -129,6 +125,12 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
     if (bid) setLikesNumber(bid?.nft?.likes.length);
   }, [bid]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(setInitialBid());
+    };
+  }, [dispatch]);
+
   return (
     <>
       <NFTContext.Provider
@@ -165,6 +167,7 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
           </NFTDescriptionContainer>
           {screenSize === 'large' && (
             <UserActionsButtonsGroup
+              host={host}
               screenSize={screenSize}
               likesNumber={likesNumber}
               defaultLikesNumber={defaultLikesNumber || 0}
@@ -174,7 +177,7 @@ const NFTBlock: React.FC<Props> = ({ NFTData }) => {
         </Container>
         <Modal
           title="Transfer token"
-          confirmBtnName="Continue"
+          confirmBtnName="Transfer"
           cancelBtnName="Cancel"
           open={isTransferTokenModalOpen}
           onClose={() => setIsTransferTokenModalOpen(false)}
@@ -275,20 +278,25 @@ const StyledNFTDescriptionWrapper = styled(NFTDescriptionWrapper)`
 `;
 
 const TransferTokenContainer = styled.div`
-  font-family: 'Poppins', sans-serif;
   width: 384px;
+  font-family: 'Montserrat';
 `;
 
 const TransferTokenInfo = styled.p`
   font-size: 16px;
-  line-height: 24px;
-  color: #777e91;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 32px;
 `;
 
-const TransferTokenLabel = styled.h2`
-  font-size: 24px;
-  line-height: 32px;
-  color: #23262f;
+const TransferTokenLabel = styled.span`
+  display: block;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const RemoveFromSaleContainer = styled.div`

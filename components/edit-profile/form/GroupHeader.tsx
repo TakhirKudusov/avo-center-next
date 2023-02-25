@@ -26,11 +26,11 @@ const ExclamationIcon = styled(ExclamationSVG)`
 
 const HeaderText = styled.p`
   height: 24px;
-  font-family: 'Poppins';
-  font-weight: 500;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #23262f;
+  color: #fcfcfd;
   margin-top: 0;
   margin-bottom: 0;
 `;
@@ -41,7 +41,10 @@ const Header = styled.div<{ type?: string }>`
   align-items: flex-start;
   width: 100%;
   height: 24px;
-  margin-top: ${({ type }) => type === 'Social' && '50px'};
+  margin-top: ${({ type }) =>
+    (type === PrimaryHeaderText.SOCIAL ||
+      type === PrimaryHeaderText.VERIFICATION) &&
+    '50px'};
 `;
 
 GroupHeader.Header = Header;

@@ -173,13 +173,13 @@ const Header = styled.div`
   margin-left: 0;
   margin-bottom: 48px;
   height: 48px;
-  font-family: 'DM Sans';
-  font-weight: 700;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 40px;
   line-height: 48px;
   text-align: center;
   letter-spacing: -0.01em;
-  color: #23262f;
+  color: #fcfcfd;
 `;
 
 const CommentsWrapper = styled.div`
@@ -201,7 +201,7 @@ const CommentsBlock = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
-  gap: 24px;
+  gap: 12px;
 
   @media (${devices.tablet}) {
     width: 100%;

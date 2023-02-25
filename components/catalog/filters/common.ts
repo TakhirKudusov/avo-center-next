@@ -7,7 +7,9 @@ const Filter = styled.div`
 
 const FilterTitle = styled.div`
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const FilterBody = styled.div<any>`

@@ -4,12 +4,7 @@ import QuestionsBlock from '../../components/faq/questions/QuestionsBlock';
 import HotBids from '../../components/home-page/HotBids';
 
 const FAQPage: ComponentWithLayout = () => {
-  return (
-    <>
-      <QuestionsBlock />
-      <HotBids />
-    </>
-  );
+  return <QuestionsBlock />;
 };
 
 FAQPage.PageLayout = StoreLayout;

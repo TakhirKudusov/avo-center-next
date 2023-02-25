@@ -45,17 +45,12 @@ const QuestionHeader: React.FC<Props> = ({
   );
 };
 
-const HeaderText = styled.p`
-  font-family: 'Poppins';
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  margin: 0;
-`;
-
-const IconContainer = styled.div`
-  width: 24px;
-  height: 24px;
+const Container = styled.div`
+  border-top: rgba(255, 255, 255, 0.5) solid 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
 `;
 
 const Header = styled.div`
@@ -68,12 +63,18 @@ const Header = styled.div`
   margin: 32px 0 0 0;
 `;
 
-const Container = styled.div`
-  border-top: #e4e6ea solid 1px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
+const HeaderText = styled.p`
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+  color: #ffffff;
+`;
+
+const IconContainer = styled.div`
+  width: 24px;
+  height: 24px;
 `;
 
 export default memo(QuestionHeader);

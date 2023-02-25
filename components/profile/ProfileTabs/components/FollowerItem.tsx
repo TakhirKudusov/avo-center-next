@@ -1,26 +1,15 @@
 import styled from 'styled-components';
 import { devices } from '../../../../common/constants';
-import { Button, ButtonSize, ButtonType, Divider } from '../../../ui-kit';
+import { Button, ButtonSize, Divider } from '../../../ui-kit';
 import { FollowType } from '../constants';
 import { Follower } from '../types';
+import { getActionBtnName, getButtonType } from './utils';
 
 type Props = Follower & {
   followType: FollowType;
   isFollowing: boolean;
   loading: boolean;
   onFollow: () => void;
-};
-
-const getActionBtnName = (followType: FollowType, isFollowing: boolean) => {
-  if (followType === FollowType.FOLLOWERS && !isFollowing) {
-    return 'Follow';
-  }
-
-  if (followType === FollowType.FOLLOWING) {
-    return 'Unfollow';
-  }
-
-  return 'Followed';
 };
 
 const FollowerItem = ({
@@ -42,13 +31,9 @@ const FollowerItem = ({
             <FollowerTitle>{name}</FollowerTitle>
             <Fallowers>{`${followerNumber} followers`}</Fallowers>
             <Button
-              style={{ borderRadius: 90 }}
+              style={{ borderRadius: 12, height: 40 }}
               size={ButtonSize.Small}
-              btnType={
-                followType === FollowType.FOLLOWERS
-                  ? ButtonType.Secondary
-                  : ButtonType.Primary
-              }
+              btnType={getButtonType(followType, isFollowing)}
               disabled={
                 (followType === FollowType.FOLLOWERS && isFollowing) || loading
               }
@@ -109,18 +94,20 @@ const FollowerInfo = styled.div`
 `;
 
 const FollowerTitle = styled.h2`
-  font-weight: 500;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 16px;
-  line-height: 24px;
-  color: #23262f;
+  line-height: 19px;
+  color: #ffffff;
   margin: 0;
 `;
 
 const Fallowers = styled.span`
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 500;
   font-size: 12px;
   line-height: 20px;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
   display: block;
   margin-bottom: 12px;
 `;

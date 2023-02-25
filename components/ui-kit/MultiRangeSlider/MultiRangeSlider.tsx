@@ -122,12 +122,12 @@ const Wrapper = styled.div`
 `;
 
 const Label = styled.div`
-  font-family: 'Poppins';
-  font-weight: 700;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 12px;
   line-height: 12px;
   text-transform: uppercase;
-  color: #b1b5c4;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const Container = styled.div`
@@ -158,26 +158,29 @@ const SliderRange = styled.div`
   position: absolute;
   border-radius: 3px;
   height: 8px;
-  background-color: #3772ff;
+  background: linear-gradient(48.74deg, #cf47ff -3.69%, #fba04c 100.76%);
   z-index: 2;
   top: -3px;
 `;
 
 const SliderLeftValue = styled.div`
+  font-family: 'Nasalization';
   position: absolute;
-  color: #23262f;
-  font-size: 12px;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 24px;
   margin-top: 20px;
-  font-weight: 600;
+  font-weight: 500;
 `;
 
 const SliderRightValue = styled.div`
+  font-family: 'Nasalization';
   position: absolute;
-  color: #23262f;
-  font-size: 12px;
-  margin-top: 20px;
+  color: #ffffff;
+  font-size: 14px;
+  margin-top: 24px;
   right: 0;
-  font-weight: 600;
+  font-weight: 500;
 `;
 
 const Thumb = styled.input`
@@ -195,7 +198,7 @@ const Thumb = styled.input`
     height: 24px;
     width: 24px;
     border-radius: 50%;
-    background: #3772ff;
+    background: linear-gradient(48.74deg, #cf47ff -3.69%, #fba04c 100.76%);
     cursor: pointer;
     pointer-events: all;
     box-shadow: 0 0 2px 0 #555;

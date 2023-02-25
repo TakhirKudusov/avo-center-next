@@ -13,28 +13,28 @@ const Header = () => {
   );
 };
 
+const MainText = styled.p`
+  width: 100%;
+  height: 56px;
+  font-family: 'Nasalization';
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+  color: #fcfcfd;
+  margin: 0;
+`;
+
 const SubText = styled.p`
   width: 100%;
   height: 24px;
-  font-family: 'Poppins';
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 500;
   font-size: 14px;
   line-height: 24px;
   display: flex;
   align-items: center;
-  color: #777e91;
-`;
-
-const MainText = styled.p`
-  width: 100%;
-  height: 56px;
-  font-family: 'DM Sans';
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 56px;
-  letter-spacing: -0.02em;
-  color: #23262f;
-  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const Container = styled.div`

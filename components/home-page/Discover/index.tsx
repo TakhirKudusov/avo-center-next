@@ -91,7 +91,11 @@ const Discover = () => {
             priceRange={priceRange}
           />
           {loading && '...loading'}
-          {!loading && <BidGrid items={[...bids, ...nfts]} elemPerRow={4} />}
+          {!loading && !![...bids, ...nfts].length ? (
+            <BidGrid items={[...bids, ...nfts]} elemPerRow={4} />
+          ) : (
+            <NoData>No data found</NoData>
+          )}
         </ContentContainer>
       </FlexContainer>
     </DiscoverWrapper>
@@ -99,60 +103,27 @@ const Discover = () => {
 };
 
 const DiscoverWrapper = styled.div`
-  background: #fcfcfd;
   padding: 90px 0;
 `;
 
 const SectionTitle = styled.div`
-  font-family: 'DM Sans';
-  font-weight: 700;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 40px;
   line-height: 48px;
   letter-spacing: -0.01em;
-  color: #23262f;
+  color: #ffffff;
 `;
 
-const FilterRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 80px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid #e6e8ec;
-`;
-
-const FilterBtnContent = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-`;
-
-const SortRow = styled.div`
-  display: flex;
-  justify-content: space-between;
+const NoData = styled.div`
+  font-family: 'Nasalization';
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: 500;
+  line-height: 32px;
   margin-top: 32px;
-  padding-bottom: 32px;
-`;
-
-const SortItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-const SortItemLabel = styled.div`
-  font-family: 'Poppins';
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 12px;
-  text-transform: uppercase;
-  color: #b1b5c4;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  margin-top: 80px;
-  justify-content: center;
 `;
 
 export default Discover;

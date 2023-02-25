@@ -4,7 +4,7 @@ import Button from '../../ui-kit/Button/Button';
 import Auction from './Auction';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 import Link from 'next/link';
-import { Counter, useTimer } from '../../ui-kit';
+import { Counter, useTimer, Input } from '../../ui-kit';
 import { devices, screenSizes } from '../../../common/constants';
 import { Paths } from '../../../common/enums/paths';
 import { IBid } from '../../../swagger';
@@ -12,7 +12,7 @@ import { StepModal } from '../../common/components';
 import { PLACE_BID_STEPS } from '../../ModalsTest/constants';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { usePlaceBid } from '../../../common/hooks/usePlaceBid';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ConnectWalletContext } from '../../nft/NFT/context';
 import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
 import { useRouter } from 'next/router';
@@ -24,6 +24,8 @@ type Props = {
 
 const CreatorNetwork = ({ bid }: Props) => {
   const router = useRouter();
+
+  const [bidPrice, setBidPrice] = useState(0);
 
   const { timeBeforeEnd } = useTimer(bid);
 
@@ -91,13 +93,12 @@ const CreatorNetwork = ({ bid }: Props) => {
         onClose={handlePlaceBidClose}
       >
         <>
-          <PlaceBidInfo>You are about to purchase AvoNFT</PlaceBidInfo>
-          <Counter
-            label="BID PRICE"
-            style={{
-              width: screenSize >= screenSizes.tablet ? '384px' : '260px',
-              marginTop: '10px',
-            }}
+          <PlaceBidInfo>You are about to place a bid to AvoNFT</PlaceBidInfo>
+          <Input
+            value={bidPrice}
+            onChange={(value) => setBidPrice(value as number)}
+            type="number"
+            placeholder="0.00 AVO"
           />
         </>
       </StepModal>
@@ -147,11 +148,13 @@ const InfoBar = styled.div`
 `;
 
 const Title = styled.h3`
+  font-family: 'Nasalization';
   font-weight: bold;
-  font-size: 64px;
-  line-height: 64px;
+  font-size: 56px;
+  line-height: 67px;
   letter-spacing: -1px;
   margin: 0;
+  color: #fff;
 `;
 
 const InfoItems = styled.div`
@@ -187,30 +190,32 @@ const InfoItemImage = styled.div<{ background: string }>`
 const InfoItemBody = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 `;
 
 const InfoItemLabel = styled.div`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Nasalization';
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const InfoItemValue = styled.div`
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 14px;
-  line-height: 24px;
-  color: #23262f;
+  line-height: 17px;
+  color: #ffffff;
 `;
 
 const PlaceBidInfo = styled.div`
-  color: #23262f;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
   margin-bottom: 32px;
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
 `;
 
 const Arrows = styled.div`
