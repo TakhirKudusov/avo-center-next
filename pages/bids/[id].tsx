@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   props: { host: context.req.headers.host },
 });
 
-const NFTPage: NextPage<Props> = ({ host }) => {
+const NFTPage: NextPage<Props> & { PageLayout: any } = ({ host }) => {
   const router = useRouter();
   const { id } = router.query;
 

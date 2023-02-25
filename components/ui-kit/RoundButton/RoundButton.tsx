@@ -1,9 +1,10 @@
 import { MouseEventHandler } from 'react';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 
 type Props = {
   icon: JSX.Element;
   id?: string;
+  style?: CSSProperties;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
