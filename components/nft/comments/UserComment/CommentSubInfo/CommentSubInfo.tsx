@@ -32,22 +32,27 @@ const OwnerCommentInfoBlock = styled.div`
 
 const OwnerComment = styled.div<any>`
   height: 24px;
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
   font-weight: ${(props) => props.weight};
   font-size: 14px;
   line-height: 24px;
-  color: #777e90;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
 `;
 
 const ReplyButton = styled.button`
+  font-family: 'Montserrat';
   font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
   background: none;
   cursor: pointer;
   border: none;
-  color: #777e90;
+  color: rgba(255, 255, 255, 0.7);
 
-  &:focus {
-    color: #b1b2b7;
+  &:focus,
+  &:hover {
+    color: #ffffff;
   }
 `;
 

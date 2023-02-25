@@ -25,7 +25,7 @@ const UploadItem: React.FC<Props> = ({ onItemClick }) => {
           <Link href={Paths.COLLECTIONS_CREATE_SINGLE}>
             <Button
               onClick={handleClick(onItemClick)}
-              btnType={ButtonType.Primary}
+              btnType={ButtonType.Secondary}
             >
               Create single
             </Button>
@@ -38,7 +38,7 @@ const UploadItem: React.FC<Props> = ({ onItemClick }) => {
           <Link href={Paths.COLLECTIONS_CREATE_SINGLE}>
             <Button
               onClick={handleClick(onItemClick)}
-              btnType={ButtonType.Secondary}
+              btnType={ButtonType.Outlined}
             >
               Create Collection
             </Button>
@@ -64,12 +64,13 @@ const UploadItemWrapper = styled.div`
 `;
 
 const UploadItemDesc = styled.div`
-  font-family: 'Poppins';
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
   text-align: center;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 32px;
 
   @media (${devices.mobile}) {
     font-size: 10px;
@@ -91,7 +92,7 @@ const UploadItemCards = styled.div`
 const UploadItemCard = styled.div`
   padding: 16px;
   gap: 24px;
-  border: 2px solid #e6e8ec;
+  border: 2px solid #ffffff;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -122,13 +123,13 @@ const UploadItemCardImage = styled.div`
 `;
 
 const UploadItemDescBottom = styled.div`
-  font-family: 'Poppins';
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 12px;
-  line-height: 20px;
+  line-height: 15px;
   text-align: center;
-  color: #777e91;
-  margin-top: 24px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 32px;
 
   @media (${devices.mobile}) {
     margin-top: 12px;

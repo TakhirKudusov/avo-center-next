@@ -101,13 +101,12 @@ const FormItemWrapper = styled.div<{ width: number; marginTop: number }>`
 `;
 
 const FormItemTitle = styled.div`
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 12px;
   line-height: 12px;
   text-transform: uppercase;
-  color: #b1b5c4;
-  width: 300px;
+  color: rgba(255, 255, 255, 0.7);
 
   @media (${devices.mobile}) {
     width: 100%;

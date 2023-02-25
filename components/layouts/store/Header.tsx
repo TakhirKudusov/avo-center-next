@@ -142,7 +142,7 @@ const Header = ({
                   <Button
                     onClick={handleUploadClick()}
                     size={ButtonSize.Medium}
-                    btnType={ButtonType.Primary}
+                    btnType={ButtonType.Outlined}
                   >
                     Upload
                   </Button>
@@ -162,15 +162,19 @@ const Header = ({
                   <Button
                     onClick={handleUploadClick()}
                     size={ButtonSize.Medium}
-                    btnType={ButtonType.Primary}
+                    btnType={ButtonType.Outlined}
                   >
-                    Create NFT
+                    Upload
                   </Button>
-                  <Link href={Paths.PROFILE}>
+                  <Link href={`${Paths.PROFILE}/${user.id}`}>
                     <Button
-                      style={{ marginLeft: '12px' }}
+                      style={{
+                        marginLeft: '12px',
+                        background:
+                          'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(12, 51, 60, 0.2) 0%, rgba(12, 55, 83, 0.0447917) 77.08%, rgba(255, 255, 255, 0) 100%)',
+                      }}
                       size={ButtonSize.Medium}
-                      btnType={ButtonType.Secondary}
+                      btnType={ButtonType.Primary}
                     >
                       <WalletIcon>
                         <WalletSVG />
@@ -183,9 +187,13 @@ const Header = ({
                     position={TooltipPosition.Center}
                   >
                     <Button
-                      style={{ marginLeft: '4px' }}
+                      style={{
+                        marginLeft: '4px',
+                        background:
+                          'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(12, 51, 60, 0.2) 0%, rgba(12, 55, 83, 0.0447917) 77.08%, rgba(255, 255, 255, 0) 100%)',
+                      }}
                       size={ButtonSize.Medium}
-                      btnType={ButtonType.Secondary}
+                      btnType={ButtonType.Primary}
                     >
                       7.00698
                       <WalletCurrency>AVO</WalletCurrency>
@@ -249,22 +257,12 @@ const Header = ({
               fullSize
               onKeyEnterDown={handleMenuClose}
             />
-            <Link href={Paths.MODALS}>
-              <Button
-                size={ButtonSize.Medium}
-                btnType={ButtonType.Primary}
-                fullSize
-                onClick={handleMenuClose}
-              >
-                Modals
-              </Button>
-            </Link>
             {!user && (
               <>
                 <Button
                   onClick={handleMenuUploadClick}
                   size={ButtonSize.Medium}
-                  btnType={ButtonType.Primary}
+                  btnType={ButtonType.Outlined}
                   fullSize
                 >
                   Upload
@@ -284,13 +282,15 @@ const Header = ({
                 <Button
                   onClick={handleMenuUploadClick}
                   size={ButtonSize.Medium}
-                  btnType={ButtonType.Primary}
+                  btnType={ButtonType.Outlined}
                 >
-                  Create NFT
+                  Upload
                 </Button>
-                <Link href={Paths.PROFILE}>
+                <Link href={`${Paths.PROFILE}/${user.id}`}>
                   <Button
-                    style={{ marginLeft: '12px' }}
+                    style={{
+                      marginLeft: '12px',
+                    }}
                     size={ButtonSize.Medium}
                     btnType={ButtonType.Secondary}
                   >
@@ -334,12 +334,22 @@ const HeaderWrapper = styled.div`
   display: flex;
   padding: 20px 0;
   border-bottom: 1px solid #e6e8ec;
-  background: #fff;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
+  /* backdrop-filter: blur(3px); */
+  border-radius: 0px 0px 8px 8px;
   z-index: 100;
 `;
 
 const ActionsBar = styled.div`
   display: flex;
+  align-items: center;
   gap: 12px;
 `;
 
@@ -367,7 +377,6 @@ const WalletIcon = styled.div`
   justify-content: center;
   width: 28px;
   height: 28px;
-  background: #656565;
   border-radius: 50%;
 `;
 

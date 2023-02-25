@@ -11,6 +11,7 @@ const ModalFooter = ({ children }: Props) => {
 export default ModalFooter;
 
 const FooterWrapper = styled.div`
+  font-family: 'Nasalization';
   color: #23262f;
   font-size: 16px;
   line-height: 16px;

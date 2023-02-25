@@ -76,6 +76,9 @@ const bidsSlicer = createSlice({
             }
           : state.bid;
     },
+    setInitialBid(state) {
+      state.bid = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -106,6 +109,6 @@ const bidsSlicer = createSlice({
   },
 });
 
-export const { setBid, likeBid } = bidsSlicer.actions;
+export const { setBid, likeBid, setInitialBid } = bidsSlicer.actions;
 
 export default bidsSlicer.reducer;

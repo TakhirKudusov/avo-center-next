@@ -98,7 +98,7 @@ const SearchBar: React.FC<Props> = ({
         onKeyDown={handleKeyDown}
       />
       {renderSearchBarIcon()}
-      <SearchDropdown>
+      <SearchDropdown isShown={!!searchPhrase}>
         {loading && <ResultText>...loading</ResultText>}
         {items.length === 0 && !!searchPhrase && !loading && (
           <ResultText>No results found</ResultText>
@@ -146,20 +146,29 @@ const SearchWrapper = styled.div<{ type: SearchBarType }>`
   }
 `;
 const SearchInput = styled.input<{ type: SearchBarType; fullSize?: boolean }>`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Nasalization';
   width: ${({ fullSize }) => (fullSize ? '100%' : '256px')};
   height: 40px;
-  border: 2px solid #e6e8ec;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  background: none;
   border-radius: ${({ type }) =>
-    type === SearchBarType.WITH_ICON ? '8px' : '90px'};
+    type === SearchBarType.WITH_ICON ? '12px' : '90px'};
   padding: 10px 16px;
   box-sizing: border-box;
   font-size: 12px;
   outline: none;
+  color: #ffffff;
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
 
   &:focus {
-    border-color: rgba(51, 51, 51, 0.5);
-    box-shadow: 0 5px 20px 0 rgb(0 0 0 / 7%);
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 5px 20px 0 rgb(0 0 0 / 25%);
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
   }
 `;
 
@@ -173,10 +182,16 @@ const StyledRoundButton = styled(RoundButton)`
   background-color: #333333;
 `;
 
-const SearchDropdown = styled.div`
-  background: #fcfcfd;
+const SearchDropdown = styled.div<{ isShown: boolean }>`
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
   box-shadow: 0 9px 45px -6px rgb(31 47 70 / 12%);
-  padding: 8px 8px 4px;
+  padding: ${({ isShown }) => (isShown ? '8px 8px 4px' : '0')};
   position: absolute;
   width: 100%;
   margin-top: 8px;
@@ -185,6 +200,7 @@ const SearchDropdown = styled.div`
 
 const ResultText = styled.div`
   padding: 5px 10px 10px;
+  color: #ffffff;
 `;
 
 export default SearchBar;

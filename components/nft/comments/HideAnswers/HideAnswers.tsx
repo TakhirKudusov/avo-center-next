@@ -37,16 +37,14 @@ const TextContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  width: 95px;
   height: 24px;
-  p {
-    width: 95px;
+  & > p {
     height: 24px;
-    font-family: 'Poppins';
-    font-weight: 400;
+    font-family: 'Montserrat';
+    font-weight: 500;
     font-size: 14px;
     line-height: 24px;
-    color: #777e91;
+    color: rgba(255, 255, 255, 0.5);
   }
 `;
 
@@ -57,13 +55,13 @@ const HideButton = styled.div`
   gap: 4px;
   height: 24px;
   cursor: pointer;
-  p {
+  & > p {
     height: 24px;
-    font-family: 'Poppins';
+    font-family: 'Montserrat';
     font-weight: 500;
     font-size: 14px;
     line-height: 24px;
-    color: #777e90;
+    color: rgba(255, 255, 255, 0.7);
   }
   .svg-btn-wrapper {
     width: 24px;

@@ -2,7 +2,6 @@ import { FormikProps } from 'formik';
 import { useRouter } from 'next/router';
 import { FormEventHandler, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import ArrowRightSVG from '../../../assets/svg/arrow-right.svg';
 import { devices } from '../../../common/constants';
 import { useFileUrl } from '../../../common/hooks/useFileUrl';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
@@ -57,7 +56,7 @@ const CollectibleForm = () => {
     })();
   }, [fileUrl]);
 
-  const onSubmit = () => async (values: any, formikProps: any) => {
+  const onSubmit = () => async (values: any) => {
     dispatch(addAttachment(values.file[0]));
   };
 
@@ -168,7 +167,7 @@ const CollectibleForm = () => {
                 btnType={ButtonType.Secondary}
                 type="submit"
               >
-                Create item <ArrowRightSVG style={{ marginLeft: '15px' }} />
+                Create item
               </Button>
               {/* <AutoSaving>
               Auto saving <LoadingSVG color="#23262F" />
@@ -177,16 +176,22 @@ const CollectibleForm = () => {
           </>
         </Form>
       </CollectibleFormWrapper>
-      <CollectibleItem
-        bid={
-          {
-            name: formValues?.name,
-            total: formValues?.total,
-            available: formValues?.royalties,
-            file: imageUrl as string,
-          } as any
-        }
-      />
+      <CollectibleItemWrapper>
+        <CollectibleItem
+          bid={
+            {
+              name: formValues?.name,
+              total: formValues?.total,
+              available: formValues?.royalties,
+              file: imageUrl as string,
+            } as any
+          }
+        />
+        <ServiceFee>
+          <ServiceFeeLabel>Service fee:</ServiceFeeLabel>
+          <ServiceFeeValue>0.2%</ServiceFeeValue>
+        </ServiceFee>
+      </CollectibleItemWrapper>
     </ContentWrapper>
   );
 };
@@ -194,9 +199,7 @@ const CollectibleForm = () => {
 const ContentWrapper = styled.div`
   display: flex;
   gap: 128px;
-  padding-top: 128px;
   width: 100%;
-  padding-bottom: 112px;
 
   @media (${devices.mobile}) {
     padding-top: 80px;
@@ -204,7 +207,7 @@ const ContentWrapper = styled.div`
 `;
 
 const CollectibleFormWrapper = styled.div`
-  padding-top: 40px;
+  padding-top: 16px;
   width: 100%;
 `;
 
@@ -212,18 +215,16 @@ const FormFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 40px;
-  border-top: 1px solid #e6e8ec;
-  margin-top: 40px;
+  padding-top: 54px;
 `;
 
 const SectionTitle = styled.div`
   margin-top: 40px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 16px;
-  line-height: 24px;
-  color: #23262f;
+  line-height: 19px;
+  color: #fcfcfd;
 `;
 
 // const AutoSaving = styled.div`
@@ -256,11 +257,35 @@ const StyledFormRow = styled.div`
 `;
 
 const RoyaltiesWrapper = styled.div`
-  width: 190px;
+  width: 100%;
+`;
 
-  @media (${devices.mobile}) {
-    width: 100%;
-  }
+const CollectibleItemWrapper = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 768px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+`;
+
+const ServiceFee = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 24px;
+  font-family: 'Montserrat';
+  font-size: 14px;
+  line-height: 17px;
+`;
+
+const ServiceFeeLabel = styled.span`
+  font-weight: 600;
+  color: #ffffff;
+`;
+
+const ServiceFeeValue = styled.span`
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 export default CollectibleForm;

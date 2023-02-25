@@ -69,12 +69,12 @@ const TextAreaContainer = styled.div`
 const SendButton = styled.button`
   display: flex;
   align-self: flex-end;
+  align-items: center;
   justify-content: center;
-  padding: 6px 10px;
   gap: 10px;
   width: 62px;
   height: 28px;
-  background: #333333;
+  background: #ffffff;
   border-radius: 6px;
   position: relative;
   bottom: 40px;
@@ -82,19 +82,15 @@ const SendButton = styled.button`
   cursor: pointer;
   border: none;
   & p {
-    width: 30px;
-    height: 16px;
-    font-family: 'DM Sans';
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 16px;
+    font-family: 'Nasalization';
+    font-weight: 400;
+    font-size: 14px;
     text-align: center;
-    color: #ffffff;
+    color: #141416;
     position: relative;
-    bottom: 12px;
   }
   &:hover {
-    background-color: #515261;
+    background-color: rgba(255, 255, 255, 0.8);
   }
 `;
 

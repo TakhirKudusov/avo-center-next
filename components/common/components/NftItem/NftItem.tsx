@@ -93,7 +93,7 @@ const NftItem: React.FC<Props> = ({ item }) => {
         </BidInfo>
         <BidFooter>
           <HighestBid>
-            <CandlesticksSVG />
+            <CandlesticksSVG color="#fff" />
             <HighestBidTitle>Highest bid</HighestBidTitle>
             <HighestBidValue>{1000} AVO</HighestBidValue>
           </HighestBid>
@@ -127,7 +127,23 @@ const BidWrapper = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-  background: #fff;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  border: 2px solid #e6e8ec;
+  border: 2px solid
+      linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
   border-radius: 20px;
   box-shadow: 0 0 40px -2px rgba(31, 47, 70, 0.12);
   overflow: hidden;
@@ -153,7 +169,6 @@ const BidWrapper = styled.div`
 
 const BidImage = styled.div<{ background: string }>`
   height: 236px;
-  background: #ccc;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -193,14 +208,15 @@ const BidInfo = styled.div`
 const BidInfoRow = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const BidName = styled.div`
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 16px;
-  line-height: 28px;
-  color: #23262f;
+  line-height: 19px;
+  color: #ffffff;
 `;
 
 const BidFeature = styled.div`
@@ -208,18 +224,18 @@ const BidFeature = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Poppins';
-  font-weight: 500;
+  font-family: 'Montserrat';
   font-size: 14px;
-  line-height: 24px;
+  line-height: 17px;
+  font-weight: 500;
 `;
 
 const BidFeatureCaption = styled.div`
-  color: rgba(119, 126, 144, 0.6);
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const BidFeatureValue = styled.div`
-  color: #777e90;
+  color: #ffffff;
 `;
 
 const BidFooter = styled.div`
@@ -232,27 +248,24 @@ const BidFooter = styled.div`
 const HighestBid = styled.div`
   display: flex;
   align-items: center;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 500;
   font-size: 12px;
-  line-height: 20px;
+  line-height: 15px;
   gap: 4px;
 `;
-
 const HighestBidTitle = styled.div`
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const HighestBidValue = styled.div`
-  color: #353945;
+  color: #ffffff;
   font-weight: 600;
 `;
 
 const HotBid = styled.div`
-  font-weight: 400;
   font-size: 12px;
-  line-height: 20px;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const PlaceBidInfo = styled.div`

@@ -82,42 +82,46 @@ const ButtonBody = styled.button<{
   round?: boolean;
   fullSize?: boolean;
 }>`
-  font-weight: 700;
+  font-weight: 400;
   border: ${({ btnType }) =>
-    btnType === ButtonType.Outlined ? 'none' : '2px solid'};
+    btnType === ButtonType.Outlined || btnType === ButtonType.Secondary
+      ? 'none'
+      : '2px solid'};
   box-sizing: border-box;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Nasalization';
   cursor: ${({ disabled }) => (disabled ? 'unset' : 'pointer')};
   font-size: ${({ size }) =>
     [ButtonSize.Small, ButtonSize.Medium].includes(size) ? '14px' : '16px'};
   border-color: ${({ btnType, disabled }) =>
-    btnType === ButtonType.Primary || disabled
-      ? '#e6e8ec'
-      : 'rgba(51, 51, 51, 1)'};
-  background: ${({ btnType, disabled }) => {
-    if (btnType !== ButtonType.Secondary || disabled) {
+    btnType === ButtonType.Primary || disabled ? '#ffffff' : 'unset'};
+  background: ${({ btnType }) => {
+    if (btnType === ButtonType.Outlined) {
+      return '#fff';
+    }
+
+    if (btnType === ButtonType.Primary) {
       return 'none';
     }
 
-    return 'rgba(51, 51, 51, 1)';
+    return 'linear-gradient(48.74deg, #CF47FF -3.69%, #FBA04C 100.76%);';
   }};
   color: ${({ btnType, disabled, failed }) => {
+    if (!!disabled) {
+      return '#777e91';
+    }
     if (btnType === ButtonType.Outlined) {
-      return '#777E91';
+      return '#141416';
     }
     if (btnType === ButtonType.Primary) {
-      return 'rgba(35, 38, 47, 1)';
+      return '#ffffff';
     }
     if (failed) {
       return '#EF466F';
     }
-    if (disabled) {
-      return '#777e91';
-    }
 
     return '#fff';
   }};
-  border-radius: ${({ round }) => (round ? '90px' : '8px')};
+  border-radius: ${({ round }) => (round ? '90px' : '12px')};
   padding: ${({ size }) =>
     size === ButtonSize.Small
       ? '4px 12px'
@@ -135,25 +139,40 @@ const ButtonBody = styled.button<{
   &:hover {
     border-color: ${({ btnType, disabled }) => {
       if (btnType === ButtonType.Primary) {
-        return 'rgba(#e6e8ec, 0.8)';
+        return 'rgba(255, 255, 255, 0.7)';
       }
       if (disabled) {
         return '#E6E8EC';
       }
 
-      return 'rgba(51, 51, 51, 0.8)';
+      return 'linear-gradient(48.74deg, #CF47FF -3.69%, #FBA04C 100.76%);';
     }};
     background: ${({ btnType, disabled }) => {
-      if (btnType !== ButtonType.Secondary || disabled) {
+      if (disabled) {
+        return '#fff';
+      }
+
+      if (btnType === ButtonType.Outlined) {
+        return 'rgba(255, 255, 255, 0.8)';
+      }
+
+      if (btnType === ButtonType.Primary) {
         return 'none';
       }
 
-      return 'rgba(51, 51, 51, 0.8)';
+      return 'linear-gradient(48.74deg, #d15efb -3.69%, #feae63 100.76%);';
     }};
-    color: ${({ btnType }) =>
-      btnType === ButtonType.Primary
-        ? 'rgba(35, 38, 47, 0.8)'
-        : 'rgba(#fff, 0.8)'};
+    color: ${({ btnType, disabled }) => {
+      if (btnType === ButtonType.Outlined) {
+        return 'rgba(35, 38, 47, 0.8)';
+      }
+
+      if (disabled) {
+        return '#777e91';
+      }
+
+      return 'rgba(255, 255, 255, 0.7)';
+    }};
   }
 `;
 

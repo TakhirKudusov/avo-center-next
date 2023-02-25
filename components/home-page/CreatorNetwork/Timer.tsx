@@ -41,23 +41,23 @@ const TimerItem = styled.div`
 `;
 
 const TimerValue = styled.div`
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 32px;
-  line-height: 40px;
+  line-height: 39px;
   text-align: center;
   letter-spacing: -0.01em;
-  color: #141416;
+  color: #ffffff;
   width: 40px;
 `;
 
 const TimerLabel = styled.div`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
   text-align: center;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const TimeCalculating = styled.div`
@@ -65,6 +65,8 @@ const TimeCalculating = styled.div`
   font-size: 20px;
   font-weight: 500;
   text-align: center;
+  color: #fff;
+  font-family: 'Montserrat';
   width: 100%;
 `;
 

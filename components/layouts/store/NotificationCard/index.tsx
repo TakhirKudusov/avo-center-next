@@ -60,12 +60,12 @@ const NotificationCardHeader = styled.div`
 `;
 
 const NotificationCardTitle = styled.div`
-  font-family: 'DM Sans';
-  font-weight: 700;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 32px;
   line-height: 40px;
   letter-spacing: -0.01em;
-  color: #23262f;
+  color: #ffffff;
 `;
 
 const NotificationCardBody = styled.div`

@@ -1,3 +1,4 @@
+import { ButtonType } from '../../ui-kit';
 import { NFTTag } from '../../ui-kit/Tag/types';
 
 export type NFT = {
@@ -47,7 +48,7 @@ export type CommentsData = any;
 
 export type Buttons = {
   name: string;
-  type?: string;
+  type?: ButtonType;
   onClick?: () => void;
 };
 

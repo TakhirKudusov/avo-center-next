@@ -11,7 +11,7 @@ type Props = {
 const Notifications: FC<Props> = ({ hasUnreadNotifications, onClick }) => {
   return (
     <NotificationsWrapper onClick={onClick}>
-      <BellSVG />
+      <BellSVG color="rgba(255, 255, 255, 0.7)" />
       {hasUnreadNotifications && <NotificationRound />}
     </NotificationsWrapper>
   );

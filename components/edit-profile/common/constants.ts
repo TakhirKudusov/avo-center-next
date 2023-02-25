@@ -41,6 +41,11 @@ export enum ProfileFormItemName {
   PHOTO_OF_DOCUMENTS = 'photo_of_documents',
 }
 
+enum VerificationsKeys {
+  ID_PHOTO = 'idPhoto',
+  FACE_PHOTO = 'facePhoto',
+}
+
 const FORM_SCHEMA = Yup.object().shape({
   [ProfileFormItemName.AVATAR]: Yup.array().length(1),
   [ProfileFormItemName.USER_NAME]: Yup.string().required(
@@ -67,4 +72,4 @@ const FORM_SCHEMA = Yup.object().shape({
   // ),
 });
 
-export { FORM_SCHEMA };
+export { FORM_SCHEMA, VerificationsKeys };

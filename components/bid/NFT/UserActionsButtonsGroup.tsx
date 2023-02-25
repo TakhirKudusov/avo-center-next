@@ -7,15 +7,18 @@ import { Tooltip } from '../../ui-kit';
 import { TooltipPosition } from '../../ui-kit/Tooltip/types';
 
 import TokenActions from './TokenActions';
+import ShareActions from './ShareActions';
 
 type Props = {
   screenSize: 'large' | 'small';
   likesNumber: number;
   defaultLikesNumber: number;
   onLikeClick: () => void;
+  host?: string;
 };
 
 const UserActionsButtonsGroup: React.FC<Props> = ({
+  host,
   screenSize,
   likesNumber,
   defaultLikesNumber,
@@ -27,12 +30,17 @@ const UserActionsButtonsGroup: React.FC<Props> = ({
         <>
           <Tooltip content={<TokenActions />} position={TooltipPosition.Right}>
             <RadioButton>
-              <ThreeDotsSVG />
+              <ThreeDotsSVG color="rgba(255, 255, 255, 0.7)" />
             </RadioButton>
           </Tooltip>
-          <RadioButton>
-            <ShareSVG />
-          </RadioButton>
+          <Tooltip
+            content={<ShareActions host={host} />}
+            position={TooltipPosition.Right}
+          >
+            <RadioButton>
+              <ShareSVG color="rgba(255, 255, 255, 0.7)" />
+            </RadioButton>
+          </Tooltip>
           <LikeButtonContainer>
             <RadioButton
               onClick={onLikeClick}
@@ -44,7 +52,7 @@ const UserActionsButtonsGroup: React.FC<Props> = ({
             >
               <LoveSVG />
             </RadioButton>
-            <p>{likesNumber}</p>
+            <LikeNumber>{likesNumber}</LikeNumber>
           </LikeButtonContainer>
         </>
       ) : (
@@ -63,7 +71,7 @@ const UserActionsButtonsGroup: React.FC<Props> = ({
               }
             >
               <LoveSVG />
-              <p>{likesNumber}</p>
+              <LikeNumber>{likesNumber}</LikeNumber>
             </StyledRadioButton>
           </LikeButtonContainer>
           <Tooltip content={<TokenActions />} position={TooltipPosition.Right}>
@@ -85,16 +93,18 @@ const LikeButtonContainer = styled.div`
   gap: 4px;
   width: 48px;
   height: 76px;
-  p {
+  & > p {
     width: 10px;
     height: 24px;
-    font-family: 'Poppins';
-    font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    text-align: center;
-    color: #777e90;
     margin: 0;
+  }
+
+  &:hover {
+    & > p {
+      color: #ffffff;
+    }
   }
 `;
 
@@ -112,6 +122,14 @@ const Container = styled.div<{ screenSize: 'large' | 'small' }>`
   border-radius: 64px;
   align-self: ${({ screenSize }) =>
     screenSize === 'large' ? 'auto' : 'center'};
+`;
+
+const LikeNumber = styled.p`
+  font-family: 'Montserrat';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const StyledRadioButton = styled(RadioButton)`

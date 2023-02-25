@@ -23,8 +23,13 @@ const Auction = ({ bid, timeBeforeEnd }: Props) => {
 };
 
 const AuctionWrapper = styled.div`
-  font-family: 'Poppins', sans-serif;
-  background: #fcfcfd;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
   border: 2px solid #e6e8ec;
   box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
   border-radius: 24px;
@@ -38,36 +43,37 @@ const BidTitle = styled.div`
   font-size: 16px;
   line-height: 24px;
   text-align: center;
-  color: #23262f;
+  color: #fff;
+  font-family: 'Montserrat';
 `;
 
 const BidValue = styled.h3`
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Nasalization';
   margin: 0;
-  font-weight: 700;
+  font-weight: 400;
   font-size: 48px;
-  line-height: 56px;
+  line-height: 57px;
   text-align: center;
   letter-spacing: -0.02em;
-  color: #141416;
+  color: #ffffff;
 `;
 
 const BidPrice = styled.div`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 24px;
-  line-height: 32px;
+  line-height: 29px;
   text-align: center;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const AuctionTitle = styled.div`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
   text-align: center;
-  color: #23262f;
+  color: #ffffff;
   margin-top: 24px;
 `;
 

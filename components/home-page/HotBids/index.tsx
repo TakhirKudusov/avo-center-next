@@ -28,7 +28,7 @@ const HotBids = () => {
       <FlexContainer>
         <ContentContainer>
           <HotBidsHeader>
-            <HotBidsTitle>Hot bid</HotBidsTitle>
+            <HotBidsTitle>Hot bids</HotBidsTitle>
           </HotBidsHeader>
           <ReactSlick screenSize={screenSize} slidesPerRow={slidesPerRow}>
             {bids?.map((bid, index) => (
@@ -44,7 +44,6 @@ const HotBids = () => {
 const HotBidsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background: #fcfcfd;
   padding: 136px 0 128px;
 
   @media (${devices.tablet}) {
@@ -63,12 +62,12 @@ const HotBidsHeader = styled.div`
 `;
 
 const HotBidsTitle = styled.div`
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 40px;
   line-height: 48px;
   letter-spacing: -0.01em;
-  color: #23262f;
+  color: #ffffff;
 `;
 
 export default HotBids;

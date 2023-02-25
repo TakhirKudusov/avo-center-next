@@ -10,6 +10,7 @@ type Props = {
   avoAmount: number;
   avatar: string;
   rank: number;
+  isVerified: boolean;
   onParticipantClick: () => void;
 };
 
@@ -18,6 +19,7 @@ const ParticipantItem: React.FC<Props> = ({
   avoAmount,
   avatar,
   rank,
+  isVerified,
   onParticipantClick,
 }) => {
   return (
@@ -41,9 +43,11 @@ const ParticipantItem: React.FC<Props> = ({
             }
           >
             {/* TODO: Add verification field */}
-            <ParticipantVerifiedIcon>
-              <VerifiedSVG />
-            </ParticipantVerifiedIcon>
+            {isVerified && (
+              <ParticipantVerifiedIcon>
+                <VerifiedSVG />
+              </ParticipantVerifiedIcon>
+            )}
           </ParticipantAvatar>
           <ParticipantName>{name}</ParticipantName>
           <ParticipantAvoAmount>
@@ -74,8 +78,16 @@ const ParticipantContent = styled.div`
   padding: 24px;
   width: 198.4px;
   height: 247px;
-  background: #fcfcfd;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
   border-radius: 16px;
+  border: 2px solid #e6e8ec;
 
   &:hover {
     box-shadow: 0 64px 64px -48px rgba(31, 47, 70, 0.12);
@@ -91,7 +103,7 @@ const ParticipantContent = styled.div`
 const ParticipantHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding-bottom: 24px;
   border-bottom: 1px solid #e6e8ec;
 `;
@@ -136,30 +148,29 @@ const ParticipantVerifiedIcon = styled.div`
 `;
 
 const ParticipantName = styled.div`
-  font-family: 'Poppins';
-  font-weight: 500;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 14px;
-  line-height: 24px;
+  line-height: 17px;
   margin-top: 15px;
-  color: #23262f;
+  color: #ffffff;
 `;
 
 const ParticipantAvoAmount = styled.div`
   display: flex;
   gap: 3px;
-  font-family: 'Poppins';
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 12px;
   line-height: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 3px;
 `;
 
 const ParticipantAvoAmountValue = styled.span`
   font-weight: 600;
-  color: #353945;
 `;
 
-const ParticipantAvoAmountCurrency = styled.span`
-  color: #777e91;
-`;
+const ParticipantAvoAmountCurrency = styled.span``;
 
 export default ParticipantItem;

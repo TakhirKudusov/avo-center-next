@@ -2,8 +2,9 @@ import { FC, memo, MutableRefObject } from 'react';
 import styled from 'styled-components';
 import { screenSizes } from '../../../../common/constants';
 import { Button, ButtonType } from '../../../ui-kit';
-import CircleCloseSVG from '../../../../assets/svg/circle-close.svg';
 import { ProfileFormItemName } from '../../common/constants';
+import CircleCloseFilledSVG from '../../../../assets/svg/circle-close-filled.svg';
+import { useRouter } from 'next/router';
 
 type Props = {
   screenSize: number;
@@ -11,36 +12,32 @@ type Props = {
 };
 
 const ResetButton: FC<Props> = ({ screenSize, formRef }) => {
-  const handleFormClear = () => {
-    const { setFieldValue, values } = formRef.current;
+  const router = useRouter();
+  const { id } = router.query;
 
-    if (formRef.current) {
-      for (let key in values) {
-        if (key === ProfileFormItemName.AVATAR) {
-          setFieldValue(key, []);
-        } else {
-          setFieldValue(key, '');
-        }
-      }
-    }
+  const handleRedirectToProfile = () => {
+    router.push(`/profile/${id}`);
   };
 
   return (
     <Button
       fullSize={screenSize <= screenSizes.mobileL}
       btnType={ButtonType.Outlined}
-      onClick={handleFormClear}
+      style={{ background: 'none', color: '#ffffff' }}
+      onClick={handleRedirectToProfile}
     >
-      <CircleCloseIcon color="#777E91" />
-      Clear all
+      <DontSaveChanges>Do not save changes</DontSaveChanges>
+      <CircleCloseFilledSVG color="#777E91" />
     </Button>
   );
 };
 
-const CircleCloseIcon = styled(CircleCloseSVG)`
+const DontSaveChanges = styled.span`
   margin-right: 8px;
-  width: 24px;
-  height: 24px;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
 `;
 
 export default memo(ResetButton);

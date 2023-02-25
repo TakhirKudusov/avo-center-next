@@ -26,4 +26,5 @@ export enum ErrorMessage {
 export enum PrimaryHeaderText {
   ACCOUNT_INFO = 'Account info',
   SOCIAL = 'Social',
+  VERIFICATION = 'Verification',
 }

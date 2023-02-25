@@ -43,7 +43,17 @@ const Modal = ({
           <Modal.Content>{children}</Modal.Content>
           {hasFooter && (
             <Modal.Footer>
-              <>
+              <ModalFooterWrapper>
+                {cancelBtnName && (
+                  <Button
+                    fullSize
+                    size={ButtonSize.Large}
+                    onClick={onClose}
+                    style={{ borderWidth: '3px' }}
+                  >
+                    {cancelBtnName}
+                  </Button>
+                )}
                 {confirmBtnName && (
                   <Button
                     style={
@@ -60,12 +70,7 @@ const Modal = ({
                     {confirmBtnName}
                   </Button>
                 )}
-                {cancelBtnName && (
-                  <Button fullSize onClick={onClose}>
-                    {cancelBtnName}
-                  </Button>
-                )}
-              </>
+              </ModalFooterWrapper>
             </Modal.Footer>
           )}
         </Modal.Wrapper>
@@ -94,10 +99,18 @@ const ModalWrapper = styled.div`
   width: fit-content;
   height: fit-content;
   min-height: 150px;
-  background: white;
-  color: white;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
+  border: 2px solid #ffffff;
+  color: #ffffff;
   z-index: 10;
-  border-radius: 16px;
+  border-radius: 20px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
   position: fixed;
   top: 50%;
@@ -106,6 +119,12 @@ const ModalWrapper = styled.div`
   padding: 32px;
   position: absolute;
   z-index: 101;
+`;
+
+const ModalFooterWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
 `;
 
 Modal.Wrapper = ModalWrapper;

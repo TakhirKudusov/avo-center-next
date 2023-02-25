@@ -94,11 +94,11 @@ const CreatorsName = styled.div`
   gap: 24px;
   width: 628px;
   height: 24px;
-  font-family: 'Poppins';
-  font-weight: 500;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #23262f;
+  color: #ffffff;
   margin-bottom: 6px;
 
   @media (${devices.tablet}) {
@@ -114,12 +114,12 @@ const CreatorsName = styled.div`
 
 const CreatorCommentText = styled.div`
   width: 998px;
-  font-family: 'Poppins';
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 500;
   font-size: 14px;
   line-height: 24px;
   margin-bottom: 6px;
-  color: #23262f;
+  color: rgba(255, 255, 255, 0.7);
 
   @media (${devices.tablet}) {
     width: 100%;

@@ -1,11 +1,9 @@
 import Head from 'next/head';
 import styled from 'styled-components';
-import RightArrowSVG from '../../../assets/svg/right-arrow.svg';
+import CgevronRightSVG from '../../../assets/svg/chevron-right.svg';
 import { devices } from '../../../common/constants';
 import { FlexContainer, PageContainer } from '../../../components/common';
 import CollectibleForm from '../../../components/create-collectible/collectible-form';
-import CollectibleItem from '../../../components/create-collectible/collectible-item';
-import { BID } from '../../../components/create-collectible/constants';
 import StoreLayout from '../../../components/layouts/store';
 import Button from '../../../components/ui-kit/Button/Button';
 import { ButtonSize } from '../../../components/ui-kit/Button/enums';
@@ -21,16 +19,22 @@ const CreateSingleCollectible = () => {
       <FlexContainer>
         <PageContainer>
           <ContentWrapper>
-            <ContentHeading>
-              <Button style={{ width: '197px' }} size={ButtonSize.Medium}>
-                <RightArrowSVG
-                  style={{ transform: 'rotate(180deg)', marginRight: '10px' }}
-                />
-                Switch to Collection
-              </Button>
-              <ContentTitle>Create single collectible</ContentTitle>
+            <ContentContainer>
+              <ContentHeading>
+                <ContentTitle>Create single collectible</ContentTitle>
+                <Button
+                  style={{
+                    width: '197px',
+                    border: 'none',
+                  }}
+                  size={ButtonSize.Medium}
+                >
+                  <SwitchToCollection>Switch to Collection</SwitchToCollection>
+                  <CgevronRightSVG color="#ffffff" />
+                </Button>
+              </ContentHeading>
               <CollectibleForm />
-            </ContentHeading>
+            </ContentContainer>
           </ContentWrapper>
         </PageContainer>
       </FlexContainer>
@@ -39,33 +43,59 @@ const CreateSingleCollectible = () => {
 };
 
 const ContentWrapper = styled.div`
+  position: relative;
   display: flex;
   gap: 128px;
-  padding-top: 128px;
+  margin-bottom: 96px;
+  padding: 32px 20px;
+  margin-top: 96px;
   width: 100%;
-  padding-bottom: 112px;
+  border-radius: 16px;
+  max-width: 640px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
 
   @media (${devices.mobile}) {
     padding-top: 80px;
   }
 `;
 
-const ContentHeading = styled.div`
+const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
 `;
 
+const ContentHeading = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-width: 600px;
+`;
+
 const ContentTitle = styled.h1`
-  font-family: 'DM Sans';
-  font-weight: 700;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 48px;
-  line-height: 56px;
+  line-height: 57px;
   letter-spacing: -0.02em;
-  color: #23262f;
-  max-width: 455px;
+  color: #fcfcfd;
+  max-width: 355px;
   margin: 0;
+`;
+
+const SwitchToCollection = styled.span`
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  margin-right: 12px;
 `;
 
 CreateSingleCollectible.PageLayout = StoreLayout;

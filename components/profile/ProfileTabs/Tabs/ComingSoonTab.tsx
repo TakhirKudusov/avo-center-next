@@ -17,11 +17,12 @@ const TabWrapper = styled.div`
 `;
 
 const ComingSoon = styled.div`
+  font-family: 'Nasalization';
   width: 100%;
   text-align: center;
   font-size: 24px;
-  color: #23262f;
-  font-weight: 600;
+  color: #ffffff;
+  font-weight: 500;
   line-height: 32px;
   margin-top: 32px;
 `;

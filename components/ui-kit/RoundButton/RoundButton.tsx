@@ -18,7 +18,7 @@ const RoundButton = ({ id, icon, onClick, ...rest }: Props) => {
 export default RoundButton;
 
 const ButtonWrapper = styled.button`
-  border: 2px solid #e6e8ec;
+  border: 2px solid #e6e8ecab;
   background-color: #fff;
   border-radius: 50%;
   cursor: pointer;
@@ -30,7 +30,7 @@ const ButtonWrapper = styled.button`
   padding: 8px;
 
   &:hover {
-    border-color: rgba(51, 51, 51, 0.5);
+    border-color: #ffffff;
     background: rgba(#fff, 0.8);
   }
 `;

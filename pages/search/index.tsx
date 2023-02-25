@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { devices } from '../../common/constants';
@@ -21,9 +22,13 @@ import StoreLayout from '../../components/layouts/store';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchCategories } from '../../redux/slicers/discoverSlicer/discoverSlicer';
 import { TDiscoverState } from '../../redux/slicers/discoverSlicer/types';
+import SearchWithBadRequest from '../../components/common/components/SearchWithBadRequest/SearchWithBadRequest';
 
 const Catalog = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const searchName = router.query.name;
+
   const [queryParams, setQueryParams] = useState<string>();
   const { categories, bids, nfts, loading, priceRange } =
     useAppSelector<TDiscoverState>((state) => state.discover);
@@ -81,23 +86,29 @@ const Catalog = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <FlexContainer>
-        <PageContainer>
-          <ContentHeading>
-            <ContentTitle>Discover the art of NFT</ContentTitle>
-          </ContentHeading>
-          <ContentWrapper style={{ paddingTop: '60px' }}>
-            <FilterBar
-              types={TYPE_ITEMS}
-              categories={categoryOptions}
-              likes={LIKE_ITEMS}
-              prices={PRICE_ITEMS}
-              isVerifieds={CREATOR_ITEMS}
-              priceRange={priceRange}
-            />
-            {loading && '...loading'}
-            {!loading && <BidGrid items={[...bids, ...nfts]} elemPerRow={3} />}
-          </ContentWrapper>
-        </PageContainer>
+        {!!bids.length || !!nfts.length ? (
+          <PageContainer>
+            <ContentHeading>
+              <ContentTitle>{searchName}</ContentTitle>
+            </ContentHeading>
+            <ContentWrapper style={{ paddingTop: '60px' }}>
+              <FilterBar
+                types={TYPE_ITEMS}
+                categories={categoryOptions}
+                likes={LIKE_ITEMS}
+                prices={PRICE_ITEMS}
+                isVerifieds={CREATOR_ITEMS}
+                priceRange={priceRange}
+              />
+              {loading && '...loading'}
+              {!loading && (
+                <BidGrid items={[...bids, ...nfts]} elemPerRow={3} />
+              )}
+            </ContentWrapper>
+          </PageContainer>
+        ) : (
+          <SearchWithBadRequest />
+        )}
       </FlexContainer>
     </div>
   );
@@ -123,12 +134,12 @@ const ContentHeading = styled.div`
 `;
 
 const ContentTitle = styled.h1`
-  font-family: 'DM Sans';
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 56px;
+  font-family: 'Nasalization';
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 64px;
   letter-spacing: -0.02em;
-  color: #23262f;
+  color: #ffffff;
   max-width: 455px;
   margin: 40px 0 0;
 `;

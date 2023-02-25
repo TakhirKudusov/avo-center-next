@@ -1,11 +1,21 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { devices } from '../../../../common/constants';
+import { Paths } from '../../../../common/enums/paths';
+import { Button, ButtonType } from '../../../ui-kit';
 
 import SearchBar, { SearchBarType } from '../../../ui-kit/SearchBar';
 import { ExploreItem } from './ExploreItem';
 import { EXPLORE_MOCK } from './MOCK';
 
 const SearchWithBadRequest = () => {
+  const router = useRouter();
+
+  const goToHomePage = () => {
+    router.push(Paths.EMPTY);
+  };
+
   return (
     <Wrapper>
       <BadRequestImage />
@@ -13,15 +23,18 @@ const SearchWithBadRequest = () => {
         Sorry, we couldn’t find any results for this search.
       </RequestInfo>
       <RequestQuestion>Maybe give one of these a try?</RequestQuestion>
-      <SearchBar
-        placeholder="Enter your search..."
-        type={SearchBarType.WITH_BUTTON}
-      />
-      <ExporeMoreTitle>Explore more</ExporeMoreTitle>
       <ExploreItemsWrapper>
-        {EXPLORE_MOCK.map((item) => (
+        {/* {EXPLORE_MOCK.map((item) => (
           <ExploreItem key={item.id} {...item} />
-        ))}
+        ))} */}
+        <a href="#discover">
+          <Button onClick={goToHomePage} btnType={ButtonType.Secondary}>
+            Discover
+          </Button>
+        </a>
+        <Button onClick={goToHomePage} btnType={ButtonType.Outlined}>
+          Main Page
+        </Button>
       </ExploreItemsWrapper>
     </Wrapper>
   );
@@ -48,13 +61,14 @@ const BadRequestImage = styled.div`
 `;
 
 const RequestInfo = styled.h1`
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 48px;
-  font-weight: 700;
   line-height: 56px;
   text-align: center;
   letter-spacing: -0.02em;
-  color: #23262f;
-  width: 600px;
+  color: #fcfcfd;
+  width: 736px;
   margin: 80px 0 0;
 
   @media (${devices.mobile}) {
@@ -64,11 +78,12 @@ const RequestInfo = styled.h1`
 `;
 
 const RequestQuestion = styled.p`
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 500;
   font-size: 14px;
   line-height: 24px;
   text-align: center;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 20px;
 `;
 
@@ -83,7 +98,6 @@ const ExporeMoreTitle = styled.h2`
 
   @media (${devices.mobile}) {
     margin-top: 32px;
-
   }
 `;
 
@@ -91,7 +105,6 @@ const ExploreItemsWrapper = styled.div`
   display: flex;
   gap: 32px;
   margin-bottom: 136px;
-  width: 100%;
 
   @media (${devices.tablet}) {
     overflow: scroll;

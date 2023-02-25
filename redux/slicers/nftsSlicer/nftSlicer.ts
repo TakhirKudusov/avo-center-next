@@ -106,6 +106,9 @@ const nftsSlicer = createSlice({
             }
           : state.nft;
     },
+    setInitialNft(state) {
+      state.nft = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -189,6 +192,6 @@ const nftsSlicer = createSlice({
   },
 });
 
-export const { setNft, likeClickedNft } = nftsSlicer.actions;
+export const { setNft, likeClickedNft, setInitialNft } = nftsSlicer.actions;
 
 export default nftsSlicer.reducer;

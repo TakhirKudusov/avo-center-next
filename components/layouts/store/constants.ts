@@ -5,8 +5,8 @@ export const languages: SelectItem[] = [
     value: 'en',
     label: 'EN',
   },
-  {
-    value: 'ru',
-    label: 'RU',
-  },
+  // {
+  //   value: 'ru',
+  //   label: 'RU',
+  // },
 ];

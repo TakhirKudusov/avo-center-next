@@ -104,16 +104,22 @@ const ActionWrapper = styled.div`
   }
 
   &:hover {
-    background: #f4f5f6;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      radial-gradient(
+        90.16% 143.01% at 15.32% 21.04%,
+        rgba(12, 51, 60, 0.2) 0%,
+        rgba(12, 55, 83, 0.0447917) 77.08%,
+        rgba(255, 255, 255, 0) 100%
+      );
   }
 `;
 
 const ActionLabel = styled.span`
-  font-family: 'DM Sans';
-  font-weight: 700;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 14px;
-  line-height: 16px;
-  color: #777e91;
+  line-height: 17px;
+  color: #ffffff;
 `;
 
 const StyledLabel = styled.span`

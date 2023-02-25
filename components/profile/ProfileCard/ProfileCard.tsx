@@ -60,7 +60,13 @@ const ProfileCard = ({}: Props) => {
     <>
       {!!profileUser ? (
         <CardContainer>
-          <Avatar avatarUrl={getImageUrl(profileUser.avatar)} />
+          <Avatar
+            avatarUrl={
+              !!profileUser.avatar
+                ? getImageUrl(profileUser.avatar)
+                : '/images/defaultUserImage.png'
+            }
+          />
           <Title>{profileUser?.username}</Title>
           {isMineProfile && (
             <WalletId>
@@ -68,7 +74,7 @@ const ProfileCard = ({}: Props) => {
                 {getSlicedPublicAddress(profileUser.publicAddress)}
               </PublicAddress>
               <CoppyToClipboard text={profileUser.publicAddress}>
-                <CopySVG style={{ cursor: 'pointer' }} />
+                <CopySVG color="#27AE60" style={{ cursor: 'pointer' }} />
               </CoppyToClipboard>
             </WalletId>
           )}
@@ -80,7 +86,7 @@ const ProfileCard = ({}: Props) => {
               size={ButtonSize.Medium}
               btnType={ButtonType.Secondary}
             >
-              {isMineProfile ? 'Create NFT' : 'Follow'}
+              {isMineProfile ? 'Create item' : 'Follow'}
             </Button>
             {/* <CoppyToClipboard text={router.pathname}>
               <RoundButton icon={<ShareIconSvg />} />
@@ -92,7 +98,7 @@ const ProfileCard = ({}: Props) => {
               target="_blank"
               rel="noreferrer"
             >
-              <TwitterSVG />
+              <TwitterSVG color="rgba(255, 255, 255, 0.7)" />
             </a>
           </Links>
           <Divider />
@@ -113,9 +119,13 @@ const ProfileCard = ({}: Props) => {
                 </Verification>
                 {isMineProfile && (
                   <Button
-                    style={{ padding: '0px 24px', height: 'auto' }}
+                    style={{
+                      padding: '0px 24px',
+                      height: 'auto',
+                      border: 'none',
+                    }}
                     onClick={() => false}
-                    btnType={ButtonType.Outlined}
+                    btnType={ButtonType.Primary}
                     size={ButtonSize.Large}
                   >
                     Verify now
@@ -142,8 +152,16 @@ const CardContainer = styled.div`
   border: 1px solid #e6e8ec;
   border-radius: 16px;
   padding: 32px 35px;
-  background-color: #ffffff;
-  box-shadow: 0 40px 32px -24px rgba(15, 15, 15, 0.12);
+  /* Card BG */
+
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -166,10 +184,12 @@ const Avatar = styled.div<{ avatarUrl: string }>`
 `;
 
 const Title = styled.div`
+  font-family: 'Nasalization';
   font-size: 24px;
-  color: #23262f;
-  font-weight: 600;
+  color: #fcfcfd;
+  font-weight: 400;
   line-height: 32px;
+  margin-top: 5px;
 `;
 
 const WalletId = styled.div`
@@ -178,15 +198,16 @@ const WalletId = styled.div`
   line-height: 16px;
   margin-top: 4px;
   display: flex;
+  align-items: center;
   gap: 8px;
 `;
 
 const Description = styled.div`
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
   margin-top: 20px;
   text-align: center;
   margin-bottom: 25px;
@@ -199,8 +220,8 @@ const Links = styled.div`
 `;
 
 const MembershipInfo = styled.div`
-  color: #777e91;
-  font-family: 'Poppins';
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Montserrat';
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
@@ -213,10 +234,15 @@ const ButtonsWrapper = styled.div`
 `;
 
 const PublicAddress = styled.div`
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   max-width: 186px;
+  color: #fcfcfd;
 `;
 
 const VerificationInfo = styled.div`
@@ -241,4 +267,5 @@ const Verification = styled.div<{ isVerified: boolean }>`
   font-family: 'Nasalization';
   color: #ffffff;
   text-transform: uppercase;
+  font-size: 400;
 `;

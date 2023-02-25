@@ -29,6 +29,7 @@ const LikeButton: FC<Props> = ({ isLiked, onCommentLike, onCommentUnlike }) => {
     <LikeButtonWrapper heartFilled={heartFilled}>
       <HeartOutlinedSVG
         className="heart-btn"
+        color="rgba(255, 255, 255, 0.7)"
         heartFilled={heartFilled}
         onClick={handleLikeClick}
       />
@@ -55,7 +56,7 @@ const LikeButtonWrapper = styled.div<{ heartFilled: boolean }>`
 
     path {
       stroke: ${({ heartFilled }) =>
-        heartFilled ? '#EF466F' : 'rgb(119, 126, 144)'};
+        heartFilled ? '#EF466F' : 'rgba(255, 255, 255, 0.7)'};
     }
   }
 `;

@@ -30,6 +30,7 @@ import {
 import { TProfileState } from '../../redux/slicers/profileSlicer/types';
 import { useRouter } from 'next/router';
 import { ComingSoonTab } from '../../components/profile/ProfileTabs/Tabs';
+import { FlatListTypes } from '../../components/ui-kit/FlatList/constants';
 
 function Profile() {
   const dispatch = useAppDispatch();
@@ -96,24 +97,28 @@ function Profile() {
     <StyledFlexContainer>
       <PageContainer>
         <Cover>
-          <Button
-            style={{ color: '#fff', border: '2px solid #777E91' }}
-            size={ButtonSize.Medium}
-            btnType={ButtonType.Primary}
-          >
-            Edit cover photo
-            <StyledImageSVG />
-          </Button>
-          <Link href={`/profile/${id}/edit`}>
-            <Button
-              style={{ color: '#fff', border: '2px solid #777E91' }}
-              size={ButtonSize.Medium}
-              btnType={ButtonType.Primary}
-            >
-              Edit profile
-              <StyledEditSVG />
-            </Button>
-          </Link>
+          {user && user.id === profileUser?._id && (
+            <>
+              <Button
+                style={{ color: '#fff', border: '2px solid #777E91' }}
+                size={ButtonSize.Medium}
+                btnType={ButtonType.Primary}
+              >
+                Edit cover photo
+                <StyledImageSVG />
+              </Button>
+              <Link href={`/profile/${id}/edit`}>
+                <Button
+                  style={{ color: '#fff', border: '2px solid #777E91' }}
+                  size={ButtonSize.Medium}
+                  btnType={ButtonType.Primary}
+                >
+                  Edit profile
+                  <StyledEditSVG />
+                </Button>
+              </Link>
+            </>
+          )}
         </Cover>
         {/* {loading ? (
           <ProfileWrapper>...Loading</ProfileWrapper>
@@ -128,7 +133,11 @@ function Profile() {
         <ProfileWrapper>
           <ProfileCard />
           <CardsWrapper>
-            <FlatList items={TABS} onChange={handleTabChange} />
+            <FlatList
+              items={TABS}
+              type={FlatListTypes.PROFILE_TABS}
+              onChange={handleTabChange}
+            />
           </CardsWrapper>
         </ProfileWrapper>
       </PageContainer>

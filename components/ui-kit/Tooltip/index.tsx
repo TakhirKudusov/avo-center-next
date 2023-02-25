@@ -72,7 +72,13 @@ const TooltipContent = styled.div<{
 }>`
   position: absolute;
   margin-top: 20px;
-  background: #fcfcfd;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
   box-shadow: 0 9px 45px -6px rgba(31, 47, 70, 0.12);
   border-radius: 12px;
   min-width: 190px;
@@ -120,7 +126,7 @@ const ArrowUp = styled.div<{ position?: TooltipPosition }>`
   height: 0;
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;
-  border-bottom: 16px solid #fcfcfd;
+  border-bottom: 16px solid rgba(0, 0, 0, 0.6);
 `;
 
 export default memo(Tooltip);

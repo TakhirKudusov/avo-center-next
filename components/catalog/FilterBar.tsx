@@ -6,6 +6,7 @@ import {
   getQueryParams,
 } from '../../common/helpers/manageQueryParams.helper';
 import { useAppDispatch } from '../../redux/hooks';
+import CircleCloseFilledSVG from '../../assets/svg/circle-close-filled.svg';
 import {
   clearBids,
   clearNFTs,
@@ -89,7 +90,10 @@ const FilterBar: React.FC<Props> = ({
       <FilterBarTitle>Filters</FilterBarTitle>
       <FiltersWrapper>
         {localFilters.map(filterByTypeMapper)}
-        <ResetButton onClick={hanldeResetBtnClick}>Reset filter</ResetButton>
+        <ResetButton onClick={hanldeResetBtnClick}>
+          <span>Reset filter</span>
+          <CircleCloseFilledSVG />
+        </ResetButton>
       </FiltersWrapper>
     </FilterBarContent>
   );
@@ -97,7 +101,14 @@ const FilterBar: React.FC<Props> = ({
 
 const FilterBarContent = styled.div<any>`
   min-width: 272px;
-  background: #a2c7661f;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
   border-radius: 12px;
   padding: 16px 12px;
   height: max-content;
@@ -105,20 +116,33 @@ const FilterBarContent = styled.div<any>`
 
 const FilterBarTitle = styled.div`
   font-size: 24px;
-  color: #000;
+  color: #ffffff;
   margin-bottom: 20px;
+  font-family: 'Nasalization';
 `;
 
 const FiltersWrapper = styled.div``;
 
 const ResetButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Nasalization';
   background: none;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 400;
   margin-right: 7px;
-  color: #000;
+  color: #ffffff;
   border: none;
   cursor: pointer;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.7);
+
+    & > svg > path {
+      fill: rgba(255, 255, 255, 0.7);
+    }
+  }
 `;
 
 export default FilterBar;

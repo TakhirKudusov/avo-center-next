@@ -60,7 +60,8 @@ const StyledArrow = styled.div`
   z-index: 2;
 
   &::before {
-    color: #777e91;
+    color: #ffffff;
+    fill: #ffffff;
     line-height: 0;
   }
 

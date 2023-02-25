@@ -68,7 +68,7 @@ const Popular = () => {
             <SelectLabel>Timeframe</SelectLabel>
             <Select
               items={dates}
-              background={SelectItemBackground.White}
+              background={SelectItemBackground.None}
               size={SelectItemSize.Medium}
               style={{ width: '256px' }}
             />
@@ -82,6 +82,7 @@ const Popular = () => {
                   name={creator.username}
                   avoAmount={sum}
                   avatar={creator.avatar}
+                  isVerified={creator.isVerified}
                   rank={index + 1}
                   onParticipantClick={handleParticipantClick(_id)}
                 />
@@ -92,6 +93,7 @@ const Popular = () => {
                   name={owner.username}
                   avoAmount={sum}
                   avatar={owner.avatar}
+                  isVerified={owner.isVerified}
                   rank={index + 1}
                   onParticipantClick={handleParticipantClick(_id)}
                 />
@@ -103,7 +105,13 @@ const Popular = () => {
 };
 
 const PopularWrapper = styled.div`
-  background: #f4f5f6;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
   padding: 128px 144px;
   margin-top: 128px;
   height: 663px;
@@ -138,11 +146,11 @@ const SectionTitles = styled.div`
 `;
 
 const SectionTitle = styled.div`
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 24px;
   line-height: 32px;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const SectionSelect = styled.div`
@@ -171,12 +179,12 @@ const TimeframeWrapper = styled.div`
 `;
 
 const SelectLabel = styled.div`
-  font-family: 'Poppins';
-  font-weight: 700;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 12px;
   line-height: 12px;
   text-transform: uppercase;
-  color: #b1b5c4;
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 12px;
 `;
 

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { devices } from '../../../common/constants';
@@ -16,6 +17,12 @@ type Props = {
 };
 
 const Footer = ({ setIsConnectWalletVisible, handleUploadClick }: Props) => {
+  const router = useRouter();
+
+  const goToHomePage = () => {
+    router.push(Paths.EMPTY);
+  };
+
   return (
     <footer>
       <FooterWrapper>
@@ -34,7 +41,9 @@ const Footer = ({ setIsConnectWalletVisible, handleUploadClick }: Props) => {
                 <LinkSectionTitle>Actions</LinkSectionTitle>
                 <LinkSectionBody>
                   <LinkItem>
-                    <Link href="#discover">Discover</Link>
+                    <a href="#discover" onClick={goToHomePage}>
+                      Discover
+                    </a>
                   </LinkItem>
                   <LinkItem>
                     <FooterLink
@@ -94,8 +103,17 @@ const Footer = ({ setIsConnectWalletVisible, handleUploadClick }: Props) => {
 };
 
 const FooterWrapper = styled.div`
-  background: #fcfcfd;
-  border-top: 2px solid #e6e8ec;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    radial-gradient(
+      80.38% 222.5% at -13.75% -12.36%,
+      #98f9ff 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      80.69% 208.78% at 108.28% 112.58%,
+      #eabfff 0%,
+      rgba(135, 38, 183, 0) 100%
+    );
   padding: 32px 0 32px 32px;
 
   @media (${devices.mobile}) {
@@ -132,12 +150,12 @@ const CompanyInfo = styled.div`
 `;
 
 const Tagline = styled.div`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Nasalization';
   font-weight: 400;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 20px;
+  line-height: 24px;
   letter-spacing: -0.01em;
-  color: #23262f;
+  color: #ffffff;
   margin-top: 32px;
 `;
 
@@ -160,11 +178,11 @@ const LinkSection = styled.div`
 `;
 
 const LinkSectionTitle = styled.div`
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: #23262f;
+  color: #ffffff;
 `;
 
 const LinkSectionBody = styled.ul`
@@ -177,11 +195,15 @@ const LinkSectionBody = styled.ul`
 `;
 
 const LinkItem = styled.li`
-  font-family: 'DM Sans';
+  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 14px;
-  line-height: 16px;
-  color: #777e91;
+  line-height: 17px;
+  color: rgba(255, 255, 255, 0.7);
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.5);
+  }
 `;
 
 const FooterBottom = styled.div`
@@ -200,8 +222,10 @@ const FooterBottom = styled.div`
 `;
 
 const Copyright = styled.div`
+  font-family: 'Montserrat';
   font-weight: 400;
-  color: #777e91;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
 `;
 
 // const Cookies = styled.div`

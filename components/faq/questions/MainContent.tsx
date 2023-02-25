@@ -1,21 +1,17 @@
 import styled from 'styled-components';
-import CategoriesList from './CategoriesList';
-import { useState } from 'react';
-import { Tab } from '../common/types';
-import Tabs from '../tabs/Tabs';
-import CategoryListItem from './CategoryListItem';
 import { devices } from '../../../common/constants';
+import General from '../tabs/general/General';
 
 const MainContent: React.FC = () => {
-  const [currentTab, setCurrentTab] = useState<Tab>('general');
+  // const [currentTab, setCurrentTab] = useState<Tab>('general');
 
   return (
     <Container>
-      <CategoriesList>
-        <CategoryListItem setCurrentTab={setCurrentTab} />
-      </CategoriesList>
+      {/* <CategoriesList>
+      </CategoriesList> */}
       <TabContainer>
-        <Tabs tabType={currentTab} />
+        {/* <Tabs tabType={currentTab} /> */}
+        <General />
       </TabContainer>
     </Container>
   );

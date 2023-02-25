@@ -1,5 +1,6 @@
 import { TimeBeforeEnd, Buttons } from './types';
 import { DateTypes } from './enums';
+import { ButtonType } from '../../ui-kit';
 
 const dateItemFormat = (item: string): string => {
   if (item.length < 2) {
@@ -54,12 +55,13 @@ const getAuthorNFTButtons = (
   handlePlaceBidOpen: () => void,
 ): Buttons[] => [
   {
-    name: 'Purchase now',
-    type: 'primary',
+    name: 'Purchase',
+    type: ButtonType.Secondary,
     onClick: handlePurchaseOpen,
   },
   {
     name: 'Place a bid',
+    type: ButtonType.Primary,
     onClick: handlePlaceBidOpen,
   },
 ];
@@ -73,7 +75,7 @@ const getUserNFTButtons = (
     return [
       {
         name: 'Put on sale',
-        type: 'primary',
+        type: ButtonType.Primary,
         onClick: handlePutOnSaleOpen,
       },
     ];
@@ -82,11 +84,12 @@ const getUserNFTButtons = (
   return [
     {
       name: 'Accept',
-      type: 'primary',
+      type: ButtonType.Secondary,
       onClick: handleAcceptBidOpen,
     },
     {
       name: 'View all',
+      type: ButtonType.Primary,
     },
   ];
 };

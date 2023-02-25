@@ -17,7 +17,6 @@ const EditProfilePage: ComponentWithLayout = () => {
 const Container = styled(ContentContainer)`
   align-items: center;
   padding: 0 0 136px;
-  background: #fcfcfd;
 `;
 
 EditProfilePage.PageLayout = StoreLayout;

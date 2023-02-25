@@ -17,6 +17,7 @@ import notificationsReducer from './slicers/notificationsSlicer';
 import profileReducer from './slicers/profileSlicer';
 import searchReducer from './slicers/searchSlicer';
 import userInteractionsReducer from './slicers/userInteractionsSlicer';
+import verificationsReducer from './slicers/verificationsSlicer';
 
 const combinedReducer = combineReducers({
   [adminApi.reducerPath]: adminApi.reducer,
@@ -30,6 +31,7 @@ const combinedReducer = combineReducers({
   nfts: nftsReducer,
   discover: discoverReducer,
   search: searchReducer,
+  verification: verificationsReducer,
 });
 
 const reducer = (
