@@ -123,6 +123,7 @@ const ContentWrapper = styled.div`
 
   @media (${devices.mobile}) {
     padding-top: 80px;
+    flex-direction: column;
   }
 `;
 

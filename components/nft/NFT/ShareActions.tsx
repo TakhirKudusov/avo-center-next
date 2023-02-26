@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import TelegramSVG from '../../../assets/svg/telegram.svg';
@@ -10,17 +10,14 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from 'next-share';
-import { useRouter } from 'next/router';
 import { CoppyToClipboard } from '../../ui-kit';
 
-type Props = {
-  host?: string;
-};
+const ShareActions: FC = () => {
+  const [locationHref, setLocationHref] = useState('');
 
-const ShareActions: FC<Props> = ({ host }) => {
-  const router = useRouter();
-
-  const asPath = router.asPath;
+  useEffect(() => {
+    setLocationHref(window.location.href);
+  }, []);
 
   const actions = [
     {
@@ -28,9 +25,9 @@ const ShareActions: FC<Props> = ({ host }) => {
       icon: (
         <TelegramShareButton
           style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-          url={`http://${host}${asPath}`}
+          url={locationHref}
         >
-          <TelegramSVG color="#777E91" />
+          <TelegramSVG color="rgba(255, 255, 255, 0.7)" />
           <ActionLabel>Telegram</ActionLabel>
         </TelegramShareButton>
       ),
@@ -40,9 +37,9 @@ const ShareActions: FC<Props> = ({ host }) => {
       icon: (
         <TwitterShareButton
           style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-          url={`http://${host}${asPath}`}
+          url={locationHref}
         >
-          <TwitterSVG color="#777E91" />
+          <TwitterSVG color="rgba(255, 255, 255, 0.7)" />
           <ActionLabel>Twitter</ActionLabel>
         </TwitterShareButton>
       ),
@@ -52,9 +49,9 @@ const ShareActions: FC<Props> = ({ host }) => {
       icon: (
         <WhatsappShareButton
           style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-          url={`http://${host}${asPath}`}
+          url={locationHref}
         >
-          <WhatsAppSVG color="#777E91" />
+          <WhatsAppSVG color="rgba(255, 255, 255, 0.7)" />
           <ActionLabel>WhatsApp</ActionLabel>
         </WhatsappShareButton>
       ),
@@ -62,9 +59,12 @@ const ShareActions: FC<Props> = ({ host }) => {
     {
       id: 'copy-link',
       icon: (
-        <CoppyToClipboard text={`http://${host}${asPath}`}>
+        <CoppyToClipboard text={locationHref}>
           <CoppyButtonContainer>
-            <CopySVG color="#777E91" style={{ cursor: 'pointer' }} />
+            <CopySVG
+              color="rgba(255, 255, 255, 0.7)"
+              style={{ cursor: 'pointer' }}
+            />
             <ActionLabel>Copy link</ActionLabel>{' '}
           </CoppyButtonContainer>
         </CoppyToClipboard>

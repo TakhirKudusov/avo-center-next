@@ -83,6 +83,7 @@ const CounterWrapper = styled.div<{ hasError: boolean }>`
   border: 2px solid #e6e8ec;
   border-radius: 12px;
   padding: 8px 16px;
+  margin-top: 8px;
 
   border-color: ${(props) => (props.hasError ? '#ef466f' : '#e6e8ec')};
 `;
@@ -92,6 +93,7 @@ const CounterLabel = styled.label`
   font-weight: 700;
   font-size: 12px;
   line-height: 12px;
+  text-transform: uppercase;
 `;
 
 const RoundButton = styled.button`

@@ -53,7 +53,13 @@ const CameraButton = styled.input`
   cursor: pointer;
   border-radius: 40px;
   background-size: 20px 20px;
-  background-color: #333333;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.35) 0%,
+      rgba(12, 55, 83, 0.15) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
 
   @media (${devices.mobile}) {
     width: 32px;
@@ -67,7 +73,13 @@ const CameraButton = styled.input`
   }
 
   &:hover {
-    background-color: #515261;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      radial-gradient(
+        90.16% 143.01% at 15.32% 21.04%,
+        rgba(12, 51, 60, 0.8) 0%,
+        rgba(12, 55, 83, 0.5) 77.08%,
+        rgba(255, 255, 255, 0) 100%
+      );
   }
 `;
 

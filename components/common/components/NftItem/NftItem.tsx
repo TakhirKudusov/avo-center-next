@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { memo, useContext } from 'react';
+import { memo, useContext, useState } from 'react';
 import styled from 'styled-components';
 import { getImageUrl } from '../../../../common/helpers/getImageUrl.helper';
 import { useAdaptiveSlider } from '../../../../common/hooks/useAdaptiveSlider';
@@ -19,6 +19,8 @@ import CandlesticksSVG from '../../../../assets/svg/candlesticks.svg';
 import StepModal from '../StepModal';
 import { PLACE_BID_STEPS } from '../../../nft/NFT/constants';
 import { screenSizes } from '../../../../common/constants';
+import { signin } from '../../../../redux/slicers/authSlicer';
+import { ConnectWalletModal } from '../../../common/components/ConnectWaleltModal';
 
 type Props = {
   item: INFT;
@@ -28,33 +30,48 @@ const NftItem: React.FC<Props> = ({ item }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
+
   const userLike = item?.likes?.find((userId) => userId === user?.id);
-  const { setOpenConnectWallet } = useContext(ConnectWalletContext);
+
+  const [openConnectWallet, setOpenConnectWallet] = useState(false);
+
   const { screenSize } = useAdaptiveSlider();
   const { openPlaceBid, handlePlaceBidOpen, handlePlaceBidClose } =
     usePlaceBid(setOpenConnectWallet);
 
-  const handleLikeNft = async (handleLike: () => void) => {
-    const result = await dispatch(likeNft(item._id));
+  const handleSignIn = async () => {
+    const result = await dispatch(signin());
 
-    if (result) handleLike();
+    if (!!result) setOpenConnectWallet(false);
+  };
+
+  const handleLikeNft = async (handleLike: () => void) => {
+    if (!!user) {
+      const result = await dispatch(likeNft(item._id));
+
+      if (result) handleLike();
+    }
   };
 
   const handleUnlikeNft = async (handleUnlike: () => void) => {
-    const result = await dispatch(unlikeNft(item._id));
+    if (!!user) {
+      const result = await dispatch(unlikeNft(item._id));
 
-    if (result) handleUnlike();
+      if (result) handleUnlike();
+    }
   };
 
   const handleNftClick = () => {
-    router.push(`/nfts/${item._id}`);
+    if (item) {
+      router.push(`/nfts/${item._id}`);
+    }
   };
 
   return (
-    <BidWrapper onClick={handleNftClick}>
-      {/* <BidImage style={{ backgroundImage: `url(/images/${nft.fileUrl})` }}> */}
+    <BidWrapper>
       <BidImage
         background={getImageUrl((item as INFT & { file: string })?.file)}
+        onClick={handleNftClick}
       >
         <LikeButtonWrapper>
           <LikeButton
@@ -119,6 +136,11 @@ const NftItem: React.FC<Props> = ({ item }) => {
           />
         </>
       </StepModal>
+      <ConnectWalletModal
+        open={openConnectWallet}
+        setOpen={setOpenConnectWallet}
+        onSignIn={handleSignIn}
+      />
     </BidWrapper>
   );
 };
@@ -269,11 +291,12 @@ const HotBid = styled.div`
 `;
 
 const PlaceBidInfo = styled.div`
-  color: #23262f;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
   font-size: 16px;
-  line-height: 24px;
-  margin-bottom: 32px;
-  font-family: 'Poppins';
+  line-height: 20px;
+  margin-bottom: 16px;
+  font-family: 'Montserrat';
 `;
 
 export default memo(NftItem);

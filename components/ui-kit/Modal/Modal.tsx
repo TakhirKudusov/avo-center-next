@@ -7,6 +7,7 @@ import ReactPortal from '../ReactPortal';
 // import { useOnClickOutside } from '../../common/hooks/useOnClickOutside';
 
 import { ModalContent, ModalFooter, ModalTitle } from './components';
+import { devices } from '../../../common/constants';
 
 type Props = {
   title: string;
@@ -16,7 +17,8 @@ type Props = {
   hasFooter?: boolean;
   confirmBtnName?: string;
   cancelBtnName?: string;
-  confirmHasDangerStyle?: boolean;
+  dangerStyle?: boolean;
+  disableConfirm?: boolean;
   onConfirm?: () => void;
 };
 
@@ -24,10 +26,11 @@ const Modal = ({
   title,
   children,
   open,
+  dangerStyle,
+  disableConfirm = false,
   hasFooter = true,
   confirmBtnName,
   cancelBtnName,
-  confirmHasDangerStyle,
   onConfirm,
   onClose,
 }: Props) => {
@@ -39,7 +42,11 @@ const Modal = ({
     <ReactPortal wrapperId="react-portal-modal-container">
       <ShadowBoxWrapper open={open}>
         <Modal.Wrapper ref={wrapperRef}>
-          <Modal.Title title={title} onClose={onClose} />
+          <Modal.Title
+            title={title}
+            dangerStyle={dangerStyle}
+            onClose={onClose}
+          />
           <Modal.Content>{children}</Modal.Content>
           {hasFooter && (
             <Modal.Footer>
@@ -56,13 +63,9 @@ const Modal = ({
                 )}
                 {confirmBtnName && (
                   <Button
-                    style={
-                      confirmHasDangerStyle && {
-                        backgroundColor: '#EF466F',
-                        borderColor: '#EF466F',
-                      }
-                    }
+                    dangerStyle={dangerStyle}
                     fullSize
+                    disabled={disableConfirm}
                     btnType={ButtonType.Secondary}
                     size={ButtonSize.Large}
                     onClick={onConfirm}
@@ -119,6 +122,10 @@ const ModalWrapper = styled.div`
   padding: 32px;
   position: absolute;
   z-index: 101;
+
+  @media (${devices.mobile}) {
+    padding: 16px;
+  }
 `;
 
 const ModalFooterWrapper = styled.div`

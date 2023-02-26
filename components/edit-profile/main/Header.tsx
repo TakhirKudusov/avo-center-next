@@ -23,6 +23,10 @@ const MainText = styled.p`
   letter-spacing: -0.02em;
   color: #fcfcfd;
   margin: 0;
+
+  @media (${devices.mobile}) {
+    height: auto;
+  }
 `;
 
 const SubText = styled.p`
@@ -35,6 +39,10 @@ const SubText = styled.p`
   display: flex;
   align-items: center;
   color: rgba(255, 255, 255, 0.7);
+
+  @media (${devices.mobile}) {
+    height: auto;
+  }
 `;
 
 const Container = styled.div`

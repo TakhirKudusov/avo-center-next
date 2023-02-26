@@ -7,7 +7,7 @@ import UserActionsButtonsGroup from './UserActionsButtonsGroup';
 import styled from 'styled-components';
 import { devices, screenSizes } from '../../../common/constants';
 import { NFTContext } from './context';
-import { Input, Modal } from '../../ui-kit';
+import { Divider, Input, Modal, SuccessModalContent } from '../../ui-kit';
 import Textarea from '../../ui-kit/Textarea';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { TAuthState } from '../../../redux/types';
@@ -18,12 +18,10 @@ import {
 } from '../../../redux/slicers/nftsSlicer/nftSlicer';
 import { NFTTag } from '../../ui-kit/Tag/types';
 import { setInitialBid } from '../../../redux/slicers/bidsSlicer/bidsSlicer';
+import { StepModal } from '../../common/components';
+import { CHANGE_PRICE_STEPS } from './constants';
 
-type Props = {
-  host?: string;
-};
-
-const NFTBlock: React.FC<Props> = ({ host }) => {
+const NFTBlock: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
@@ -67,6 +65,25 @@ const NFTBlock: React.FC<Props> = ({ host }) => {
     setIsBurnTokenModalOpen(false);
   };
 
+  /////////////////////////////////////////////////////////////////
+
+  const [openChangePrice, setOpenChangePrice] = useState(false);
+  const [changePrice, setChangePrice] = useState(0);
+
+  const changePriceData = {
+    serviceFee: 0.0,
+    totalBidAmoun: 0,
+    criptoCurrency: 'AVO',
+  };
+
+  const handlePriceChange = (value: string | number) => {
+    if (typeof value === 'number') setChangePrice(value);
+  };
+
+  const handleChangePriceClose = () => {
+    setOpenChangePrice(false);
+  };
+
   const handleReportMessageChange: ChangeEventHandler<HTMLTextAreaElement> = (
     value,
   ) => {
@@ -96,9 +113,11 @@ const NFTBlock: React.FC<Props> = ({ host }) => {
   };
 
   const handleLikeClick = () => {
-    if (likesNumber === defaultLikesNumber) {
+    if (likesNumber === defaultLikesNumber && !!user) {
       handleLikeNft();
-    } else {
+    }
+
+    if (likesNumber !== defaultLikesNumber && !!user) {
       handleUnlikeNft();
     }
   };
@@ -139,6 +158,7 @@ const NFTBlock: React.FC<Props> = ({ host }) => {
           setIsRemoveFromSaleModalOpen,
           setIsBurnTokenModalOpen,
           setIsReportModalOpen,
+          setOpenChangePrice,
           handleDownloadFile,
         }}
       >
@@ -167,7 +187,6 @@ const NFTBlock: React.FC<Props> = ({ host }) => {
           </NFTDescriptionContainer>
           {screenSize === 'large' && (
             <UserActionsButtonsGroup
-              host={host}
               screenSize={screenSize}
               likesNumber={likesNumber}
               defaultLikesNumber={defaultLikesNumber || 0}
@@ -198,8 +217,9 @@ const NFTBlock: React.FC<Props> = ({ host }) => {
         </Modal>
         <Modal
           title="Remove from sale"
-          confirmBtnName="Remove now"
+          confirmBtnName="Remove"
           cancelBtnName="Cancel"
+          dangerStyle
           open={isRemoveFromSaleModalOpen}
           onClose={() => setIsRemoveFromSaleModalOpen(false)}
           onConfirm={handleRemoveFromSaleConfirm}
@@ -215,7 +235,7 @@ const NFTBlock: React.FC<Props> = ({ host }) => {
           title="Burn token"
           confirmBtnName="Continue"
           cancelBtnName="Cancel"
-          confirmHasDangerStyle
+          dangerStyle
           open={isBurnTokenModalOpen}
           onClose={() => setIsBurnTokenModalOpen(false)}
           onConfirm={handleBurnTokenConfirm}
@@ -248,6 +268,39 @@ const NFTBlock: React.FC<Props> = ({ host }) => {
             />
           </ReportContainer>
         </Modal>
+        <StepModal
+          steps={CHANGE_PRICE_STEPS}
+          isOpen={openChangePrice}
+          childrenStageTitle="Change price"
+          confirmBtnName="Change price"
+          cancelBtnName="Cancel"
+          onClose={handleChangePriceClose}
+          successWindow={<SuccessModalContent />}
+        >
+          <>
+            <InputPriceLabel>New price</InputPriceLabel>
+            <Input
+              value={changePrice}
+              type="number"
+              min={0}
+              onChange={handlePriceChange}
+              placeholder="Enter your price"
+            />
+            <Divider style={{ margin: '32px 0 12px' }} />
+            <ChangePriceInfoWrapper>
+              <ChangePriceInfoRow>
+                <ChangePriceLabel>Service fee</ChangePriceLabel>
+                <ChangePriceValue>
+                  {changePriceData.serviceFee}%
+                </ChangePriceValue>
+              </ChangePriceInfoRow>
+              <ChangePriceInfoRow>
+                <ChangePriceLabel>Total bid amount</ChangePriceLabel>
+                <ChangePriceValue>{`${changePriceData.totalBidAmoun} ${changePriceData.criptoCurrency}`}</ChangePriceValue>
+              </ChangePriceInfoRow>
+            </ChangePriceInfoWrapper>
+          </>
+        </StepModal>
       </NFTContext.Provider>
     </>
   );
@@ -262,7 +315,7 @@ const Container = styled(NFTDescriptionWrapper)`
 
   @media (${devices.mobile}) {
     width: 375px;
-    padding: 0 32px;
+    padding: 0;
   }
 `;
 
@@ -274,12 +327,17 @@ const StyledNFTDescriptionWrapper = styled(NFTDescriptionWrapper)`
   @media (${devices.mobile}) {
     padding: 0;
     margin: auto;
+    width: 340px;
   }
 `;
 
 const TransferTokenContainer = styled.div`
   width: 384px;
   font-family: 'Montserrat';
+
+  @media (${devices.mobile}) {
+    width: 330px;
+  }
 `;
 
 const TransferTokenInfo = styled.p`
@@ -300,45 +358,98 @@ const TransferTokenLabel = styled.span`
 `;
 
 const RemoveFromSaleContainer = styled.div`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat';
+  font-weight: 600;
   width: 384px;
+
+  @media (${devices.mobile}) {
+    width: 330px;
+  }
 `;
 
 const RemoveFromSaleInfo = styled.p`
   font-size: 16px;
-  line-height: 24px;
-  color: #777e91;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const BurnTokenContainer = styled.div`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat';
   width: 384px;
+
+  @media (${devices.mobile}) {
+    width: 330px;
+  }
 `;
 
 const BurnTokenInfo = styled.p`
+  font-weight: 600;
   font-size: 16px;
-  line-height: 24px;
-  color: #777e91;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const ReportContainer = styled.div`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat';
   width: 384px;
+
+  @media (${devices.mobile}) {
+    width: 330px;
+  }
 `;
 
 const ReportInfo = styled.p`
+  font-weight: 600;
   font-size: 16px;
-  line-height: 24px;
-  color: #777e91;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const ReportLabel = styled.h2`
-  font-weight: 700;
+  font-weight: 600;
   font-size: 12px;
   line-height: 12px;
   margin-top: 32px;
   text-transform: uppercase;
-  color: #b1b5c4;
+  color: rgba(255, 255, 255, 0.7);
+`;
+
+/////////////////////////////////////////////////////////////////////////////////
+
+const InputPriceLabel = styled.span`
+  display: block;
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+`;
+
+const ChangePriceInfoWrapper = styled.div`
+  width: 384px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const ChangePriceInfoRow = styled.div`
+  font-family: 'Montserrat';
+  font-size: 16px;
+  line-height: 20px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ChangePriceLabel = styled.span`
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+`;
+
+const ChangePriceValue = styled.span`
+  font-weight: 500;
+  color: #ffffff;
 `;
 
 export default memo(NFTBlock);

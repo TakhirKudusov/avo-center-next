@@ -71,6 +71,7 @@ const UserAvatar = styled.div<{ avatarUrl?: any }>`
   @media (${devices.mobile}) {
     width: 72px;
     height: 72px;
+    margin-left: 15px;
   }
 `;
 

@@ -4,18 +4,20 @@ import Button from '../../ui-kit/Button/Button';
 import Auction from './Auction';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
 import Link from 'next/link';
-import { Counter, useTimer, Input } from '../../ui-kit';
-import { devices, screenSizes } from '../../../common/constants';
+import { useTimer, Input, Modal } from '../../ui-kit';
+import { devices } from '../../../common/constants';
 import { Paths } from '../../../common/enums/paths';
+import WalletSVG from '../../../assets/svg/wallet.svg';
 import { IBid } from '../../../swagger';
 import { StepModal } from '../../common/components';
 import { PLACE_BID_STEPS } from '../../ModalsTest/constants';
-import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { usePlaceBid } from '../../../common/hooks/usePlaceBid';
-import { useContext, useState } from 'react';
-import { ConnectWalletContext } from '../../nft/NFT/context';
 import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
 import { useRouter } from 'next/router';
+import { signin } from '../../../redux/slicers/authSlicer';
+import { useAppDispatch } from '../../../redux/hooks';
+import { useState } from 'react';
+import { ConnectWalletModal } from '../../common/components/ConnectWaleltModal';
 
 //TODO: remove index
 type Props = {
@@ -24,17 +26,23 @@ type Props = {
 
 const CreatorNetwork = ({ bid }: Props) => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const [bidPrice, setBidPrice] = useState(0);
+  const [openConnectWallet, setOpenConnectWallet] = useState(false);
 
   const { timeBeforeEnd } = useTimer(bid);
 
-  const { screenSize } = useAdaptiveSlider();
-
-  const { setOpenConnectWallet } = useContext(ConnectWalletContext);
+  // const { screenSize } = useAdaptiveSlider();
 
   const { openPlaceBid, handlePlaceBidOpen, handlePlaceBidClose } =
     usePlaceBid(setOpenConnectWallet);
+
+  const handleSignIn = async () => {
+    const result = await dispatch(signin());
+
+    if (!!result) setOpenConnectWallet(false);
+  };
 
   const handleCreatorClick = () => {
     router.push(`profile/${bid.creator._id}`);
@@ -102,6 +110,11 @@ const CreatorNetwork = ({ bid }: Props) => {
           />
         </>
       </StepModal>
+      <ConnectWalletModal
+        open={openConnectWallet}
+        setOpen={setOpenConnectWallet}
+        onSignIn={handleSignIn}
+      />
     </CreatorNetworkWrapper>
   );
 };
@@ -234,6 +247,23 @@ const Arrow = styled.div`
   border: 2px solid #e6e8ec;
   border-radius: 50%;
   color: #777e91;
+`;
+
+const ConnectWalletContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 384px;
+`;
+
+const ConnectWalletInfo = styled.div`
+  font-family: 'Montserrat';
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  margin-bottom: 28px;
 `;
 
 export default CreatorNetwork;

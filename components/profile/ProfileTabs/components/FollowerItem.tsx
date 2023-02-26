@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { devices } from '../../../../common/constants';
+import { devices, screenSizes } from '../../../../common/constants';
+import { useAdaptiveSlider } from '../../../../common/hooks/useAdaptiveSlider';
 import { Button, ButtonSize, Divider } from '../../../ui-kit';
 import { FollowType } from '../constants';
 import { Follower } from '../types';
@@ -22,14 +23,18 @@ const FollowerItem = ({
   isFollowing,
   loading,
 }: Props) => {
+  const { screenSize } = useAdaptiveSlider();
+
   return (
     <FollowerContainer>
       <FollowerWrapper>
         <FollowerInfoWrapper>
           <Avatar background={avatar} />
           <FollowerInfo>
-            <FollowerTitle>{name}</FollowerTitle>
-            <Fallowers>{`${followerNumber} followers`}</Fallowers>
+            <div>
+              <FollowerTitle>{name}</FollowerTitle>
+              <Fallowers>{`${followerNumber} followers`}</Fallowers>
+            </div>
             <Button
               style={{ borderRadius: 12, height: 40 }}
               size={ButtonSize.Small}
@@ -43,11 +48,13 @@ const FollowerItem = ({
             </Button>
           </FollowerInfo>
         </FollowerInfoWrapper>
-        <Frames>
-          {frameList.map((frame, index) => (
-            <Frame background={frame.src} key={index} />
-          ))}
-        </Frames>
+        {screenSize > screenSizes.mobileL && (
+          <Frames>
+            {frameList.slice(0, 4).map((frame, index) => (
+              <Frame background={frame.src} key={index} />
+            ))}
+          </Frames>
+        )}
       </FollowerWrapper>
       <Divider />
     </FollowerContainer>
@@ -58,11 +65,25 @@ export default FollowerItem;
 
 const FollowerContainer = styled.div`
   margin-bottom: 32px;
+
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
 `;
 
 const FollowerWrapper = styled.div`
   display: flex;
   margin-bottom: 32px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
+  padding: 12px;
+  border-radius: 12px;
 
   @media (${devices.mobile}) {
     flex-direction: column;
@@ -75,7 +96,10 @@ const FollowerInfoWrapper = styled.div`
   gap: 20px;
 
   @media (${devices.mobile}) {
-    justify-items: center;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* justify-items: center; */
   }
 `;
 
@@ -91,6 +115,11 @@ const Avatar = styled.div<{ background: string }>`
 const FollowerInfo = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (${devices.mobile}) {
+    flex-direction: row;
+    gap: 20px;
+  }
 `;
 
 const FollowerTitle = styled.h2`

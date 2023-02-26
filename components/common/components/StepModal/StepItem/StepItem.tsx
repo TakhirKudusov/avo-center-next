@@ -12,7 +12,7 @@ type Props = {
 };
 
 const StepItem = ({ step, currentStep, hasError, loading }: Props) => (
-  <StepWrapper key={step.id}>
+  <StepWrapper key={step.id} hasMargin={!loading}>
     <StepContentLoader
       loading={loading}
       currentStep={currentStep}
@@ -33,17 +33,13 @@ const StepItem = ({ step, currentStep, hasError, loading }: Props) => (
   </StepWrapper>
 );
 
-const StepWrapper = styled.div`
+const StepWrapper = styled.div<{ hasMargin: boolean }>`
   display: flex;
   gap: 20px;
-  margin-bottom: 16px;
-  margin-top: 32px;
+  margin-bottom: ${({ hasMargin }) => (hasMargin ? '16px' : '0')};
 
   @media (${devices.mobile}) {
     width: 279px;
-  }
-  @media (${devices.tablet}) {
-    width: 384px;
   }
 `;
 
@@ -56,34 +52,37 @@ const Circle = styled.div<{
   height: 48px;
   background: ${({ hasError, currentStep, step }) => {
     if (currentStep > step) {
-      return '#45B36B';
+      return 'linear-gradient(48.74deg, #CF47FF -3.69%, #FBA04C 100.76%)';
     }
     if (hasError && currentStep === step) {
-      return '#fff';
+      return '#000000';
     }
 
-    return '#e6e8ec';
+    return '#000000';
   }};
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   border: ${({ hasError, currentStep, step }) =>
-    hasError && currentStep === step ? '2px solid #EF466F' : 'transparent'};
+    hasError && currentStep === step ? '2px solid #EB5757' : 'transparent'};
 `;
 
 const StepTitle = styled.div`
-  color: #23262f;
-  font-weight: 500;
+  font-family: 'Nasalization';
+  color: #ffffff;
+  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
 `;
 
 const StepSubTitle = styled.div`
-  color: #777e91;
-  font-weight: 400;
+  font-family: 'Montserrat';
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
   font-size: 12px;
   line-height: 20px;
+  margin-top: 4px;
 `;
 
 export default StepItem;

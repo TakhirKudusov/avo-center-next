@@ -19,6 +19,7 @@ const TokenActions = () => {
     setIsRemoveFromSaleModalOpen,
     setIsBurnTokenModalOpen,
     setIsReportModalOpen,
+    setOpenChangePrice,
     handleDownloadFile,
   } = useContext(NFTContext);
 
@@ -27,7 +28,7 @@ const TokenActions = () => {
       id: 'change-price',
       label: 'Change price',
       icon: <CoinSVG color="rgba(255, 255, 255, 0.7)" />,
-      onClick: () => false,
+      onClick: () => setOpenChangePrice(true),
     },
     {
       id: 'transfer-token',
@@ -44,7 +45,7 @@ const TokenActions = () => {
     {
       id: 'burn-token',
       label: <StyledLabel>Burn token</StyledLabel>,
-      icon: <FilledCircleCloseSVG color="#EF466F" />,
+      icon: <FilledCircleCloseSVG color="#EB5757" />,
       onClick: () => setIsBurnTokenModalOpen(true),
     },
     {

@@ -6,6 +6,7 @@ export const NFTContext = createContext<NFTContextValue>({
   setIsRemoveFromSaleModalOpen: () => false,
   setIsBurnTokenModalOpen: () => false,
   setIsReportModalOpen: () => false,
+  setOpenChangePrice: () => false,
   handleDownloadFile: () => false,
 });
 

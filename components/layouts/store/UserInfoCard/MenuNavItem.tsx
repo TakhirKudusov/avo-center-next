@@ -26,6 +26,20 @@ const MenuNavItemWrapper = styled.div<{ hoverable: boolean }>`
   padding-bottom: 12px;
   border-bottom: 1px solid #e6e8ec;
   cursor: ${(props) => (props.hoverable ? 'pointer' : 'initial')};
+
+  &:hover {
+    & > div > div {
+      color: #ffffff;
+    }
+
+    & > div > svg > path {
+      fill: #ffffff;
+    }
+
+    & > div > svg > g > path {
+      fill: #ffffff;
+    }
+  }
 `;
 
 const MenuNavItemInfo = styled.div`
@@ -35,11 +49,11 @@ const MenuNavItemInfo = styled.div`
 `;
 
 const MenuNavItemLabel = styled.div`
-  font-family: 'DM Sans';
-  font-weight: 700;
+  font-family: 'Montserrat';
+  font-weight: 600;
   font-size: 14px;
   line-height: 16px;
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 export default MenuNavItem;

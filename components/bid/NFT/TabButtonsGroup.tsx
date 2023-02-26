@@ -200,6 +200,10 @@ const TabItemValue = styled.div`
 
 const TabWrapper = styled.div`
   width: 70%;
+
+  @media (${devices.mobile}) {
+    width: 340px;
+  }
 `;
 
 const BidsTabContainer = styled.p`
@@ -219,7 +223,7 @@ const OwnerAvatar = styled.div<{ imageUrl: string }>`
   border-radius: 50%;
   margin-right: 16px;
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
-  background-color: #45b36b;
+  background-color: rgba(255, 255, 255, 0.5);
   background-size: cover;
 `;
 

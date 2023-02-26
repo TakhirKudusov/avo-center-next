@@ -2,30 +2,36 @@ import { FilterType, TFilter, TFilterOption } from '../../catalog/types';
 import { cloneDeep } from 'lodash';
 import { pushQueryParams } from '../../../common/helpers/manageQueryParams.helper';
 import { MultiRangeSliderValue } from '../../ui-kit/MultiRangeSlider/types';
+import { screenSizes } from '../../../common/constants';
 
-const getFilters = ({
-  typeOptions,
-  categoryOptions,
-  priceOptions,
-  likeOptions,
-  isVerifiedOptions,
-  minPrice,
-  maxPrice,
-}: {
-  typeOptions: TFilterOption[];
-  categoryOptions: TFilterOption[];
-  priceOptions: TFilterOption[];
-  likeOptions: TFilterOption[];
-  isVerifiedOptions: TFilterOption[];
-  minPrice: number;
-  maxPrice: number;
-}): TFilter[] => {
+const getFilters = (
+  {
+    typeOptions,
+    categoryOptions,
+    priceOptions,
+    likeOptions,
+    isVerifiedOptions,
+    minPrice,
+    maxPrice,
+  }: {
+    typeOptions: TFilterOption[];
+    categoryOptions: TFilterOption[];
+    priceOptions: TFilterOption[];
+    likeOptions: TFilterOption[];
+    isVerifiedOptions: TFilterOption[];
+    minPrice: number;
+    maxPrice: number;
+  },
+  screenSize: number,
+): TFilter[] => {
   return [
     {
       title: 'Type',
       options: cloneDeep(typeOptions),
       type: FilterType.SINGLE_SELECTION,
-      filterStyles: { maxWidth: 260 },
+      filterStyles: {
+        maxWidth: screenSize >= screenSizes.mobileL ? 260 : '100%',
+      },
       onChange: (selectedOption: TFilterOption | undefined) => {
         const types = selectedOption?.url ? [selectedOption?.url] : [];
 
@@ -58,7 +64,9 @@ const getFilters = ({
       title: 'Price',
       options: cloneDeep(priceOptions),
       type: FilterType.SINGLE_SELECTION,
-      filterStyles: { maxWidth: 260 },
+      filterStyles: {
+        maxWidth: screenSize >= screenSizes.mobileL ? 260 : '100%',
+      },
       onChange: (selectedOption: TFilterOption | undefined) => {
         const prices = selectedOption?.url ? [selectedOption?.url] : [];
 
@@ -74,7 +82,9 @@ const getFilters = ({
       title: 'Likes',
       options: cloneDeep(likeOptions),
       type: FilterType.SINGLE_SELECTION,
-      filterStyles: { maxWidth: 260 },
+      filterStyles: {
+        maxWidth: screenSize >= screenSizes.mobileL ? 260 : '100%',
+      },
       onChange: (selectedOption: TFilterOption | undefined) => {
         const likes = selectedOption?.url ? [selectedOption?.url] : [];
 
@@ -90,7 +100,9 @@ const getFilters = ({
       title: 'Creator',
       options: cloneDeep(isVerifiedOptions),
       type: FilterType.SINGLE_SELECTION,
-      filterStyles: { maxWidth: 260 },
+      filterStyles: {
+        maxWidth: screenSize >= screenSizes.mobileL ? 260 : '100%',
+      },
       onChange: (selectedOption: TFilterOption | undefined) => {
         const isVerifieds = selectedOption?.url ? [selectedOption?.url] : [];
 
@@ -107,7 +119,9 @@ const getFilters = ({
       type: FilterType.RANGE,
       min: minPrice,
       max: maxPrice,
-      filterStyles: { maxWidth: 260 },
+      filterStyles: {
+        maxWidth: screenSize >= screenSizes.mobileL ? 260 : '100%',
+      },
       onChange: ({ min, max }: MultiRangeSliderValue) => {
         pushQueryParams([
           { name: 'minPrice', value: min },

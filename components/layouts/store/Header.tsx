@@ -106,7 +106,9 @@ const Header = ({
 
   return (
     <HeaderWrapper>
-      <FlexContainer style={{ justifyContent: 'space-between' }}>
+      <FlexContainer
+        style={{ justifyContent: 'space-between', alignItems: 'center' }}
+      >
         {screenSize >= screenSizes.tablet ? (
           <>
             <Link href={Paths.EMPTY}>
@@ -119,7 +121,7 @@ const Header = ({
                 </Button>
               </Link> */}
               <SearchBar type={SearchBarType.WITH_ICON} />
-              {user && (
+              {!!user && (
                 <Tooltip
                   content={
                     <NotificationCard
@@ -147,6 +149,7 @@ const Header = ({
                     Upload
                   </Button>
                   <Button
+                    style={{ width: '145px' }}
                     size={ButtonSize.Medium}
                     btnType={ButtonType.Secondary}
                     onClick={handleWalletConnectClick(
@@ -233,9 +236,9 @@ const Header = ({
             )}
             <RoundButton onClick={handleSmallScreenClick} type="button">
               {isSmallScreenMenuVisible ? (
-                <CircleCloseSVG color="#777E91" />
+                <CircleCloseSVG color="rgba(255, 255, 255, 0.7)" />
               ) : (
-                <BurgerSVG />
+                <BurgerSVG color="rgba(255, 255, 255, 0.7)" />
               )}
             </RoundButton>
           </>
@@ -252,14 +255,23 @@ const Header = ({
       {isSmallScreenMenuVisible && (
         <SmallScreenMenu>
           <>
-            <SearchBar
-              type={SearchBarType.WITH_ICON}
-              fullSize
-              onKeyEnterDown={handleMenuClose}
-            />
+            <SearchBarWrapper>
+              <SearchBar
+                type={SearchBarType.WITH_ICON}
+                fullSize
+                onKeyEnterDown={handleMenuClose}
+              />
+              {!!user && (
+                <Notifications
+                  hasUnreadNotifications={hasUnreadNotifications}
+                  onClick={handleNotificationClick}
+                />
+              )}
+            </SearchBarWrapper>
             {!user && (
-              <>
+              <UnauthorizedActionWrapper>
                 <Button
+                  style={{ maxWidth: '85px' }}
                   onClick={handleMenuUploadClick}
                   size={ButtonSize.Medium}
                   btnType={ButtonType.Outlined}
@@ -275,52 +287,38 @@ const Header = ({
                 >
                   Connect Wallet
                 </Button>
-              </>
+                <Select
+                  items={languages}
+                  size={SelectItemSize.Small}
+                  value={languages[0]}
+                  // onChange={handleMenuClose}
+                />
+              </UnauthorizedActionWrapper>
             )}
             {user && (
-              <AuthorizedActionButtons>
-                <Button
-                  onClick={handleMenuUploadClick}
-                  size={ButtonSize.Medium}
-                  btnType={ButtonType.Outlined}
-                >
-                  Upload
-                </Button>
-                <Link href={`${Paths.PROFILE}/${user.id}`}>
+              <SmallScreenAuthorizedButtons>
+                <AuthorizeFirstRow>
                   <Button
-                    style={{
-                      marginLeft: '12px',
-                    }}
+                    // style={{ maxWidth: '85px' }}
+                    onClick={handleMenuUploadClick}
                     size={ButtonSize.Medium}
-                    btnType={ButtonType.Secondary}
+                    btnType={ButtonType.Outlined}
+                    fullSize
                   >
-                    <WalletIcon>
-                      <WalletSVG />
-                    </WalletIcon>
-                    <WalletNumber>0X3a5...4m243</WalletNumber>
+                    Upload
                   </Button>
-                </Link>
-                <Tooltip
-                  content={<UserInfoCard />}
-                  position={TooltipPosition.Center}
-                >
-                  <Button
-                    style={{ marginLeft: '4px' }}
-                    size={ButtonSize.Medium}
-                    btnType={ButtonType.Secondary}
-                  >
-                    7.00698
-                    <WalletCurrency>AVO</WalletCurrency>
-                  </Button>
-                </Tooltip>
-              </AuthorizedActionButtons>
+                  <Select
+                    items={languages}
+                    size={SelectItemSize.Small}
+                    value={languages[0]}
+                    // onChange={handleMenuClose}
+                  />
+                </AuthorizeFirstRow>
+                <UserInfoCardWrapper>
+                  <UserInfoCard />
+                </UserInfoCardWrapper>
+              </SmallScreenAuthorizedButtons>
             )}
-            <Select
-              items={languages}
-              size={SelectItemSize.Small}
-              value={languages[0]}
-              // onChange={handleMenuClose}
-            />
           </>
         </SmallScreenMenu>
       )}
@@ -359,9 +357,53 @@ const AnonymousActionButtons = styled.div`
   gap: 12px;
 `;
 
+const SearchBarWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 24 px;
+`;
+
+const UnauthorizedActionWrapper = styled.div`
+  display: flex;
+  gap: 12px;
+`;
+
 const AuthorizedActionButtons = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const SmallScreenAuthorizedButtons = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const AuthorizeFirstRow = styled.div`
+  display: flex;
+  gap: 12px;
+  width: 100%;
+`;
+
+const UserInfoCardWrapper = styled.div`
+  margin-top: 32px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    radial-gradient(
+      138.38% 179.45% at 23.51% 26.4%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
+  width: 342px;
+  padding: 24px 16px;
+  border-radius: 12px;
+
+  & > div {
+    width: 100%;
+  }
 `;
 
 const WalletCurrency = styled.span`

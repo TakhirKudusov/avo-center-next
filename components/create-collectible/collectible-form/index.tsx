@@ -2,7 +2,8 @@ import { FormikProps } from 'formik';
 import { useRouter } from 'next/router';
 import { FormEventHandler, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { devices } from '../../../common/constants';
+import { devices, screenSizes } from '../../../common/constants';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 import { useFileUrl } from '../../../common/hooks/useFileUrl';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { fetchCategories } from '../../../redux/slicers/discoverSlicer/discoverSlicer';
@@ -22,14 +23,18 @@ import { CollectibleFormItemName } from './types';
 
 const CollectibleForm = () => {
   const router = useRouter();
-  const { fileUrl } = useAppSelector<TIpfsState>((state) => state.ipfs);
   const dispatch = useAppDispatch();
   const formRef = useRef<FormikProps<any>>(null);
-  const [formValues, setFormValues] = useState<any>(undefined);
-  const imageUrl = useFileUrl(formValues?.file);
+
+  const { fileUrl } = useAppSelector<TIpfsState>((state) => state.ipfs);
   const { categories } = useAppSelector<TDiscoverState>(
     (state) => state.discover,
   );
+  const [formValues, setFormValues] = useState<any>(undefined);
+  const imageUrl = useFileUrl(formValues?.file);
+
+  const { screenSize } = useAdaptiveSlider();
+
   const categoryOptions: SelectItem[] = categories.map((category) => ({
     label: category.name,
     value: category._id,
@@ -165,6 +170,7 @@ const CollectibleForm = () => {
                 style={{ color: '#fff' }}
                 size={ButtonSize.Large}
                 btnType={ButtonType.Secondary}
+                fullSize={screenSize <= screenSizes.mobileL}
                 type="submit"
               >
                 Create item
@@ -176,22 +182,24 @@ const CollectibleForm = () => {
           </>
         </Form>
       </CollectibleFormWrapper>
-      <CollectibleItemWrapper>
-        <CollectibleItem
-          bid={
-            {
-              name: formValues?.name,
-              total: formValues?.total,
-              available: formValues?.royalties,
-              file: imageUrl as string,
-            } as any
-          }
-        />
-        <ServiceFee>
-          <ServiceFeeLabel>Service fee:</ServiceFeeLabel>
-          <ServiceFeeValue>0.2%</ServiceFeeValue>
-        </ServiceFee>
-      </CollectibleItemWrapper>
+      {screenSize > screenSizes.mobileL && (
+        <CollectibleItemWrapper>
+          <CollectibleItem
+            bid={
+              {
+                name: formValues?.name,
+                total: formValues?.total,
+                available: formValues?.royalties,
+                file: imageUrl as string,
+              } as any
+            }
+          />
+          <ServiceFee>
+            <ServiceFeeLabel>Service fee:</ServiceFeeLabel>
+            <ServiceFeeValue>0.0%</ServiceFeeValue>
+          </ServiceFee>
+        </CollectibleItemWrapper>
+      )}
     </ContentWrapper>
   );
 };
@@ -200,10 +208,6 @@ const ContentWrapper = styled.div`
   display: flex;
   gap: 128px;
   width: 100%;
-
-  @media (${devices.mobile}) {
-    padding-top: 80px;
-  }
 `;
 
 const CollectibleFormWrapper = styled.div`

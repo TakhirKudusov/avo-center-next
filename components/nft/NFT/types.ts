@@ -8,6 +8,7 @@ export type NFTContextValue = {
   setIsRemoveFromSaleModalOpen: Dispatch<boolean>;
   setIsBurnTokenModalOpen: Dispatch<boolean>;
   setIsReportModalOpen: Dispatch<boolean>;
+  setOpenChangePrice: Dispatch<boolean>;
   handleDownloadFile: (fileName: string) => void;
 };
 

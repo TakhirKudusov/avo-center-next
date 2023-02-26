@@ -6,17 +6,17 @@ const WalletCard = () => {
   return (
     <WalletCardInfoWrapper>
       <InfoRow>
-        <EtheriumIcon src={`/images/etherium.png`} />
+        <AvoIcon src={`/images/AvoIcon.png`} />
         <AVOAmount>
           <AVOAmountLabel>Balance</AVOAmountLabel>
           <AVOAmountValue>4.689 AVO</AVOAmountValue>
         </AVOAmount>
       </InfoRow>
       <Button
-        size={ButtonSize.Small}
+        size={ButtonSize.Medium}
         btnType={ButtonType.Primary}
         fullSize={true}
-        style={{ marginTop: '10px' }}
+        style={{ marginTop: '10px', color: 'rgba(255, 255, 255, 0.7)' }}
       >
         Buy AVO
       </Button>
@@ -32,8 +32,14 @@ const WalletCardInfoWrapper = styled.div`
   width: 100%;
   height: 140px;
   padding: 8px 8px 12px;
-  background: #fcfcfd;
-  box-shadow: 0 3px 18px -10px rgba(15, 15, 15, 0.2);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    radial-gradient(
+      90.16% 143.01% at 15.32% 21.04%,
+      rgba(12, 51, 60, 0.2) 0%,
+      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
   border-radius: 16px;
 `;
 
@@ -43,9 +49,9 @@ const InfoRow = styled.div`
   gap: 16px;
 `;
 
-const EtheriumIcon = styled.img`
-  width: 40px;
-  height: 40px;
+const AvoIcon = styled.img`
+  width: 20px;
+  height: 32px;
 `;
 
 const AVOAmount = styled.div`
@@ -54,39 +60,39 @@ const AVOAmount = styled.div`
 `;
 
 const AVOAmountLabel = styled.div`
-  font-family: 'Poppins';
-  font-weight: 400;
+  font-family: 'Montserrat';
+  font-weight: 500;
   font-size: 12px;
-  line-height: 20px;
-  color: #777e91;
+  line-height: 15px;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const AVOAmountValue = styled.div`
-  font-family: 'Poppins';
-  font-weight: 600;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 24px;
-  line-height: 32px;
-  color: #141416;
+  line-height: 29px;
+  color: #fcfcfd;
 `;
 
 const AvoRate = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  font-family: 'DM Sans';
+  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 12px;
   line-height: 16px;
   margin-top: 10px;
-  justify-content: center;
 `;
 
 const AvoRateLabel = styled.div`
-  color: #000000;
+  color: #fcfcfd;
 `;
 
 const AvoRateValue = styled.div`
-  color: rgba(119, 126, 144, 1);
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 export default memo(WalletCard);

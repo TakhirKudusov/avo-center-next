@@ -10,6 +10,7 @@ type Props = {
   items: Array<IBid | INFT>;
   elemPerRow?: number;
 };
+
 const BidGrid: React.FC<Props> = ({ items, elemPerRow = 4 }) => {
   const { screenSize, slidesPerRow } = useAdaptiveSlider(elemPerRow);
 

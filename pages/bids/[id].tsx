@@ -1,13 +1,11 @@
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
-import { ComponentWithLayout } from '../../common/types';
 import StoreLayout from '../../components/layouts/store';
 import { ContentContainer, FlexContainer } from '../../components/common';
 import { RadioButton } from '../../components/ui-kit/Button/RadioButton';
 import LeftSideCornerSVG from '../../assets/svg/left-side-corner.svg';
-import { NFTData } from '../../mock-data/tagsData';
 import NFTBlock from '../../components/bid/NFT/NFTBlock';
 import Comments from '../../components/bid/comments';
 import { Header } from '../../components/bid';
@@ -15,17 +13,9 @@ import { signin } from '../../redux/slicers/authSlicer';
 import { useAppDispatch } from '../../redux/hooks';
 import { ConnectWalletContext } from '../../components/bid/NFT/context';
 import { getBidById } from '../../redux/slicers/bidsSlicer/bidsSlicer';
-import { GetServerSideProps, NextPage } from 'next';
+import { NextPage } from 'next';
 
-type Props = { host?: string };
-
-export const getServerSideProps: GetServerSideProps<Props> = async (
-  context,
-) => ({
-  props: { host: context.req.headers.host },
-});
-
-const NFTPage: NextPage<Props> & { PageLayout: any } = ({ host }) => {
+const NFTPage: NextPage & { PageLayout: any } = () => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -58,7 +48,7 @@ const NFTPage: NextPage<Props> & { PageLayout: any } = ({ host }) => {
                 <LeftSideCornerSVG />
               </BackButton>
             </Header>
-            <NFTBlock host={host} />
+            <NFTBlock />
             <Comments />
           </ContentContainer>
         </FlexContainer>
