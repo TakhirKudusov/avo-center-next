@@ -14,26 +14,26 @@ const getNavItems = (
   userId: string,
 ): TMenuItem[] => [
   {
-    icon: <UserSVG />,
+    icon: <UserSVG color="rgba(255, 255, 255, 0.7)" />,
     label: 'My profile',
     clickHandler: () => {
       router.push(`/profile/${userId}`);
     },
   },
   {
-    icon: <ImageSVG />,
+    icon: <ImageSVG color="rgba(255, 255, 255, 0.7)" />,
     label: 'My items',
     clickHandler: () => {
       router.push('/items');
     },
   },
+  // {
+  //   icon: <LampSVG color="rgba(255, 255, 255, 0.7)" />,
+  //   label: 'Dark theme',
+  //   controller: <Switch />,
+  // },
   {
-    icon: <LampSVG />,
-    label: 'Dark theme',
-    controller: <Switch />,
-  },
-  {
-    icon: <LogoutSVG />,
+    icon: <LogoutSVG color="rgba(255, 255, 255, 0.7)" />,
     label: 'Disconnect',
     clickHandler: () => {
       console.log('logout');

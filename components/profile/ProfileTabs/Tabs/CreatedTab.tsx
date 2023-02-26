@@ -9,17 +9,6 @@ const CreatedTab = () => {
 
   return (
     <TabWrapper>
-      {/* <TabTitle>
-        You have not passed <br /> the verification of the author
-      </TabTitle>
-      <TabSubTitle>Fill in the required data here</TabSubTitle>
-      <Button
-        style={{ width: 137 }}
-        size={ButtonSize.Medium}
-        btnType={ButtonType.Secondary}
-      >
-        Fill
-      </Button> */}
       {!!userNfts.length ? (
         <BidGrid elemPerRow={3} items={userNfts} />
       ) : (
@@ -32,14 +21,14 @@ const CreatedTab = () => {
 export default CreatedTab;
 
 const TabWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 220px;
+  max-width: 1150px;
+
+  @media (${devices.tablet}) {
+    max-width: 600px;
+  }
 
   @media (${devices.mobile}) {
-    padding-left: 10px;
-    margin-bottom: 80px;
+    max-width: 375px;
   }
 `;
 

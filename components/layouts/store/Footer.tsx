@@ -2,13 +2,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
-import { devices } from '../../../common/constants';
+import { devices, screenSizes } from '../../../common/constants';
 import { Paths } from '../../../common/enums/paths';
+import { TelegramShareButton } from 'next-share';
 
 import { FlexContainer } from '../../common';
 import Logo from '../../common/components/Logo';
 import { Divider } from '../../ui-kit';
 import { handleWalletConnectClick } from './helpers';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 
 type Props = {
   setIsConnectWalletVisible: Dispatch<SetStateAction<boolean>>;
@@ -18,6 +20,7 @@ type Props = {
 
 const Footer = ({ setIsConnectWalletVisible, handleUploadClick }: Props) => {
   const router = useRouter();
+  const { screenSize } = useAdaptiveSlider();
 
   const goToHomePage = () => {
     router.push(Paths.EMPTY);
@@ -64,7 +67,9 @@ const Footer = ({ setIsConnectWalletVisible, handleUploadClick }: Props) => {
                   </LinkItem>
                 </LinkSectionBody>
               </LinkSection>
-              <StyledDivider style={{ margin: 0 }} />
+              {screenSize > screenSizes.mobileL && (
+                <StyledDivider style={{ margin: 0 }} />
+              )}
               <LinkSection>
                 <LinkSectionTitle>Info</LinkSectionTitle>
                 <LinkSectionBody>
@@ -82,7 +87,11 @@ const Footer = ({ setIsConnectWalletVisible, handleUploadClick }: Props) => {
                     </a>
                   </LinkItem>
                   <LinkItem>
-                    <Link href={Paths.EMPTY}>Support</Link>
+                    <LinkItem>
+                      <a target="__blank" href="https://t.me/+pN6T8igoBVI1N2I1">
+                        Support
+                      </a>
+                    </LinkItem>
                   </LinkItem>
                 </LinkSectionBody>
               </LinkSection>
@@ -165,8 +174,7 @@ const LinkSections = styled.div`
   gap: 90px;
 
   @media (${devices.mobile}) {
-    flex-direction: column;
-    gap: 32px;
+    gap: 80px;
     width: 100%;
   }
 `;
@@ -204,6 +212,14 @@ const LinkItem = styled.li`
   &:hover {
     color: rgba(255, 255, 255, 0.5);
   }
+`;
+
+const ActionLabel = styled.span`
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
 `;
 
 const FooterBottom = styled.div`

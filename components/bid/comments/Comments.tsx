@@ -159,7 +159,6 @@ const BlockWrapper = styled.div`
   }
 
   @media (${devices.mobile}) {
-    padding-left: 32px;
     width: auto;
   }
 `;
@@ -177,6 +176,11 @@ const Header = styled.div`
   text-align: center;
   letter-spacing: -0.01em;
   color: #fcfcfd;
+
+  @media (${devices.mobile}) {
+    font-size: 32px;
+    line-height: 48px;
+  }
 `;
 
 const CommentsWrapper = styled.div`
@@ -206,7 +210,6 @@ const CommentsBlock = styled.div`
 
   @media (${devices.mobile}) {
     width: 100%;
-    min-width: 340px;
     height: auto;
   }
 `;

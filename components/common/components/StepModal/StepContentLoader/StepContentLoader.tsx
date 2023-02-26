@@ -1,8 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import React, { memo, ReactNode } from 'react';
 
-import EllipseLoading from '../../../../../assets/svg/ellipse-loading.svg';
-
 type Props = {
   loading: boolean;
   currentStep: number;
@@ -18,17 +16,11 @@ const StepContentLoader: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <Wrapper {...props}>
-      {loading && currentStep == step ? (
-        <StyledEllipseLoading color="#B1B5C4" />
-      ) : (
-        children
-      )}
-    </Wrapper>
+    <div {...props}>
+      {loading && currentStep == step ? <EllipseLoading /> : children}
+    </div>
   );
 };
-
-const Wrapper = styled.div<{}>``;
 
 const spinAnimation = keyframes`
   form {
@@ -40,12 +32,15 @@ const spinAnimation = keyframes`
   }
 `;
 
-const StyledEllipseLoading = styled(EllipseLoading)`
+const EllipseLoading = styled.div`
+  width: 48px;
+  height: 48px;
   -webkit-animation: ${spinAnimation} 1.5s linear infinite;
   -moz-animation: ${spinAnimation} 1.5s linear infinite;
   animation: ${spinAnimation} 1.5s linear infinite;
   margin-right: 4px;
   margin-left: 4px;
+  background-image: url(/images/ellipse-loading.png);
 `;
 
 export default memo(StepContentLoader);

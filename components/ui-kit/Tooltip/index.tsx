@@ -72,11 +72,11 @@ const TooltipContent = styled.div<{
 }>`
   position: absolute;
   margin-top: 20px;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
     radial-gradient(
       90.16% 143.01% at 15.32% 21.04%,
-      rgba(12, 51, 60, 0.2) 0%,
-      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(12, 51, 60, 0.3) 0%,
+      rgba(12, 55, 83, 0.08) 77.08%,
       rgba(255, 255, 255, 0) 100%
     );
   box-shadow: 0 9px 45px -6px rgba(31, 47, 70, 0.12);

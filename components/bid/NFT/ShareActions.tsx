@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import TelegramSVG from '../../../assets/svg/telegram.svg';
@@ -10,17 +10,14 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from 'next-share';
-import { useRouter } from 'next/router';
 import { CoppyToClipboard } from '../../ui-kit';
 
-type Props = {
-  host?: string;
-};
+const ShareActions: FC = () => {
+  const [locationHref, setLocationHref] = useState('');
 
-const ShareActions: FC<Props> = ({ host }) => {
-  const router = useRouter();
-
-  const asPath = router.asPath;
+  useEffect(() => {
+    setLocationHref(window.location.href);
+  }, []);
 
   const actions = [
     {
@@ -28,7 +25,7 @@ const ShareActions: FC<Props> = ({ host }) => {
       icon: (
         <TelegramShareButton
           style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-          url={`http://${host}${asPath}`}
+          url={locationHref}
         >
           <TelegramSVG color="rgba(255, 255, 255, 0.7)" />
           <ActionLabel>Telegram</ActionLabel>
@@ -40,7 +37,7 @@ const ShareActions: FC<Props> = ({ host }) => {
       icon: (
         <TwitterShareButton
           style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-          url={`http://${host}${asPath}`}
+          url={locationHref}
         >
           <TwitterSVG color="rgba(255, 255, 255, 0.7)" />
           <ActionLabel>Twitter</ActionLabel>
@@ -52,7 +49,7 @@ const ShareActions: FC<Props> = ({ host }) => {
       icon: (
         <WhatsappShareButton
           style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-          url={`http://${host}${asPath}`}
+          url={locationHref}
         >
           <WhatsAppSVG color="rgba(255, 255, 255, 0.7)" />
           <ActionLabel>WhatsApp</ActionLabel>
@@ -62,7 +59,7 @@ const ShareActions: FC<Props> = ({ host }) => {
     {
       id: 'copy-link',
       icon: (
-        <CoppyToClipboard text={`http://${host}${asPath}`}>
+        <CoppyToClipboard text={locationHref}>
           <CoppyButtonContainer>
             <CopySVG
               color="rgba(255, 255, 255, 0.7)"

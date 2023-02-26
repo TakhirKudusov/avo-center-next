@@ -59,8 +59,9 @@ const CollectionItemWrapper = styled.div`
     );
   border: 2px solid #e6e8ec;
   border-radius: 12px;
+
   @media (${devices.mobile}) {
-    margin-top: 12px;
+    margin: 12px 24px 0;
   }
 `;
 
@@ -72,6 +73,10 @@ const MainItem = styled.div`
   margin-bottom: 8px;
   background-size: cover;
   background-position: center;
+
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
 `;
 
 const SmallItems = styled.div`

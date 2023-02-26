@@ -66,7 +66,7 @@ const ModalsTest = () => {
   const [openAcceptBid, setOpenAcceptBid] = useState(false);
 
   const acceptBidData = {
-    serviceFee: 0,
+    serviceFee: 0.0,
     totalBidAmount: 1.46,
     criptoCurrency: 'AVO',
   };
@@ -283,7 +283,7 @@ const ModalsTest = () => {
               />
               <PutOnSaleAmount>
                 <PutOnSaleAmountLabel>Service fee</PutOnSaleAmountLabel>
-                <PutOnSaleAmountValue>{`1.5%`}</PutOnSaleAmountValue>
+                <PutOnSaleAmountValue>{'0.0%'}</PutOnSaleAmountValue>
               </PutOnSaleAmount>
               <PutOnSaleAmount>
                 <PutOnSaleAmountLabel>Total bid amount</PutOnSaleAmountLabel>

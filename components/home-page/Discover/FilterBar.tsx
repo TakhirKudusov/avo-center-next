@@ -20,6 +20,8 @@ import {
 import { TFilterOption, TPriceRange } from '../../catalog/types';
 import { getFilters } from './helpers';
 import { Divider } from '../../ui-kit';
+import { devices } from '../../../common/constants';
+import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
 
 type Props = {
   types: TFilterOption[];
@@ -52,7 +54,11 @@ const FilterBar: React.FC<Props> = ({
       filters,
     }),
   );
-  const [localFilters, setLocalFilters] = useState(getFilters(filtersConfig));
+
+  const { screenSize } = useAdaptiveSlider();
+  const [localFilters, setLocalFilters] = useState(
+    getFilters(filtersConfig, screenSize),
+  );
 
   const handleResetFilters = () => {
     clearQueryParams();
@@ -67,7 +73,6 @@ const FilterBar: React.FC<Props> = ({
 
   useEffect(() => {
     const filters = convertQueryParams(getQueryParams(window.location.search));
-    console.log('filters=', filters);
 
     setFiltersConfig(
       getFiltersConfig({
@@ -83,7 +88,7 @@ const FilterBar: React.FC<Props> = ({
   }, [types, categories, prices, likes, priceRange]);
 
   useEffect(() => {
-    setLocalFilters(getFilters(filtersConfig));
+    setLocalFilters(getFilters(filtersConfig, screenSize));
   }, [filtersConfig]);
 
   return (
@@ -130,6 +135,10 @@ const FiltersRow = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+
+  @media (${devices.mobile}) {
+    flex-direction: column;
+  }
 `;
 
 const ResetButtonWrapper = styled.div`
@@ -137,6 +146,11 @@ const ResetButtonWrapper = styled.div`
   max-width: 260px;
   display: flex;
   justify-content: flex-end;
+
+  @media (${devices.mobile}) {
+    max-width: 100%;
+    justify-content: flex-start;
+  }
 `;
 
 const ResetButton = styled.button`

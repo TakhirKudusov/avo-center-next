@@ -9,7 +9,7 @@ import {
 import Select from '../../ui-kit/Select';
 import { ReactSlick } from '../../ui-kit';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
-import { devices } from '../../../common/constants';
+import { devices, screenSizes } from '../../../common/constants';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { TUserInteractionsState } from '../../../redux/slicers/userInteractionsSlicer/types';
 import {
@@ -70,7 +70,9 @@ const Popular = () => {
               items={dates}
               background={SelectItemBackground.None}
               size={SelectItemSize.Medium}
-              style={{ width: '256px' }}
+              style={{
+                width: screenSize > screenSizes.mobileL ? '256px' : '100%',
+              }}
             />
           </TimeframeWrapper>
         </SectionHeader>
@@ -175,6 +177,7 @@ const SectionSelectTitle = styled.div`
 const TimeframeWrapper = styled.div`
   @media (${devices.mobile}) {
     margin-top: 24px;
+    width: 100%;
   }
 `;
 

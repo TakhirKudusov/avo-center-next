@@ -26,6 +26,10 @@ const Container = styled.div`
   @media (${devices.tablet}) {
     margin-bottom: 32px;
   }
+
+  @media (${devices.mobile}) {
+    width: 100%;
+  }
 `;
 
 UserCard.Container = Container;

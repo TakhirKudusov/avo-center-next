@@ -22,6 +22,8 @@ type Props = {
   onChange?: (value: string | number) => void;
   isError?: boolean;
   className?: string;
+  min?: number;
+  max?: number;
 };
 
 const Input: React.FC<Props & TFormFieldProps> = ({
@@ -35,6 +37,8 @@ const Input: React.FC<Props & TFormFieldProps> = ({
   form,
   onChange,
   className,
+  min,
+  max,
 }) => {
   const [curValue, setCurValue] = useState<string | number>(
     field?.value || value,
@@ -70,6 +74,8 @@ const Input: React.FC<Props & TFormFieldProps> = ({
       hasError={hasError}
       onChange={handleChange}
       className={className}
+      min={min}
+      max={max}
     />
   );
 };

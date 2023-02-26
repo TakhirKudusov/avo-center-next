@@ -52,10 +52,10 @@ const SwitchWrapper = styled.div<{ active: boolean; theme: SwitchThemes }>`
       return '#45B36B';
     }
     if (props.active && props.theme === 'blue') {
-      return '#3772FF';
+      return 'linear-gradient(48.74deg, #CF47FF -3.69%, #FBA04C 100.76%)';
     }
 
-    return '#e6e8ec';
+    return 'linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(12, 51, 60, 0.2) 0%, rgba(12, 55, 83, 0.0447917) 77.08%, rgba(255, 255, 255, 0) 100%)';
   }};
   cursor: pointer;
 
@@ -68,7 +68,7 @@ const SwitchWrapper = styled.div<{ active: boolean; theme: SwitchThemes }>`
         return '#141416';
       }
       if (!props.active && props.theme === 'blue') {
-        return '#3772FF';
+        return 'linear-gradient(48.74deg, #CF47FF -3.69%, #FBA04C 100.76%)';
       }
 
       return '#FCFCFD';

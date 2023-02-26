@@ -27,6 +27,11 @@ const HeaderText = styled.h1`
   letter-spacing: -0.02em;
   color: #ffffff;
   margin: 0;
+
+  @media (${devices.mobile}) {
+    font-size: 32px;
+    line-height: 38px;
+  }
 `;
 
 const ParagraphText = styled.p`
@@ -59,6 +64,7 @@ const DescParagraph = styled.p`
 
   @media (${devices.mobile}) {
     width: 100%;
+    height: auto;
   }
 `;
 

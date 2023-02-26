@@ -33,6 +33,8 @@ const Container = styled.div`
 
   @media (${devices.mobile}) {
     flex-direction: column;
+    width: 345px;
+    padding: 32px 16px;
   }
 `;
 

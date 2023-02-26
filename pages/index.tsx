@@ -36,13 +36,12 @@ const Home = () => {
           <ReactSlick screenSize={screenSize} slidesPerRow={1}>
             {getHotBit(bids)}
           </ReactSlick>
-          {/* <Bids /> */}
         </StyledPageContainer>
       </FlexContainer>
-      <Popular />
       <HotBids />
-      <HotCollections />
       <Discover />
+      <HotCollections />
+      <Popular />
     </div>
   );
 };

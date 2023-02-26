@@ -14,11 +14,9 @@ type Props = {
   likesNumber: number;
   defaultLikesNumber: number;
   onLikeClick: () => void;
-  host?: string;
 };
 
 const UserActionsButtonsGroup: React.FC<Props> = ({
-  host,
   screenSize,
   likesNumber,
   defaultLikesNumber,
@@ -33,10 +31,7 @@ const UserActionsButtonsGroup: React.FC<Props> = ({
               <ThreeDotsSVG color="rgba(255, 255, 255, 0.7)" />
             </RadioButton>
           </Tooltip>
-          <Tooltip
-            content={<ShareActions host={host} />}
-            position={TooltipPosition.Right}
-          >
+          <Tooltip content={<ShareActions />} position={TooltipPosition.Right}>
             <RadioButton>
               <ShareSVG color="rgba(255, 255, 255, 0.7)" />
             </RadioButton>
@@ -58,7 +53,7 @@ const UserActionsButtonsGroup: React.FC<Props> = ({
       ) : (
         <>
           <RadioButton>
-            <ShareSVG />
+            <ShareSVG color="rgba(255, 255, 255, 0.7)" />
           </RadioButton>
           <LikeButtonContainer>
             <StyledRadioButton
@@ -76,7 +71,7 @@ const UserActionsButtonsGroup: React.FC<Props> = ({
           </LikeButtonContainer>
           <Tooltip content={<TokenActions />} position={TooltipPosition.Right}>
             <RadioButton>
-              <ThreeDotsSVG />
+              <ThreeDotsSVG color="rgba(255, 255, 255, 0.7)" />
             </RadioButton>
           </Tooltip>
         </>
@@ -118,7 +113,10 @@ const Container = styled.div<{ screenSize: 'large' | 'small' }>`
   gap: ${({ screenSize }) => (screenSize === 'large' ? '16px' : '24px')};
   width: ${({ screenSize }) => (screenSize === 'large' ? '48px' : '237px')};
   height: ${({ screenSize }) => (screenSize === 'large' ? '204px' : '64px')};
-  background: ${({ screenSize }) => (screenSize === 'large' ? 'none' : '#fff')};
+  background: ${({ screenSize }) =>
+    screenSize === 'large'
+      ? 'none'
+      : 'linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(12, 51, 60, 0.2) 0%, rgba(12, 55, 83, 0.0447917) 77.08%, rgba(255, 255, 255, 0) 100%)'};
   border-radius: 64px;
   align-self: ${({ screenSize }) =>
     screenSize === 'large' ? 'auto' : 'center'};

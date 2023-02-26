@@ -13,7 +13,10 @@ const UserInfoCard = () => {
       <PublicAddress>
         <PublicAddressValue>{walletId}</PublicAddressValue>
         <CoppyToClipboard text={walletId}>
-          <CopySVG style={{ cursor: 'pointer' }} />
+          <CopySVG
+            color="rgba(255, 255, 255, 0.7)"
+            style={{ cursor: 'pointer' }}
+          />
         </CoppyToClipboard>
       </PublicAddress>
       <WalletCard />
@@ -29,26 +32,26 @@ const UserInfoCardWrapper = styled.div`
 `;
 
 const UserName = styled.div`
-  font-family: 'Poppins';
-  font-weight: 600;
+  font-family: 'Nasalization';
+  font-weight: 400;
   font-size: 24px;
-  line-height: 32px;
-  color: #23262f;
+  line-height: 29px;
+  color: #ffffff;
 `;
 
 const PublicAddress = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   margin-bottom: 8px;
 `;
 
 const PublicAddressValue = styled.div`
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 14px;
-  line-height: 24px;
-  color: #777e91;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 export default UserInfoCard;

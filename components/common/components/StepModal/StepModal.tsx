@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { devices } from '../../../../common/constants';
 
 import {
   Button,
@@ -149,25 +150,30 @@ const StepModal: FC<Props> = ({
         ) : (
           <>
             {steps.map((step) => (
-              <div key={step.id}>
+              <StepItemWrapper
+                isCurrentStep={currentStep === step.id}
+                key={step.id}
+              >
                 <StepItem
                   step={step}
                   currentStep={currentStep}
                   hasError={hasError}
                   loading={loading}
                 />
-                {currentStep === step.id && (
+                {currentStep === step.id && !loading && (
                   <>
-                    <Button
-                      onClick={startStep}
-                      size={ButtonSize.Large}
-                      btnType={ButtonType.Secondary}
-                      loading={loading}
-                      fullSize
-                      failed={hasError}
-                    >
-                      {startStepBtnName || 'Start now'}
-                    </Button>
+                    {!hasError && (
+                      <Button
+                        onClick={startStep}
+                        size={ButtonSize.Large}
+                        btnType={ButtonType.Secondary}
+                        loading={loading}
+                        fullSize
+                        failed={hasError}
+                      >
+                        {startStepBtnName || 'Start now'}
+                      </Button>
+                    )}
                     {hasError && (
                       <LinkedButtonWrapper>
                         <span>Something went wrong, please</span>&nbsp;
@@ -178,7 +184,7 @@ const StepModal: FC<Props> = ({
                     )}
                   </>
                 )}
-              </div>
+              </StepItemWrapper>
             ))}
           </>
         )}
@@ -188,6 +194,10 @@ const StepModal: FC<Props> = ({
 };
 
 const ModalContent = styled.div<{ isAnimate: boolean }>`
+  width: 384px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   animation: ${({ isAnimate }) =>
     isAnimate ? 'fadeOut 1s linear forwards' : 'fadeIn 1s linear forwards'};
 
@@ -207,20 +217,37 @@ const ModalContent = styled.div<{ isAnimate: boolean }>`
       opacity: 1;
     }
   }
+
+  @media (${devices.mobile}) {
+    width: 300px;
+  }
 `;
 
 const LinkedButtonWrapper = styled.div`
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.7);
   margin-top: 16px;
 `;
 
 const LinkedButton = styled.span`
   cursor: pointer;
-  color: #3772ff;
+  color: #eb5757;
+  font-weight: 600;
 
   &:hover {
-    color: rgba(55, 114, 255, 0.7);
+    color: #eb5757ba;
   }
+`;
+
+const StepItemWrapper = styled.div<{ isCurrentStep: boolean }>`
+  border: ${({ isCurrentStep }) =>
+    isCurrentStep ? '1px solid #ffffff' : 'none'};
+  box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
+  border-radius: 12px;
+  padding: 16px;
 `;
 
 export default StepModal;

@@ -27,7 +27,7 @@ const CreatorImageWrapper = styled.div<any>`
 
 const CreatorImage = styled.div<any>`
   background: ${(props) => `url(${props.image})`};
-  background-color: #45b36b;
+  background-color: rgba(255, 255, 255, 0.5);
   background-size: cover;
   background-position: center;
   border-radius: 48px;

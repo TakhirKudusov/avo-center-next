@@ -10,6 +10,7 @@ import {
   Input,
   Modal,
   Switch,
+  SuccessModalContent,
 } from '../../ui-kit';
 import { devices, screenSizes } from '../../../common/constants';
 import { StepModal } from '../../common/components';
@@ -32,6 +33,8 @@ import {
 } from './constants';
 import ButtonsGroup from './ButtonsGroup';
 import { usePlaceBid } from '../../../common/hooks/usePlaceBid';
+import { TBidsState } from '../../../redux/slicers/bidsSlicer/types';
+import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
 
 type Props = {
   price: string;
@@ -47,6 +50,8 @@ const NFTActions: React.FC<Props> = ({
   isNFTOnSale,
 }) => {
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
+  const { bid } = useAppSelector<TBidsState>((state) => state.bids);
+
   const [openPurchase, setOpenPurchase] = useState(false);
 
   const { screenSize } = useAdaptiveSlider();
@@ -114,7 +119,7 @@ const NFTActions: React.FC<Props> = ({
   const [openAcceptBid, setOpenAcceptBid] = useState(false);
 
   const acceptBidData = {
-    serviceFee: 0,
+    serviceFee: 0.0,
     totalBidAmount: 1.46,
     criptoCurrency: 'AVO',
   };
@@ -150,37 +155,17 @@ const NFTActions: React.FC<Props> = ({
       <ServiceFeeWrapper>
         <FeeTextWrapper>
           <span>Service fee</span>
-          <span>1.5%</span>
+          <span>0.0%</span>
         </FeeTextWrapper>
       </ServiceFeeWrapper>
       <StepModal
         steps={PURCHASE_STEPS}
         isOpen={openPurchase}
         childrenStageTitle="Checkout"
-        confirmBtnName="I understand, continue"
+        confirmBtnName="Purchase!"
         cancelBtnName="Cancel"
         onClose={handlePurchaseClose}
-        successWindow={
-          <SuccessWindowWrapper>
-            <CheckCircle />
-            <SuccessTitle>Yay!</SuccessTitle>
-            <SuccessInfo>You successfully purchased</SuccessInfo>
-            <SuccessShowInGallery>Show in Gallery</SuccessShowInGallery>
-            <Divider />
-            <SucessShare>Share</SucessShare>
-            <SucessMediaWrapper>
-              {successShareLinks.map((item) => (
-                <SucessMediaCircle
-                  key={item.id}
-                  href={item.href}
-                  target="_blank"
-                >
-                  {item.icon}
-                </SucessMediaCircle>
-              ))}
-            </SucessMediaWrapper>
-          </SuccessWindowWrapper>
-        }
+        successWindow={<SuccessModalContent />}
       >
         <>
           <PurchaseInfo>You are about to purchase AvoNFT</PurchaseInfo>
@@ -216,7 +201,7 @@ const NFTActions: React.FC<Props> = ({
         steps={PLACE_BID_STEPS}
         isOpen={openPlaceBid}
         childrenStageTitle="Place a bid"
-        startStepBtnName="Approve now"
+        startStepBtnName="Start now"
         confirmBtnName="Place a bid"
         onClose={handlePlaceBidClose}
       >
@@ -268,7 +253,7 @@ const NFTActions: React.FC<Props> = ({
               />
               <PutOnSaleAmount>
                 <PutOnSaleAmountLabel>Service fee</PutOnSaleAmountLabel>
-                <PutOnSaleAmountValue>{`1.5%`}</PutOnSaleAmountValue>
+                <PutOnSaleAmountValue>{'0.0%'}</PutOnSaleAmountValue>
               </PutOnSaleAmount>
               <PutOnSaleAmount>
                 <PutOnSaleAmountLabel>Total bid amount</PutOnSaleAmountLabel>
@@ -281,7 +266,7 @@ const NFTActions: React.FC<Props> = ({
       <StepModal
         steps={ACCEPT_BID_STEPS}
         isOpen={openAcceptBid}
-        childrenStageTitle=" "
+        childrenStageTitle="Accept Bid"
         confirmBtnName="Accept bid"
         cancelBtnName="Cancel"
         onClose={handleAcceptBidClose}
@@ -289,9 +274,10 @@ const NFTActions: React.FC<Props> = ({
         <>
           <AcceptBidAmoutWrapper screenSize={screenSize}>
             <AvoCircleWrapper>
-              <AvoCircle />
+              <AvoCircle avatarUrl={getImageUrl(bid?.creator.avatar || '')} />
               <AvoCircleText>
-                You are about to accept a bid for <br /> C O I N Z from UI8
+                You are about to accept a bid for <br />{' '}
+                <BidsCreatorName>{bid?.creator.username}</BidsCreatorName>
               </AvoCircleText>
             </AvoCircleWrapper>
             <AvoEditInfo>{`${acceptBidData.totalBidAmount} ${acceptBidData.criptoCurrency} for 1 edition`}</AvoEditInfo>
@@ -444,11 +430,12 @@ const FeeTextWrapper = styled.p`
 `;
 
 const PurchaseInfo = styled.div`
-  color: #23262f;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
   margin-bottom: 32px;
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
 `;
 
 const PurchaseAmountWrapper = styled.div`
@@ -461,72 +448,20 @@ const PurchaseAmount = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 16px;
-  line-height: 24px;
-  font-family: 'Poppins';
+  line-height: 20px;
+  font-family: 'Montserrat';
 `;
 
 const PurchaseAmountLabel = styled.span`
-  color: #777e91;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
 `;
 
 const PurchaseAmountValue = styled.span`
-  color: #23262f;
-  font-weight: 500;
+  color: #ffffff;
+  font-weight: 600;
 `;
 
-const SuccessWindowWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 384px;
-  color: #23262f;
-`;
-
-const SuccessTitle = styled.h1`
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 56px;
-  margin: 0 0 16px;
-`;
-
-const SuccessInfo = styled.p`
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  margin-top: 0;
-`;
-
-const SuccessShowInGallery = styled.a`
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 20px;
-  color: #27ae60;
-  margin-bottom: 28px;
-  cursor: pointer;
-`;
-
-const SucessShare = styled.p`
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  margin-top: 0;
-`;
-
-const SucessMediaWrapper = styled.div`
-  display: flex;
-  gap: 16px;
-`;
-
-const SucessMediaCircle = styled.a`
-  border: 2px solid #e6e8ec;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-`;
 ////////////////////////////////////////////////////////////////////////////////////
 
 const PlaceBidInfo = styled.div`
@@ -603,11 +538,11 @@ const PutOnSaleAmountValue = styled.span`
 `;
 ////////////////////////////////////////////////////////////////////////////////////
 const AvoEditInfo = styled.div`
-  color: #23262f;
-  font-weight: 600;
+  color: #ffffff;
+  font-weight: 400;
   font-size: 24px;
-  line-height: 32px;
-  font-family: 'Poppins';
+  line-height: 29px;
+  font-family: 'Nasalization';
 `;
 
 const AcceptBidAmoutWrapper = styled.div<{ screenSize: number }>`
@@ -622,17 +557,18 @@ const AcceptBidAmount = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 16px;
-  line-height: 24px;
-  font-family: 'Poppins';
+  line-height: 20px;
+  font-family: 'Montserrat';
 `;
 
 const AcceptBidAmountLabel = styled.span`
-  color: #777e91;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
 `;
 
 const AcceptBidAmountValue = styled.span`
-  color: #23262f;
-  font-weight: 500;
+  color: #ffffff;
+  font-weight: 600;
 `;
 
 const AvoCircleWrapper = styled.div`
@@ -641,10 +577,13 @@ const AvoCircleWrapper = styled.div`
   margin-bottom: 16px;
 `;
 
-const AvoCircle = styled.div`
+const AvoCircle = styled.div<{ avatarUrl: string }>`
   width: 48px;
   height: 48px;
-  background: #45b36b;
+  background: ${({ avatarUrl }) => `url(${avatarUrl})`};
+  background-size: cover;
+  background-position: center;
+  background-color: '#cccccc';
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -652,9 +591,14 @@ const AvoCircle = styled.div`
 `;
 
 const AvoCircleText = styled.span`
-  font-family: 'Poppins';
+  font-family: 'Montserrat';
   font-size: 16px;
-  color: #23262f;
+  line-height: 20px;
+  color: #ffffff;
+`;
+
+const BidsCreatorName = styled.span`
+  font-family: 'Nasalization';
 `;
 ////////////////////////////////////////////////////////////////////////////////////
 

@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 import ConfirmGreenSVG from '../../../assets/svg/confirm-green.svg';
 import { devices } from '../../../common/constants';
+import { useAppSelector } from '../../../redux/hooks';
+import { TProfileState } from '../../../redux/slicers/profileSlicer/types';
 
 const Description = () => {
+  const { user: profileUser } = useAppSelector<TProfileState>(
+    (state) => state.profile,
+  );
+
   return (
     <Description.Container>
       <Description.Header>
         <Description.HeaderText>Profile photo</Description.HeaderText>
-        <Description.ConfirmIcon />
+        {profileUser?.isVerified && <Description.ConfirmIcon />}
       </Description.Header>
       <Description.Text>
         We recommend an image of at least 400x400.
