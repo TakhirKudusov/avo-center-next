@@ -8,9 +8,15 @@ import { useFileUrl } from '../../../common/hooks/useFileUrl';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { fetchCategories } from '../../../redux/slicers/discoverSlicer/discoverSlicer';
 import { TDiscoverState } from '../../../redux/slicers/discoverSlicer/types';
-import { addAttachment } from '../../../redux/slicers/ipfsSlicer/ipfsSlicer';
+import {
+  addAttachment,
+  clearFileUrl,
+  clearMetaDataUrl,
+  uploadNFTMetadata,
+} from '../../../redux/slicers/ipfsSlicer/ipfsSlicer';
 import { TIpfsState } from '../../../redux/slicers/ipfsSlicer/types';
 import { createNft } from '../../../redux/slicers/nftsSlicer/nftSlicer';
+import { TAuthState } from '../../../redux/types';
 import { Counter, FileUpload, Form, FormItem, Input } from '../../ui-kit';
 import Button from '../../ui-kit/Button/Button';
 import { ButtonSize, ButtonType } from '../../ui-kit/Button/enums';
@@ -23,10 +29,12 @@ import { CollectibleFormItemName } from './types';
 
 const CollectibleForm = () => {
   const router = useRouter();
+  const { fileUrl, metaDataUrl } = useAppSelector<TIpfsState>(
+    (state) => state.ipfs,
+  );
+  const { user } = useAppSelector<TAuthState>((state) => state.auth);
   const dispatch = useAppDispatch();
   const formRef = useRef<FormikProps<any>>(null);
-
-  const { fileUrl } = useAppSelector<TIpfsState>((state) => state.ipfs);
   const { categories } = useAppSelector<TDiscoverState>(
     (state) => state.discover,
   );
@@ -50,16 +58,36 @@ const CollectibleForm = () => {
     (async () => {
       if (fileUrl) {
         await dispatch(
+          uploadNFTMetadata({
+            name: formValues.name,
+            description: formValues.description,
+            file: fileUrl,
+            category: formValues.category,
+          }),
+        );
+      }
+    })();
+  }, [fileUrl]);
+
+  useEffect(() => {
+    (async () => {
+      if (metaDataUrl) {
+        await dispatch(
           createNft({
             ...formValues,
             file: fileUrl,
+            metaDataUrl: metaDataUrl,
+            wallet: user?.publicAddress,
           }),
         );
+
+        dispatch(clearFileUrl());
+        dispatch(clearMetaDataUrl());
 
         router.push('/');
       }
     })();
-  }, [fileUrl]);
+  }, [metaDataUrl]);
 
   const onSubmit = () => async (values: any) => {
     dispatch(addAttachment(values.file[0]));

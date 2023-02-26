@@ -332,11 +332,11 @@ const HeaderWrapper = styled.div`
   display: flex;
   padding: 20px 0;
   border-bottom: 1px solid #e6e8ec;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+  background: linear-gradient(90deg, #2b624c, #042e1c),
     radial-gradient(
       90.16% 143.01% at 15.32% 21.04%,
       rgba(12, 51, 60, 0.2) 0%,
-      rgba(12, 55, 83, 0.0447917) 77.08%,
+      rgba(12, 55, 83, 0.043) 77.08%,
       rgba(255, 255, 255, 0) 100%
     );
   box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
