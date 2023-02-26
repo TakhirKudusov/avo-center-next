@@ -60,10 +60,6 @@ const ContentWrapper = styled.div`
       rgba(255, 255, 255, 0) 100%
     );
   box-shadow: 0px 4px 16px rgba(2, 27, 9, 0.2);
-
-  @media (${devices.mobile}) {
-    padding-top: 80px;
-  }
 `;
 
 const ContentContainer = styled.div`
@@ -77,6 +73,15 @@ const ContentHeading = styled.div`
   display: flex;
   justify-content: space-between;
   max-width: 600px;
+
+  @media (${devices.mobile}) {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+
+    & > button {
+      padding-left: 0;
+    }
+  }
 `;
 
 const ContentTitle = styled.h1`
@@ -88,6 +93,11 @@ const ContentTitle = styled.h1`
   color: #fcfcfd;
   max-width: 355px;
   margin: 0;
+
+  @media (${devices.mobile}) {
+    font-size: 32px;
+    line-height: 38px;
+  }
 `;
 
 const SwitchToCollection = styled.span`

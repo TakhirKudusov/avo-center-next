@@ -61,7 +61,7 @@ const AdminLayout: FC<ChildrenProp> = ({ children }) => {
               <ExitButton onClick={handleExitClick}>Exit</ExitButton>
             )}
             <BurgerIconContainer onClick={handleMenuBtnClick}>
-              <BurgerSVG />
+              <BurgerSVG color="#777E91" />
             </BurgerIconContainer>
           </HeaderBody>
         </HeaderContainer>

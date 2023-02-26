@@ -116,6 +116,11 @@ const SendMessageButtonWrapper = styled.div`
     top: 0%;
     bottom: 16.67%;
   }
+
+  @media (${devices.mobile}) {
+    width: 29px;
+    height: 29px;
+  }
 `;
 
 export default TextAreaBlock;

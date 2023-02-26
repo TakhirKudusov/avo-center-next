@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import moment from 'moment';
-
 import {
   Button,
   ButtonSize,
   ButtonType,
   CoppyToClipboard,
   Divider,
+  Modal,
+  Form,
+  FormItem,
+  FileUpload,
 } from '../../ui-kit';
 import CopySVG from '../../../assets/svg/copy.svg';
 import { useContext } from 'react';
@@ -24,6 +27,10 @@ import {
 } from '../../../redux/slicers/profileSlicer/profileSlicer';
 import { getSlicedPublicAddress } from '../../../common/helpers';
 import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
+import { useVerifyAccount } from '../../../common/hooks/useVerifyAccount';
+import { VERIFY_FORM_SCHEMA } from '../../edit-profile/form/constants';
+import { VerificationsKeys } from '../../edit-profile/common/constants';
+import { TIpfsState } from '../../../redux/slicers/ipfsSlicer/types';
 
 type Props = {};
 
@@ -34,8 +41,13 @@ const ProfileCard = ({}: Props) => {
     (state) => state.profile,
   );
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
+  const { loading } = useAppSelector<TIpfsState>((state) => state.ipfs);
+  const initialValues = {};
 
   const isMineProfile = user?.id === profileUser?._id;
+  const followingUser = profileUser?.followers.find(
+    (item) => item._id === user?.id,
+  );
 
   const { handleUploadClick } = useContext(UploadItemContext);
 
@@ -43,10 +55,6 @@ const ProfileCard = ({}: Props) => {
     if (isMineProfile) {
       handleUploadClick()();
     } else {
-      const followingUser = profileUser?.followers.find(
-        (item) => item._id === user?.id,
-      );
-
       if (!!followingUser && profileUser) {
         dispatch(unFollowUser(profileUser._id));
       }
@@ -55,6 +63,28 @@ const ProfileCard = ({}: Props) => {
       }
     }
   };
+
+  const getFollowButtonName = () => {
+    if (isMineProfile) {
+      return 'Create item';
+    }
+
+    if (!!followingUser && profileUser) {
+      return 'Unfollow';
+    }
+
+    return 'Follow';
+  };
+
+  const {
+    verifyFormRef,
+    isVerifyPermitted,
+    isVerifyModalOpen,
+    handlePermitVerification,
+    handleVerifyAccount,
+    handleVerifyModalClose,
+    setIsVerifyPermitted,
+  } = useVerifyAccount();
 
   return (
     <>
@@ -74,7 +104,10 @@ const ProfileCard = ({}: Props) => {
                 {getSlicedPublicAddress(profileUser.publicAddress)}
               </PublicAddress>
               <CoppyToClipboard text={profileUser.publicAddress}>
-                <CopySVG color="#27AE60" style={{ cursor: 'pointer' }} />
+                <CopySVG
+                  color="rgba(255, 255, 255, 0.7)"
+                  style={{ cursor: 'pointer' }}
+                />
               </CoppyToClipboard>
             </WalletId>
           )}
@@ -86,7 +119,7 @@ const ProfileCard = ({}: Props) => {
               size={ButtonSize.Medium}
               btnType={ButtonType.Secondary}
             >
-              {isMineProfile ? 'Create item' : 'Follow'}
+              {getFollowButtonName()}
             </Button>
             {/* <CoppyToClipboard text={router.pathname}>
               <RoundButton icon={<ShareIconSvg />} />
@@ -124,7 +157,7 @@ const ProfileCard = ({}: Props) => {
                       height: 'auto',
                       border: 'none',
                     }}
-                    onClick={() => false}
+                    onClick={() => setIsVerifyPermitted(true)}
                     btnType={ButtonType.Primary}
                     size={ButtonSize.Large}
                   >
@@ -134,6 +167,50 @@ const ProfileCard = ({}: Props) => {
               </>
             )}
           </VerificationInfo>
+          <Modal
+            title="Verification"
+            confirmBtnName="Start Verify"
+            cancelBtnName="Cancel"
+            open={isVerifyPermitted}
+            onClose={() => setIsVerifyPermitted(false)}
+            onConfirm={handlePermitVerification}
+          >
+            <StartVerifyText>
+              Upload a photo of your ID to verify your profile
+            </StartVerifyText>
+          </Modal>
+          <Modal
+            title="Verification"
+            confirmBtnName="Verify"
+            open={isVerifyModalOpen}
+            disableConfirm={loading}
+            onClose={handleVerifyModalClose}
+            onConfirm={handleVerifyAccount}
+          >
+            <Form
+              innerRef={verifyFormRef}
+              initialValues={initialValues}
+              formSchema={VERIFY_FORM_SCHEMA}
+              onSubmit={() => false}
+            >
+              <>
+                <FormItem
+                  label="Upload a photo of your ID"
+                  name={VerificationsKeys.ID_PHOTO}
+                  description="PNG, GIF, WEBP. Max 1Gb."
+                  marginTop={0}
+                  component={FileUpload}
+                />
+                <FormItem
+                  label="Upload a photo of your face next to the photo ID"
+                  name={VerificationsKeys.FACE_PHOTO}
+                  description="PNG, GIF, WEBP. Max 1Gb."
+                  marginTop={0}
+                  component={FileUpload}
+                />
+              </>
+            </Form>
+          </Modal>
         </CardContainer>
       ) : (
         '...Loading'
@@ -268,4 +345,12 @@ const Verification = styled.div<{ isVerified: boolean }>`
   color: #ffffff;
   text-transform: uppercase;
   font-size: 400;
+`;
+
+const StartVerifyText = styled.span`
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.7);
 `;

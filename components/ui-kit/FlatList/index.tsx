@@ -76,6 +76,7 @@ const FlatListWrapper = styled.div`
 
   @media (${devices.mobile}) {
     overflow: scroll;
+    max-width: 330px;
   }
 `;
 

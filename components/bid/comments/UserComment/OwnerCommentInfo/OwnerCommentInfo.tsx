@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { devices } from '../../../../../common/constants';
 import CommentSubInfo from '../CommentSubInfo';
 import LikeButton from '../../components/LikeButton';
+import { useAppSelector } from '../../../../../redux/hooks';
+import { TAuthState } from '../../../../../redux/types';
 
 type Props = {
   likes: string[];
@@ -25,12 +27,14 @@ const OwnerCommentInfo: React.FC<Props> = ({
   onCommentLike,
   onCommentUnlike,
 }) => {
+  const { user } = useAppSelector<TAuthState>((state) => state.auth);
+
   const handleLikeComment = () => {
-    onCommentLike(commentId);
+    if (!!user) onCommentLike(commentId);
   };
 
   const handleUnlikeComment = () => {
-    onCommentUnlike(commentId);
+    if (!!user) onCommentUnlike(commentId);
   };
 
   return (

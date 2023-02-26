@@ -22,7 +22,7 @@ export const colors = [
   {
     id: 'pink',
     value: 'pink',
-    label: <FilterOption colorName="Pink" color="#EF466F" />,
+    label: <FilterOption colorName="Pink" color="#EB5757" />,
   },
   {
     id: 'purple',

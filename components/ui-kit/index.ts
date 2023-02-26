@@ -20,3 +20,4 @@ export { default as Timer, useTimer } from './Timer';
 export { default as MultiRangeSlider } from './MultiRangeSlider';
 export { default as RangeSlider } from './RangeSlider';
 export { default as ReactSlick } from './ReactSlick';
+export { SuccessModalContent } from './SuccessModalContent';

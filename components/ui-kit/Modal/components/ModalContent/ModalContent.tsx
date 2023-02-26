@@ -15,4 +15,5 @@ const ContentWrapper = styled.div`
   font-size: 16px;
   line-height: 24px;
   font-family: 'Montserrat', sans-serif;
+  min-width: 300px;
 `;

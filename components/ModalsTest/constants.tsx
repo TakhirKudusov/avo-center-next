@@ -10,7 +10,7 @@ export const CONTACT_WALLET_STEPS = [
     title: 'Upload files & Mint token',
     subTitle: 'Call contract method',
     renderIcon: (hasError: boolean) => (
-      <UploadSVG color={hasError ? '#EF466F' : '#777E91'} />
+      <UploadSVG color={hasError ? '#EB5757' : '#777E91'} />
     ),
   },
   {
@@ -18,7 +18,7 @@ export const CONTACT_WALLET_STEPS = [
     title: 'Sign sell order',
     subTitle: 'Sign sell order using your wallet',
     renderIcon: (hasError: boolean) => (
-      <PencilSVG color={hasError ? '#EF466F' : '#777E91'} />
+      <PencilSVG color={hasError ? '#EB5757' : '#777E91'} />
     ),
   },
   {
@@ -26,7 +26,7 @@ export const CONTACT_WALLET_STEPS = [
     title: 'Sign lock order',
     subTitle: 'Sign sell order using your wallet',
     renderIcon: (hasError: boolean) => (
-      <ShoppingBagSVG color={hasError ? '#EF466F' : '#777E91'} />
+      <ShoppingBagSVG color={hasError ? '#EB5757' : '#777E91'} />
     ),
   },
 ];
@@ -37,7 +37,7 @@ export const PLACE_BID_STEPS = [
     title: 'Approve',
     subTitle: 'Checking balance and approving',
     renderIcon: (hasError: boolean) => (
-      <InsertSVG color={hasError ? '#EF466F' : '#777E91'} />
+      <InsertSVG color={hasError ? '#EB5757' : '#777E91'} />
     ),
   },
   {
@@ -45,7 +45,7 @@ export const PLACE_BID_STEPS = [
     title: 'Place a bid',
     subTitle: 'Create a signature to place a bit',
     renderIcon: (hasError: boolean) => (
-      <PencilSVG color={hasError ? '#EF466F' : '#777E91'} />
+      <PencilSVG color={hasError ? '#EB5757' : '#777E91'} />
     ),
   },
 ];
@@ -56,7 +56,7 @@ export const PURCHASE_STEPS = [
     title: 'Purchasing',
     subTitle: 'Sending transaction with your wallet',
     renderIcon: (hasError: boolean) => (
-      <InsertSVG color={hasError ? '#EF466F' : '#777E91'} />
+      <InsertSVG color={hasError ? '#EB5757' : '#777E91'} />
     ),
   },
 ];
@@ -67,7 +67,7 @@ export const ACCEPT_BID_STEPS = [
     title: 'Accept bid',
     subTitle: 'Send transaction with your wallet',
     renderIcon: (hasError: boolean) => (
-      <InsertSVG color={hasError ? '#EF466F' : '#777E91'} />
+      <InsertSVG color={hasError ? '#EB5757' : '#777E91'} />
     ),
   },
 ];
@@ -78,7 +78,7 @@ export const PUT_ON_SALE_STEPS = [
     title: 'Approve',
     subTitle: 'Approve perfoming transactions with your wallet',
     renderIcon: (hasError: boolean) => (
-      <CheckSVG color={hasError ? '#EF466F' : '#777E91'} />
+      <CheckSVG color={hasError ? '#EB5757' : '#777E91'} />
     ),
   },
   {
@@ -86,7 +86,7 @@ export const PUT_ON_SALE_STEPS = [
     title: 'Sign sell order',
     subTitle: 'Sign sell order using your wallet',
     renderIcon: (hasError: boolean) => (
-      <PencilSVG color={hasError ? '#EF466F' : '#777E91'} />
+      <PencilSVG color={hasError ? '#EB5757' : '#777E91'} />
     ),
   },
 ];

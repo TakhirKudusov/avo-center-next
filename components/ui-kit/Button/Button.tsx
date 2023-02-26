@@ -1,6 +1,7 @@
 import { ForwardedRef, forwardRef, memo } from 'react';
 import styled from 'styled-components';
 import LoadingSVG from '../../../assets/svg/loading.svg';
+import { devices } from '../../../common/constants';
 import { ButtonSize, ButtonType } from './enums';
 
 type Props = {
@@ -12,6 +13,7 @@ type Props = {
   loading?: boolean;
   disabled?: boolean;
   failed?: boolean;
+  dangerStyle?: boolean;
   type?: 'button' | 'submit' | 'reset';
   fullSize?: boolean;
   onClick?: (e?: any) => void;
@@ -23,6 +25,7 @@ const Button: React.FC<Props> = forwardRef(
     {
       size = ButtonSize.Medium,
       btnType = ButtonType.Primary,
+      dangerStyle = false,
       round,
       loading,
       disabled,
@@ -51,6 +54,7 @@ const Button: React.FC<Props> = forwardRef(
         style={style}
         size={size}
         disabled={disabled || failed}
+        dangerStyle={dangerStyle}
         round={round}
         fullSize={fullSize}
         failed={failed}
@@ -75,9 +79,10 @@ const Button: React.FC<Props> = forwardRef(
 Button.displayName = 'Button';
 
 const ButtonBody = styled.button<{
-  disabled?: boolean;
   size: ButtonSize;
   btnType: ButtonType;
+  dangerStyle: boolean;
+  disabled?: boolean;
   failed?: boolean;
   round?: boolean;
   fullSize?: boolean;
@@ -94,7 +99,11 @@ const ButtonBody = styled.button<{
     [ButtonSize.Small, ButtonSize.Medium].includes(size) ? '14px' : '16px'};
   border-color: ${({ btnType, disabled }) =>
     btnType === ButtonType.Primary || disabled ? '#ffffff' : 'unset'};
-  background: ${({ btnType }) => {
+  background: ${({ btnType, dangerStyle }) => {
+    if (!!dangerStyle) {
+      return ' linear-gradient(97.88deg, #FF2C5E 9.09%, #ED1F2B 96.18%)';
+    }
+
     if (btnType === ButtonType.Outlined) {
       return '#fff';
     }
@@ -116,7 +125,7 @@ const ButtonBody = styled.button<{
       return '#ffffff';
     }
     if (failed) {
-      return '#EF466F';
+      return '#EB5757';
     }
 
     return '#fff';
@@ -147,9 +156,17 @@ const ButtonBody = styled.button<{
 
       return 'linear-gradient(48.74deg, #CF47FF -3.69%, #FBA04C 100.76%);';
     }};
-    background: ${({ btnType, disabled }) => {
-      if (disabled) {
-        return '#fff';
+    background: ${({ btnType, disabled, dangerStyle }) => {
+      if (disabled && btnType === ButtonType.Primary) {
+        return 'linear-gradient(97.88deg, #ff3d6b 4.09%, #cd1a23 86.18%)';
+      }
+
+      if (disabled && btnType === ButtonType.Outlined) {
+        return 'rgba(255, 255, 255, 0.8)';
+      }
+
+      if (!!dangerStyle) {
+        return 'linear-gradient(97.88deg, #ff3d6b 4.09%, #cd1a23 86.18%)';
       }
 
       if (btnType === ButtonType.Outlined) {
@@ -173,6 +190,10 @@ const ButtonBody = styled.button<{
 
       return 'rgba(255, 255, 255, 0.7)';
     }};
+  }
+
+  @media (${devices.mobile}) {
+    font-size: 14px;
   }
 `;
 

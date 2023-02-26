@@ -52,11 +52,11 @@ const LikeButtonWrapper = styled.div<{ heartFilled: boolean }>`
     top: 20.83%;
     bottom: 20.83%;
     cursor: pointer;
-    fill: ${({ heartFilled }) => (heartFilled ? '#EF466F' : 'none')};
+    fill: ${({ heartFilled }) => (heartFilled ? '#EB5757' : 'none')};
 
     path {
       stroke: ${({ heartFilled }) =>
-        heartFilled ? '#EF466F' : 'rgba(255, 255, 255, 0.7)'};
+        heartFilled ? '#EB5757' : 'rgba(255, 255, 255, 0.7)'};
     }
   }
 `;

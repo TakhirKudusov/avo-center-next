@@ -2,6 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 import BellSVG from '../../../assets/svg/bell.svg';
+import { devices } from '../../../common/constants';
 
 type Props = {
   hasUnreadNotifications: boolean;
@@ -26,6 +27,10 @@ const NotificationsWrapper = styled.div`
   margin-right: 20px;
   height: 40px;
   cursor: pointer;
+
+  @media (${devices.mobile}) {
+    margin: 0;
+  }
 `;
 
 const NotificationRound = styled.div`

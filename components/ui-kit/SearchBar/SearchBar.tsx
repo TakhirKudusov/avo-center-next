@@ -137,6 +137,7 @@ const SearchBar: React.FC<Props> = ({
 
 const SearchWrapper = styled.div<{ type: SearchBarType }>`
   position: relative;
+  width: 100%;
 
   svg {
     position: ${({ type }) =>

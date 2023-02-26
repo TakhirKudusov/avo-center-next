@@ -4,8 +4,7 @@ import CandlesticksSVG from '../../../assets/svg/candlesticks.svg';
 import { Button, ButtonSize, ButtonType, Counter } from '../../ui-kit';
 import LikeButton from '../../ui-kit/LikeButton';
 import { usePlaceBid } from '../../../common/hooks/usePlaceBid';
-import { ConnectWalletContext } from '../../nft/NFT/context';
-import { useContext } from 'react';
+import { useState } from 'react';
 import StepModal from './StepModal';
 import { PLACE_BID_STEPS } from '../../ModalsTest/constants';
 import { useAdaptiveSlider } from '../../../common/hooks/useAdaptiveSlider';
@@ -19,6 +18,8 @@ import { IBid, INFT } from '../../../swagger';
 import { TAuthState } from '../../../redux/types';
 import { useRouter } from 'next/router';
 import { getImageUrl } from '../../../common/helpers/getImageUrl.helper';
+import { ConnectWalletModal } from '../../common/components/ConnectWaleltModal';
+import { signin } from '../../../redux/slicers/authSlicer';
 
 type Props = {
   item: IBid;
@@ -28,23 +29,36 @@ const BidItem: React.FC<Props> = ({ item }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { user } = useAppSelector<TAuthState>((state) => state.auth);
+
   const nftItem = item.nft;
   const userLike = nftItem?.likes?.find((userId) => userId === user?.id);
-  const { setOpenConnectWallet } = useContext(ConnectWalletContext);
+
+  const [openConnectWallet, setOpenConnectWallet] = useState(false);
+
   const { screenSize } = useAdaptiveSlider();
   const { openPlaceBid, handlePlaceBidOpen, handlePlaceBidClose } =
     usePlaceBid(setOpenConnectWallet);
 
-  const handleLikeNft = async (handleLike: () => void) => {
-    const result = await dispatch(likeNft(nftItem._id));
+  const handleSignIn = async () => {
+    const result = await dispatch(signin());
 
-    if (result) handleLike();
+    if (!!result) setOpenConnectWallet(false);
+  };
+
+  const handleLikeNft = async (handleLike: () => void) => {
+    if (!!user) {
+      const result = await dispatch(likeNft(nftItem._id));
+
+      if (result) handleLike();
+    }
   };
 
   const handleUnlikeNft = async (handleUnlike: () => void) => {
-    const result = await dispatch(unlikeNft(nftItem._id));
+    if (!!user) {
+      const result = await dispatch(unlikeNft(nftItem._id));
 
-    if (result) handleUnlike();
+      if (result) handleUnlike();
+    }
   };
 
   const handleBidClick = () => {
@@ -56,8 +70,11 @@ const BidItem: React.FC<Props> = ({ item }) => {
   };
 
   return (
-    <BidWrapper onClick={handleBidClick}>
-      <BidImage background={getImageUrl(item.nft.file)}>
+    <BidWrapper>
+      <BidImage
+        background={getImageUrl(item.nft.file)}
+        onClick={handleBidClick}
+      >
         <LikeButtonWrapper>
           <LikeButton
             isNftLiked={!!userLike}
@@ -121,6 +138,11 @@ const BidItem: React.FC<Props> = ({ item }) => {
           />
         </>
       </StepModal>
+      <ConnectWalletModal
+        open={openConnectWallet}
+        setOpen={setOpenConnectWallet}
+        onSignIn={handleSignIn}
+      />
     </BidWrapper>
   );
 };

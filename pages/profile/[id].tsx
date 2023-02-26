@@ -175,11 +175,15 @@ const Cover = styled.div`
   }
 
   @media (${devices.mobile}) {
-    width: 375px;
+    width: 100%;
     height: 230px;
     margin: 82px auto;
     background-size: cover;
     padding: 48px 24px;
+
+    & > button {
+      font-size: 11px;
+    }
   }
 `;
 

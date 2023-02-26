@@ -50,11 +50,11 @@ const Wrapper = styled.div<{ isLiked: boolean }>`
 `;
 
 const StyledSVG = styled(HeartOutlinedSVG)`
-  fill: ${({ isLiked }) => (isLiked ? '#EF466F' : '#fcfcfd')};
+  fill: ${({ isLiked }) => (isLiked ? '#EB5757' : '#fcfcfd')};
 
   & > path {
     stroke: ${({ isLiked }) =>
-      isLiked ? '#EF466F' : 'rgba(255, 255, 255, 0.7)'};
+      isLiked ? '#EB5757' : 'rgba(255, 255, 255, 0.7)'};
   }
 `;
 
